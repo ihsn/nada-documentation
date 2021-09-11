@@ -1,0 +1,20 @@
+{
+  "name": "NADA",
+  "version": "0.0.1",
+  "description": "Data catalog",
+  "main": "index.js",
+  "authors": {
+    "name": "Mehmood Asghar",
+    "email": "mah0001@gmail.com"
+  },
+  "repository": "/NADA",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "markdown-it-imsize": "^2.0.1",
+    "vuepress": "^1.5.3"
+  }
+}
