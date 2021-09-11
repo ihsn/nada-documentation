@@ -31,7 +31,7 @@ jobs:
     
     - name: Init new repo in dist folder and commit generated files
       run: |
-        cd .vuepress/dist
+        cd src/.vuepress/dist
         git init
         git add -A
         git config --local user.email "action@github.com"
@@ -45,4 +45,4 @@ jobs:
         # this might change depending on whether you are publishing a site for a normal repo or a user/organization repo
         branch: gh-pages
         force: true
-        directory: /.vuepress/dist
+        directory: ./src/.vuepress/dist
