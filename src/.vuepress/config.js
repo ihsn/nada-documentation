@@ -4,13 +4,13 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: 'Vuepress Docs Boilerplate',
+  title: 'NADA Documentation v5.2',
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
   description: description,
 
-  base: "",
+  base: '',
 
   /**
    * Extra tags to be injected to the page HTML `<head>`
@@ -44,8 +44,8 @@ module.exports = {
         link: '/config/'
       },
       {
-        text: 'VuePress',
-        link: 'https://v1.vuepress.vuejs.org'
+        text: 'NADA',
+        link: 'https://github.com/ihsn/nada'
       }
     ],
     sidebar: {
@@ -55,7 +55,6 @@ module.exports = {
           collapsable: false,
           children: [
             '',
-            'using-vue',
             'installation',
             'configurations',
             'user-manual',
