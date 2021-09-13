@@ -1,15 +1,15 @@
 ---
 home: true
-heroImage: https://v1.vuepress.vuejs.org/hero.png
+heroImage: images/nada_cover.jpg
 tagline: Data catalog
 actionText: Quick Start →
 actionLink: /guide/
 features:
-- title: Feature 1 Title
-  details: Feature 1 Description
-- title: Feature 2 Title
-  details: Feature 2 Description
-- title: Feature 3 Title
-  details: Feature 3 Description
-footer: Made by Mehmood Asghar with ❤️
+- title: Installation
+  details: NADA installation and configurations
+- title: User Guide
+  details: Site adminstrator's guide to managing the catalog
+- title: API Guide
+  details: How-tos and examples using the NADA API
+footer: https://github.com/ihsn/nada
 ---

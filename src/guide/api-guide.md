@@ -6,9 +6,7 @@ You need a NADA catalog, an administrator API key, and NADAR or PyNADA installed
 
 We assume your catalog is http://nada-demo.ihsn.org/
 
-<center>
-![](/images/NADA_How_Setup_01.JPG){width=90%}
-</center>
+![](/images/nada_site_1.jpg)
 
 **NADA administrator API**
 
@@ -23,10 +21,10 @@ Entering your credentials for use of the API (for any catalog maintenance purpos
 
 In R:
 
-```{r eval=F, echo=T}
+```r
 
 # Load API credentials and catalog URL
-my_keys <- read.csv("C:/Users/wb147665/OneDrive - WBG/_OD/ADMIN/OD_API_keys.csv", header=F, stringsAsFactors=F)
+my_keys <- read.csv("/OD_API_keys.csv", header=F, stringsAsFactors=F)
 my_key  <- my_keys[8,1]
 set_api_key(my_key)
 set_api_url("http://digital-library.census.ihsn.org/index.php/api/")
@@ -45,7 +43,7 @@ In Python:
 
 To use R, install NADAR.
 
-```{r eval=F, echo=T}
+```r
 library(devtools)
 install_github(mah0001/nadar)
 ```
@@ -69,7 +67,7 @@ To use Python, install PyNADA.
 [list of suggestions on what to check]
 
 
-```{r eval=F, echo=T}
+```r
 
 # ==============================================================================
 # Purpose: Publish microdata in the catalog  
@@ -81,11 +79,11 @@ setwd("E:/NADA_DEMO/")
 
 # ------------------------------------------------------------------------------
 # Load API credentials and catalog URL
-my_keys <- read.csv("C:/Users/wb147665/OneDrive - WBG/_OD/ADMIN/OD_API_keys.csv", 
+my_keys <- read.csv("/OD_API_keys.csv", 
                     header=F, stringsAsFactors=F)
 my_key  <- my_keys[8,1]
 set_api_key(my_key)
-set_api_url("http://digital-library.census.ihsn.org/index.php/api/")
+set_api_url("http://nada-demo.ihsn.org/index.php/api/")
 set_api_verbose(FALSE)
 # ------------------------------------------------------------------------------
 
@@ -120,7 +118,7 @@ thumbnail_upload(idno = "IND_2001_CIHMS_1PC_SDC",
 
 In R:
 
-```{r eval=F, echo=T}
+```r
 library(nadar)
 
 ```
@@ -139,7 +137,7 @@ In Python:
 
 In R:
 
-```{r eval=F, echo=T}
+```r
 library(nadar)
 
 ```
@@ -158,7 +156,7 @@ In Python:
 
 In R:
 
-```{r eval=F, echo=T}
+```r
 library(nadar)
 
 ```
@@ -177,7 +175,7 @@ In Python:
 
 In R:
 
-```{r eval=F, echo=T}
+```r
 library(nadar)
 
 ```
@@ -198,7 +196,7 @@ In Python:
 
 In R:
 
-```{r eval=F, echo=T}
+```r
 library(nadar)
 
 ```
@@ -217,7 +215,7 @@ In Python:
 
 In R:
 
-```{r eval=F, echo=T}
+```r
 library(nadar)
 
 ```
@@ -239,7 +237,7 @@ In Python:
 
 In R:
 
-```{r eval=F, echo=T}
+```r
 
 library(nadar)
 # Enter NADA credentials
@@ -266,7 +264,7 @@ In Python:
 
 In R:
 
-```{r eval=F, echo=T}
+```r
 library(nadar)
 
 ```
@@ -285,7 +283,7 @@ In Python:
 
 In R:
 
-```{r eval=F, echo=T}
+```r
 library(nadar)
 
 ```
@@ -306,7 +304,7 @@ In Python:
 
 In R:
 
-```{r eval=F, echo=T}
+```r
 library(nadar)
 
 ```
@@ -324,7 +322,7 @@ In Python:
 
 In R:
 
-```{r eval=F, echo=T}
+```r
 library(nadar)
 
 ```
@@ -343,7 +341,7 @@ In Python:
 
 In R:
 
-```{r eval=F, echo=T}
+```r
 library(nadar)
 
 ```
@@ -362,7 +360,7 @@ In Python:
 
 In R:
 
-```{r eval=F, echo=T}
+```r
 library(nadar)
 
 ```
@@ -377,7 +375,7 @@ In Python:
 
 In R:
 
-```{r eval=F, echo=T}
+```r
 library(nadar)
 
 ```
@@ -391,7 +389,7 @@ In Python:
 
 In R:
 
-```{r eval=F, echo=T}
+```r
 library(nadar)
 
 ```
