@@ -1,6 +1,6 @@
-# Introduction
+# User guide
 
-## What is NADA
+## About NADA
 
 NADA is a data cataloging and dissemination system. It serves as a portal for researchers to browse, search, compare, apply for access, and download datasets of multiple types: microdata from surveys and censuses, geospatial data, tables and time series, images, documents, as well as reproducible scripts. It complies with multiple metadata standards (DDI Codebook, Dublin Core/MARC, ISO19139, IPTC).
 
@@ -39,11 +39,6 @@ Which schemas?
    - DCMI / MARC for documents
    - IPTC for images
    - Own for tables, time series, visualizations, tables, scripts
-
-![](/images/introduction_DDI_logo.jpeg =200x100)
-
-
-All in JSON.
 
 How do we generate metadata compliant with these schemas?
    - Specialized editors
