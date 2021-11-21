@@ -231,7 +231,8 @@ mysql> exit
 
 Open web browser to the location of the NADA installation. For example: http://your-domain/nada-folder-name, or http://localhost/nada-folder-name.
 
-![NADA installer](/images/nada-installer.png)
+
+![NADA installer](~@alias/images/nada-installer.png)
 
 Check that all settings are marked with a green tick and fix any that are not on your webserver before running the installer. See page [PHP configurations](installation-guide/php-settings) to update PHP extensions and configurations.
 

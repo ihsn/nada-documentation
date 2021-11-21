@@ -1,4 +1,5 @@
 const { description } = require('../../package')
+const path = require("path");
 
 module.exports = {
   /**
@@ -12,6 +13,15 @@ module.exports = {
 
   base: "/test-docs/",
 
+  configureWebpack: {
+    resolve: {
+      alias: {
+        "@alias": path.resolve(__dirname, '../.vuepress/public')
+      }
+    }
+  },
+  
+  
   /**
    * Extra tags to be injected to the page HTML `<head>`
    *
@@ -55,8 +65,7 @@ module.exports = {
         collapsable: false, // optional, defaults to true
         sidebarDepth: 1,    // optional, defaults to 1
         children: [
-          '/intro/'
-          
+          '/intro/'          
         ]
       },
       {
