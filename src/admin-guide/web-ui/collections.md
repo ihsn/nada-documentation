@@ -94,7 +94,7 @@ To view the results click on the Preview link on the far right:
  
 *	Once a study is added in this way it displays in the Manage Studies list. Notice that the collection summary field shows that the study belongs to (is Owned By) the DHS collection (this was the Short name defined in the example when the Health Surveys Collection was created).
 
-![](~@imageBase/images/collection-owner.png)
+![](/images/collection-owner.png)
 
 	- Also, note that the new study also appears in the Central Data Catalog
 
@@ -114,7 +114,7 @@ All studies uploaded to collections will automatically be added to the Central D
 
 *	Then Click on the Copy Studies blue button at the top right.
 
-![](~@imageBase/images/copy-study.png) 
+![](/images/copy-study.png) 
 
 *	A list of all studies available to copy to the new collection is listed. Simply click on the Link button in green to copy the study to the collection. The button will turn red and say Unlink. To reverse the process and click the now red button.
  

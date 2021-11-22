@@ -48,23 +48,19 @@ User accounts permissions can be only be set and changed by a Site Administrator
 
 *	Click on the Permissions link next to the account to be changed. All accounts start of as General users accounts
  
-![](~@imageBase/images/edit-user-permissions.png) 
+![](/images/edit-user-permissions.png) 
 
 *	To change this user to a full site administrator who will have full system wide access to all parts and functions of the NADA administration select the Site administrators (full access) option and tick the admin box as well. Click update to save the changes.
  
-![](~@imageBase/images/site-administrator.png) 
 
 ## Collection level administrators
 
 *	To create a user who only has permissions to administer studies or administration functions for a particular collection. Select Site administrators (limited access)
-
-![](~@imageBase/images/site-administrator-limited.png) 
+ 
 
 *	It is then necessary to assign a role to this new limited administrator account. To create a limited access administrator for a particular collection – select Site administrators (limited access) and then select Collection administrators. Notice: The form expands to reveal a list of collections in the system. 
 
 *	Select the appropriate level of access that this account will have for this collection. In the example below an administrator is being created who can manage only licensed requests for the collection – Health Surveys. This account will not be able to upload or publish studies. The account will only be able to process licensed requests for the collection – Health Surveys.
-
-![](~@imageBase/images/site-administrator-collection-selection.png)
 
 **Other levels of access for Site administrators (limited access) – Collection administrators include:**
 
@@ -81,8 +77,6 @@ A. Accounts that can only view system reports at a global level.
 B. Accounts that can only access the citations section and manage citations
 C. Accounts that can only access the Licensed Request management system – at the global level for all collections.
  
-![](~@imageBase/images/global-level.png)
-
 
 **Impersonating a user**
 
@@ -94,13 +88,10 @@ The system includes a function that allows a Site Administrator to impersonate (
 
 *	A list of users to impersonate is shown. 
 
-![](~@imageBase/images/listofuser.png)
 
 *	Select the user to impersonate and click on the impersonate button.
 
 *	The dashboard view for the impersonated user now shows
-
-![](~@imageBase/images/impersonating-user-dashboard.png)
  
 * Note in the example above the account being impersonated is a Limited Account administrator with rights only to manage licensed requests for the Health Surveys Collection. Note that all other dashboard menus are either hidden or clicking on any other function other than manage studies results in an access denied message. 
 
@@ -124,8 +115,5 @@ To do this:
 *	Then edit the permissions for that user selecting Site Administrator (limited access) – Collection administrator
 
 *	Then for the appropriate collection select Reviewer and  click update to save the changes
-
-![](~@imageBase/images/user-reviewer.png)
- 
 
 *	The newly created reviewer account user can now view all studies in a collection even if the study or collection is unpublished. 
