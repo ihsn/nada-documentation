@@ -8,7 +8,7 @@ You can use a built-in image captcha or Google Recaptcha v2.
 
 2. Change the config option on **line 12** to **image_captcha**.
 
-![](/images/captcha_options.png)
+![](~@imageBase/images/captcha_options.png)
 
 3. Save the file.
 
@@ -27,7 +27,7 @@ To use Google Captcha please follow the steps given below:
 
 4. Once you have logged in, go to the Admin console to **Register a new site** or visit https://www.google.com/recaptcha/admin/create
 
-![](/images/create_google_captcha.png)
+![](~@imageBase/images/create_google_captcha.png)
 
     
 - a. Provide a Label.
@@ -44,8 +44,8 @@ To use Google Captcha please follow the steps given below:
 
 7. Copy **Site key** and **Secret key** from Google ReCaptcha page and inserte it on line number 51 and 52 respectively as shown in below image
 
-![](/images/google_recaptcha_config.png)
+![](~@imageBase/images/google_recaptcha_config.png)
  
 8. To verify Recpatcha, visit the user registration page in NADA and verify that you can see the reCaptcha similar to the screenshot below.
 
-![](/images/verify_captcha.png)
+![](~@imageBase/images/verify_captcha.png)

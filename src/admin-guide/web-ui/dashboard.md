@@ -4,7 +4,7 @@ After logging in to the Site Administration with administrator credentials the u
 
 The Dashboard provides a quick glance summary for administrators to get an overall picture of what has been happening on the site as well as what pending tasks are outstanding for the administrator. 
 
-![](/images/dashboard-overview.png)
+![](~@imageBase/images/dashboard-overview.png)
  
 A.	Menu link to the Dashboard
 

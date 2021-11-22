@@ -40,7 +40,7 @@ Microsoft SQL Client is required for connecting to your SQL database using NADA.
 
 - Browse to the PHP extension folder E.g. c:\php\ext. Notice there are multiple dll files included all referencing _sqlsrv. 
 
-    ![](/images/php-sqlsrv.png)
+    ![](~@imageBase/images/php-sqlsrv.png)
 
 - To find out which driver library is suitable for your version of PHP, create a php file using a text editor like Notepad e.g. info.php and place this code inside it: 
   
@@ -54,7 +54,7 @@ Microsoft SQL Client is required for connecting to your SQL database using NADA.
     * Which compiler is used e.g. either VC9 or VC6
     * Check whether Thread Safety is enabled or not. 
 
-    ![](/images/php-compiler-thread.png)
+    ![](~@imageBase/images/php-compiler-thread.png)
 
 
 
@@ -82,18 +82,18 @@ extension=php_sqlsrv_53_nts_vc9.dll
 
 - To make sure the driver/extension is installed correctly. Reload the phpinfo page and check if the extension SQLSRV is listed on the page.
 
-![](/images/sqlsrv-extention-test.png)
+![](~@imageBase/images/sqlsrv-extention-test.png)
 
 - If the extension is not listed on the page, recheck if the correct php.ini file has been edited. To locate the php.ini file being used by PHP look at the output of the phpinfo page in the section shown below.
 
-![](/images/php-ini-path.png)
+![](~@imageBase/images/php-ini-path.png)
 
 - This step is only required if SQL Server is not on the same server as your web server. To check if the SQL Client is already installed or not, follow the steps below:
 
     1. Open Control Panel, Administrative Tools on your server
     2. Open ODBC and switch to the tab “Drivers”
 
-    ![](/images/odbc-data-source.png)
+    ![](~@imageBase/images/odbc-data-source.png)
 
 
 
@@ -144,7 +144,7 @@ The instructions here are provided for Microsoft SQL Server 2008, if are running
 * If the Microsoft database connection is setup correctly, you should see the nada installer.
 
 
-![](/images/nada-installer.png)
+![](~@imageBase/images/nada-installer.png)
 
 
 * Check that all settings are marked with a green tick and fix any that are not on your webserver before running the installer.
@@ -155,8 +155,8 @@ The instructions here are provided for Microsoft SQL Server 2008, if are running
 Create a complex password of atleast 12 characters long with some uppercase, punctuation and numbers to aid security of your site. Do not forget this username and password!
 :::
 
-![](/images/installer-admin-account.png)
+![](~@imageBase/images/installer-admin-account.png)
 	
 **Congratulations: Launch the new site**
 
-![](/images/nada-installation-complete.png)
+![](~@imageBase/images/nada-installation-complete.png)

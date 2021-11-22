@@ -2,19 +2,19 @@
 
 All settings for the application are controlled via the Settings menu at the top of the Site Administration page. There are seven main settings sections: See screenshot below.
 
-![](/images/site-configuration.png)
+![](~@imageBase/images/site-configuration.png)
 
 ## General Settings
 
-![](/images/general-site-settings.png)
+![](~@imageBase/images/general-site-settings.png)
 
 A.	Type the Title of the site here: This will become the front page title of the NADA site. In this case the Title is NADA
 
-![](/images/nada-title.png)
+![](~@imageBase/images/nada-title.png)
  
 B.	The footer text can be changed in this field. This displays at the bottom of your site page.
 
-![](/images/nada-footer.png)
+![](~@imageBase/images/nada-footer.png)
 
 C.	The initial page that loads when a user visits the NADA site can be set here. In this case the catalog page is set to open by default. 
 
@@ -35,17 +35,17 @@ Click update to save all settings.
 
 To change the language of the application expand the language section and choose the desired language. Click update to save and apply the setting.
 
-![](/images/language-configuration.png)
+![](~@imageBase/images/language-configuration.png)
  
 ### Enable or disable the HTML editor
 
 A basic HTML editor is provided in the menu and page creating section of the application. This setting allows this to be turned on or off.
 
-![](/images/html-setting.png)
+![](~@imageBase/images/html-setting.png)
 
 ### Survey catalog settings
 
-![](/images/survey-catalog-details.png
+![](~@imageBase/images/survey-catalog-details.png
 
 A.	This is the folder where the files for the study are stored on the server. This includes the DDI, eternal resources and data files. This folder can be moved to a location outside the web root as described in the installation instructions in Chapter 1. Enter either relative or absolute paths to the folder location.
 
@@ -70,7 +70,7 @@ J.	This setting determines how many studies are displayed by default to the user
 
 ## Site Login settings
 
-![](/images/site-login.png)
+![](~@imageBase/images/site-login.png)
 
 A.	To require that users login before being able to access the website set this option to Requires all users to login to access the website.
 
@@ -82,7 +82,7 @@ C.	Sets the minimum length for passwords created by the users at registration or
 
 ## SMTP Settings
 
-![](/images/smtp-settings-example.png)
+![](~@imageBase/images/smtp-settings-example.png)
 
 A.	If the PHP/web server is configured to send email using PHP’s MAIL function, select the first option and don’t fill in anything else.
 

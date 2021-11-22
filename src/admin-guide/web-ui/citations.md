@@ -4,27 +4,27 @@ The Citations section is where bibliographic references can be added for publica
 
 Citations are added from the Citations menu.
 
-![](/images/citation-menu.png)
+![](~@imageBase/images/citation-menu.png)
 
 * To add a citation - click on All citations then click on the Add New Citation button at the top right.
 
-![](/images/all-citations.png)
+![](~@imageBase/images/all-citations.png)
 
 *	Compete the form including the indication as to whether the citation should be published or not.
 
 *	Then expand the Related studies link to tell the system which studies the citation “belongs” to.
 
-![](/images/attach-studies.png)
+![](~@imageBase/images/attach-studies.png)
 
 * Click  on the Attach studies link. This reveals a list of all studies in the catalog. 
  
-![](/images/attach-studies-link.png)
+![](~@imageBase/images/attach-studies-link.png)
 
 *	Select the relevant studies by clicking on the green Select button.
 
 *	Click on the apply filter button to save the changes. The study now appears in the related studies box.
 
-![](/images/apply-filter.png)
+![](~@imageBase/images/apply-filter.png)
  
 *	Click on the submit button to save the citation.
 
@@ -34,12 +34,12 @@ Citations are added from the Citations menu.
 
 *	To do this use the Import Citations link from the top menu
 
-![](/images/import-citations.png)
+![](~@imageBase/images/import-citations.png)
 
 *	Paste the BibTex or RIS text into the form and then at the bottom of the screen click on Attach studies to link the citation to a particular study in the catalog.
 
-![](/images/import-citations-bibtex-ris.png)
+![](~@imageBase/images/import-citations-bibtex-ris.png)
  
 *	The citation now appears in the citation list as well as on the study information page for the relevant studies.
 
-![](/images/citations-list.png)
+![](~@imageBase/images/citations-list.png)

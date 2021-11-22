@@ -16,7 +16,7 @@ Backup the NADA 3.x database before doing anything!!
 These can be found by looking at the existing NADA 3.x database.php file and entering the settings into the NADA 4 database.php file.
 :::
 	
-![Database settings](/images/nada3-db-settings.png)
+![Database settings](~@imageBase/images/nada3-db-settings.png)
 
 4. Save the file.
 
@@ -24,7 +24,7 @@ These can be found by looking at the existing NADA 3.x database.php file and ent
 
 6. The following page loads:
 
-![Upgrade page](/images/nada3-to-4-upgrade.png)
+![Upgrade page](~@imageBase/images/nada3-to-4-upgrade.png)
 
 Take note of the warnings and make any necessary corrections before
 

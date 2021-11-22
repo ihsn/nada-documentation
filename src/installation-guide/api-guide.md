@@ -6,7 +6,7 @@ You need a NADA catalog, an administrator API key, and NADAR or PyNADA installed
 
 We assume your catalog is http://nada-demo.ihsn.org/
 
-![](/images/nada_site_1.jpg)
+![](~@imageBase/images/nada_site_1.jpg)
 
 **NADA administrator API**
 

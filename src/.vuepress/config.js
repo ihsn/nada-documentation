@@ -16,7 +16,7 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
-        "@alias": path.resolve(__dirname, '../.vuepress/public')
+        "@imageBase": path.resolve(__dirname, '../.vuepress/public')
       }
     }
   },
@@ -60,12 +60,13 @@ module.exports = {
     ],
     sidebar: [
       {
-        title: 'Intro',   // required
+        title: 'Introduction',   // required
         path: '/intro/',      // optional, link of the title, which should be an absolute path and must exist
         collapsable: false, // optional, defaults to true
         sidebarDepth: 1,    // optional, defaults to 1
         children: [
-          '/intro/'          
+          '/intro/',
+          '/intro/overview-ui',
         ]
       },
       {
@@ -117,16 +118,20 @@ module.exports = {
       {
         title: 'Administrator guide',
         collapsable: false, // optional, defaults to true
-        sidebarDepth: 1,    // optional, defaults to 1
+        sidebarDepth: 2,    // optional, defaults to 1
         children: [
           '/admin-guide/',
-          '/admin-guide/getting-started',
+          '/admin-guide/organize-files',
+          '/admin-guide/ui-vs-api',
+          '/admin-guide/api-tools',
+
           {
             title: "Site administration",
             path: "/admin-guide/web-ui/",
             collapsable: false,
             children: [
-              '/admin-guide/web-ui/dashboard',
+              '/admin-guide/web-ui/intro',
+              /*'/admin-guide/web-ui/dashboard',
               '/admin-guide/web-ui/collections',
               '/admin-guide/web-ui/studies',
               '/admin-guide/web-ui/licensed-requests',
@@ -134,7 +139,7 @@ module.exports = {
               '/admin-guide/web-ui/users',
               '/admin-guide/web-ui/site-menus',
               '/admin-guide/web-ui/site-configurations',
-              '/admin-guide/web-ui/backup'
+              '/admin-guide/web-ui/backup'*/
             ]
           }, 
           '/admin-guide/admin-api'

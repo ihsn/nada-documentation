@@ -12,11 +12,11 @@ A. Open the file application/config/email.php in notepad
 
 B. Fill in the section using SMTP server with authentication enabled highlighted in below image
 
-![](/images/smtp-config.png)
+![](~@imageBase/images/smtp-config.png)
 
 C. For Gmail user will have to fill the gmail smtp section shown as below
 
-![](/images/gmail-email-config.png)
+![](~@imageBase/images/gmail-email-config.png)
 
 D. Save file
 
@@ -33,7 +33,7 @@ B.	Go to Site administration, click on the Settings menu and choose “Settings�
 
 C.	Find the section “SMTP settings”
 
-![](/images/smtp-settings.png)
+![](~@imageBase/images/smtp-settings.png)
 
 D.	If the PHP/web server is configured to send email using PHP’s MAIL function, select the first option and don’t fill in anything else.
 
@@ -67,7 +67,7 @@ The quickest way to test if the email settings are working is to use the “forg
 
 *	Click on forgot password 
 
-![](/images/forgot-password.png)
+![](~@imageBase/images/forgot-password.png)
  
 *	Enter the administrator or any other accounts email address. 
 

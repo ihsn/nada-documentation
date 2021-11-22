@@ -10,7 +10,7 @@ To make sure you are editing the correct PHP.INI settings file, create a PHP fil
 
 Open the phpinfo page in your web browser and you should see output similar to below screenshot. Edit the php.ini file displayed by the setting **Loaded Configuration File**.
 
-![NADA installer](/images/php-info.png)
+![NADA installer](~@imageBase/images/php-info.png)
 
 
 

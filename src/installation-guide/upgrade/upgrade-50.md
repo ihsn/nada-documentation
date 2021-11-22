@@ -70,7 +70,7 @@ The upgrade script has only upgraded the database. It is now necessary to tell t
 
 * Under Site configurations, expand the “Survey Catalog Settings” section
 
-![Catalog settings](/images/settings-catalog-storage.png)
+![Catalog settings](~@imageBase/images/settings-catalog-storage.png)
 
 * For the setting “Catalog folder”, enter the relative or full path to where the NADA `datafiles` folder is located. For example, if the nada4 datafiles are located on `c:/nada4/datafiles`, enter that path here.
 
@@ -94,7 +94,7 @@ To update the metadata for all studies in your catalog:
 
 *	Click on the “Refresh DDI” button
 
-![Batch refresh](/images/admin-batch-refresh.png)
+![Batch refresh](~@imageBase/images/admin-batch-refresh.png)
 
 
 ## Updating the Site theme/template
