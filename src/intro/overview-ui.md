@@ -1,4 +1,4 @@
-# Overview of the user interface
+# User interface
 
 A demo catalog is available at
 [http://nada-demo.ihsn.org](http://nada-demo.ihsn.org/index.php/home)

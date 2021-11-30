@@ -14,14 +14,14 @@ actionLink: /intro/
 <div class="features">
   <div class="feature">
     <h2><a href="installation-guide/">Installation Guide</a></h2>
-    <p>Covers NADA instalation and configurations</p>
+    <p>Covers NADA installation and configurations</p>
+  </div>
+  <div class="feature">
+    <h2><a href="/getting-started">Getting started</a></h2>
+    <p>Get started with publishing content</p>
   </div>
   <div class="feature">
     <h2><a href="/admin-guide">Administrator Guide</a></h2>
     <p>Guide for site administrators for managing and publishing datasets</p>
-  </div>
-  <div class="feature">
-    <h2><a href="/api-guide">API Guide</a></h2>
-    <p>How-tos and examples for the NADA API</p>
-  </div>
+  </div>  
 </div>

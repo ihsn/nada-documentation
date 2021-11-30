@@ -1,31 +1,71 @@
 # Dashboard
 
-After logging in to the Site Administration with administrator credentials the user is taken to the dashboard.
+## Using the administrator interface 
 
-The Dashboard provides a quick glance summary for administrators to get an overall picture of what has been happening on the site as well as what pending tasks are outstanding for the administrator. 
+After logging in to the site with administrator credentials, you will be
+taken to the Dashboard page of the Administrator interface. The page
+also includes the menu that provides access to all sections of the
+administrator interface.
 
-![](~@imageBase/images/dashboard-overview.png)
- 
-A.	Menu link to the Dashboard
+![](~@imageBase/images/image52.png)
 
-B.	Menu link to the Study Management pages, submenus include: Manage Studies, Licensed requests and Manage Collections
+The Dashboard provides a quick glance summary for administrators to get
+an overall picture of the content of the catalog as well as of pending
+tasks for the administrator.
 
-C.	Menu link to the citations management pages
+![](~@imageBase/images/image53.png)
 
-D.	Menu link to the User management pages, submenus include: All users, Add user and Impersonate User
+Box 1 (*Central Data Catalog*) provides information on the total number
+of entries (of any type) listed in the catalog. It distinguishes the
+entries that are "owned" by the Central Catalog (entries managed by the
+Central Catalog administrator, that are not owned by a specific
+collection or "sub-catalog) from the "linked" entries (those that are
+owned by a collection but displayed in the Central catalog). It also
+distinguishes the entries that are published (i.e., visible by visitors
+of the catalog site) from those that are in draft ("unpublished") mode,
+only visible to the administrators and reviewers. The box also contains
+some warnings. It will for example indicate the number of micro-datasets
+published as "Public Use Files" but for which no data files are
+available in the catalog, or the number of microdata entries for which
+no document of type "questionnaire" is provided.
 
-E.	Menu link to create menu pages for the site frontend
+The button Manage studies will open the catalog administration page that
+provides the tools for adding, editing, and deleting catalog entries
+(described in section Manage studies of this Guide). The button History
+provides a listing of additions to the Collection (in this case the
+Central Catalog), with information on the date when the entry was
+created and last modified (the buttons displayed in this page are
+described in section Manage collections).
 
-F.	Menu link to generate usage reports
+![](~@imageBase/images/image54.png)
 
-G.	Menu Link to the settings pages, submenus include: Settings, Coutries, Regions and Vocabularies
+Box 2 (*Collection: \[collection name\]*) will only be displayed when
+your catalog contains Collections. One box will be displayed per
+collection, with the same information as in Box 1. Two additional
+buttons are provided, which provide access respectively to a page
+allowing the catalog administrator(s) with appropriate credentials to
+edit the permissions attached to the collection, and to edit the
+description of the collection (see Managing collections section).
 
-H.	Useful navigation links, submenus include: Change Password, Log out, Catalog Home, Data catalog, Citations
+Box 3 (*Users*) provides summary information on the number of users
+registered to the catalog (which includes not only the catalog and
+collections administrators, but also users who registered to the catalog
+to obtain or request access to non-public data).
 
-I.	This section lists all collections in the catalog. Within each collection a summary is given of the number of studies along with diagnostics related to the number of studies published\unpublished, missing questionnaires, data access types set but with no data attached as well as some buttin links to Manage the collections, studies, users and a History of changes made to the collection
+Box 4 (*Recently updated studies*) is a listing of the most-recently
+added (or modified) entries in the catalog, with a link to the entry
+page allowing administrators to edit it.
 
-J.	Provides a summary of users, registrations and number of users currently logged in.
+## Using the API 
 
-K.	Show how many pages are being cached on the site with a link to clear the cache if need be.
+Related endpoints:
 
-L.	Show a list of recently added or updated studies. Clicking on a study in the list takes you to the page to manage that study.
+<https://ihsn.github.io/nada-api-redoc/catalog-admin/#operation/listDatasets>
+
+<https://ihsn.github.io/nada-api-redoc/catalog-admin/#operation/singleDataset>
+
+Using R:
+
+The content of the dashboard can be generated using the API as follows:
+
+Datasets

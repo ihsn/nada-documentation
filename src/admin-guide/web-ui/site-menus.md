@@ -1,38 +1,83 @@
-# Manage Site Pages and Menus
+# Menu
 
-The NADA has a small content management component that allows for the creation of menu pages to appear on the user interface.
+## Adding a new page
 
-*	Examples of menus that might be useful for users of the site might be: A page dealing with the dissemination policies of the organization or perhaps a page with contact information for the information.
+New HTML pages can be added to your NADA catalog, accessible from the
+main (top) menu. By default, NADA will have the Home, Catalog,
+Citations, and Login menu items. In the example below, the "How to? item
+was added as a custom menu item and catalog page.
 
-New menu items and pages can be created via the Menu- All pages menu link at the top of the Site Administration page.
+![](~@imageBase/images/image83.png)
 
-![](~@imageBase/images/dashboard-menu.png)
+## Using the administrator interface 
 
-*	Select All pages from the menu.
+Login as administrator, then click **Meny \> All pages.**
 
-![](~@imageBase/images/all-pages.png)
+![](~@imageBase/images/image84.png)
+A list of currently existing pages will be displayed. From this table,
+pages can be deleted, or opened to be edited. The type "Link" indicates
+that the page corresponds to NADA-generated content (default pages), not
+to user-designed HTML pages.
 
-*	To add a new page click on the Add New Page button 
+![](~@imageBase/images/image85.png)
 
-*	Give the page a Title in the Title field
+To add a new HTML page and create a menu item to access it, click **Add
+new page**
 
-*	Clicking in the URL field will automatically suggest a name for the page in the URL
+![](~@imageBase/images/image86.png)
 
-*	Enter the contents for the page in the Body section. Plain text or HTML is accespted by this field.
+Give a title to the new page, and a URL (the URL you provide here will
+be automatically preceded with your catalog URL). Enter the content in
+the HTML editor (assuming the option to edit HTML pages was activated in
+the catalog Settings). Indicate whether clicking on the page's menu item
+should open the page in the same or in a new window, and whether you
+want the page to be published or not (in which case it will be
+considered as a draft). The Weight argument is used to order the page in
+the menu item (which can also be done using the **Reorder menu** tool;
+see below). When done, click on **Update**.
 
-*	Then indicate if the page should be published or not in the Publish dropdown
+![](~@imageBase/images/image87.png)
 
-*	The Weight field tells the NADA in what order this menu item should display. E.g. 0 would be first, 1 second and 2 third.
+The NADA administrator interface and the embedded HTML editor provide
+limited options to customize the design of the page. To produce pages
+with more complex content and/or design, you can use your own tools to
+customize this page. \[where to find it? What happens when you upgrade
+to a new NADA?\]
 
-*	Click on Update to save the changes.
+## Using the API 
 
-*	View the changes from the user interface: In this Example a Contact Us page was created.
+## Adding a new link
 
-![](~@imageBase/images/menu-example.png)
- 
-* It is also possible from the Menu Management screen to add a menu link that links to an existing page on another site (rather than creating a page itself).
+What are links?
 
-*	To change the order in which the menu items display on the user interface, use the Reorder Menu button on the Menu Management screen.
+## Using the administrator interface 
 
-![](~@imageBase/images/reorder-menu.png)
+To add a link, proceed as for adding a new page, but click on **Add new
+link**.
 
+![](~@imageBase/images/image88.png)
+
+![](~@imageBase/images/image89.png)
+
+## Using the API 
+
+Not doable via API.
+
+## Reordering the top menu
+
+## Using the administrator interface 
+
+To change the order in which the menu items appear in the user
+interface, proceed as for adding new menu, then click on **Reorder
+menu**.
+
+![](~@imageBase/images/image90.png)
+
+Drag and drop to position the menu items in the desired order, then
+click **Update**.
+
+![](~@imageBase/images/image91.png)
+
+## Using the API 
+
+The main menu cannot be controlled by API.

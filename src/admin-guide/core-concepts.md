@@ -1,40 +1,3 @@
-# Overview
-
-For a NADA catalog administrator, the process of publishing data and
-metadata consists of:
-
-1.  **Documenting the dataset**. Generating structured
-    metadata compliant with one of the supported standards and schemas.
-    List: Where to find documentation: The metadata can be generated
-    using specialized software, using programming languages (like R or
-    Python), or in the NADA administrator interface.
-
-    a.  For microdata, a specialized metadata editor will most often be
-        used. The metadata must comply with the *DDI Codebook* standard.
-        This is complex and include summary statistics. Doing this
-        manually is a tedious process.
-
-    b.  Using a programming language like R or Python. Most appropriate
-        for documents, images, videos, etc. and when automation is
-        useful.
-
-    c.  Using the NADA administrator interface. Not a complete product,
-        not all options. But for simple documentation, convenient.
-
-2. **Publishing the metadata** in NADA, using the NADA
-administrator interface or programmatically with the NADA API and NADAR
-or PyNADA.
-
-3. **Uploading external resources** (files or links) to
-be made accessible in the catalog, with a brief description. These
-resources will be described using the **external resources** schema.
-
-4. **Defining an access policy** that applies to the dataset,
-when relevant. This will determine how users can obtain access to the
-data (direct access, access from another repository, licensed access, no
-access, or other). This typically applies to microdata and geographic
-datasets.
-
 # Core concepts
 
 ## Data
@@ -83,7 +46,7 @@ social and economic issues**. This includes:
     and visualize data as resources that need to be documented,
     catalogued, and disseminated in data catalogs.
 
-### Central data catalog
+## Central data catalog
 
 The default catalog created when a NADA instance is installed is the
 Central Data Catalog. All studies uploaded to the NADA are visible,
@@ -93,7 +56,7 @@ their NADA instance. For some institutions, being able to divide the
 contents of the Central Data Catalog into more refined ***collections***
 will be desirable.
 
-### Collection
+## Collection
 
 Collections are sub-categories of the Central Data Catalog. They allow
 administrators of a NADA instance to group studies into what can be
@@ -122,7 +85,7 @@ The creation of collections will in general only be useful and necessary
 for large catalogs or for catalogs that desire more decentralized
 management of groups of studies by different departments.
 
-### Entries and studies
+## Entries and studies
 
 An entry is a "dataset" of any type listed in NADA. It can be a
 micro-dataset, an indicator, a geographic dataset, a statistical table,
@@ -130,7 +93,7 @@ a document, an image, a video, or a script. The word "entry" is thus a
 generic term (in some documents, the word "study" is used as an
 alternative).
 
-### Metadata
+## Metadata
 
 Metadata is the documentation associated with a dataset, or "data about
 the data". Depending on the data type, the content of metadata will
@@ -140,7 +103,7 @@ of information a user may want to obtain about a dataset (of any type).
 These checklists differ by data type. This is the reason why NADA makes
 use of multiple, specialized metadata standards and schemas.
 
-### Data access type
+## Data access type
 
 NADA allows for the level of access to datasets for some types of data
 (microdata, geographic dataset) to be controlled at the study level. In
@@ -189,7 +152,7 @@ restrictions, to no access. Briefly the available access types are:
 -   **Data not available** - data are not available for this study. Only
     metadata and related materials (like a study report) are published.
 
-### Citation
+## Citation
 
 Citations are references that can be included at the study level which
 point to published works that have used the data from a particular
@@ -200,7 +163,7 @@ before. They are also a good way of showing the funders of surveys that
 the data are being used for policy and research purposes and thus are an
 indicator of some of the impact a study has had.
 
-### User
+## User
 
 Users in NADA can be defined according to three broad groups:
 

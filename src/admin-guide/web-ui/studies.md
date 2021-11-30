@@ -1,31 +1,1416 @@
-# Studies
+# Managing studies 
 
-There are 2 Options to get studies into the catalog:
+This is page that contains the tools to add, edit, and delete entries in
+the catalog.
 
-## Option 1:
+## Data types and external resources
 
-*	The first is to upload a DDI and all its resources to the collection in the same way as described in the earlier section – Uploading a Study. Except instead of choosing Central Catalog chose the collection you want to upload the study to.
+NADA is a cataloguing tool for multiple data types. All data types come
+with a specific metadata standard and schema that will contain the
+metadata. A catalog entry is specific to one data type. All catalog
+entries can be published with external resources.
 
-*	Click on the Add Study button and upload a DDI and RDF and all your resources as described in the earlier section  – Uploading a Study
- 
-*	Once a study is added in this way it displays in the Manage Studies list. Notice that the collection summary field shows that the study belongs to (is Owned By) the DHS collection (this was the Short name defined in the example when the Health Surveys Collection was created).
+## Data types
 
-* Also, note that the new study also appears in the Central Data Catalog
- 
-All studies uploaded to collections will automatically be added to the Central Data Catalog in order to build a common search portal for all studies.
+Microdata
+
+Geographic
+
+Time series
+
+Tables
+
+Documents
+
+Images
+
+Videos
+
+Scripts
+
+## External resources
+
+Resources of any type, available in an electronic file or URL, that you
+may want to attach to an entry metadata.
+
+## Adding external resources
+
+Specific simple metadata schema.
+
+Produce some metadata, then indicate file or URL. Then publish attached
+to an entry.
+
+At any time, can add or delete a resource to a catalog.
+
+RDF in Nesstar; otherwise can generate with API or in NADA.
+
+## Adding an entry: approaches
+
+To add an entry to your catalog, three approaches are possible (although
+not all apply to all data types): loading pre-existing metadata files,
+creating an entry from scratch in NADA, and using the NADA API. The
+first two approaches rely on the NADA administrator interface, the third
+one on the API and the use of NADAR (R package) or PyNADA (Python
+library).
+
+## Loading metadata files
+
+When metadata files compliant with a metadata standard or schema
+recognized by NADA are available (typically generated using a
+specialized metadata editor), these files can be uploaded in NADA using
+the administrator interface. The interface will still be used to upload
+the related resource files, to add a logo/thumbnail, to specify the
+access policy. This approach currently applies to microdata and to
+geographic datasets. It will be added to other data types in future
+releases of NADA.
+
+To use this approach, you will need to access the page in the
+administrator interface where you can add, edit, and delete entries.
+Click on **Studies \> Manage studies** and select the collection in
+which you want to add an entry (if you have not created collections, the
+only option will be the Central Data Catalog).
+
+![](~@imageBase/images/image92.png)
+
+A list of entries previously entered in the catalog/collection will be
+displayed, with options to search and filter them.
+
+![](~@imageBase/images/image93.png)
+
+In this page, the **Add study** button will allow you to access the
+pages where entries can be added.
+
+![](~@imageBase/images/image94.png)
+
+## Creating an entry from scratch 
+
+The metadata can be created directly in NADA, using the embedded
+metadata editor. This approach will also require access to the "Add
+entry" page of the NADA administrator interface (see above). The option
+is available for all data types but is recommended only for data that
+require limited metadata (such as images, or documents). For other types
+of data, manually generating comprehensive metadata can be a very
+tedious process (e.g., for microdata where metadata related to hundreds
+if not thousands of variables would have to be manually entered).
+
+## Using the API 
+
+Metadata can also be generated programmatically, for example using R or
+Python, and uploaded to NADA using the API and the NADAR package of
+PyNADA library. This option allows automation of many tasks and offers
+the additional advantage of transparency and replicability. For
+administrators with knowledge of R and/or Python, this is a recommended
+approach except for microdata (for which the best approach is to use a
+specialized metadata editor). The metadata generated programmatically
+must comply with one of the metadata standards and schemas used by NADA,
+documented in the NADA API and in the Guide on the Use of Metadata
+Schemas.
+
+If you use this approach, you will need an API key with administrator
+privileges. API keys must be kept strictly confidential. Avoid entering
+them in clear in your scripts, as you may accidentally reveal your API
+key when sharing your scripts (if that happens, immediately cancel your
+key, and issue a new one).
+
+Once you have obtained a key (issued by a NADA administrator), you will
+have to enter it (and the URL of the catalog you are administering)
+before you implement any of the catalog administration functions
+available in NADAR or PyNADA. This will be the first commands in your R
+or Python scripts. It is done as follows:
+
+Using R:
+
+```r
+library(nadar)
+
+my_key <- read.csv("*...*/my_keys.csv", header=F, stringsAsFactors=F)
+set_api_key(my_key\[5,1\]) # Assuming the key is in cell A5
+set_api_url("http://*your_catalog_url*/index.php/api/")
+set_api_verbose(FALSE)
+```
+
+Using Python:
+
+```python
+import pynada as nada
+my_key = pd.read_csv(".../my_keys.csv", header=None)
+nada.set_api_key(my_keys.iat\[4, 0\])
+nada.set_api_url(\'https:// *your_catalog_url* /index.php/api/\')
+```
+
+## Adding an entry: microdata
+
+Creating a Microdata entry can be done in two different ways using the
+administrator interface and the API:
+
+-   By uploading pre-existing metadata, generated by a specialized
+    metadata editor
+
+-   By generating and uploading new metadata
+
+For microdata, the use of a specialized DDI metadata editor to generate
+metadata is highly recommended (like the Nesstar Publisher or the World
+Bank's Metadata Editor). Indeed, the DDI should contain a description of
+the variables included in the data files, preferably with summary
+statistics. Generating variable-level metadata can be a very tedious
+process as some datasets may include hundreds, even thousands of
+variables. Metadata editors have the capacity to extract the list of
+variables and some metadata (variable names, labels, value labels, and
+summary statistics) directly from the data files. The alternatives to
+generating the metadata using a specialized editor are to enter the
+metadata in NADA, or to enter them in R or Python scripts.
+
+## Loading metadata files 
+
+If you have used a specialized metadata editor like the Nesstar
+Publisher software application, you have obtained as an output an XML
+file that contains the study metadata (compliant with the DDI Codebook
+metadata standard), and a RDF file containing a description of the
+related resources (questionnaires, reports, technical documents, data
+files, etc.) These two files can be uploaded in NADA.
+
+In the administrator interface, select **Studies \> Manage studies** and
+the collection in which you want to add the dataset (if you have not
+created any collection, the only option will be to upload the dataset in
+the Central catalog; this can be transferred to another collection later
+if necessary). Then click on **Add study**.
+
+![](~@imageBase/images/image95.png)
+
+In the Select a DDI file and Select RDF file, select the relevant files.
+Select the "Overwrite if the study already exists" option if you want to
+replace metadata that may have been previously entered for that same
+study. A study will be considered the same if the unique identification
+number provided in the DDI metadata field "study_desc \> title statement
+\> idno" is the same (in the user and administrator interface, IDNO will
+be labeled "Reference No"). Then click Submit.
+
+![](~@imageBase/images/image96.png)
+
+The metadata will be uploaded, and an **Overview** tab will be
+displayed, providing you with the possibility to take various actions.
+
+![](~@imageBase/images/image22.png)
+
+![](~@imageBase/images/image97.png)
+
+In **Country**, the names that are not compliant with the reference list
+of countries will be highlighted in red. By clicking on any of these
+country names, you will open the page where the mapping of these
+non-compliant names to a compliant name can be done. This is optional,
+but highly recommended to ensure that the filter by country (facet)
+shown in the user interface will operate in the best possible manner.
+See section "Catalog administration \> Countries".
+
+**Metadata in PDF**: Allows you to generate a PDF version of the
+metadata (applies to microdata only).
+
+![](~@imageBase/images/image21.png)
+
+![](~@imageBase/images/image98.png)
+
+**Data access**: This is where you will indicate the access policy for
+microdata. The restrictions associated with some of these access
+policies will apply to all files declared as "Data files" in NADA (see
+description of tabs "Files" and "Resources" below. NADA must be informed
+of what files are "Data files"; it is very important when you document
+and upload external resources to make sure that data files are properly
+identified. If a data file is uploaded as a "document" for example, it
+will be accessible to users no matter the access policy you apply to the
+dataset.
+
+The options for Data access are:
+
+-   ***Open data***: visitors to your catalog will be able to download
+    and use the data almost without any restriction
+
+-   ***Direct access***: visitors will be able to download the data
+    without restriction, but the use of the data is subject to some
+    (minor) conditions
+
+-   ***Public Use Files (PUF)***: all registered visitors will be able
+    to download the files after login; they will be asked but not forced
+    to provide a description of the intended use.
+
+-   ***Licensed data***: registered visitors will be able to submit a
+    request for access to the data by filling out an on-line form, which
+    will be reviewed by the catalog administrator who can approve, deny,
+    or request more information (see section "Managing data requests").
+
+-   ***Data accessible in external repository***: this is the option you
+    will select when you want to publish metadata in your catalog but
+    provide a link to an external repository where users will be able to
+    download or request access to the data.
+
+-   ***Data enclave***: in this option, information is provided to users
+    on how to access the data in a data enclave.
+
+-   ***Data not accessible***: in some cases, you will want to publish
+    metadata and some related resources (report, questionnaire,
+    technical documents, and others) but not the data.
+
+**Indicator database**: this applies to microdata only. The field allows
+administrators to provide the URL of a website were indicators generated
+out of the microdata are published.
+
+**Study website**: a link to an external website dedicated to the
+survey.
+
+**Featured study**: This allows administrators to mark entries as
+"featured". \[how it will show in NADA\]
+
+**Tags**: need tag groups
+
+**Display in other collections**:
+
+**Study aliases**:
+
+**DOI**: can we generate one?
+
+![](~@imageBase/images/image23.png)
+
+In the Resources tab, you will see a list of external resources, which
+should correspond to the files you uploaded. A green icon should appear
+next to the "Link", indicating that a file has indeed been identified
+that corresponds to the resource. If you see a red icon, click on "Link
+resources" to try and fix the issue. If the problem persists, the
+filename identified in the RDF metadata probably does not match the name
+of the uploaded file.
+
+![](~@imageBase/images/image24.png)
+
+![](~@imageBase/images/image99.png)
+
+Thumbnail?
+
+That's it.
+
+![](~@imageBase/images/image26.png)
+
+## Creating from scratch
+
+![](~@imageBase/images/image100.png)
+
+![](~@imageBase/images/image101.png)
+
+![](~@imageBase/images/image102.png)
+
+![](~@imageBase/images/image103.png)
+
+Then files ...
+
+## Using the API
+
+## When a DDI and RDF files are available
+
+This will be the case when the microdata have been documented using a
+tool like the Nesstar Publisher. An example of such case was provided in
+section "Getting started -- Publishing microdata", which corresponds to
+the Use Case 009 available in R and in Python in the NADA GitHub
+repository.
+
+## When the dataset is documented in a script
+
+A micro-dataset can also be documented directly in a r or Python script.
+As the DDI schema is relatively complex, the use of a specialized DDI
+metadata editor like the Nesstar Publisher is often recommended. This
+tool provides the possibility to easily extract metadata from the data
+files (list of variables, labels, summary statistics). The same can be
+done using R or Python, but this requires relatively advanced experience
+in R or Python programming. Typically, microdata will be documented
+programmatically when (i) the dataset is small, and/or (ii) when there
+is no intent to generate detailed, variable-level metadata. We provide
+here an example of the documentation of a simple dataset.
+
+Using R
+
+Using Python
+
+## Adding an entry: geographic
+
+## Loading metadata files 
+
+Option not yet available in NADA.
+
+## Creating from scratch
+
+## Using the API 
+
+## Adding an entry: document
+
+![](~@imageBase/images/image28.png)
+
+## Loading metadata files 
+
+Option not yet available in NADA.
+
+## Creating from scratch
+
+Login as administrator, then in the login sub-menu, select Site
+administration
+
+![](~@imageBase/images/image17.png)
+
+In the Studies menu, select Manage studies / Central Data Catalog
+
+![](~@imageBase/images/image18.png)
+
+Click on Add study
+
+![](~@imageBase/images/image19.png)
+
+In Create new study, select Document
+
+![](~@imageBase/images/image29.png)
+
+Click on Metadata.
+
+![](~@imageBase/images/image30.png)
+
+Enter some information in the form, then click on the Save button.
+
+![](~@imageBase/images/image31.png)
+
+![](~@imageBase/images/image32.png)
+
+![](~@imageBase/images/image33.png)
+
+Go back to the entry page (press the "back" button of your browser).
+
+![](~@imageBase/images/image34.png)
+
+What has been done so far is generating and publishing the document
+description on the catalog. We have not provided any link to the
+document. One option would be to upload the PDF to your web server and
+make the document available from your website. In this case however, we
+want to provide a link to an external server. Click Add new resource and
+provide information on the type of resource you are providing a link to
+(in this case an analytical document), the resource title (in this case
+it will be the title of the document, but in some cases, you may want to
+attach multiple files to a document, e.g., an annex containing the
+tables in Excel format, etc.) Provide a URL to the site you want to link
+to (the alternative would be to provide the path and filename of the PDF
+file, for upload to your server). Click Submit.
+
+![](~@imageBase/images/image35.png)
+
+Now the document metadata and the link to the resource are both
+provided. But the entry is still in draft mode (i.e. only visible to
+administrators).
+
+![](~@imageBase/images/image36.png)
+
+The last step will be to upload a thumbnail (optional), and to make this
+entry visible in your catalog by changing its Status from "Draft" to
+"Published". For a document, a screenshot of the cover page is the
+recommended thumbnail.
+
+![](~@imageBase/images/image37.png)
+
+![](~@imageBase/images/image38.png)
+
+![](~@imageBase/images/image39.png)
+
+The entry is now visible to visitors of your catalog and in the
+Dashboard of the Site administration interface (where you can unpublish
+or delete it).
+
+![](~@imageBase/images/image40.png)
+
+The study listing page in the user interface, with no thumbnail:
+
+![](~@imageBase/images/image104.png)
+
+The study listing page in the user interface, with thumbnail:
+
+![](~@imageBase/images/image105.png)
+
+The header of the entry page, with no thumbnail:
+
+![](~@imageBase/images/image106.png)
+
+The header of the entry page, with a thumbnail:
+
+![](~@imageBase/images/image107.png)
+
+## Using the API 
+
+An example was provided in section "Getting Started -- Publishing a
+document". That example is available in the NADA GitHub repository as
+Use Case 001.
+
+We provide here another example, where a list of documents with core
+metadata is available as a CSV file. A script (written in R or in
+Python) reads the file, maps the columns of the file to the schema
+elements, and publishes the documents in NADA. This example corresponds
+to Use Case 007 in the NADA GitHub repository.
+
+## Using R
+
+```r
+# ==============================================================================
+# NADA Demo Catalog - Use of API examples Use case ID: 002
+#
+# Use case description: generate metadata and publish in NADA a collection of
+# documents for which metadata are available in a CSV file.
+# The CSV file contains the following columns:
+# - document_url
+# - pdf_url (URL to the PDF version of the document)
+# - txt_url (URL to the TXT version of the document, if available)
+# - author (list of authors, as one string)
+# - identifier (unique identifier of the document; could be a DOI or other)
+# - abstract
+# - series
+# - language (we assume here that only English or French are valid values)
+# - publisher
+# - title
+# - type
+# - date_published (in ISO format; could be YYY, or YYYY-MM, or YYYY-MM-DD)
+# - countries (country names, separated by a ";")
+#
+
+# The published metadata will be structured using a schema described in:
+# https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Documents
+#
+# Script tested with NADA version: 5.0
+# Date: 2021-09-10
+# See output in http://nada-demo.ihsn.org/index.php/catalog
+#
+# \*\* This script requires a valid API key with administrator privileges.\*\*
+#
+# ==============================================================================
+
+library(nadar)
+library(readxl)
+library(rlist)
+library(stringr)
+
+# Set API key (stored in a CSV file; not to be entered in clear) and catalog URL
+my_keys <- read.csv("C:/CONFIDENTIAL/my_keys.csv", header=F, stringsAsFactors=F)
+
+set_api_key(my_keys\[5,1\]) # Assuming the key is in cell A5
+set_api_url("http://nada-demo.ihsn.org/index.php/api/")
+set_api_verbose(FALSE)
+
+# Set the default folder, and load the CSV file
+setwd("E:/demo_nada_files/UC002")
+
+doc_list <- read.csv("NADA_demo_list_docs.csv",
+stringsAsFactors=FALSE)
+
+# Generate the schema-compliant metadata, and publish in NADA catalog
+
+# We need to map the columns in the CSV file to elements of the schema.
+
+for(i in 1:nrow(doc_list)) {
+
+# Download the PDF file if not already done
+
+pdf_url <- doc_list\$pdf_url\[i\]
+pdf_filename <- paste0(doc_list\$identifier\[i\], ".pdf")
+if(!file.exists(pdf_filename)) {
+    download.file(pdf_url, pdf_filename, mode="wb")
+}
+
+# Take a screenshot of the cover page to be used as thumbnail
+
+thumb_file <- gsub(".pdf", ".jpg", pdf_filename)
+capture_pdf_cover(pdf_filename)
+
+# Map the CSV columns to metadata elements from the schema
+
+id <- doc_list\$identifier\[i\]
+
+title <- doc_list\$title\[i\]
+
+date <- as.character(doc_list\$date_published\[i\])
+
+abstract <- doc_list\$abstract\[i\]
+
+publisher <- doc_list\$publisher\[i\]
+
+series <- doc_list\$series\[i\]
+
+type <- doc_list\$type\[i\]
+
+author_list = list()
+
+authors <- unlist(strsplit(doc_list\$author\[i\], ";"))
+
+for(a in authors) {
+
+author = unlist(strsplit(a, ",")) # Format in CSV is "lastname, firstname"
+
+ln = str_trim(author\[1\])
+
+fn = str_trim(author\[2\])
+
+this_author = list(last_name = ln, first_name = fn)
+
+author_list = list.append(author_list, this_author)
+
+}
+
+if(doc_list\$language\[i\] == "English") {
+
+lang_name = "English"
+
+lang_code = "EN"
+
+} else if (doc_list\$language\[i\] == "French") {
+
+lang_name = "French"
+
+lang_code = "FR"
+
+}
+
+language <- list(list(name=lang_name, code=lang_code))
+
+ctry_list = list()
+
+countries <- unlist(strsplit(doc_list\$countries\[i\], ";"))
+
+for(c in countries) {
+
+ctry = list(name = str_trim(c)) # Removes start/end whitespaces
+
+ctry_list = list.append(ctry_list, ctry)
+
+}
+
+# Document the file, and publish in the NADA catalog
+
+this_doc_metadata <- list(
+
+metadata_information = list( # This block is optional but recommended
+
+producers = list(
+
+list(name = "NADA team")
+
+),
+
+production_date = "2021-09-11",
+
+version = "v01"
+
+),
+
+document_description = list(
+
+title_statement = list(idno = id, title = title),
+
+date_published = date,
+
+type = type,
+
+authors = author_list,
+
+series = series,
+
+publisher = publisher,
+
+abstract = abstract,
+
+ref_country = ctry_list,
+
+languages = language
+
+)
+
+)
+
+# Publish the document in the NADA central catalog
+
+add_document(idno =
+this_doc_metadata\$document_description\$title_statement\$idno,
+
+metadata = this_doc_metadata,
+
+repositoryid = "central",
+
+published = 1,
+
+thumbnail = thumb_file,
+
+overwrite = "yes")
+
+# Note: to publish the document in a collection (e.g. "Handbooks"), we would
+# enter repositoryid = "Handbooks" instead of "repositoryid = "central".
+# The collection must have been previously created in the catalog.
+# ==============================================================================
+# Uploading the document metadata will not upload the document itself. To make
+# the document available in/from the catalog, we need to upload the file to the
+# server or provide a link to an external URL, as an "external resource".
+# More than one resource can be attached to a catalog entry, as long as their
+# title differ; here, some documents are available in PDF and TXT formats.
+# ==============================================================================
+# The "type" column in the CSV file does not comply with dctype in the
+# external resources schema; we map the types accordingly
+# Note: to get a list of types found in the CSV file:
+table(doc_list\$type)
+
+if(doc_list\$type\[i\] == "book") dctype = "doc/ref" # Reference
+document
+
+if(doc_list\$type\[i\] == "manual") dctype = "doc/ref"
+
+# Provide a link to the PDF file and to the TXT file if it exists
+# If we have links to a PDF and a TXT file, we mention the format in the title.
+
+title_pdf = title
+
+if(doc_list\$txt_url\[i\] != "") {
+
+title_pdf = paste0(title, " - PDF version")
+
+title_txt = paste0(title, " - TXT version")
+
+}
+
+# Create link to PDF file
+
+external_resources_add(
+
+title = title_pdf,
+
+idno = this_doc_metadata\$document_description\$title_statement\$idno,
+
+dctype = dctype,
+
+file_path = doc_list\$pdf_url\[i\],
+
+overwrite = "yes"
+
+)
+
+# Create link to TXT file, if it exists
+
+if(doc_list\$txt_url\[i\] != "") {
+
+external_resources_add(
+
+title = title_txt,
+
+idno = this_doc_metadata\$document_description\$title_statement\$idno,
+
+dctype = dctype,
+
+file_path = doc_list\$txt_url\[i\],
+
+overwrite = "yes"
+
+)
+
+}
+
+}
+
+# Alternative: If we wanted to upload the PDF file instead of providing a link :
+
+# external_resources_add(
+
+# title = title,
+
+# idno = this_doc_metadata\$document_description\$title_statement\$idno,
+
+# dctype = dctype,
+
+# file_path = pdf_filename,
+
+# overwrite = "yes"
+
+# )
+```
 
 
-## Option2: 
+Example using Python
 
-**Copying studies from one collection to another**
+```python
+## Using Python
 
-*	The second way to add a study to a collection is to Copy the study from another collection into the new collection.
+# ==============================================================================
 
-*	To copy a study already in the catalog to display in the new collection first make sure to be in the Manage Studies section for the collection you want to put studies into. To do this either use the Studies – Manage studies menu on the top or simply click on the Switch link next to the Manage Studies [Collection Title] heading.
+# NADA Demo Catalog - Use of API examples Use case ID: 002
 
-*	Then Click on the Copy Studies blue button at the top right.
+#
 
-*	A list of all studies available to copy to the new collection is listed. Simply click on the Link button in green to copy the study to the collection. The button will turn red and say Unlink. To reverse the process and click the now red button.
+# Use case description: generate metadata and publish in NADA a collection of
 
-*	Going back to the Manage Studies page for the collection will show the newly copied studies in the collection list. Also note that the Collection field now indicated DHS next to Central. DHS is in grey to indicate it is not owned (it is a copy) by that collection and the Central is in blue to show it is owned by the Central Data Catalog. Also note that because the study is not owned by this catalog it cannot be edited from this catalog – hence the publish\unpublish green button is absent for the copied studies
+# documents for which metadata are available in a CSV file.
 
+# The CSV file contains the following columns:
+
+# - document_url
+
+# - pdf_url (URL to the PDF version of the document)
+
+# - txt_url (URL to the TXT version of the document, if available)
+
+# - author (list of authors, as one string)
+
+# - identifier (unique identifier of the document; could be a DOI or other)
+
+# - abstract
+
+# - series
+
+# - language (we assume here that only English or French are valid values)
+
+# - publisher
+
+# - title
+
+# - type
+
+# - date_published (in ISO format; could be YYY, or YYYY-MM, or YYYY-MM-DD)
+
+# - countries (country names, separated by a ";")
+
+#
+
+# The published metadata will be structured using a schema described in:
+
+# https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Documents
+
+#
+
+# Script tested with NADA version: 5.0
+
+# Date: 2021-09-29
+
+# See output in http://nada-demo.ihsn.org/index.php/catalog
+
+#
+
+# \*\* This script requires a valid API key with administrator privileges.\*\*
+
+#
+
+# ==============================================================================
+
+import os
+
+import pandas as pd
+
+import pynada as nada
+
+# # Set API key (stored in a CSV file; not to be entered in clear) and
+catalog URL
+
+my_keys = pd.read_csv("confidential/my_keys.csv", header=None)
+
+nada.set_api_key(my_keys.iat\[1, 0\])
+
+nada.set_api_url(\'https://nada-demo.ihsn.org/index.php/api/\')
+
+# # Set the default folder, and load the CSV file
+
+os.chdir("E:/demo_nada_files/UC002")
+
+doc_list = pd.read_csv("NADA_demo_list_docs.csv", encoding=\'cp1252\')
+
+# # Generate the schema-compliant metadata, and publish in NADA
+catalog
+
+# # We need to map the columns in the CSV file to elements of the
+schema.
+
+for i in range(len(doc_list)):
+
+# Download the file if not already done
+
+pdf_url = doc_list\[\'pdf_url\'\]\[i\]
+
+pdf_filename = doc_list\[\'identifier\'\]\[i\] + ".pdf"
+
+if not os.path.exists(pdf_filename):
+
+nada.download_file(url=pdf_url, output_fname=pdf_filename, mode=\'wb\')
+
+# # Take a screenshot of the cover page to be used as thumbnail
+
+thumb_file = nada.pdf_to_thumbnail(pdf_filename, page_no=1)
+
+# # Map the CSV columns to metadata elements from the schema
+
+idno = doc_list\[\'identifier\'\]\[i\]
+
+title = doc_list\[\'title\'\]\[i\]
+
+date = str(doc_list\[\'date_published\'\]\[i\])
+
+abstract = doc_list\[\'abstract\'\]\[i\]
+
+publisher = doc_list\[\'publisher\'\]\[i\]
+
+series = doc_list\[\'series\'\]\[i\] if
+pd.notna(doc_list\[\'series\'\]\[i\]) else ""
+
+dtype = doc_list\[\'type\'\]\[i\]
+
+author_list = \[\]
+
+authors = doc_list\[\'author\'\]\[i\].split(\';\')
+
+# Format in CSV is "lastname, firstname"
+
+# NADA API - "authors":\[{"first_name":"","initial":"",
+"last_name":""}\]
+
+for a in authors:
+
+this_author = {\'first_name\': (a.split(\',\')\[1\]).strip(),
+
+\'last_name\': (a.split(\',\')\[0\]).strip()
+
+}
+
+author_list.append(this_author)
+
+language = \[\]
+
+lang_list = doc_list\[\'language\'\]\[i\].split()
+
+for lang in lang_list:
+
+ln = {}
+
+if lang == "English":
+
+ln = {"name": \'English\', "code": \'EN\'}
+
+elif lang == "French":
+
+ln = {"name": \'French\', "code": \'FR\'}
+
+language.append(ln)
+
+ctry_list = \[\]
+
+countries = doc_list\[\'countries\'\]\[i\].split(\';\')
+
+for c in countries:
+
+ctry = {\'name\': c.strip()}
+
+ctry_list.append(ctry)
+
+# Document the file, and publish in the NADA catalog
+
+this_doc_metadata = {
+
+\'metadata_information\': {
+
+# This block is optional but recommended
+
+\'producers\': \[{\'name\': "NADA team"}\],
+
+\'production_date\': "2021-09-11",
+
+\'version\': "v01",
+
+},
+
+\'document_description\': {
+
+\'title_statement\':
+
+{"idno": idno,
+
+"title": title
+
+},
+
+\'type\': dtype,
+
+\'abstract\': abstract,
+
+\'ref_country\': ctry_list,
+
+\'date_published\': date,
+
+\'languages\': language,
+
+\'series\': series,
+
+\'authors\': author_list,
+
+\'publisher\': publisher,
+
+}
+
+}
+
+# Publish the document in the NADA central catalog
+
+idno =
+this_doc_metadata\[\'document_description\'\]\[\'title_statement\'\]\[\'idno\'\]
+
+nada.create_document_dataset(
+
+dataset_id=idno,
+
+repository_id="central",
+
+published=1,
+
+overwrite="yes",
+
+\*\*this_doc_metadata,
+
+thumbnail_path=thumb_file
+
+)
+
+# # # Note: to publish the document in a collection (e.g.
+"Handbooks"), we would
+
+# # # enter repositoryid = "Handbooks" instead of "repositoryid =
+"central".
+
+# # # The collection must have been previously created in the
+catalog.
+
+# #
+
+# # #
+==============================================================================
+
+# # # Uploading the document metadata will not upload the document
+itself. To make
+
+# # # the document available in/from the catalog, we need to upload
+the file to the
+
+# # # server or provide a link to an external URL, as an "external
+resource".
+
+# # # More than one resource can be attached to a catalog entry, as
+long as their
+
+# # # title differ; here, some documents are available in PDF and TXT
+formats.
+
+# # #
+==============================================================================
+
+# #
+
+# # # The "type" column in the CSV file does not comply with dctype
+in the
+
+# # # external resources schema; we map the types accordingly
+
+# # # Note: to get a list of types found in the doc_list dataframe,
+use:
+
+# # doc_list\[\'type\'\].value_counts()
+
+reference_documents = \["book", "manual"\]
+
+if doc_list\[\'type\'\]\[i\] in reference_documents:
+
+dctype = "doc/ref"
+
+# # # # # Provide a link to the PDF file and to the TXT file if it
+exists
+
+# # # # # If we have links to a PDF and a TXT file, we mention the
+format in the title.
+
+if pd.notna(doc_list\[\'pdf_url\'\]\[i\]):
+
+title_pdf = title + " - PDF version"
+
+if pd.notna(doc_list\[\'txt_url\'\]\[i\]):
+
+title_txt = title + " - TXT version"
+
+# # # # # # Create link to PDF file
+
+if pd.notna(doc_list\[\'pdf_url\'\]\[i\]):
+
+nada.add_resource(
+
+dataset_id=idno,
+
+dctype=dctype,
+
+title=title_pdf,
+
+file_path=doc_list\[\'pdf_url\'\]\[i\],
+
+overwrite="yes"
+
+)
+
+#
+
+# # # # Create link to TXT file, if it exists
+
+if pd.notna(doc_list\[\'txt_url\'\]\[i\]):
+
+nada.add_resource(
+
+dataset_id=idno,
+
+dctype=dctype,
+
+title=title_txt,
+
+file_path=doc_list\[\'txt_url\'\]\[i\],
+
+overwrite="yes"
+
+)
+
+# # # Alternative: If we wanted to upload the PDF file instead of
+providing a link :
+
+# nada.add_resource(
+
+# dataset_id=idno,
+
+# dctype=dctype,
+
+# title=title,
+
+# file_path=pdf_filename,
+
+# overwrite="yes"
+
+# )
+```
+
+## Adding an entry: table
+
+Currently no option to upload a metadata file (will be implemented in
+future versions of NADA). Can enter from scratch, or generate the
+metadata and upload using the API.
+
+## Loading metadata files 
+
+Option not yet available in NADA.
+
+## Creating from scratch
+
+![](~@imageBase/images/image108.png)
+
+![](~@imageBase/images/image109.png)
+
+## Using the API 
+
+Use Case 006
+
+Use Case 013
+
+Use Case 016
+
+Deleting:
+
+## Adding an entry: time series
+
+Currently no option to upload a metadata file (will be implemented in
+future versions of NADA). Can enter from scratch, or generate the
+metadata and upload using the API.
+
+Two components: series, and source database.
+
+## Loading metadata files 
+
+Option not yet available in NADA.
+
+## Creating from scratch
+
+![](~@imageBase/images/image110.png)
+
+![](~@imageBase/images/image111.png)
+
+## Using the API 
+
+Use Case 007
+
+## Adding an entry: image
+
+Currently no option to upload a metadata file (will be implemented in
+future versions of NADA). Can enter from scratch, or generate the
+metadata and upload using the API.
+
+## Loading metadata files 
+
+Option not yet available in NADA.
+
+## Creating from scratch
+
+![](~@imageBase/images/image112.png)
+
+![](~@imageBase/images/image113.png)
+## Using the API 
+
+The API advantage: face detection, labels, ...
+
+Use Case 002
+
+Use Case 003
+
+Use Case 006
+
+## Adding an entry: video
+
+Currently no option to upload a metadata file (will be implemented in
+future versions of NADA). Can enter from scratch, or generate the
+metadata and upload using the API.
+
+## Loading metadata files 
+
+Option not yet available in NADA.
+
+## Creating from scratch
+
+## Using the API 
+
+Use Case 005
+
+## Adding an entry: scripts
+
+Currently no option to upload a metadata file (will be implemented in
+future versions of NADA). Can enter from scratch, or generate the
+metadata and upload using the API.
+
+## Loading metadata files 
+
+Option not yet available in NADA.
+
+## Creating from scratch
+
+![](~@imageBase/images/image114.png)
+
+![](~@imageBase/images/image115.png)
+
+## Using the API 
+
+## Deleting an entry
+
+## Using the administrator interface 
+
+## Using the API 
+
+## Replacing an entry
+
+## Using the administrator interface 
+
+## Using the API 
+
+## Editing an entry
+
+Risk of discrepancy
+
+## Using the administrator interface 
+
+## Using the API 
+
+Powerful automation options. Can programmatically change any specific
+piece of metadata, for one or multiple entries.
+
+See the NADAR or PyNADA documentation.
+
+## Publishing/unpublishing
+
+## Using the administrator interface 
+
+In the Manage studies page:
+
+![](~@imageBase/images/image116.png)
+![](~@imageBase/images/image117.png)
+
+![](~@imageBase/images/image118.png)
+
+In the study page:
+
+![](~@imageBase/images/image119.png)
+
+## Using the API 
+
+When an entry is added:
+
+To change it:
+
+## Enabling a document viewer
+
+## Using the administrator interface 
+
+## Using the API 
+
+## Publishing data in MongoDB 
+
+Data can be published in MongoDB (assuming installed). Data will then be
+accessible via API. Applies to time series and tables, possibly
+microdata.
+
+Condition: data in long format. Use R, Python or other tool to convert
+to appropriate format.
+
+Preferably, numeric (factor) variables for efficiency.
+
+Saved in CSV.
+
+Uploaded with data dictionary. Then available.
+
+Can only be done via API (not UI).
+
+Access policy for data published in API: ...
+
+## Organizing/formatting data
+
+## Data dictionary
+
+## Lookup file
+
+## Uploading
+
+## Informing users
+
+## Adding visualizations using widgets
+
+Dynamic visualizations such as charts and maps can be added to a catalog
+entry page using widgets. The use of widgets is only possible via the
+API (this cannot be done through the administrator interface). The
+visualizations are generated outside NADA, for example using a
+JavaScript library. NADA itself does not provide a tool for creating
+visualizations; it only provides a convenient solution to embed
+visualizations in catalog pages. The NADA demo catalog includes such
+visualizations. See for example:
+
+-   <https://nada-demo.ihsn.org/index.php/catalog/49> (line/bar chart,
+    choropleth map, data preview)
+
+-   <https://nada-demo.ihsn.org/index.php/catalog/87> (choropleth map)
+
+-   <https://nada-demo.ihsn.org/index.php/catalog/97> (age pyramid)
+
+Visualizations can however be applied to any data type, as long as the
+underlying data are available via an API (the NADA data API, or an
+external API).
+
+The widgets (zip files) used in the NADA demo catalog are available in
+the NADA GitHub repository (Use Cases).
+
+## Requirements
+
+A visualization widget can be added to a catalog page in two steps.
+First, upload a zipped widget source file to a catalog. Second, attach
+the widget to entry page(s). A zipped widget file contains one
+[index.html]{.underline} file, and supporting files such as a CSS and a
+thumbnail image.
+
+In R:
+
+library(nadar)
+
+widgets_create
+
+uuid = widget_uuid,
+
+options = list(
+
+title = "title of widget",
+
+thumbnail = "thumbnail.jpg",
+
+description = "description of widget"
+
+),
+
+zip_file = zip_file
+
+)
+
+widgets_attach(
+
+idno = dataset_id,
+
+uuid = widget_uuid
+
+)
+
+In Python:
+
+import pynada as nada
+
+nada.upload_widget(
+
+widget_id = widget_uuid,
+
+title = " title of widget ",
+
+file_path = zip_file,
+
+thumbnail = "thumbnail.JPG",
+
+description = " description of widget "
+
+)
+
+nada.attach_widget(
+
+dataset_id = dataset_id,
+
+widget_id = widget_uuid,
+
+)
+
+With the widget APIs, you can manage widgets and attachments separately.
+Oftentimes, many entry pages have a common data API and a same type of
+visualization, in which case a single widget can be used to display
+different datasets by reading the dataset ID that the widget is attached
+to as follows:
+
+datasetID = parent.document.getElementsByClassName(\'study-idno\')\[0\]
+
+Thus, it is advisable to codify key contents of entry pages, such as
+country names and indicator series, and include the codes in dataset IDs
+so that a widget can load different data with the codified parameters
+from data API.
+
+Since a widget is a self-sufficient web application, it is possible to
+import any JavaScript libraries to visualize data. It is also desirable
+to utilize a front-end framework (ex. Vue JS) and a CSS framework (ex.
+Bootstrap JS) to implement a JavaScript widget in a more structured way.
+The following examples are implemented using open-source Java libraries
+including jQuery, Vue, Bootstrap, eCharts (chart), Leaflet (map), and
+Tabulator (grid). Other libraries/frameworks could be used.
+
+## Example 1: eCharts bar/line chart
+
+![](~@imageBase/images/image120.png)
+
+![](~@imageBase/images/image121.png)
+
+## Example 2: eCharts map
+
+![](~@imageBase/images/image122.png)
+
+![](~@imageBase/images/image123.png)
+
+## Example 3: location of image in a OSM map
+
+![](~@imageBase/images/image124.png)
+
+![](~@imageBase/images/image125.png)
+
+## Other examples:
+
+Demo catalog ; links to GitHub
+
+## Adding a data preview grid 
+
+The grids are generated outside NADA. In the example below, the grid
+produced using the open-source W2UI application. Other applications
+could be used, such as Grid JS, Tabulator, or other (including
+commercial applications). NADA itself does not provide a tool for
+generating data grids; it only provides a convenient solution to embed
+grids in catalog pages.
+
+![](~@imageBase/images/image126.png)

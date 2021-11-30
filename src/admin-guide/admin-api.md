@@ -1,31 +1,14 @@
-# Site administration using API
+# Use of the API: use cases
 
-## Login as Admin
+The API allows many convenient automation. We present some use cases.
+Use cases are on GitHub with R and Python code.
 
-## Dashboard
+## Edit targeted fields
 
-## Collections
+## Adding widgets
 
-## Studies
+## Image recognition and exclusion of faces
 
-## Manage license requests
+## Harvesting
 
-## Site menu
-
-## Users
-
-## Citations
-
-## Data deposits
-
-## Facets
-
-## Regions and Countries
-
-## Translate
-
-## Reports and site logs
-
-## Site configurations
-
-
+## Publishing to CKAN

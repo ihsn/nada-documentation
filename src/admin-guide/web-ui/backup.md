@@ -78,7 +78,7 @@ https://www.mysql.com/products/workbench/
 i) Launch the MySQL WorkBench application
 ii) On launching the application for first time, you will need to setup a "New Server Instance". This is needed to setup a connection to the database to run queries and backup/restore databases.
 
-![](~@imageBase/images/mysql-workbench.png)
+![](/images/mysql-workbench.png)
 
 
 **Steps to Create New Server Instance:**
@@ -90,7 +90,7 @@ iv) Double click on Server instance you have created OR Click on Manage Import/E
 v) Under "Server Administration", you have the options to import and export database.
 vi) To backup an existing database:
 
-![](~@imageBase/images/mysql-workbench-export.png)
+![](/images/mysql-workbench-export.png)
 
 
 Select "Data Export" under DATA EXPORT/RESTORE. Select the database for export and then pick the option at the bottom "Export to Self-Contained File", take note of the file path as this is where the backup file will be created. Now click on the "Start Export" button to export the database.

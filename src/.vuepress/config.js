@@ -69,7 +69,7 @@ module.exports = {
           '/intro/overview-ui',
         ]
       },
-      {
+      /*{
         title: 'User guide',   // required
         path: '/user-guide/',      // optional, link of the title, which should be an absolute path and must exist
         collapsable: false, // optional, defaults to true
@@ -77,7 +77,7 @@ module.exports = {
         children: [
           '/user-guide/'
         ]
-      },
+      },*/
       {
         title: 'Installation guide',
         path: '/installation-guide/',
@@ -115,33 +115,54 @@ module.exports = {
         ],
         //initialOpenGroupIndex: -1 // optional, defaults to 0, defines the index of initially opened subgroup
       },
+
+      {
+        title: 'Getting started',   // required
+        path: '/getting-started/',      // optional, link of the title, which should be an absolute path and must exist
+        collapsable: false, // optional, defaults to true
+        sidebarDepth: 1,    // optional, defaults to 1
+        children: [
+          '/getting-started/'
+        ]
+      },
+
       {
         title: 'Administrator guide',
         collapsable: false, // optional, defaults to true
-        sidebarDepth: 2,    // optional, defaults to 1
+        sidebarDepth: 4,    // optional, defaults to 1
         children: [
-          '/admin-guide/',
+          '/admin-guide/overview',
+          '/admin-guide/core-concepts',
           '/admin-guide/organize-files',
           '/admin-guide/ui-vs-api',
           '/admin-guide/api-tools',
-
+          /*'/admin-guide/site-admin',*/
           {
             title: "Site administration",
             path: "/admin-guide/web-ui/",
-            collapsable: false,
+            collapsable: true,
+            sidebarDepth: 4,
             children: [
-              '/admin-guide/web-ui/intro',
-              /*'/admin-guide/web-ui/dashboard',
-              '/admin-guide/web-ui/collections',
-              '/admin-guide/web-ui/studies',
-              '/admin-guide/web-ui/licensed-requests',
-              '/admin-guide/web-ui/citations',
-              '/admin-guide/web-ui/users',
-              '/admin-guide/web-ui/site-menus',
+              '/admin-guide/web-ui/login',
+              '/admin-guide/web-ui/dashboard',
               '/admin-guide/web-ui/site-configurations',
-              '/admin-guide/web-ui/backup'*/
+              '/admin-guide/web-ui/countries',
+              '/admin-guide/web-ui/regions',
+              '/admin-guide/web-ui/site-menus',
+              '/admin-guide/web-ui/studies',              
+              '/admin-guide/web-ui/collections',
+              '/admin-guide/web-ui/facets',
+              '/admin-guide/web-ui/citations',
+              '/admin-guide/web-ui/licensed-requests',
+              '/admin-guide/web-ui/users',
+              '/admin-guide/web-ui/reports',
+              '/admin-guide/web-ui/data-deposit',
+              '/admin-guide/web-ui/data-deposit-admin',
+              '/admin-guide/web-ui/translate',
+              '/admin-guide/web-ui/backup',
+              '/admin-guide/web-ui/use-api',              
             ]
-          }, 
+          },
           '/admin-guide/admin-api'
         ],
         //initialOpenGroupIndex: -1 // optional, defaults to 0, defines the index of initially opened subgroup

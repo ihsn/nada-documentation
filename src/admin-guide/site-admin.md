@@ -1,4 +1,4 @@
-# Site administation
+# Site administration
 
 ## Login
 

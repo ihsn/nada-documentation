@@ -1,119 +1,213 @@
-# Managing Users
+# Managing users
 
-Users in the NADA can be defined according to three broad groups:
+![](~@imageBase/images/image178.png)
 
-**General Users**– this is the normal user who registers on a NADA site from the user interface. This user type has no access to the site administration. It is required to register as a user before being granted access to public use and licensed data types.
+## Viewing, creating, modifying, deleting user accounts
 
-**Site Administrators (unlimited)** – this user has access to all functions and all collections within the Site Administration. System wide access.
+## Types of User Accounts
 
-**Limited Administrators** – these administrators have access to a limited set of functions within the Site Administration. Examples would be an administrator of a specific collection\s, or licensed survey reviewer for all or only some collections, or report generator, or citation manager etc.
- 
+When the NADA software is first installed a **Site Administrator**
+account will be created as part of the installation process.
 
-## Creating User accounts
+Three types of user accounts are possible in the NADA: (i) Site
+Administrators; and (ii) Regular users; (iii) Administrators with
+Specific Roles
 
-**User accounts can be created in two ways:** 
+**Regular Users** -- this is a regular user who registers on a NADA site
+from the user interface. This user type has no access to the site
+administration. It is required to register as a user before being
+granted access to public use and licensed data types.
 
-A.	A General User account can be created by a user directly from the register screen from the login link on the user interface of the application.
- 
-![](~@imageBase/images/register.png) 
+**Site Administrators (unlimited**) -- this user has access to all
+functions and all collections within the Site Administration. System
+wide access.
 
-The user created by this process has no access to the site administration. This account can only be used to apply and gain access to public and licensed datasets.
+**Administrators with Specific Roles --** these users have a limited set
+of administrator roles assigned to them. For example, to manage licensed
+requests or manage collections. Unlike Site Administrators these users
+are limited to administering only particular parts of the NADA catalog
+and the Administrator interface.
 
-B.	A user account can also be created by a Site Administrator. 
+## User Roles
 
-* To do this login as a Site Administrator
+Often organizations will not want to assign full administrative rights
+to all members of staff managing the catalog. It is may be desirable to
+only assign roles to administrative users based on a limited set of
+responsibilities they may have in maintaining the catalog. The NADA
+allows granular roles to be assigned to administrator user accounts. For
+example, some administrators can be limited to managing licensed
+requests but would not be able to manage user accounts or create
+collections. Other administrators would be limited to metadata reviewer
+roles etc.
 
-* Go to the site administration section of the application.
+## Creating User Accounts
 
-*	Select Users – Add user from the top menu.
+A.  **Regular User accounts** can be created in two ways: (i) by
+    registering an account through the account login page from the
+    **User Interface** of the application or (ii) by an Administrator
+    through the User management section of the Administrator Interface.
 
-![](~@imageBase/images/register.png) 
+```{=html}
+<!-- -->
+```
+(i) A **Regular User** account can be created by a site visitor directly
+    from the register screen from the login link on the user interface
+    of the application.
 
-*	Fill in the information for the user in the form and be sure to mark the account status as Active. Then click the Create button.
- 
-![](~@imageBase/images/create-new-user.png) 
+![](~@imageBase/images/image179.png)
 
-*	Note that the user always starts off as a General User with no access permissions to the Site Administration. The user group column displays as empty for users with only general user accounts.
+![](~@imageBase/images/image180.png)
 
-*	To see a list of all users in the system go to the Users – All Users menu item at the top of the screen.
+The **Regular User** created by this process ***has no access to the
+site administration.*** This account can only be used to apply and gain
+access to public and licensed datasets.
 
-![](~@imageBase/images/user-list.png) 
+(ii) **Regular User** accounts can also be created by an existing
+     **Administrator** from the **Users** menu in the **Administrator
+     Interface**.
 
-*	Note: the new users created have no User group assigned (they are general users). Also note the Actions column on the far right. From these links an account can be edited (including changing the password and blocking an account), deleted and Permissions managed for the account.  
+```{=html}
+<!-- -->
+```
+B.  **Administrator accounts** can only be created/ modified/deleted/ by
+    an existing **Administrator** from the **Users** menu in the
+    **Administrator Interface**.
 
+User accounts can be viewed, created, modified, and deleted from the
+Administrator interface through the **All *users*** menu item in the top
+menu bar ***once logged in as an Administrator***.
 
-## Managing User Account Permissions
+![](~@imageBase/images/image178.png)
 
-User accounts permissions can be only be set and changed by a Site Administrator. To change the permissions for an account:
+The **User Management** interface displays all accounts listed in the
+catalog in a tabular format.
 
-*	Click on the Permissions link next to the account to be changed. All accounts start of as General users accounts
- 
-![](/images/edit-user-permissions.png) 
+![](~@imageBase/images/image181.png)
 
-*	To change this user to a full site administrator who will have full system wide access to all parts and functions of the NADA administration select the Site administrators (full access) option and tick the admin box as well. Click update to save the changes.
- 
+To create a new user from the Administrator view, either (i) select the
+**Add user** option in **Users** menu, or (ii) click on the **Create new
+user account** button in **User Management** interface. Both methods
+will take the Administrator to the account creation form.
 
-## Collection level administrators
+![](~@imageBase/images/image178.png)
 
-*	To create a user who only has permissions to administer studies or administration functions for a particular collection. Select Site administrators (limited access)
- 
+![](~@imageBase/images/image182.png)
 
-*	It is then necessary to assign a role to this new limited administrator account. To create a limited access administrator for a particular collection – select Site administrators (limited access) and then select Collection administrators. Notice: The form expands to reveal a list of collections in the system. 
+![](~@imageBase/images/image183.png)
 
-*	Select the appropriate level of access that this account will have for this collection. In the example below an administrator is being created who can manage only licensed requests for the collection – Health Surveys. This account will not be able to upload or publish studies. The account will only be able to process licensed requests for the collection – Health Surveys.
+Administrators can also **Edit** and **Delete** accounts. This is done
+from the ***Actions*** column in the User Management section.
 
-**Other levels of access for Site administrators (limited access) – Collection administrators include:**
+![](~@imageBase/images/image184.png)
 
-A. Accounts that are given full access to manage studies
-B. Accounts that are given access to upload studies but not publish them 
-C. Accounts that are limited to reviewing studies.
- 
+## Defining roles
 
-## Global level Limited access accounts
+## Creating and assigning user roles
 
-**Other types of limited access accounts include:**
+Often organizations will not want to assign full administrative rights
+to all members of staff managing the catalog. It is may be desirable to
+only assign roles to administrative users based on a limited set of
+responsibilities they may have in maintaining the catalog. The NADA
+allows granular roles to be assigned to administrator user accounts. For
+example, some administrators can be limited to managing licensed
+requests but would not be able to manage user accounts or create
+collections. Other administrators might be limited to metadata reviewer
+roles etc.
 
-A. Accounts that can only view system reports at a global level.
-B. Accounts that can only access the citations section and manage citations
-C. Accounts that can only access the Licensed Request management system – at the global level for all collections.
- 
+## Creating a User Role
 
-**Impersonating a user**
+**A role needs to be defined before it can be assigned to a User.**
 
-The system includes a function that allows a Site Administrator to impersonate (take on the role) a user created in the system. This is a useful testing tool when creating users and assigning permissions. It essentially allows the administrator to take on the role of another user temporarily.
+A.  To create a User Role, click on the User Roles button in the top
+    right of the **User Management** screen.
 
-*	To access the Impersonate User feature go to the Users – Impersonat user menu at the top of the screen
- 
-![](~@imageBase/images/impersonating-user.png)
+![](~@imageBase/images/image185.png)
 
-*	A list of users to impersonate is shown. 
+B.  In the ***Create a new role box*** enter a role name and short
+    description for the role. Then click the **Create a new role
+    button**.
 
+The new role will be created and listed in the **Manage Roles** table.
 
-*	Select the user to impersonate and click on the impersonate button.
+![](~@imageBase/images/image186.png)
 
-*	The dashboard view for the impersonated user now shows
- 
-* Note in the example above the account being impersonated is a Limited Account administrator with rights only to manage licensed requests for the Health Surveys Collection. Note that all other dashboard menus are either hidden or clicking on any other function other than manage studies results in an access denied message. 
+C.  Next the permissions for the new role need to be defined. To set the
+    permissions click on the Permissions link next to the role you wish
+    to assign permissions to.
 
-*	This is a good way to test if the roles assigned to a user account have the expected results.
+![](~@imageBase/images/image187.png)
 
-*	To exit the impersonate mode and return to the Site Administrator role – Click on the top right menu and select Exit impersonate mode.
- 
-![](~@imageBase/images/exit-impersonating-mode.png)
+D.  Select the set of permissions you wish to assign and then click the
+    submit button at the bottom of the screen.
 
+![](~@imageBase/images/image188.png)
 
-## The Reviewer Limited access account
+The following permission\\roles can be assigned:
 
-Sometimes it is desirable for catalog administrators to allow certain users to see a collection before it is published but without granting access to the site administration functions. 
+-   Site Administration -- View
 
-This is useful for getting feedback on the correctness of information on collections or studies before publishing.
+-   Site menu pages -- View, Create, Edit, Delete
 
-To do this:
+-   Citations -- View, Create, Edit, Delete
 
-*	First create an account for the user or get the user to create an account by using the register form on the login screen.
+-   Users -- View, Create, Edit, Delete
 
-*	Then edit the permissions for that user selecting Site Administrator (limited access) – Collection administrator
+-   Licensed Requests -- View, Create, Edit, Delete
 
-*	Then for the appropriate collection select Reviewer and  click update to save the changes
+-   Manage Collections -- View, Create, Edit, Delete, Publish
 
-*	The newly created reviewer account user can now view all studies in a collection even if the study or collection is unpublished. 
+-   Manage Studies -- View, Create, Edit, Delete, Publish
+
+-   Reports-- View
+
+-   Site Configurations-- Edit
+
+-   Site Configurations-- Edit
+
+-   Vocabularies-- Edit
+
+-   Country configurations-- Edit
+
+-   Regions-- Edit
+
+-   Site translations -- Edit
+
+-   Permissions by collection-- View, Create, Edit, Delete, Publish
+
+In the example above permissions were assigned that would allow the user
+to only administer Licensed requests. The user was assigned permissions
+to View, Create, Edit, Delete licensed requests.
+
+E.  To edit or delete a role click on the *Edit, Delete* links for that
+    role in the Roles section
+
+## Assigning a role to a User
+
+In our example we created a role for a Licensed dataset reviewer that
+would allow the person assigned that role to manage all parts of the
+Licensed data management system.
+
+To assign that role to the user Peter in the example below we need to
+edit the information for that user.
+
+A.  Click the edit button next to the user you want to assign the role
+    to.
+
+![](~@imageBase/images/image189.png)
+
+B.  Select the Licensed Request Review Role at the bottom of the page as
+    well as any other Roles you want user Peter to fulfill. Then click
+    the **Update** button.
+
+![](~@imageBase/images/image190.png)
+
+![](~@imageBase/images/image191.png)
+
+Note that if a role is deleted, it will not delete user accounts that
+are associated with the role. The users will just not have access to the
+deleted role anymore. For example, if a user has the "Licensed reviewer"
+role, and if we delete the "Licensed reviewer" role from the catalog.
+The user account won't be deleted, but it loses the Licensed reviewer
+role.
+
+## Using the API 
