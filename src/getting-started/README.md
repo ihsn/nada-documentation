@@ -18,6 +18,14 @@ where the resource files are expected to be found).
 
 > ![](~@imageBase/images/image16.png)
 
+```r
+library(nadar)
+library(readxl)
+library(rlist)
+library(stringr)
+```
+
+
 ```text
 Files:
 
