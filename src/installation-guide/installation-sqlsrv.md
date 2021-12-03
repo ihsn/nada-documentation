@@ -1,4 +1,4 @@
-# Installation (SQL server)
+# Installation (MS-SQL server)
 
 To use Microsoft SQL Server database with NADA, it is recommended to use SQL Server 2012, or later, with **Full-Text** support enabled. The full-text engine provides faster search than the normal SQL search.
 

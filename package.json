@@ -16,5 +16,8 @@
   "devDependencies": {
     "markdown-it-imsize": "^2.0.1",
     "vuepress": "^1.5.3"
+  },
+  "dependencies": {
+    "vuepress-plugin-code-copy": "^1.0.6"
   }
 }
