@@ -12,7 +12,7 @@ NADA does not impose any organization of your files and folders. But if you mana
 
 **Recommendations by data/resource type**
 
-**Microdata:**
+## Microdata
 
 -   Create a directory for each dataset, we suggest you name it to indicate the survey/census abbreviated name and time-period it was conducted
 
@@ -24,7 +24,7 @@ NADA does not impose any organization of your files and folders. But if you mana
 
 ![](~@imageBase/images/image42.png)
 
-**Documents**
+## Documents
 
 The documents folder can hold various types of documents, with assignment of document filenames e.g., filenames that indicate the document type, author and year and any other relevant details that would make it convenient for machines and humans to appropriately identify and manage the file.
 
@@ -32,19 +32,19 @@ The documents folder can hold various types of documents, with assignment of doc
 
 ![](~@imageBase/images/image43.png)
 
-**Geospatial Data**
+## Geospatial Data
 
 ![](~@imageBase/images/image44.png)
 
 Machine readable folder and sub-folder names that indicate the geographical coverage, time-period and version as well as the contents of each folder. The original data should be stored separately in a clearly labeled folder and should not be overwritten.
 
-**Tables**
+## Tables
 
 ![](~@imageBase/images/image45.png)
 
 Machine readable folder and sub-folder names that indicate the geographical coverage, time-period and folder content. The original data should be stored separately in a clearly labeled folder and should not be overwritten.
 
-**Time Series**
+## Time Series
 
 ![](~@imageBase/images/image46.png)
 
