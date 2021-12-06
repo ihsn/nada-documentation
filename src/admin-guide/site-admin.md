@@ -16,107 +16,96 @@ The Site administration link will open the administrator interface ("Dashboard")
 
 The Profile link will display your profile, with an option to edit its content and to generate your API keys. An API key will be required to programmatically add, edit, extract, or delete information from the NADA catalog, using R or Python for example. The privileges that the API key will provide depend on the permissions you have to administer the catalog or specific component of it. 
 
-API keys, especially those with administrator privileges attached to them, are like your password and must be kept strictly confidential. If you have any reason to believe that your key has been compromised, cancel it immediately, and generate a new key.
+::: tip NOTE API keys, especially those with administrator privileges attached to them, are like your password and must be kept strictly confidential. If you have any reason to believe that your key has been compromised, cancel it immediately, and generate a new key. :::
 
 ![](~@imageBase/images/image51.png)
 
 ### Using the API 
 
-The profile can only be edited in the administrator interface.
+The profile can only be edited in the administrator interface; it cannot be edited using the API.
 
-The equivalent of login when using the API is to provide the URL and
-entering your key.
+The equivalent of login when using the API is to provide the catalog URL and entering an API key.
 
 In R:
 
-set_api_key
+```r
 
-set_api_url
+library(nadar)
 
-set_api_verbose
+# Setting the API key for authenticating as administrator (equivalent to "login")
+# The API key should never be entered in clear in a script; this information is like a
+# password that should never be revealed. A common practice is to store the key in an external,
+# confidential file (e.g., CSV) and to have the script read it from there.
+
+my_keys <- read.csv("C:/CONFIDENTIAL/my_keys.csv", header = F, stringsAsFactors = F)
+set_api_key(my_keys[5,1])  # Assuming the key is in cell A5
+
+# Providing the catalog URL:
+
+set_api_url("http://nada-demo.ihsn.org/index.php/api/") 
+set_api_verbose(FALSE)
+
+```
 
 In Python:
+```python
 
-Note: restricting the API use to certain IP addresses.
+import pynada as nada
+import pandas as pd
+
+# Setting the API key for authenticating as administrator (equivalent to "login")
+# The API key should never be entered in clear in a script; this information is like a
+# password that should never be revealed. A common practice is to store the key in an external,
+# confidential file (e.g., CSV) and to have the script read it from there.
+
+my_keys = pd.read_csv("C:/CONFIDENTIAL/my_keys.csv", header = None)
+nada.set_api_key(my_keys.iat[4, 0])  # Assuming the key is in cell A5
+
+# Providing the catalog URL:
+
+nada.set_api_url('https://nada-demo.ihsn.org/index.php/api/')
+nada.set_api_verbose(FALSE)
+
+```
+
+Note: As an additional security, the API use can be restricted to some specific IP addresses. See ...
 
 ## Dashboard
 
 ### Using the administrator interface 
 
-After logging in to the site with administrator credentials, you will be
-taken to the Dashboard page of the Administrator interface. The page
-also includes the menu that provides access to all sections of the
-administrator interface.
+After logging in to the site with administrator credentials, you will be taken to the **Dashboard** page of the Administrator interface. The page also includes the menu that provides access to all sections of the administrator interface.
 
 ![](~@imageBase/images/image52.png)
 
-The Dashboard provides a quick glance summary for administrators to get
-an overall picture of the content of the catalog as well as of pending
-tasks for the administrator.
+The Dashboard provides a quick glance summary for administrators to get an overall picture of the content of the catalog as well as of pending tasks for the administrator.
 
 ![](~@imageBase/images/image53.png)
 
-Box 1 (*Central Data Catalog*) provides information on the total number
-of entries (of any type) listed in the catalog. It distinguishes the
-entries that are "owned" by the Central Catalog (entries managed by the
-Central Catalog administrator, that are not owned by a specific
-collection or "sub-catalog) from the "linked" entries (those that are
-owned by a collection but displayed in the Central catalog). It also
-distinguishes the entries that are published (i.e., visible by visitors
-of the catalog site) from those that are in draft ("unpublished") mode,
-only visible to the administrators and reviewers. The box also contains
-some warnings. It will for example indicate the number of micro-datasets
-published as "Public Use Files" but for which no data files are
-available in the catalog, or the number of microdata entries for which
-no document of type "questionnaire" is provided.
+Box 1 (*Central Data Catalog*) provides information on the total number of entries (of any type) listed in the catalog. It distinguishes the entries that are "owned" by the Central Catalog (entries managed by the Central Catalog administrator, that are not owned by a specific collection or "sub-catalog) from the "linked" entries (those that are owned by a collection but displayed in the Central catalog). It also distinguishes the entries that are published (i.e., visible by visitors of the catalog site) from those that are in draft ("unpublished") mode, only visible to the administrators and reviewers. The box also contains some warnings. It will for example indicate the number of micro-datasets published as "Public Use Files" but for which no data files are available in the catalog, or the number of microdata entries for which no document of type "questionnaire" is provided.
 
-The button Manage studies will open the catalog administration page that
-provides the tools for adding, editing, and deleting catalog entries
-(described in section Manage studies of this Guide). The button History
-provides a listing of additions to the Collection (in this case the
-Central Catalog), with information on the date when the entry was
-created and last modified (the buttons displayed in this page are
-described in section Manage collections).
+The button Manage studies will open the catalog administration page that provides the tools for adding, editing, and deleting catalog entries (described in section Manage studies of this Guide). The button History provides a listing of additions to the Collection (in this case the Central Catalog), with information on the date when the entry was created and last modified (the buttons displayed in this page are described in section Manage collections).
 
 ![](~@imageBase/images/image54.png)
 
-Box 2 (*Collection: \[collection name\]*) will only be displayed when
-your catalog contains Collections. One box will be displayed per
-collection, with the same information as in Box 1. Two additional
-buttons are provided, which provide access respectively to a page
-allowing the catalog administrator(s) with appropriate credentials to
-edit the permissions attached to the collection, and to edit the
-description of the collection (see Managing collections section).
+Box 2 (*Collection: \[collection name\]*) will only be displayed when your catalog contains Collections. One box will be displayed per collection, with the same information as in Box 1. Two additional buttons are provided, which provide access respectively to a page allowing the catalog administrator(s) with appropriate credentials to edit the permissions attached to the collection, and to edit the description of the collection (see Managing collections section).
 
-Box 3 (*Users*) provides summary information on the number of users
-registered to the catalog (which includes not only the catalog and
-collections administrators, but also users who registered to the catalog
-to obtain or request access to non-public data).
+Box 3 (*Users*) provides summary information on the number of users registered to the catalog (which includes not only the catalog and collections administrators, but also users who registered to the catalog to obtain or request access to non-public data).
 
-Box 4 (*Recently updated studies*) is a listing of the most-recently
-added (or modified) entries in the catalog, with a link to the entry
-page allowing administrators to edit it.
+Box 4 (*Recently updated studies*) is a listing of the most-recently added (or modified) entries in the catalog, with a link to the entry page allowing administrators to edit it.
 
 ### Using the API 
 
-Related endpoints:
+There is no real equivalent to the dashboard in the API. But the content of the dashboard can be generated using the API as follows:
 
-<https://ihsn.github.io/nada-api-redoc/catalog-admin/#operation/listDatasets>
+[... to do ...]
 
-<https://ihsn.github.io/nada-api-redoc/catalog-admin/#operation/singleDataset>
-
-Using R:
-
-The content of the dashboard can be generated using the API as follows:
-
-Datasets
 
 ## Settings
 
 ### Using the administrator interface 
 
-All settings for the application are controlled via the Settings menu at
-the top of the Site Administration page.
+All settings for the application are controlled via the Settings menu at the top of the Site Administration page.
 
 ![](~@imageBase/images/image55.png)
 
@@ -128,63 +117,40 @@ There are seven main settings sections.
 
 ![](~@imageBase/images/image57.png)
 
-The **Website title** will become the frontpage title of the NADA
-catalog. In the user interface:
+The **Website title** will become the frontpage title of the NADA catalog. In the user interface:
 
 ![](~@imageBase/images/image58.png)
 
-**Website footer**: The footer text can be changed in this field. This
-displays at the bottom of your site page.
+**Website footer**: The footer text can be changed in this field. This displays at the bottom of your site page.
 
 ![](~@imageBase/images/image59.png)
 
-**Default home page**: The initial page that loads when a user visits
-the NADA site can be set here. In this case the catalog page is set to
-open by default.
+**Default home page**: The initial page that loads when a user visits the NADA site can be set here. In this case the catalog page is set to open by default.
 
-**Webmaster name**: The name of the webmaster can be set here. This is
-the name that will be used in system emails sent to users.
+**Webmaster name**: The name of the webmaster can be set here. This is the name that will be used in system emails sent to users.
 
-**Webmaster email**: Enter the webmaster email address here. This should
-be the address that will be used in communication with users. Typically,
-this is a general enquiries email set up by the organization and not a
-personal email address for a particular person. Note: to avoid mail
-systems rejecting mail as spam make sure to enter an address here that
-is on the same domain as the server used in the email settings at setup.
+**Webmaster email**: Enter the webmaster email address here. This should be the address that will be used in communication with users. Typically, this is a general enquiries email set up by the organization and not a personal email address for a particular person. Note: to avoid mail systems rejecting mail as spam make sure to enter an address here that is on the same domain as the server used in the email settings at setup.
 
-**Cache expiration time**: A cache folder stores pre- generated pages of
-the site to allow for faster browsing by the user. Set the time that the
-Cache takes to expire. By default, it is set to 2 hours (in
-milliseconds).
+**Cache expiration time**: A cache folder stores pre- generated pages of the site to allow for faster browsing by the user. Set the time that the
+Cache takes to expire. By default, it is set to 2 hours (in milliseconds).
 
-**Disable caching**: If it is desired to turn off caching then select
-"no" here. Sometimes it is useful to turn off caching when developing or
-updating a site to ensure that content changes become immediately
-visible on the front-end without having to wait for the cache to expire
-and the new changes to show. Turn this back on to speed up page loading
-for users.
+**Disable caching**: If it is desired to turn off caching then select "no" here. Sometimes it is useful to turn off caching when developing or updating a site to ensure that content changes become immediately visible on the front-end without having to wait for the cache to expire and the new changes to show. Turn this back on to speed up page loading for users.
 
 Click **Update** to save all settings.
 
 #### Language
 
-To change the language of the application, expand the language section
-and choose the desired language. Click **Update** to save and apply the
-setting.
+To change the language of the application, expand the language section and choose the desired language. Click **Update** to save and apply the setting.
 
 ![](~@imageBase/images/image60.png)
 
-The change of language will apply to both the user and the administrator
-interfaces.
+The change of language will apply to both the user and the administrator interfaces.
 
 ![](~@imageBase/images/image61.png)
 
 ![](~@imageBase/images/image62.png)
 
-If you see content that is not in the selected language, it means that
-some translations are missing. If a translation is missing, or if you
-think that the translation is not accurate, you can add/edit the
-translation yourself. See the section "Translating NADA".
+If you see content that is not in the selected language, it means that some translations are missing. If a translation is missing, or if you think that the translation is not accurate, you can add/edit the translation yourself. See the section "Translating NADA".
 
 ![](~@imageBase/images/image63.png)
 
@@ -194,8 +160,7 @@ translation yourself. See the section "Translating NADA".
 
 #### Use of HTML Editor
 
-A basic HTML editor is provided in the menu and page creating section of
-the application. This setting allows this to be turned on or off.
+A basic HTML editor is provided in the menu and page creating section of the application. This setting allows this to be turned on or off.
 
 ![](~@imageBase/images/image66.png)
 
@@ -203,96 +168,51 @@ the application. This setting allows this to be turned on or off.
 
 ![](~@imageBase/images/image67.png)
 
-**Catalog folder**: This is the folder where the files for the study are
-stored on the server. This includes the DDI, eternal resources and data
-files. This folder can be moved to a location outside the web root as
-described in the installation instructions in Chapter 1. Enter either
-relative or absolute paths to the folder location.
+**Catalog folder**: This is the folder where the files for the study are stored on the server. This includes the DDI, eternal resources and data files. This folder can be moved to a location outside the web root as described in the installation instructions in Chapter 1. Enter either relative or absolute paths to the folder location.
 
-**DDI import folder**: This is the folder where DDI's can be placed in
-order to use the bulk study import function in the NADA. In NADA3 files
-had to be physically copied to this folder on the server, but this is no
-longer necessary in NADA 4. Files can now be directly uploaded to this
-folder from the Site Administration -- Manage Studies page page.
+**DDI import folder**: This is the folder where DDI's can be placed in order to use the bulk study import function in the NADA. In NADA3 files had to be physically copied to this folder on the server, but this is no longer necessary in NADA 4. Files can now be directly uploaded to this folder from the **Site Administration > Manage Studies** page. 
 
--   Select the vocabulary to use for the topic filter. By default, this
-    is set to the CESSDA classification as recommended in the IHSN
-    templates supplied at IHSN.org for the Nesstar Metadata Publisher.
+-   Select the vocabulary to use for the topic filter. By default, this is set to the CESSDA classification as recommended in the IHSN     templates supplied at IHSN.org for the Nesstar Metadata Publisher.
 
--   Enable or disable the Country filter on the user interface search
-    page here. If the catalog only contains studies for one country,
+-   Enable or disable the Country filter on the user interface search page here. If the catalog only contains studies for one country,
     then turning this filter off is recommended.
 
--   Enable or disable the Topic filter on the user interface search page
-    here. If no topics have been defined in the DDI's being uploaded,
+-   Enable or disable the Topic filter on the user interface search page here. If no topics have been defined in the DDI's being uploaded,
     then it is recommended to turn this filter off (disable).
 
--   Enable or disable the Year filter on the user interface search page
-    here.
+-   Enable or disable the Year filter on the user interface search page here.
 
--   Enable or disable the Collection filter on the user interface search
-    page here. If no collections have been defined, then it is
-    recommended to disable this filter.
+-   Enable or disable the Collection filter on the user interface search page here. If no collections have been defined, then it is recommended to disable this filter.
 
--   Enable or disable the Data access filter on the user interface
-    search page here. This filter is not needed if there are very few
-    studies in the catalog or if all studies are set to the same access
-    type.
+-   Enable or disable the Data access filter on the user interface search page here. This filter is not needed if there are very few studies in the catalog or if all studies are set to the same access type.
 
--   This section controls the order in which the filters appear on the
-    search page. Enter numbers here that rank the order of the filters
-    in the order they should be displayed.
+-   This section controls the order in which the filters appear on the search page. Enter numbers here that rank the order of the filters in the order they should be displayed.
 
-**Catalog search page size**: This setting determines how many studies
-are displayed by default to the user on the search page -- catalog view.
+**Catalog search page size**: This setting determines how many studies  displayed by default to the user on the search page -- catalog view.
 
 ![](~@imageBase/images/image68.png)
 
 #### Site login
 
-**Password protected website:** By default, a NADA catalog created on a
-web server will be accessible to all users with access to the URL
-(intranet or internet). Users will only need to register and login when
-they want to request access, or access, non-public data. In some cases,
-however, a catalog administrator may want to restrict the access to the
-catalog to authorized persons only. This can be done by requiring that
-all users login to access the website, by selecting the option "Requires
-all users to login to access the website". *\[how do they get a
+**Password protected website:** By default, a NADA catalog created on a server will be accessible to all users with access to the URL (intranet or internet). Users will only need to register and login when they want to request access, or access, non-public data. In some cases, however, a catalog administrator may want to restrict the access to the catalog to authorized persons only. This can be done by requiring that all users login to access the website, by selecting the option "Requires all users to login to access the website". *\[how do they get a
 password?\]*
 
-**Login timeout**: determines how long a user will stay logged in. After
-the time indicated here (a positive value in minutes), the user will be
+**Login timeout**: determines how long a user will stay logged in. After the time indicated here (a positive value in minutes), the user will be
 automatically logged out.
 
-**Minimum password length**: Sets the minimum length for passwords
-created by the users at registration, or for manual user creation by
-administrators. The use of strong passwords is recommended.
+**Minimum password length**: Sets the minimum length for passwords created by the users at registration, or for manual user creation by administrators. The use of strong passwords is recommended.
 
 ![](~@imageBase/images/image69.png)
 
 #### SMTP settings
 
-NADA may need to be able to send emails to users. This will be the case
-when access to some datasets (public use files, or licensed access
-datasets) require that users be registered. Email communications will be
-used by NADA to (i) confirm and activate the user registration, and (ii)
-to inform users of the status of their requests for access to licensed
-datasets. To allow this, an email account dedicated to NADA must be
-created (possibly on a commercial email application like G-mail), and
-the SMTP must be configured to enable this account.
+NADA may need to be able to send emails to users. This will be the case when access to some datasets (public use files, or licensed access datasets) require that users be registered. Email communications will be used by NADA to (i) confirm and activate the user registration, and (ii) to inform users of the status of their requests for access to licensed datasets. To allow this, an email account dedicated to NADA must be created (possibly on a commercial email application like G-mail), and the SMTP must be configured to enable this account.
 
-The SMTP settings are set by editing the config/email.php file (which
-cannot be done using the administrator interface). Once done, it is
-essential to test the email settings. This can be done using the "Test
-email configurations" button.
+The SMTP settings are set by editing the config/email.php file (which cannot be done using the administrator interface). Once done, it is essential to test the email settings. This can be done using the **Test email configurations** button.
 
 ![](~@imageBase/images/image70.png)
 
-Another way to test if the email settings are working is to use the
-"forgot password" option from the user login page. If no mail is
-received when doing this test, the mail settings must be corrected. If
-necessary, check with the ISP or server administrator for the correct
-settings.
+Another way to test if the email settings are working is to use the **forgot password** option from the user login page. If no mail is received when doing this test, the mail settings must be corrected. If necessary, check with the ISP or server administrator for the correct settings.
 
 ### Using the API 
 
@@ -301,94 +221,44 @@ The site settings cannot be changed using the API.
 ## Countries
 
 ![](~@imageBase/images/image71.png)
-Most entries in a data catalog will relate to one or multiple countries.
-All metadata standards and schemas used by NADA include an element to
-capture this information:
+Most entries in a data catalog will relate to one or multiple countries. All metadata standards and schemas used by NADA include an element to capture this information:
 
 -   'nation' in the DDI Codebook;
-
 -   'geographic_units' in the time series schema;
-
--   'ref_country' in the Dublin Core/document schema and in the tables
-    schema;
-
+-   'ref_country' in the Dublin Core/document schema and in the tables schema;
 -   'locationsShown/countryName' in the IPTC schema for images;
-
 -   'country' in the video schema.
 
-This information, especially in multi-country catalogs, is particularly
-relevant to filter data. By default, NADA provides a facet to filter
-entries by country.
+This information, especially in multi-country catalogs, is particularly relevant to filter data. By default, NADA provides a facet to filter entries by country.
 
-But countries can be named in different manners in datasets/metadata.
-For example, the Democratic Republic of Congo could also be referred to
-as "DR Congo", "Congo, DR", "DRC". Multiple variants of a country name
-should all be mapped to a unique label, for two reasons:
+But countries can be named in different manners in datasets/metadata. For example, the Democratic Republic of Congo could also be referred to as "DR Congo", "Congo, DR", "DRC". Multiple variants of a country name should all be mapped to a unique label, for two reasons: 
 
--   It would be inconvenient to users of a catalog to have to select
-    more than one item in a list to identify entries related to one
-    single country.
+-   It would be inconvenient to users of a catalog to have to select more than one item in a list to identify entries related to one single country.
+-   It can be politically important (and a requirement) for some organizations to comply with specific names for countries and territories.
 
--   It can be politically important (and a requirement) for some
-    organizations to comply with specific names for countries and
-    territories.
-
-To address this issue, catalog administrators can provide their instance
-of NADA with a reference list of countries and capture the alternative
-names that may be found in the metadata. Note that "countries" can be
-"territories", "economies", "regions", or groups of countries. A default
-list of country names is provided in the NADA application, which can be
-edited.
+To address this issue, catalog administrators can provide their instance of NADA with a reference list of countries and capture the alternative names that may be found in the metadata. Note that "countries" can be "territories", "economies", "regions", or groups of countries. A default list of country names is provided in the NADA application, which can be edited.
 
 #### Using the administrator interface 
 
 ![](~@imageBase/images/image72.png)
 
-To add a new country, click "Add new country". To edit a country, click
-on "Edit". In both cases, you will be taken to a form where the country
-name to be used as the reference, its code (ISO, or possibly other), and
-the variants of the country name (aliases), can be entered or edited.
+To add a new country, click **Add new country**. To edit a country, click on **Edit**. In both cases, you will be taken to a form where the country name to be used as the reference, its code (ISO, or possibly other), and the variants of the country name (aliases), can be entered or edited.
 
 ![](~@imageBase/images/image73.png)
 
-The list of countries entered in this list will serve as a control list
-for metadata entered in NADA. When metadata are imported and contain
-non-compliant names, these non-compliant names will be flagged in the
-entry page (displayed with red background). In the example below, "Cabo
-Verde" for example is flagged because the reference list of countries
-only recognizes the name "Cape Verde". Ideally, these issues should be
-fixed.
+The list of countries entered in this list will serve as a control list for metadata entered in NADA. When metadata are imported and contain non-compliant names, these non-compliant names will be flagged in the entry page (displayed with red background). In the example below, "Cabo Verde" for example is flagged because the reference list of countries only recognizes the name "Cape Verde". Ideally, these issues should be fixed.
 
-The names do NOT have to be fixed by changing the metadata themselves.
-In some cases, it would make sense to do so, but in others it could
-create inconsistencies between the source data and the metadata. The
-solution to address the issue when the data/metadata cannot be changed
-is to map non-compliant names to names found in the reference list. The
-fixes (i.e. the aliases for country names) will be stored, so the
-chances of finding non-compliant names in metadata is likely to rapidly
-reduce over time.
+The names do NOT have to be fixed by changing the metadata themselves. In some cases, it would make sense to do so, but in others it could create inconsistencies between the source data and the metadata. The solution to address the issue when the data/metadata cannot be changed is to map non-compliant names to names found in the reference list. The fixes (i.e. the aliases for country names) will be stored, so the chances of finding non-compliant names in metadata is likely to rapidly reduce over time.
 
 ![](~@imageBase/images/image74.png)
 
-Clicking on any flagged name, or on the main menu item Settings \>
-Countries, will open the page where the mappings can be done. In that
-page, click on "Country mappings".
+Clicking on any flagged name, or on the main menu item **Settings > Countries**, will open the page where the mappings can be done. In that page, click on **Country mappings**.
 
 ![](~@imageBase/images/image75.png)
 
-This will open a table showing the list of non-compliant country names.
-For each one of them, you can select a country from the list of
-compliant countries, then click "Update". The non-compliant name will
-now be stored as an alias which will be applied automatically to other
-datasets that may have used the same non-compliant name. This line of
-the table will disappear when refreshing the page.
+This will open a table showing the list of non-compliant country names. For each one of them, you can select a country from the list of compliant countries, then click **Update**. The non-compliant name will now be stored as an alias which will be applied automatically to other datasets that may have used the same non-compliant name. This line of the table will disappear when refreshing the page.
 
-If you do not find an equivalent in the reference list, you may consider
-adding it. This is however not a requirement. Metadata with
-non-compliant country names can be stored in the application. The main
-impact is that they will not be identified in the filter by country
-(facet), which only shows the countries found in the reference list as
-options.
+If you do not find an equivalent in the reference list, you may consider adding it. This is however not a requirement. Metadata with non-compliant country names can be stored in the application. The main impact is that they will not be identified in the filter by country (facet), which only shows the countries found in the reference list as options.
 
 ![](~@imageBase/images/image76.png)
 
@@ -396,54 +266,32 @@ Warning: if you delete a country ...
 
 #### Using the API 
 
-Uploading and maintaining a list of countries
+There is currently no possibility to upload or maintain a list of countries using the API. This option may be added in future versions of NADA.
 
-R
-
-Python
 
 ## Regions
 
 ![](~@imageBase/images/image77.png)
 
-By region, we mean "country groups". The regions can be of different
-types, determined based on a geographic criterion (e.g., by continent),
-an administrative criteria (e.g., "OECD countries"), an economic
-criteria (e.g., high/middle/low-income countries), or other type of
-criteria (e.g., "landlocked"). In the example below, two types of groups
-are created: one by administrative region of the World Bank, and one by
-income level. Within a type, the groups do not have to be mutually
-exclusive. A country can belong to multiple groups.
+By region, we mean "country groups". The regions can be of different types, determined based on a geographic criterion (e.g., by continent), an administrative criteria (e.g., "OECD countries"), an economic criteria (e.g., high/middle/low-income countries), or other type of criteria (e.g., "landlocked"). In the example below, two types of groups are created: one by administrative region of the World Bank, and one by income level. Within a type, the groups do not have to be mutually exclusive. A country can belong to multiple groups.
 
 #### Using the administrator interface 
 
 ![](~@imageBase/images/image78.png)
 
-A region or type of region is created by clicking on the "Create region"
-button, then entering the relevant information. If you create a region
-without specifying a "parent", you are creating a region parent. If you
-create a region and specify a "parent", you are creating a group within
-this parent group.
+A region or type of region is created by clicking on the "Create region" button, then entering the relevant information. If you create a region without specifying a "parent", you are creating a region parent. If you create a region and specify a "parent", you are creating a group within this parent group.
 
 ![](~@imageBase/images/image79.png)
 
-Once a region has been created, the countries that belong to it can be
-selected (from the reference list of countries). The "weight" argument
-is a numeric value that will determine the order in which regions are to
-be displayed. Lower weight higher or lower?
+Once a region has been created, the countries that belong to it can be selected (from the reference list of countries). The "weight" argument is a numeric value that will determine the order in which regions are to be displayed. 
 
 ![](~@imageBase/images/image80.png)
 
-Groups can be edited or deleted; this does not impact the metadata in
-the catalog in any way.
+Groups can be edited or deleted; this does not impact the metadata in the catalog in any way.
 
 #### Using the API 
 
-Uploading and maintaining a list of countries
-
-R
-
-Python
+Country groupings cannot be entered or maintained using the API; this may be implemented in future versions of NADA. 
 
 ## Vocabularies
 
@@ -455,20 +303,13 @@ Python
 
 #### Using the API 
 
-Uploading and maintaining a list of countries
-
-R
-
-Python
+Vocabularies cannot be entered or maintained using the API; this may be implemented in future versions of NADA. 
 
 ## Menu
 
 ### Adding a new page
 
-New HTML pages can be added to your NADA catalog, accessible from the
-main (top) menu. By default, NADA will have the Home, Catalog,
-Citations, and Login menu items. In the example below, the "How to? item
-was added as a custom menu item and catalog page.
+New HTML pages can be added to your NADA catalog, accessible from the main (top) menu. By default, NADA will have the Home, Catalog, Citations, and Login menu items. In the example below, the "How to? item was added as a custom menu item and catalog page. 
 
 ![](~@imageBase/images/image83.png)
 
@@ -477,35 +318,19 @@ was added as a custom menu item and catalog page.
 Login as administrator, then click **Meny \> All pages.**
 
 ![](~@imageBase/images/image84.png)
-A list of currently existing pages will be displayed. From this table,
-pages can be deleted, or opened to be edited. The type "Link" indicates
-that the page corresponds to NADA-generated content (default pages), not
-to user-designed HTML pages.
+A list of currently existing pages will be displayed. From this table, pages can be deleted, or opened to be edited. The type "Link" indicates that the page corresponds to NADA-generated content (default pages), not to user-designed HTML pages.
 
 ![](~@imageBase/images/image85.png)
 
-To add a new HTML page and create a menu item to access it, click **Add
-new page**
+To add a new HTML page and create a menu item to access it, click **Add new page**
 
 ![](~@imageBase/images/image86.png)
 
-Give a title to the new page, and a URL (the URL you provide here will
-be automatically preceded with your catalog URL). Enter the content in
-the HTML editor (assuming the option to edit HTML pages was activated in
-the catalog Settings). Indicate whether clicking on the page's menu item
-should open the page in the same or in a new window, and whether you
-want the page to be published or not (in which case it will be
-considered as a draft). The Weight argument is used to order the page in
-the menu item (which can also be done using the **Reorder menu** tool;
-see below). When done, click on **Update**.
+Give a title to the new page, and a URL (the URL you provide here will be automatically preceded with your catalog URL). Enter the content in the HTML editor (assuming the option to edit HTML pages was activated in the catalog Settings). Indicate whether clicking on the page's menu item should open the page in the same or in a new window, and whether you want the page to be published or not (in which case it will be considered as a draft). The Weight argument is used to order the page in the menu item (which can also be done using the **Reorder menu** tool; see below). When done, click on **Update**.
 
 ![](~@imageBase/images/image87.png)
 
-The NADA administrator interface and the embedded HTML editor provide
-limited options to customize the design of the page. To produce pages
-with more complex content and/or design, you can use your own tools to
-customize this page. \[where to find it? What happens when you upgrade
-to a new NADA?\]
+The NADA administrator interface and the embedded HTML editor provide limited options to customize the design of the page. To produce pages with more complex content and/or design, you can use your own tools to customize this page. \[where to find it? What happens when you upgrade to a new NADA?\]
 
 #### Using the API 
 
@@ -515,8 +340,7 @@ What are links?
 
 #### Using the administrator interface 
 
-To add a link, proceed as for adding a new page, but click on **Add new
-link**.
+To add a link, proceed as for adding a new page, but click on **Add new link**.
 
 ![](~@imageBase/images/image88.png)
 
@@ -524,20 +348,17 @@ link**.
 
 #### Using the API 
 
-Not doable via API.
+This is currently not doable via API.
 
 ### Reordering the top menu
 
 #### Using the administrator interface 
 
-To change the order in which the menu items appear in the user
-interface, proceed as for adding new menu, then click on **Reorder
-menu**.
+To change the order in which the menu items appear in the user interface, proceed as for adding new menu, then click on **Reorder menu**.
 
 ![](~@imageBase/images/image90.png)
 
-Drag and drop to position the menu items in the desired order, then
-click **Update**.
+Drag and drop to position the menu items in the desired order, then click **Update**.
 
 ![](~@imageBase/images/image91.png)
 
@@ -547,15 +368,11 @@ The main menu cannot be controlled by API.
 
 ## Managing studies 
 
-This is page that contains the tools to add, edit, and delete entries in
-the catalog.
+This is page that contains the tools to add, edit, and delete entries in the catalog.
 
 ### Data types and external resources
 
-NADA is a cataloguing tool for multiple data types. All data types come
-with a specific metadata standard and schema that will contain the
-metadata. A catalog entry is specific to one data type. All catalog
-entries can be published with external resources.
+NADA is a cataloguing tool for multiple data types. All data types come with a specific metadata standard and schema that will contain the metadata. A catalog entry is specific to one data type. All catalog entries can be published with external resources.
 
 #### Data types
 
@@ -577,15 +394,13 @@ Scripts
 
 #### External resources
 
-Resources of any type, available in an electronic file or URL, that you
-may want to attach to an entry metadata.
+Resources of any type, available in an electronic file or URL, that you may want to attach to an entry metadata.
 
 #### Adding external resources
 
 Specific simple metadata schema.
 
-Produce some metadata, then indicate file or URL. Then publish attached
-to an entry.
+Produce some metadata, then indicate file or URL. Then publish attached to an entry.
 
 At any time, can add or delete a resource to a catalog.
 
@@ -593,77 +408,35 @@ RDF in Nesstar; otherwise can generate with API or in NADA.
 
 ### Adding an entry: approaches
 
-To add an entry to your catalog, three approaches are possible (although
-not all apply to all data types): loading pre-existing metadata files,
-creating an entry from scratch in NADA, and using the NADA API. The
-first two approaches rely on the NADA administrator interface, the third
-one on the API and the use of NADAR (R package) or PyNADA (Python
-library).
+To add an entry to your catalog, three approaches are possible (although not all apply to all data types): loading pre-existing metadata files, creating an entry from scratch in NADA, and using the NADA API. The first two approaches rely on the NADA administrator interface, the third one on the API and the use of NADAR (R package) or PyNADA (Python library).
 
 #### Loading metadata files
 
-When metadata files compliant with a metadata standard or schema
-recognized by NADA are available (typically generated using a
-specialized metadata editor), these files can be uploaded in NADA using
-the administrator interface. The interface will still be used to upload
-the related resource files, to add a logo/thumbnail, to specify the
-access policy. This approach currently applies to microdata and to
-geographic datasets. It will be added to other data types in future
-releases of NADA.
+When metadata files compliant with a metadata standard or schema recognized by NADA are available (typically generated using a specialized metadata editor), these files can be uploaded in NADA using the administrator interface. The interface will still be used to upload the related resource files, to add a logo/thumbnail, to specify the access policy. This approach currently applies to microdata and to geographic datasets. It will be added to other data types in future releases of NADA.
 
-To use this approach, you will need to access the page in the
-administrator interface where you can add, edit, and delete entries.
-Click on **Studies \> Manage studies** and select the collection in
-which you want to add an entry (if you have not created collections, the
-only option will be the Central Data Catalog).
+To use this approach, you will need to access the page in the administrator interface where you can add, edit, and delete entries. Click on **Studies \> Manage studies** and select the collection in which you want to add an entry (if you have not created collections, the only option will be the Central Data Catalog). 
 
 ![](~@imageBase/images/image92.png)
 
-A list of entries previously entered in the catalog/collection will be
-displayed, with options to search and filter them.
+A list of entries previously entered in the catalog/collection will be displayed, with options to search and filter them.
 
 ![](~@imageBase/images/image93.png)
 
-In this page, the **Add study** button will allow you to access the
-pages where entries can be added.
+In this page, the **Add study** button will allow you to access the pages where entries can be added.
 
 ![](~@imageBase/images/image94.png)
 
 #### Creating an entry from scratch 
 
-The metadata can be created directly in NADA, using the embedded
-metadata editor. This approach will also require access to the "Add
-entry" page of the NADA administrator interface (see above). The option
-is available for all data types but is recommended only for data that
-require limited metadata (such as images, or documents). For other types
-of data, manually generating comprehensive metadata can be a very
-tedious process (e.g., for microdata where metadata related to hundreds
-if not thousands of variables would have to be manually entered).
+The metadata can be created directly in NADA, using the embedded metadata editor. This approach will also require access to the "Add entry" page of the NADA administrator interface (see above). The option is available for all data types but is recommended only for data that require limited metadata (such as images, or documents). For other types of data, manually generating comprehensive metadata can be a very tedious process (e.g., for microdata where metadata related to hundreds if not thousands of variables would have to be manually entered). 
 
 #### Using the API 
 
-Metadata can also be generated programmatically, for example using R or
-Python, and uploaded to NADA using the API and the NADAR package of
-PyNADA library. This option allows automation of many tasks and offers
-the additional advantage of transparency and replicability. For
-administrators with knowledge of R and/or Python, this is a recommended
-approach except for microdata (for which the best approach is to use a
-specialized metadata editor). The metadata generated programmatically
-must comply with one of the metadata standards and schemas used by NADA,
-documented in the NADA API and in the Guide on the Use of Metadata
-Schemas.
+Metadata can also be generated programmatically, for example using R or Python, and uploaded to NADA using the API and the NADAR package of PyNADA library. This option allows automation of many tasks and offers the additional advantage of transparency and replicability. For administrators with knowledge of R and/or Python, this is a recommended approach except for microdata (for which the best approach is to use a specialized metadata editor). The metadata generated programmatically must comply with one of the metadata standards and schemas used by NADA, documented in the NADA API and in the Guide on the Use of Metadata Schemas.
 
-If you use this approach, you will need an API key with administrator
-privileges. API keys must be kept strictly confidential. Avoid entering
-them in clear in your scripts, as you may accidentally reveal your API
-key when sharing your scripts (if that happens, immediately cancel your
-key, and issue a new one).
+If you use this approach, you will need an API key with administrator privileges. API keys must be kept strictly confidential. Avoid entering them in clear in your scripts, as you may accidentally reveal your API key when sharing your scripts (if that happens, immediately cancel your key, and issue a new one).
 
-Once you have obtained a key (issued by a NADA administrator), you will
-have to enter it (and the URL of the catalog you are administering)
-before you implement any of the catalog administration functions
-available in NADAR or PyNADA. This will be the first commands in your R
-or Python scripts. It is done as follows:
+Once you have obtained a key (issued by a NADA administrator), you will have to enter it (and the URL of the catalog you are administering) before you implement any of the catalog administration functions available in NADAR or PyNADA. This will be the first commands in your R or Python scripts. It is done as follows:
 
 Using R:
 
@@ -687,124 +460,64 @@ nada.set_api_url(\'https:// *your_catalog_url* /index.php/api/\')
 
 ### Adding an entry: microdata
 
-Creating a Microdata entry can be done in two different ways using the
-administrator interface and the API:
+Creating a Microdata entry can be done in two different ways using the administrator interface and the API:
 
--   By uploading pre-existing metadata, generated by a specialized
-    metadata editor
+-   By uploading pre-existing metadata, generated by a specialized metadata editor
 
 -   By generating and uploading new metadata
 
-For microdata, the use of a specialized DDI metadata editor to generate
-metadata is highly recommended (like the Nesstar Publisher or the World
-Bank's Metadata Editor). Indeed, the DDI should contain a description of
-the variables included in the data files, preferably with summary
-statistics. Generating variable-level metadata can be a very tedious
-process as some datasets may include hundreds, even thousands of
-variables. Metadata editors have the capacity to extract the list of
-variables and some metadata (variable names, labels, value labels, and
-summary statistics) directly from the data files. The alternatives to
-generating the metadata using a specialized editor are to enter the
-metadata in NADA, or to enter them in R or Python scripts.
+For microdata, the use of a specialized DDI metadata editor to generate metadata is highly recommended (like the Nesstar Publisher or the World Bank's Metadata Editor). Indeed, the DDI should contain a description of the variables included in the data files, preferably with summary statistics. Generating variable-level metadata can be a very tedious process as some datasets may include hundreds, even thousands of variables. Metadata editors have the capacity to extract the list of variables and some metadata (variable names, labels, value labels, and summary statistics) directly from the data files. The alternatives to generating the metadata using a specialized editor are to enter the metadata in NADA, or to enter them in R or Python scripts.
 
 #### Loading metadata files 
 
-If you have used a specialized metadata editor like the Nesstar
-Publisher software application, you have obtained as an output an XML
-file that contains the study metadata (compliant with the DDI Codebook
-metadata standard), and a RDF file containing a description of the
-related resources (questionnaires, reports, technical documents, data
-files, etc.) These two files can be uploaded in NADA.
+If you have used a specialized metadata editor like the Nesstar Publisher software application, you have obtained as an output an XML file that contains the study metadata (compliant with the DDI Codebook metadata standard), and a RDF file containing a description of the  elated resources (questionnaires, reports, technical documents, data files, etc.) These two files can be uploaded in NADA.
 
-In the administrator interface, select **Studies \> Manage studies** and
-the collection in which you want to add the dataset (if you have not
-created any collection, the only option will be to upload the dataset in
-the Central catalog; this can be transferred to another collection later
-if necessary). Then click on **Add study**.
+In the administrator interface, select **Studies \> Manage studies** and the collection in which you want to add the dataset (if you have not created any collection, the only option will be to upload the dataset in the Central catalog; this can be transferred to another collection later if necessary). Then click on **Add study**.
 
 ![](~@imageBase/images/image95.png)
 
-In the Select a DDI file and Select RDF file, select the relevant files.
-Select the "Overwrite if the study already exists" option if you want to
-replace metadata that may have been previously entered for that same
-study. A study will be considered the same if the unique identification
-number provided in the DDI metadata field "study_desc \> title statement
-\> idno" is the same (in the user and administrator interface, IDNO will
-be labeled "Reference No"). Then click Submit.
+In the Select a DDI file and Select RDF file, select the relevant files. Select the "Overwrite if the study already exists" option if you want to replace metadata that may have been previously entered for that same study. A study will be considered the same if the unique identification number provided in the DDI metadata field "study_desc \> title statement \> idno" is the same (in the user and administrator interface, IDNO will be labeled "Reference No"). Then click **Submit**.
 
 ![](~@imageBase/images/image96.png)
 
-The metadata will be uploaded, and an **Overview** tab will be
-displayed, providing you with the possibility to take various actions.
+The metadata will be uploaded, and an **Overview** tab will be displayed, providing you with the possibility to take various actions.
 
 ![](~@imageBase/images/image22.png)
 
 ![](~@imageBase/images/image97.png)
 
-In **Country**, the names that are not compliant with the reference list
-of countries will be highlighted in red. By clicking on any of these
-country names, you will open the page where the mapping of these
-non-compliant names to a compliant name can be done. This is optional,
-but highly recommended to ensure that the filter by country (facet)
-shown in the user interface will operate in the best possible manner.
-See section "Catalog administration \> Countries".
+In **Country**, the names that are not compliant with the reference list of countries will be highlighted in red. By clicking on any of these country names, you will open the page where the mapping of these non-compliant names to a compliant name can be done. This is optional, but highly recommended to ensure that the filter by country (facet) shown in the user interface will operate in the best possible manner. See section "Catalog administration \> Countries".
 
-**Metadata in PDF**: Allows you to generate a PDF version of the
-metadata (applies to microdata only).
+**Metadata in PDF**: Allows you to generate a PDF version of the metadata (applies to microdata only).
 
 ![](~@imageBase/images/image21.png)
 
 ![](~@imageBase/images/image98.png)
 
-**Data access**: This is where you will indicate the access policy for
-microdata. The restrictions associated with some of these access
-policies will apply to all files declared as "Data files" in NADA (see
-description of tabs "Files" and "Resources" below. NADA must be informed
-of what files are "Data files"; it is very important when you document
-and upload external resources to make sure that data files are properly
-identified. If a data file is uploaded as a "document" for example, it
-will be accessible to users no matter the access policy you apply to the
-dataset.
+**Data access**: This is where you will indicate the access policy for microdata. The restrictions associated with some of these access policies will apply to all files declared as "Data files" in NADA (see description of tabs "Files" and "Resources" below. NADA must be informed of what files are "Data files"; it is very important when you document and upload external resources to make sure that data files are properly identified. If a data file is uploaded as a "document" for example, it will be accessible to users no matter the access policy you apply to the dataset.
 
 The options for Data access are:
 
--   ***Open data***: visitors to your catalog will be able to download
-    and use the data almost without any restriction
+-   ***Open data***: visitors to your catalog will be able to download and use the data almost without any restriction
 
--   ***Direct access***: visitors will be able to download the data
-    without restriction, but the use of the data is subject to some
-    (minor) conditions
+-   ***Direct access***: visitors will be able to download the data without restriction, but the use of the data is subject to some (minor) conditions
 
--   ***Public Use Files (PUF)***: all registered visitors will be able
-    to download the files after login; they will be asked but not forced
-    to provide a description of the intended use.
+-   ***Public Use Files (PUF)***: all registered visitors will be able to download the files after login; they will be asked but not forced to provide a description of the intended use.
 
--   ***Licensed data***: registered visitors will be able to submit a
-    request for access to the data by filling out an on-line form, which
-    will be reviewed by the catalog administrator who can approve, deny,
-    or request more information (see section "Managing data requests").
+-   ***Licensed data***: registered visitors will be able to submit a request for access to the data by filling out an on-line form, which will be reviewed by the catalog administrator who can approve, deny, or request more information (see section "Managing data requests").
 
--   ***Data accessible in external repository***: this is the option you
-    will select when you want to publish metadata in your catalog but
-    provide a link to an external repository where users will be able to
-    download or request access to the data.
+-   ***Data accessible in external repository***: this is the option you will select when you want to publish metadata in your catalog but provide a link to an external repository where users will be able to download or request access to the data.
 
--   ***Data enclave***: in this option, information is provided to users
-    on how to access the data in a data enclave.
+-   ***Data enclave***: in this option, information is provided to users on how to access the data in a data enclave.
 
--   ***Data not accessible***: in some cases, you will want to publish
-    metadata and some related resources (report, questionnaire,
-    technical documents, and others) but not the data.
+-   ***Data not accessible***: in some cases, you will want to publish metadata and some related resources (report, questionnaire, technical documents, and others) but not the data.
 
-**Indicator database**: this applies to microdata only. The field allows
-administrators to provide the URL of a website were indicators generated
-out of the microdata are published.
+**Indicator database**: this applies to microdata only. The field allows administrators to provide the URL of a website were indicators generated
+out of the microdata are published. 
 
-**Study website**: a link to an external website dedicated to the
-survey.
+**Study website**: a link to an external website dedicated to the survey.
 
-**Featured study**: This allows administrators to mark entries as
-"featured". \[how it will show in NADA\]
+**Featured study**: This allows administrators to mark entries as "featured". \[how it will show in NADA\]
 
 **Tags**: need tag groups
 
@@ -816,13 +529,7 @@ survey.
 
 ![](~@imageBase/images/image23.png)
 
-In the Resources tab, you will see a list of external resources, which
-should correspond to the files you uploaded. A green icon should appear
-next to the "Link", indicating that a file has indeed been identified
-that corresponds to the resource. If you see a red icon, click on "Link
-resources" to try and fix the issue. If the problem persists, the
-filename identified in the RDF metadata probably does not match the name
-of the uploaded file.
+In the Resources tab, you will see a list of external resources, which should correspond to the files you uploaded. A green icon should appear next to the "Link", indicating that a file has indeed been identified that corresponds to the resource. If you see a red icon, click on "Link resources" to try and fix the issue. If the problem persists, the filename identified in the RDF metadata probably does not match the name of the uploaded file.
 
 ![](~@imageBase/images/image24.png)
 
