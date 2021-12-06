@@ -305,9 +305,10 @@ If you want to delete this entry, click on **Delete study**. If you want to unpu
 
 ![](~@imageBase/images/image27.png)
 
+  
 ### Using the API and R or Python
 
-A document can also be published in NADA using the NADA API and R (NADAR package) or Python (PyNADA library). In such case, the document metadata will be created in the R or Python script. The metadata must be structured in strict compliance with the metadata standard used for documenting documents. In the example, below, we use a different document by the World Bank: "Impact of COVID-19 on Learning : Evidence from Six Sub-Saharan African Countries" available at https://documents.worldbank.org/en/publication/documents-reports/documentdetail/656051621919132722/impact-of-covid-19-on-learning-evidence-from-six-sub-saharan-african-countries.
+A document can also be published in NADA using the NADA API and R (NADAR package) or Python (PyNADA library). In such case, the document metadata will be created in the R or Python script. The metadata must be structured in strict compliance with the metadata standard used for documenting documents. In the example, below, we use a different document by the World Bank: "Impact of COVID-19 on Learning : Evidence from Six Sub-Saharan African Countries" available at https://documents.worldbank.org/en/publication/documents-reports/documentdetail/656051621919132722/impact-of-covid-19-on-learning-evidence-from-six-sub-saharan-african-countries. Download this file and save it in a folder of your choice. In the code below, we assume that this file is saved as "C:/nada_get_started/COVID-19_Learning_LSMS_2021.pdf" (you can change the location and file name).
 
 ![](~@imageBase/images/image27b.png)  
   
@@ -328,7 +329,7 @@ set_api_verbose(FALSE)
 
 # Set the default folder, and create a thumbnail (screenshot of cover page) 
 
-setwd("E:/demo_nada_files/UC001b")   
+setwd("C:/nada_get_started")   # Provide your own folder name here
 doc_file <- "COVID-19_Learning_LSMS_2021.pdf"
 thumb_file <- gsub(".pdf", ".jpg", doc_file)
 capture_pdf_cover(doc_file) 
@@ -470,7 +471,7 @@ nada.set_api_url('https://nada-demo.ihsn.org/index.php/api/')
 
 # Set the default folder, and create a thumbnail (screenshot of cover page)
 
-os.chdir("E:/demo_nada_files/UC001b")
+os.chdir("C:/nada_get_started")
 doc_file = "COVID-19_Learning_LSMS_2021.pdf"
 thumb_file = nada.pdf_to_thumbnail(doc_file, page_no=1)
 
@@ -562,12 +563,12 @@ my_doc_metadata = {
 
 # Publish the document in the NADA central catalog
 nada.create_document_dataset(
-    dataset_id=my_doc_metadata['document_description']['title_statement']['idno'],
-    repository_id="central",
-    published=1,
-    overwrite="yes",
+    dataset_id = my_doc_metadata['document_description']['title_statement']['idno'],
+    repository_id = "central",
+    published = 1,
+    overwrite = "yes",
     **my_doc_metadata,
-    thumbnail_path=thumb_file
+    thumbnail_path = thumb_file
 )
 
 # Note: to publish the document is a collection (e.g. "Africa"), we would enter
@@ -582,24 +583,23 @@ nada.create_document_dataset(
 # title differ.
 # ==============================================================================
 
-
 # Upload the PDF file to the web server
-nada.add_resource(dataset_id=my_doc_metadata['document_description']['title_statement']['idno'],
-                  dctype="doc/anl",
-                  dcformat="application/pdf",
-                  title="Impact of COVID-19 on Learning : Evidence from Six Sub-Saharan African Countries",
-                  file_path=doc_file,
-                  overwrite="yes"
+nada.add_resource(dataset_id = my_doc_metadata['document_description']['title_statement']['idno'],
+                  dctype = "doc/anl",
+                  dcformat = "application/pdf",
+                  title = "Impact of COVID-19 on Learning : Evidence from Six Sub-Saharan African Countries",
+                  file_path = doc_file,
+                  overwrite = "yes"
                   )
 
 # Alternative: If we wanted to provide a link instead of uploading a file:
 
-# nada.add_resource(dataset_id=my_doc_metadata['document_description']['title_statement']['idno'],
-#                   dctype="doc/anl",
-#                   dcformat="application/pdf",
-#                   title="Impact of COVID-19 on Learning : Evidence from Six Sub-Saharan African Countries",
-#                   file_path="http://documents.worldbank.org/curated/en/656051621919132722/Impact-of-COVID-19-on-Learning-Evidence-from-Six-Sub-Saharan-African-Countries",
-#                   overwrite="yes"
+# nada.add_resource(dataset_id = my_doc_metadata['document_description']['title_statement']['idno'],
+#                   dctype = "doc/anl",    # To inform NADA that this is an analytical document
+#                   dcformat = "application/pdf",
+#                   title = "Impact of COVID-19 on Learning : Evidence from Six Sub-Saharan African Countries",
+#                   file_path = "http://documents.worldbank.org/curated/en/656051621919132722/Impact-of-COVID-19-on-Learning-Evidence-from-Six-Sub-Saharan-African-Countries",
+#                   overwrite = "yes"
 #                   )
 
 ```
