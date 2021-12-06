@@ -307,8 +307,10 @@ If you want to delete this entry, click on **Delete study**. If you want to unpu
 
 ### Using the API and R or Python
 
-A document can also be published in NADA using the NADA API and R (NADAR package) or Python (PyNADA library). In such case, the document metadata will be created in the R or Python script. The metadata must be structured in strict compliance with the metadata standard used for documenting documents.
+A document can also be published in NADA using the NADA API and R (NADAR package) or Python (PyNADA library). In such case, the document metadata will be created in the R or Python script. The metadata must be structured in strict compliance with the metadata standard used for documenting documents. In the example, below, we use a different document by the World Bank: "Impact of COVID-19 on Learning : Evidence from Six Sub-Saharan African Countries" available at https://documents.worldbank.org/en/publication/documents-reports/documentdetail/656051621919132722/impact-of-covid-19-on-learning-evidence-from-six-sub-saharan-african-countries.
 
+![](~@imageBase/images/image27b.png)  
+  
 <code-group>
 
 <code-block title="R">
