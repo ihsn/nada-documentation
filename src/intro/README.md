@@ -11,21 +11,25 @@ and structured metadata, and their publishing in catalogs with
 appropriate search features, can significantly improve access and use of
 data.
 
-NADA is an open-source web-based cataloging application that allows for
-the creation of portals that allows users to browse, search, compare,
+NADA is an open-source web-based data cataloging application. It is used
+to create portals that allow users to browse, search, compare,
 apply for access, and download relevant data. It was originally
 developed to support the establishment of **NA**tional **D**ata
 **A**rchives, exclusively covering microdata. It has since then been
 extended to cover other types of **data used for quantitative analysis
 of social and economic issues**. NADA is intended to make such data more
-usable and more discoverable.
+usable, more discoverable, and more accessible.
 
--   Making data usable implies that comprehensive and detailed metadata
+-   Making data **usable** implies that comprehensive and detailed metadata
     are provided to the users in formats convenient to them.
 
--   Making data discoverable means that the metadata are published in
+-   Making data **discoverable** means that the metadata are published in
     on-line data catalogs with search engines optimized for
     discoverability and visibility.
+    
+-   Making data **accessible** means that the data are made accessible for
+    download in the easiest possible manner, but in compliance with legal,
+    ethical or other legitimate constraints.
 
 ## For what data?
 
@@ -83,27 +87,27 @@ data users and data producers.
 
 Metadata help the [data user]{.underline}:
 
--   **Find and access** **data of interest**. Without labels, abstracts,
+-   **Find and access** data of interest. Without labels, abstracts,
     keywords, and other important metadata element it might be difficult
     for a researcher to locate specific datasets and variables.
 
--   **Assess** **the quality of the data**. To know whether data are
+-   **Assess** the quality of the data. To know whether data are
     useful for a specific purpose, users may need information not only
     about the content of the dataset, but also about the process that
     led to the production of the data.
 
--   **Understand and use the data**. Without proper documentation, the
+-   **Understand and use** the data. Without proper documentation, the
     risk is high that secondary users may misunderstand and misuse the
     data.
 
 The availability of good metadata also has significant benefits for
 [data producers.]{.underline} It:
 
--   Ensures **transparency, auditability, and credibility of the data
-    production process**.
+-   Ensures **transparency, auditability, and credibility** of the data
+    production process.
 
--   Supports the **harmonization and integration of data across sources
-    and types and over time**.
+-   Supports the **harmonization and integration of data** across sources
+    and types and over time.
 
 -   Increases the **visibility** and **discoverability** of data.
 
@@ -153,7 +157,7 @@ form) by NADA:
         ([IPTC](https://iptc.org/standards/photo-metadata/)) and Dublin
         Core.
 
-    -   For videos: Dublin Core and the
+    -   For **videos**: Dublin Core and the
         [videoObject](https://schema.org/VideoObject) schema of
         schema.org.
 
