@@ -703,34 +703,33 @@ to Use Case 007 in the NADA GitHub repository.
 
 ```r
 # ==============================================================================
-# NADA Demo Catalog - Use of API examples Use case ID: 002
+# NADA Demo Catalog - Use of API examples                      Use case ID: 002
 #
-# Use case description: generate metadata and publish in NADA a collection of
-# documents for which metadata are available in a CSV file.
+# Use case description: generate metadata and publish in NADA a collection of 
+# documents for which metadata are available in a CSV file. 
 # The CSV file contains the following columns:
-# - document_url
-# - pdf_url (URL to the PDF version of the document)
-# - txt_url (URL to the TXT version of the document, if available)
-# - author (list of authors, as one string)
-# - identifier (unique identifier of the document; could be a DOI or other)
-# - abstract
-# - series
-# - language (we assume here that only English or French are valid values)
-# - publisher
-# - title
-# - type
-# - date_published (in ISO format; could be YYY, or YYYY-MM, or YYYY-MM-DD)
-# - countries (country names, separated by a ";")
+#   - document_url	
+#   - pdf_url	(URL to the PDF version of the document)
+#   - txt_url	(URL to the TXT version of the document, if available)	
+#   - author (list of authors, as one string)	
+#   - identifier (unique identifier of the document; could be a DOI or other)	
+#   - abstract 	
+#   - series	
+#   - language (we assume here that only English or French are valid values)	
+#   - publisher	
+#   - title	
+#   - type	
+#   - date_published (in ISO format; could be YYY, or YYYY-MM, or YYYY-MM-DD)
+#   - countries (country names, separated by a ";")
 #
-
 # The published metadata will be structured using a schema described in:
-# https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Documents
+#    https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Documents
 #
 # Script tested with NADA version: 5.0
 # Date: 2021-09-10
-# See output in http://nada-demo.ihsn.org/index.php/catalog
+# See output in http://nada-demo.ihsn.org/index.php/catalog 
 #
-# \*\* This script requires a valid API key with administrator privileges.\*\*
+#   ** This script requires a valid API key with administrator privileges.**
 #
 # ==============================================================================
 
@@ -740,609 +739,367 @@ library(rlist)
 library(stringr)
 
 # Set API key (stored in a CSV file; not to be entered in clear) and catalog URL
-my_keys <- read.csv("C:/CONFIDENTIAL/my_keys.csv", header=F, stringsAsFactors=F)
 
-set_api_key(my_keys\[5,1\]) # Assuming the key is in cell A5
-set_api_url("http://nada-demo.ihsn.org/index.php/api/")
+my_keys <- read.csv("C:/CONFIDENTIAL/my_keys.csv", header=F, stringsAsFactors=F)
+set_api_key(my_keys[5,1])  # Assuming the key is in cell A5
+set_api_url("http://nada-demo.ihsn.org/index.php/api/") 
 set_api_verbose(FALSE)
 
-# Set the default folder, and load the CSV file
-setwd("E:/demo_nada_files/UC002")
+# Set the default folder, and load the CSV file 
 
-doc_list <- read.csv("NADA_demo_list_docs.csv",
-stringsAsFactors=FALSE)
+setwd("E:/demo_nada_files/UC002")   
+doc_list <- read.csv("NADA_demo_list_docs.csv", stringsAsFactors=FALSE)
 
 # Generate the schema-compliant metadata, and publish in NADA catalog
-
 # We need to map the columns in the CSV file to elements of the schema.
 
 for(i in 1:nrow(doc_list)) {
-
-# Download the PDF file if not already done
-
-pdf_url <- doc_list\$pdf_url\[i\]
-pdf_filename <- paste0(doc_list\$identifier\[i\], ".pdf")
-if(!file.exists(pdf_filename)) {
+  
+  # Download the PDF file if not already done
+  
+  pdf_url  <- doc_list$pdf_url[i]
+  pdf_filename <- paste0(doc_list$identifier[i], ".pdf")
+  if(!file.exists(pdf_filename)) {
     download.file(pdf_url, pdf_filename, mode="wb")
-}
-
-# Take a screenshot of the cover page to be used as thumbnail
-
-thumb_file <- gsub(".pdf", ".jpg", pdf_filename)
-capture_pdf_cover(pdf_filename)
-
-# Map the CSV columns to metadata elements from the schema
-
-id <- doc_list\$identifier\[i\]
-
-title <- doc_list\$title\[i\]
-
-date <- as.character(doc_list\$date_published\[i\])
-
-abstract <- doc_list\$abstract\[i\]
-
-publisher <- doc_list\$publisher\[i\]
-
-series <- doc_list\$series\[i\]
-
-type <- doc_list\$type\[i\]
-
-author_list = list()
-
-authors <- unlist(strsplit(doc_list\$author\[i\], ";"))
-
-for(a in authors) {
-
-author = unlist(strsplit(a, ",")) # Format in CSV is "lastname, firstname"
-
-ln = str_trim(author\[1\])
-
-fn = str_trim(author\[2\])
-
-this_author = list(last_name = ln, first_name = fn)
-
-author_list = list.append(author_list, this_author)
-
-}
-
-if(doc_list\$language\[i\] == "English") {
-
-lang_name = "English"
-
-lang_code = "EN"
-
-} else if (doc_list\$language\[i\] == "French") {
-
-lang_name = "French"
-
-lang_code = "FR"
-
-}
-
-language <- list(list(name=lang_name, code=lang_code))
-
-ctry_list = list()
-
-countries <- unlist(strsplit(doc_list\$countries\[i\], ";"))
-
-for(c in countries) {
-
-ctry = list(name = str_trim(c)) # Removes start/end whitespaces
-
-ctry_list = list.append(ctry_list, ctry)
-
-}
-
-# Document the file, and publish in the NADA catalog
-
-this_doc_metadata <- list(
-
-metadata_information = list( # This block is optional but recommended
-
-producers = list(
-
-list(name = "NADA team")
-
-),
-
-production_date = "2021-09-11",
-
-version = "v01"
-
-),
-
-document_description = list(
-
-title_statement = list(idno = id, title = title),
-
-date_published = date,
-
-type = type,
-
-authors = author_list,
-
-series = series,
-
-publisher = publisher,
-
-abstract = abstract,
-
-ref_country = ctry_list,
-
-languages = language
-
-)
-
-)
-
-# Publish the document in the NADA central catalog
-
-add_document(idno =
-this_doc_metadata\$document_description\$title_statement\$idno,
-
-metadata = this_doc_metadata,
-
-repositoryid = "central",
-
-published = 1,
-
-thumbnail = thumb_file,
-
-overwrite = "yes")
-
-# Note: to publish the document in a collection (e.g. "Handbooks"), we would
-# enter repositoryid = "Handbooks" instead of "repositoryid = "central".
-# The collection must have been previously created in the catalog.
-# ==============================================================================
-# Uploading the document metadata will not upload the document itself. To make
-# the document available in/from the catalog, we need to upload the file to the
-# server or provide a link to an external URL, as an "external resource".
-# More than one resource can be attached to a catalog entry, as long as their
-# title differ; here, some documents are available in PDF and TXT formats.
-# ==============================================================================
-# The "type" column in the CSV file does not comply with dctype in the
-# external resources schema; we map the types accordingly
-# Note: to get a list of types found in the CSV file:
-table(doc_list\$type)
-
-if(doc_list\$type\[i\] == "book") dctype = "doc/ref" # Reference
-document
-
-if(doc_list\$type\[i\] == "manual") dctype = "doc/ref"
-
-# Provide a link to the PDF file and to the TXT file if it exists
-# If we have links to a PDF and a TXT file, we mention the format in the title.
-
-title_pdf = title
-
-if(doc_list\$txt_url\[i\] != "") {
-
-title_pdf = paste0(title, " - PDF version")
-
-title_txt = paste0(title, " - TXT version")
+  }
+  
+  # Take a screenshot of the cover page to be used as thumbnail 
+  
+  thumb_file <- gsub(".pdf", ".jpg", pdf_filename)
+  capture_pdf_cover(pdf_filename)
+  
+  # Map the CSV columns to metadata elements from the schema
+  
+  id        <- doc_list$identifier[i]
+  title     <- doc_list$title[i]
+  date      <- as.character(doc_list$date_published[i])
+  abstract  <- doc_list$abstract[i]
+  publisher <- doc_list$publisher[i]
+  series    <- doc_list$series[i]
+  type      <- doc_list$type[i]
+
+  author_list = list()
+  authors <- unlist(strsplit(doc_list$author[i], ";"))
+  for(a in authors) {
+    author = unlist(strsplit(a, ","))  # Format in CSV is "lastname, firstname"
+    ln = str_trim(author[1])
+    fn = str_trim(author[2])
+    this_author = list(last_name = ln, first_name = fn)    
+    author_list = list.append(author_list, this_author)
+  }
+  
+  if(doc_list$language[i] == "English") {
+    lang_name = "English"
+    lang_code = "EN"
+  } else if (doc_list$language[i] == "French") {
+    lang_name = "French"
+    lang_code = "FR"
+  }  
+  language  <- list(list(name=lang_name, code=lang_code))
+  
+  ctry_list = list()
+  countries <- unlist(strsplit(doc_list$countries[i], ";"))
+  for(c in countries) {
+    ctry = list(name = str_trim(c)) # Removes start/end whitespaces    
+    ctry_list = list.append(ctry_list, ctry)
+  }
+
+  # Document the file, and publish in the NADA catalog
+  
+  this_doc_metadata <- list(
+    
+    metadata_information = list(    # This block is optional but recommended
+      producers = list(
+        list(name = "NADA team")
+      ),
+      production_date = "2021-09-11",
+      version = "v01"
+    ),  
+
+    document_description = list(
+      title_statement = list(idno = id, title = title),
+      date_published = date,
+      type = type,
+      authors = author_list,
+      series = series,
+      publisher = publisher,
+      abstract = abstract,
+      ref_country = ctry_list,
+      languages = language
+    )
+    
+  )
+
+  # Publish the document in the NADA central catalog 
+  
+  add_document(idno = this_doc_metadata$document_description$title_statement$idno, 
+               metadata = this_doc_metadata, 
+               repositoryid = "central", 
+               published = 1, 
+               thumbnail = thumb_file, 
+               overwrite = "yes")
+  
+  # Note: to publish the document in a collection (e.g. "Handbooks"), we would 
+  # enter repositoryid = "Handbooks" instead of "repositoryid = "central".
+  # The collection must have been previously created in the catalog.
+  
+  # ==============================================================================
+  # Uploading the document metadata will not upload the document itself. To make 
+  # the document available in/from the catalog, we need to upload the file to the
+  # server or provide a link to an external URL, as an "external resource".
+  # More than one resource can be attached to a catalog entry, as long as their 
+  # title differ; here, some documents are available in PDF and TXT formats.
+  # ==============================================================================
+  
+  # The "type" column in the CSV file does not comply with dctype in the 
+  # external resources schema; we map the types accordingly 
+  # Note: to get a list of types found in the CSV file: table(doc_list$type) 
+  
+  if(doc_list$type[i] == "book")   dctype = "doc/ref"   # Reference document
+  if(doc_list$type[i] == "manual") dctype = "doc/ref"
+
+  # Provide a link to the PDF file and to the TXT file if it exists
+  # If we have links to a PDF and a TXT file, we mention the format in the title. 
+  title_pdf = title
+  if(doc_list$txt_url[i] != "") {
+    title_pdf = paste0(title, " - PDF version")
+    title_txt = paste0(title, " - TXT version")
+  } 
+
+  # Create link to PDF file
+  external_resources_add(
+    title = title_pdf,
+    idno = this_doc_metadata$document_description$title_statement$idno,
+    dctype = dctype,
+    file_path = doc_list$pdf_url[i],
+    overwrite = "yes"
+  )
+  
+  # Create link to TXT file, if it exists
+  if(doc_list$txt_url[i] != "") {
+    external_resources_add(
+      title = title_txt,
+      idno = this_doc_metadata$document_description$title_statement$idno,
+      dctype = dctype,
+      file_path = doc_list$txt_url[i],
+      overwrite = "yes"
+    )
+  }  
 
 }
 
-# Create link to PDF file
+# Alternative: If we wanted to upload the PDF file instead of providing a link : 
 
-external_resources_add(
-
-title = title_pdf,
-
-idno = this_doc_metadata\$document_description\$title_statement\$idno,
-
-dctype = dctype,
-
-file_path = doc_list\$pdf_url\[i\],
-
-overwrite = "yes"
-
-)
-
-# Create link to TXT file, if it exists
-
-if(doc_list\$txt_url\[i\] != "") {
-
-external_resources_add(
-
-title = title_txt,
-
-idno = this_doc_metadata\$document_description\$title_statement\$idno,
-
-dctype = dctype,
-
-file_path = doc_list\$txt_url\[i\],
-
-overwrite = "yes"
-
-)
-
-}
-
-}
-
-# Alternative: If we wanted to upload the PDF file instead of providing a link :
-
-# external_resources_add(
-
-# title = title,
-
-# idno = this_doc_metadata\$document_description\$title_statement\$idno,
-
-# dctype = dctype,
-
-# file_path = pdf_filename,
-
-# overwrite = "yes"
-
-# )
+  # external_resources_add(
+  #   title = title,
+  #   idno = this_doc_metadata$document_description$title_statement$idno,
+  #   dctype = dctype,
+  #   file_path = pdf_filename,
+  #   overwrite = "yes"
+  # )
 ```
 
-
-Example using Python
+Using Python
 
 ```python
-#### Using Python
-
 # ==============================================================================
-
-# NADA Demo Catalog - Use of API examples Use case ID: 002
-
+# NADA Demo Catalog - Use of API examples                      Use case ID: 002
 #
-
 # Use case description: generate metadata and publish in NADA a collection of
-
 # documents for which metadata are available in a CSV file.
-
 # The CSV file contains the following columns:
-
-# - document_url
-
-# - pdf_url (URL to the PDF version of the document)
-
-# - txt_url (URL to the TXT version of the document, if available)
-
-# - author (list of authors, as one string)
-
-# - identifier (unique identifier of the document; could be a DOI or other)
-
-# - abstract
-
-# - series
-
-# - language (we assume here that only English or French are valid values)
-
-# - publisher
-
-# - title
-
-# - type
-
-# - date_published (in ISO format; could be YYY, or YYYY-MM, or YYYY-MM-DD)
-
-# - countries (country names, separated by a ";")
-
+#   - document_url
+#   - pdf_url	(URL to the PDF version of the document)
+#   - txt_url	(URL to the TXT version of the document, if available)
+#   - author (list of authors, as one string)
+#   - identifier (unique identifier of the document; could be a DOI or other)
+#   - abstract
+#   - series
+#   - language (we assume here that only English or French are valid values)
+#   - publisher
+#   - title
+#   - type
+#   - date_published (in ISO format; could be YYY, or YYYY-MM, or YYYY-MM-DD)
+#   - countries (country names, separated by a ";")
 #
-
 # The published metadata will be structured using a schema described in:
-
-# https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Documents
-
+#    https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Documents
 #
-
 # Script tested with NADA version: 5.0
-
 # Date: 2021-09-29
-
 # See output in http://nada-demo.ihsn.org/index.php/catalog
-
 #
-
-# \*\* This script requires a valid API key with administrator privileges.\*\*
-
+#   ** This script requires a valid API key with administrator privileges.**
 #
-
 # ==============================================================================
 
 import os
-
 import pandas as pd
-
 import pynada as nada
 
-# # Set API key (stored in a CSV file; not to be entered in clear) and
-catalog URL
+# Set API key (stored in a CSV file; not to be entered in clear) and catalog URL
 
 my_keys = pd.read_csv("confidential/my_keys.csv", header=None)
+nada.set_api_key(my_keys.iat[1, 0])
+nada.set_api_url('https://nada-demo.ihsn.org/index.php/api/')
 
-nada.set_api_key(my_keys.iat\[1, 0\])
-
-nada.set_api_url(\'https://nada-demo.ihsn.org/index.php/api/\')
-
-# # Set the default folder, and load the CSV file
+# Set the default folder, and load the CSV file
 
 os.chdir("E:/demo_nada_files/UC002")
+doc_list = pd.read_csv("NADA_demo_list_docs.csv", encoding='cp1252')
 
-doc_list = pd.read_csv("NADA_demo_list_docs.csv", encoding=\'cp1252\')
-
-# # Generate the schema-compliant metadata, and publish in NADA
-catalog
-
-# # We need to map the columns in the CSV file to elements of the
-schema.
+# Generate the schema-compliant metadata, and publish in NADA catalog
+# We need to map the columns in the CSV file to elements of the schema.
 
 for i in range(len(doc_list)):
 
-# Download the file if not already done
+    # Download the file if not already done
+
+    pdf_url = doc_list['pdf_url'][i]
+    pdf_filename = doc_list['identifier'][i] + ".pdf"
+    if not os.path.exists(pdf_filename):
+        nada.download_file(url=pdf_url, output_fname=pdf_filename, mode='wb')
+
+    # Take a screenshot of the cover page to be used as thumbnail
+
+    thumb_file = nada.pdf_to_thumbnail(pdf_filename, page_no=1)
+
+    # Map the CSV columns to metadata elements from the schema
+
+    idno = doc_list['identifier'][i]
+    title = doc_list['title'][i]
+    date = str(doc_list['date_published'][i])
+    abstract = doc_list['abstract'][i]
+    publisher = doc_list['publisher'][i]
+    series = doc_list['series'][i] if pd.notna(doc_list['series'][i]) else ""
+    dtype = doc_list['type'][i]
+    author_list = []
+    authors = doc_list['author'][i].split(';')
+    # Format in CSV is "lastname, firstname"
+    # NADA API - "authors":[{"first_name":"","initial":"", "last_name":""}]
+    for a in authors:
+        this_author = {'first_name': (a.split(',')[1]).strip(),
+                       'last_name': (a.split(',')[0]).strip()
+                       }
+        author_list.append(this_author)
+
+    language = []
+    lang_list = doc_list['language'][i].split()
+    for lang in lang_list:
+        ln = {}
+        if lang == "English":
+            ln = {"name": 'English', "code": 'EN'}
+        elif lang == "French":
+            ln = {"name": 'French', "code": 'FR'}
+        language.append(ln)
+
+    ctry_list = []
+    countries = doc_list['countries'][i].split(';')
+    for c in countries:
+        ctry = {'name': c.strip()}
+        ctry_list.append(ctry)
+
+    # Document the file, and publish in the NADA catalog
+
+    this_doc_metadata = {
+        'metadata_information': {
+            # This block is optional but recommended
+            'producers': [{'name': "NADA team"}],
+            'production_date': "2021-09-11",
+            'version': "v01",
+        },
+        'document_description': {
+            'title_statement':
+                {"idno": idno,
+                 "title": title
+                 },
+            'type': dtype,
+            'abstract': abstract,
+            'ref_country': ctry_list,
+            'date_published': date,
+            'languages': language,
+            'series': series,
+            'authors': author_list,
+            'publisher': publisher,
+        }
+    }
+
+    # Publish the document in the NADA central catalog
+    idno = this_doc_metadata['document_description']['title_statement']['idno']
+
+    nada.create_document_dataset(
+        dataset_id = idno,
+        repository_id = "central",
+        published = 1,
+        overwrite = "yes",
+        **this_doc_metadata,
+        thumbnail_path = thumb_file
+    )
+    
+    # Note: to publish the document in a collection (e.g. "Handbooks"), we would
+    # enter repositoryid = "Handbooks" instead of "repositoryid = "central".
+    # The collection must have been previously created in the catalog.
+    
+    # ==============================================================================
+    # Uploading the document metadata will not upload the document itself. To make
+    # the document available in/from the catalog, we need to upload the file to the
+    # server or provide a link to an external URL, as an "external resource".
+    # More than one resource can be attached to a catalog entry, as long as their
+    # title differ; here, some documents are available in PDF and TXT formats.
+    # ==============================================================================
+    
+    # The "type" column in the CSV file does not comply with dctype in the
+    # external resources schema; we map the types accordingly
+    # Note: to get a list of types found in the doc_list dataframe, use:
+    # doc_list['type'].value_counts()
+    reference_documents = ["book", "manual"]
+    if doc_list['type'][i] in reference_documents:
+        dctype = "doc/ref"
+
+    # Provide a link to the PDF file and to the TXT file if it exists
+    # If we have links to a PDF and a TXT file, we mention the format in the title.
+
+    if pd.notna(doc_list['pdf_url'][i]):
+        title_pdf = title + " - PDF version"
+
+    if pd.notna(doc_list['txt_url'][i]):
+        title_txt = title + " - TXT version"
+
+    # Create link to PDF file
+    if pd.notna(doc_list['pdf_url'][i]):
+        nada.add_resource(
+            dataset_id=idno,
+            dctype=dctype,
+            title=title_pdf,
+            file_path=doc_list['pdf_url'][i],
+            overwrite="yes"
+        )
+    
+    # Create link to TXT file, if it exists
+    if pd.notna(doc_list['txt_url'][i]):
+        nada.add_resource(
+            dataset_id=idno,
+            dctype=dctype,
+            title=title_txt,
+            file_path=doc_list['txt_url'][i],
+            overwrite="yes"
+        )
+
+    # Alternative: If we wanted to upload the PDF file instead of providing a link :
+
+    # nada.add_resource(
+    #     dataset_id=idno,
+    #     dctype=dctype,
+    #     title=title,
+    #     file_path=pdf_filename,
+    #     overwrite="yes"
+    # )
 
-pdf_url = doc_list\[\'pdf_url\'\]\[i\]
-
-pdf_filename = doc_list\[\'identifier\'\]\[i\] + ".pdf"
-
-if not os.path.exists(pdf_filename):
-
-nada.download_file(url=pdf_url, output_fname=pdf_filename, mode=\'wb\')
-
-# # Take a screenshot of the cover page to be used as thumbnail
-
-thumb_file = nada.pdf_to_thumbnail(pdf_filename, page_no=1)
-
-# # Map the CSV columns to metadata elements from the schema
-
-idno = doc_list\[\'identifier\'\]\[i\]
-
-title = doc_list\[\'title\'\]\[i\]
-
-date = str(doc_list\[\'date_published\'\]\[i\])
-
-abstract = doc_list\[\'abstract\'\]\[i\]
-
-publisher = doc_list\[\'publisher\'\]\[i\]
-
-series = doc_list\[\'series\'\]\[i\] if
-pd.notna(doc_list\[\'series\'\]\[i\]) else ""
-
-dtype = doc_list\[\'type\'\]\[i\]
-
-author_list = \[\]
-
-authors = doc_list\[\'author\'\]\[i\].split(\';\')
-
-# Format in CSV is "lastname, firstname"
-
-# NADA API - "authors":\[{"first_name":"","initial":"",
-"last_name":""}\]
-
-for a in authors:
-
-this_author = {\'first_name\': (a.split(\',\')\[1\]).strip(),
-
-\'last_name\': (a.split(\',\')\[0\]).strip()
-
-}
-
-author_list.append(this_author)
-
-language = \[\]
-
-lang_list = doc_list\[\'language\'\]\[i\].split()
-
-for lang in lang_list:
-
-ln = {}
-
-if lang == "English":
-
-ln = {"name": \'English\', "code": \'EN\'}
-
-elif lang == "French":
-
-ln = {"name": \'French\', "code": \'FR\'}
-
-language.append(ln)
-
-ctry_list = \[\]
-
-countries = doc_list\[\'countries\'\]\[i\].split(\';\')
-
-for c in countries:
-
-ctry = {\'name\': c.strip()}
-
-ctry_list.append(ctry)
-
-# Document the file, and publish in the NADA catalog
-
-this_doc_metadata = {
-
-\'metadata_information\': {
-
-# This block is optional but recommended
-
-\'producers\': \[{\'name\': "NADA team"}\],
-
-\'production_date\': "2021-09-11",
-
-\'version\': "v01",
-
-},
-
-\'document_description\': {
-
-\'title_statement\':
-
-{"idno": idno,
-
-"title": title
-
-},
-
-\'type\': dtype,
-
-\'abstract\': abstract,
-
-\'ref_country\': ctry_list,
-
-\'date_published\': date,
-
-\'languages\': language,
-
-\'series\': series,
-
-\'authors\': author_list,
-
-\'publisher\': publisher,
-
-}
-
-}
-
-# Publish the document in the NADA central catalog
-
-idno =
-this_doc_metadata\[\'document_description\'\]\[\'title_statement\'\]\[\'idno\'\]
-
-nada.create_document_dataset(
-
-dataset_id=idno,
-
-repository_id="central",
-
-published=1,
-
-overwrite="yes",
-
-\*\*this_doc_metadata,
-
-thumbnail_path=thumb_file
-
-)
-
-# # # Note: to publish the document in a collection (e.g.
-"Handbooks"), we would
-
-# # # enter repositoryid = "Handbooks" instead of "repositoryid =
-"central".
-
-# # # The collection must have been previously created in the
-catalog.
-
-# #
-
-# # #
-==============================================================================
-
-# # # Uploading the document metadata will not upload the document
-itself. To make
-
-# # # the document available in/from the catalog, we need to upload
-the file to the
-
-# # # server or provide a link to an external URL, as an "external
-resource".
-
-# # # More than one resource can be attached to a catalog entry, as
-long as their
-
-# # # title differ; here, some documents are available in PDF and TXT
-formats.
-
-# # #
-==============================================================================
-
-# #
-
-# # # The "type" column in the CSV file does not comply with dctype
-in the
-
-# # # external resources schema; we map the types accordingly
-
-# # # Note: to get a list of types found in the doc_list dataframe,
-use:
-
-# # doc_list\[\'type\'\].value_counts()
-
-reference_documents = \["book", "manual"\]
-
-if doc_list\[\'type\'\]\[i\] in reference_documents:
-
-dctype = "doc/ref"
-
-# # # # # Provide a link to the PDF file and to the TXT file if it
-exists
-
-# # # # # If we have links to a PDF and a TXT file, we mention the
-format in the title.
-
-if pd.notna(doc_list\[\'pdf_url\'\]\[i\]):
-
-title_pdf = title + " - PDF version"
-
-if pd.notna(doc_list\[\'txt_url\'\]\[i\]):
-
-title_txt = title + " - TXT version"
-
-# # # # # # Create link to PDF file
-
-if pd.notna(doc_list\[\'pdf_url\'\]\[i\]):
-
-nada.add_resource(
-
-dataset_id=idno,
-
-dctype=dctype,
-
-title=title_pdf,
-
-file_path=doc_list\[\'pdf_url\'\]\[i\],
-
-overwrite="yes"
-
-)
-
-#
-
-# # # # Create link to TXT file, if it exists
-
-if pd.notna(doc_list\[\'txt_url\'\]\[i\]):
-
-nada.add_resource(
-
-dataset_id=idno,
-
-dctype=dctype,
-
-title=title_txt,
-
-file_path=doc_list\[\'txt_url\'\]\[i\],
-
-overwrite="yes"
-
-)
-
-# # # Alternative: If we wanted to upload the PDF file instead of
-providing a link :
-
-# nada.add_resource(
-
-# dataset_id=idno,
-
-# dctype=dctype,
-
-# title=title,
-
-# file_path=pdf_filename,
-
-# overwrite="yes"
-
-# )
 ```
 
 ### Adding an entry: table
 
-Currently no option to upload a metadata file (will be implemented in
-future versions of NADA). Can enter from scratch, or generate the
-metadata and upload using the API.
+Currently no option to upload a metadata file (will be implemented in future versions of NADA). Can enter from scratch, or generate the metadata and upload using the API.
 
 #### Loading metadata files 
 
@@ -1401,6 +1158,7 @@ Option not yet available in NADA.
 ![](~@imageBase/images/image112.png)
 
 ![](~@imageBase/images/image113.png)
+
 #### Using the API 
 
 The API advantage: face detection, labels, ...
@@ -1413,9 +1171,7 @@ Use Case 006
 
 ### Adding an entry: video
 
-Currently no option to upload a metadata file (will be implemented in
-future versions of NADA). Can enter from scratch, or generate the
-metadata and upload using the API.
+Currently no option to upload a metadata file (will be implemented in future versions of NADA). Can enter from scratch, or generate the metadata and upload using the API.
 
 #### Loading metadata files 
 
@@ -1429,9 +1185,7 @@ Use Case 005
 
 ### Adding an entry: scripts
 
-Currently no option to upload a metadata file (will be implemented in
-future versions of NADA). Can enter from scratch, or generate the
-metadata and upload using the API.
+Currently no option to upload a metadata file (will be implemented in future versions of NADA). Can enter from scratch, or generate the metadata and upload using the API.
 
 #### Loading metadata files 
 
@@ -1465,8 +1219,7 @@ Risk of discrepancy
 
 #### Using the API 
 
-Powerful automation options. Can programmatically change any specific
-piece of metadata, for one or multiple entries.
+Powerful automation options. Can programmatically change any specific piece of metadata, for one or multiple entries.
 
 See the NADAR or PyNADA documentation.
 
@@ -1499,12 +1252,9 @@ To change it:
 
 ### Publishing data in MongoDB 
 
-Data can be published in MongoDB (assuming installed). Data will then be
-accessible via API. Applies to time series and tables, possibly
-microdata.
+Data can be published in MongoDB (assuming installed). Data will then be accessible via API. Applies to time series and tables, possibly microdata.
 
-Condition: data in long format. Use R, Python or other tool to convert
-to appropriate format.
+Condition: data in long format. Use R, Python or other tool to convert to appropriate format.
 
 Preferably, numeric (factor) variables for efficiency.
 
@@ -1528,53 +1278,33 @@ Access policy for data published in API: ...
 
 ### Adding visualizations using widgets
 
-Dynamic visualizations such as charts and maps can be added to a catalog
-entry page using widgets. The use of widgets is only possible via the
-API (this cannot be done through the administrator interface). The
-visualizations are generated outside NADA, for example using a
-JavaScript library. NADA itself does not provide a tool for creating
-visualizations; it only provides a convenient solution to embed
-visualizations in catalog pages. The NADA demo catalog includes such
-visualizations. See for example:
+Dynamic visualizations such as charts and maps can be added to a catalog entry page using widgets. The use of widgets is only possible via the API (this cannot be done through the administrator interface). The visualizations are generated outside NADA, for example using a JavaScript library. NADA itself does not provide a tool for creating visualizations; it only provides a convenient solution to embed visualizations in catalog pages. The NADA demo catalog includes such visualizations. See for example:
 
--   <https://nada-demo.ihsn.org/index.php/catalog/49> (line/bar chart,
-    choropleth map, data preview)
+-   <https://nada-demo.ihsn.org/index.php/catalog/49> (line/bar chart, choropleth map, data preview)
 
 -   <https://nada-demo.ihsn.org/index.php/catalog/87> (choropleth map)
 
 -   <https://nada-demo.ihsn.org/index.php/catalog/97> (age pyramid)
 
-Visualizations can however be applied to any data type, as long as the
-underlying data are available via an API (the NADA data API, or an
-external API).
+Visualizations can however be applied to any data type, as long as the underlying data are available via an API (the NADA data API, or an external API).
 
-The widgets (zip files) used in the NADA demo catalog are available in
-the NADA GitHub repository (Use Cases).
+The widgets (zip files) used in the NADA demo catalog are available in the NADA GitHub repository (Use Cases).
 
 #### Requirements
 
-A visualization widget can be added to a catalog page in two steps.
-First, upload a zipped widget source file to a catalog. Second, attach
-the widget to entry page(s). A zipped widget file contains one
-[index.html]{.underline} file, and supporting files such as a CSS and a
-thumbnail image.
+A visualization widget can be added to a catalog page in two steps. First, upload a zipped widget source file to a catalog. Second, attach the widget to entry page(s). A zipped widget file contains one [index.html]{.underline} file, and supporting files such as a CSS and a thumbnail image.
 
 In R:
 
+```r
 library(nadar)
-
 widgets_create
-
 uuid = widget_uuid,
 
 options = list(
-
-title = "title of widget",
-
-thumbnail = "thumbnail.jpg",
-
-description = "description of widget"
-
+    title = "title of widget",
+    thumbnail = "thumbnail.jpg",
+    description = "description of widget"
 ),
 
 zip_file = zip_file
@@ -1582,59 +1312,37 @@ zip_file = zip_file
 )
 
 widgets_attach(
-
-idno = dataset_id,
-
-uuid = widget_uuid
-
+    idno = dataset_id,
+    uuid = widget_uuid
 )
+```
 
 In Python:
 
+```python
 import pynada as nada
 
 nada.upload_widget(
-
-widget_id = widget_uuid,
-
-title = " title of widget ",
-
-file_path = zip_file,
-
-thumbnail = "thumbnail.JPG",
-
-description = " description of widget "
-
+    widget_id = widget_uuid,
+    title = " title of widget ",
+    file_path = zip_file,
+    thumbnail = "thumbnail.JPG",
+    description = " description of widget "
 )
 
 nada.attach_widget(
-
 dataset_id = dataset_id,
-
 widget_id = widget_uuid,
-
 )
+```
 
-With the widget APIs, you can manage widgets and attachments separately.
-Oftentimes, many entry pages have a common data API and a same type of
-visualization, in which case a single widget can be used to display
-different datasets by reading the dataset ID that the widget is attached
-to as follows:
+With the widget APIs, you can manage widgets and attachments separately. Oftentimes, many entry pages have a common data API and a same type of visualization, in which case a single widget can be used to display different datasets by reading the dataset ID that the widget is attached to as follows:
 
 datasetID = parent.document.getElementsByClassName(\'study-idno\')\[0\]
 
-Thus, it is advisable to codify key contents of entry pages, such as
-country names and indicator series, and include the codes in dataset IDs
-so that a widget can load different data with the codified parameters
-from data API.
+Thus, it is advisable to codify key contents of entry pages, such as country names and indicator series, and include the codes in dataset IDs so that a widget can load different data with the codified parameters from data API.
 
-Since a widget is a self-sufficient web application, it is possible to
-import any JavaScript libraries to visualize data. It is also desirable
-to utilize a front-end framework (ex. Vue JS) and a CSS framework (ex.
-Bootstrap JS) to implement a JavaScript widget in a more structured way.
-The following examples are implemented using open-source Java libraries
-including jQuery, Vue, Bootstrap, eCharts (chart), Leaflet (map), and
-Tabulator (grid). Other libraries/frameworks could be used.
+Since a widget is a self-sufficient web application, it is possible to import any JavaScript libraries to visualize data. It is also desirable to utilize a front-end framework (ex. Vue JS) and a CSS framework (ex. Bootstrap JS) to implement a JavaScript widget in a more structured way. The following examples are implemented using open-source Java libraries including jQuery, Vue, Bootstrap, eCharts (chart), Leaflet (map), and Tabulator (grid). Other libraries/frameworks could be used. 
 
 #### Example 1: eCharts bar/line chart
 
@@ -1660,12 +1368,7 @@ Demo catalog ; links to GitHub
 
 ### Adding a data preview grid 
 
-The grids are generated outside NADA. In the example below, the grid
-produced using the open-source W2UI application. Other applications
-could be used, such as Grid JS, Tabulator, or other (including
-commercial applications). NADA itself does not provide a tool for
-generating data grids; it only provides a convenient solution to embed
-grids in catalog pages.
+The grids are generated outside NADA. In the example below, the grid produced using the open-source W2UI application. Other applications could be used, such as Grid JS, Tabulator, or other (including commercial applications). NADA itself does not provide a tool for generating data grids; it only provides a convenient solution to embed grids in catalog pages.
 
 ![](~@imageBase/images/image126.png)
 
@@ -1679,28 +1382,13 @@ Create a role.
 
 ### Why do we have collections?
 
-Collections are sub-categories of the Central Data Catalog. They allow
-administrators of a NADA instance to group studies into what can be
-thought of as sub-catalogs of the Central Data Catalog. Collections
-provide a number of benefits both from the user and the administrator
-perspective. From the users' perspective, being able to filter and view
-groups (collections) of studies that logically belong together makes
-finding what they are looking for easier. From the administrators'
-perspective, the ability to create collections of studies that may
-logically belong together facilitates the ability to decentralize the
-management of each collection of studies to specific administrators (for
-example collections can be managed by different departments in an
-institution).
+Collections are sub-categories of the Central Data Catalog. They allow administrators of a NADA instance to group studies into what can be thought of as sub-catalogs of the Central Data Catalog. Collections provide a number of benefits both from the user and the administrator perspective. From the users' perspective, being able to filter and view groups (collections) of studies that logically belong together makes finding what they are looking for easier. From the administrators' perspective, the ability to create collections of studies that may logically belong together facilitates the ability to decentralize the management of each collection of studies to specific administrators (for example collections can be managed by different departments in an institution).
 
-The creation of collections will in general only be useful and necessary
-for large catalogs or for catalogs that desire more decentralized
-management of groups of studies by different departments.
+The creation of collections will in general only be useful and necessary for large catalogs or for catalogs that desire more decentralized management of groups of studies by different departments.
 
 ### Creating a collection
 
-There are no collections defined in the default NADA 4 installation.
-Collection page will be empty. After you create collections, they will
-be listed in the page.
+There are no collections defined in the default NADA 4 installation. Collection page will be empty. After you create collections, they will be listed in the page.
 
 #### Using the administrator interface 
 
@@ -1712,49 +1400,26 @@ This will open:
 
 ![](~@imageBase/images/image129.png)
 
-Under Collection Identification, provide a short name for the
-collection. This will become the URL for the collection so pick
-carefully. For Title, fill in the fill title for the collection. This
-will be the name displayed at the top of the collection page.
+Under Collection Identification, provide a short name for the collection. This will become the URL for the collection so pick carefully. For Title, fill in the fill title for the collection. This will be the name displayed at the top of the collection page.
 
-Fill in a three- or four-line short description of the collection. This
-text will display on the front end in the collections list.
+Fill in a three- or four-line short description of the collection. This text will display on the front end in the collections list.
 
-Fill in a more detailed description of the collection. This will display
-on the About page for that collection.
+Fill in a more detailed description of the collection. This will display on the About page for that collection.
 
-To format the page and include images it is possible to enter HTML code
-into this box: below is an example piece of code that includes an image.
+To format the page and include images it is possible to enter HTML code into this box: below is an example piece of code that includes an image.
 
-Upload a file to display next to the collection as it is listed on the
-collection page. NOTE: This image should be 82 X 82 pixels. If the
-upload does not work automatically then copy the thumbnail image to the
-"files" folder as shown above.
+Upload a file to display next to the collection as it is listed on the collection page. NOTE: This image should be 82 X 82 pixels. If the upload does not work automatically then copy the thumbnail image to the "files" folder as shown above.
 
 ![](~@imageBase/images/image130.png)
 
-E. The Weight field determines in what order collections are shown in
-the collection list. 0,1,2,3 etc. The Select collection type drop-down
-is a system value to distinguish between collections that should be
-viewed as internal to the organization or external. For example, some
-collections may be made up entirely of studies from an organization
-outside the host catalog. These collections can be designated as
-external. The Section dropdown allows for the categorization as either a
-collection based on a specialized collection (like health) or based on a
-regional breakdown. Selecting Publish -- publishes the collection. Click
-on Submit to save the changes.
+E. The Weight field determines in what order collections are shown in the collection list. 0,1,2,3 etc. The Select collection type drop-down 
+is a system value to distinguish between collections that should be viewed as internal to the organization or external. For example, some collections may be made up entirely of studies from an organization outside the host catalog. These collections can be designated as external. The Section dropdown allows for the categorization as either a collection based on a specialized collection (like health) or based on a regional breakdown. Selecting Publish -- publishes the collection. Click on Submit to save the changes.
 
 To view the results click on the Preview link on the far right:
 
-The new collection now also shows in the collection list on the Central
-Catalog About page (this is where the thumbnail and short description
-fields are displayed).
+The new collection now also shows in the collection list on the Central Catalog About page (this is where the thumbnail and short description fields are displayed).
 
-Visiting the Dashboard will now also show the new collection listed
-below the Central Data Catalog. With a number of green buttons as
-shortcut links to manage the studies on the collection, assign
-administrators for the collection, a history of activity on the
-collection and a link to edit the collection as in the steps above.
+Visiting the Dashboard will now also show the new collection listed below the Central Data Catalog. With a number of green buttons as shortcut links to manage the studies on the collection, assign administrators for the collection, a history of activity on the collection and a link to edit the collection as in the steps above.
 
 ![](~@imageBase/images/image131.png)
 
@@ -1840,8 +1505,7 @@ Also: can access to collection tools in Dashboard:
 
 ## Managing facets
 
-Facets (filters) play a critical role in making data more discoverable.
-The following facets are displayed by default in NADA:
+Facets (filters) play a critical role in making data more discoverable. The following facets are displayed by default in NADA:
 
 -   Range of years
 
@@ -1852,13 +1516,7 @@ The following facets are displayed by default in NADA:
 
 ![](~@imageBase/images/image146.png)
 
-You can add your own facets and apply them to each data type
-independently. Facets must be created based on metadata elements in the
-standard standards and schemas. They only make sense when the metadata
-element is categorical and has a reasonably small number of categories.
-When metadata are documented using CVs, make it easier. All metadata
-schemas used in NADA have an element "tags" that provides much
-flexibility to create custom facets.
+You can add your own facets and apply them to each data type independently. Facets must be created based on metadata elements in the standard standards and schemas. They only make sense when the metadata element is categorical and has a reasonably small number of categories. When metadata are documented using CVs, make it easier. All metadata schemas used in NADA have an element "tags" that provides much flexibility to create custom facets.
 
 ![](~@imageBase/images/image4.png)
 
@@ -1872,43 +1530,21 @@ To manage facets, click on Settings \> Facets in the main menu.
 
 ![](~@imageBase/images/image147.png)
 
-Click on **Create new facet**. In each relevant schema, you will have to
-identify the element that corresponds to the facet being created. In
-some cases, a facet will apply to only one data type (for example, a
-facet "Document type" would only apply to entries of type "document").
-In others, it can apply to multiple data types. A few facets other than
-the ones provided by default in NADA (year, type, country) may cover all
-data types (this could be the case of "topics", "keywords", or "tags").
+Click on **Create new facet**. In each relevant schema, you will have to identify the element that corresponds to the facet being created. In some cases, a facet will apply to only one data type (for example, a facet "Document type" would only apply to entries of type "document"). In others, it can apply to multiple data types. A few facets other than the ones provided by default in NADA (year, type, country) may cover all data types (this could be the case of "topics", "keywords", or "tags"). 
 
-In the Create Facet form, you will provide a short name for the facet, a
-title (header to be displayed in the user interface), and a status
-(Enabled/Disabled).
+In the Create Facet form, you will provide a short name for the facet, a title (header to be displayed in the user interface), and a status (Enabled/Disabled).
 
 ![](~@imageBase/images/image148.png)
 
-In the **Field** section, select the metadata field that correspond to
-your facet. For example, if you create a facet to allow users to filter
-documents by their publishing status (the document schema suggests the
-use of a controlled vocabulary for this field with possible values
-"first draft, draft, reviewed draft, final draft, final"), you will
-select the field "document_description/status".
+In the **Field** section, select the metadata field that correspond to your facet. For example, if you create a facet to allow users to filter documents by their publishing status (the document schema suggests the use of a controlled vocabulary for this field with possible values "first draft, draft, reviewed draft, final draft, final"), you will select the field "document_description/status". 
 
-**Subfields**: Some metadata fields may have more than one component.
-For example, the field "language" has a component "name" and a component
-"code". If you want to use the name of the language in the filter, you
-will have to select the element "name". The fields that contain more
-than one component are identified with a \* in the drop-down list.
+**Subfields**: Some metadata fields may have more than one component. For example, the field "language" has a component "name" and a component "code". If you want to use the name of the language in the filter, you will have to select the element "name". The fields that contain more than one component are identified with a \* in the drop-down list.
 
 ![](~@imageBase/images/image149.png)
 
-**Filter and Filter value**: These options allow you to limit the filter
-to some specific values in the metadata. An example of the use of filter
-and filter value is provided below in the section "Use of tags for
-custom facets".
+**Filter and Filter value**: These options allow you to limit the filter to some specific values in the metadata. An example of the use of filter and filter value is provided below in the section "Use of tags for custom facets".
 
-After creating a new facet, you must click on the **Indexer** button to
-reindex the metadata in your catalog. Without doing this, the facet will
-not be displayed in your catalog.
+After creating a new facet, you must click on the **Indexer** button to reindex the metadata in your catalog. Without doing this, the facet will not be displayed in your catalog.
 
 ![](~@imageBase/images/image150.png)
 
@@ -1920,17 +1556,11 @@ Facets cannot be created using the API in NADA 5.2.0.
 
 #### Using the administrator interface 
 
-To activate the facets and change the order in which they appear in the
-user interface, click on Configure.
+To activate the facets and change the order in which they appear in the user interface, click on Configure.
 
 ![](~@imageBase/images/image151.png)
 
-The different data types are displayed in tabs where all available
-facets are listed. In each tab, select the facet you want to display in
-the corresponding data type tabs in the user interface (setting them as
-On/Off). The order of the facets can be modified by drag and drop. When
-a change is made in the selection and/or order, click on **Update** to
-save it.
+The different data types are displayed in tabs where all available facets are listed. In each tab, select the facet you want to display in the corresponding data type tabs in the user interface (setting them as On/Off). The order of the facets can be modified by drag and drop. When a change is made in the selection and/or order, click on **Update** to save it.
 
 ![](~@imageBase/images/image152.png)
 
@@ -1940,23 +1570,11 @@ Facets cannot be managed using the API in NADA 5.2.0.
 
 ### Use of tags for custom facets
 
-Tags provide a very convenient and flexible solution to generate
-customized tags based on information that may not be found in the
-specific elements found in the metadata schemas. The "tags" field
-available in all metadata schemas contains two elements: tag, and
-tag_group.
+Tags provide a very convenient and flexible solution to generate customized tags based on information that may not be found in the specific elements found in the metadata schemas. The "tags" field available in all metadata schemas contains two elements: tag, and tag_group.
 
 ![](~@imageBase/images/image153.png)
 
-Let's assume you want to create a facet that would apply to ALL data
-types and filter entries by pricing policy, with two possible options:
-"For free" or "For a fee". No metadata schema using in NADA other than
-the Document schema provides an element related to the pricing policy.
-The NADA API makes it easy to add this information to the metadata for
-all catalog entries, in a tag. The "tag" would contain value "For free"
-or "For a fee", and in all cases the tag_group would be named
-"fee_or_free". A new facet can then be created with the following
-parameters:
+Let's assume you want to create a facet that would apply to ALL data types and filter entries by pricing policy, with two possible options: "For free" or "For a fee". No metadata schema using in NADA other than the Document schema provides an element related to the pricing policy. The NADA API makes it easy to add this information to the metadata for all catalog entries, in a tag. The "tag" would contain value "For free" or "For a fee", and in all cases the tag_group would be named "fee_or_free". A new facet can then be created with the following parameters:
 
 -   Name: *pricing*
 
@@ -1970,11 +1588,7 @@ parameters:
 
 ![](~@imageBase/images/image154.png)
 
-The selection of the "tags" field and the filter and filter value must
-be entered for ALL data types. After saving it and reindexing, a new
-facet will be available that will apply to the tags that belong to the
-group "fee_or_free" (ignoring all other tags that may have been entered
-in the metadata).
+The selection of the "tags" field and the filter and filter value must be entered for ALL data types. After saving it and reindexing, a new facet will be available that will apply to the tags that belong to the group "fee_or_free" (ignoring all other tags that may have been entered in the metadata).
 
 #### Using the API 
 
@@ -1984,14 +1598,9 @@ Facets cannot be managed using the API in NADA 5.2.0.
 
 ![](~@imageBase/images/image155.png)
 
-Citations are the published and unpublished works that make use and cite
-datasets listed in your catalog. NADA provides the option to maintain a
-catalog of such citations.
+Citations are the published and unpublished works that make use and cite datasets listed in your catalog. NADA provides the option to maintain a catalog of such citations.
 
-Citations can be found in Semantics Scholar or Google Scholar. Or
-authors may inform you. Has to use multiple queries. Many false
-positives. Filter by year (exclude years < dataset year). Requires some
-visual validation.
+Citations can be found in Semantics Scholar or Google Scholar. Or authors may inform you. Has to use multiple queries. Many false positives. Filter by year (exclude years < dataset year). Requires some visual validation.
 
 Can be a tedious process. We are developing a tool to assist.
 
@@ -2003,44 +1612,32 @@ Advantage: open, has API
 
 Google Scholar: <https://scholar.google.com/>
 
-No API, and does not allow programmatic extraction. But convenient
-automated notification (alert).
+No API, and does not allow programmatic extraction. But convenient automated notification (alert).
 
 ![](~@imageBase/images/image157.png)
 
-Cannot guarantee exhaustivity and perfect accuracy. Data are poorly
-cited (no information on the version; translated or incomplete title
-mentioned in publications. Still can have much value to show that well
-documented and easily accessible data are used.
+Cannot guarantee exhaustivity and perfect accuracy. Data are poorly cited (no information on the version; translated or incomplete title mentioned in publications. Still can have much value to show that well documented and easily accessible data are used.
 
 ### Adding a citation
 
 Citations are added from the Citations menu.
 
-One citation can be related to more than one dataset. And of course, one
-dataset can have multiple citations. When you add a dataset to your
-catalog, and want to add citations to it, it may be the case that the
-citations was already entered but attached to another dataset. In such
-case, you will only have to add a dataset to the list of related
-datasets. You do not want to duplicate citations in your catalog.
+One citation can be related to more than one dataset. And of course, one dataset can have multiple citations. When you add a dataset to your catalog, and want to add citations to it, it may be the case that the citations was already entered but attached to another dataset. In such case, you will only have to add a dataset to the list of related datasets. You do not want to duplicate citations in your catalog. 
 
 #### Using the administrator interface 
 
-To add a citation - click on All citations then click on the Add New
-Citation button at the top right.
+To add a citation - click on All citations then click on the Add New Citation button at the top right.
 
 ![](~@imageBase/images/image158.png)
 
-It is important to know whether the citation is already in your citation
-catalog. Enter the title, possibly author, and the page will display the
+It is important to know whether the citation is already in your citation catalog. Enter the title, possibly author, and the page will display the
 closest matches.
 
 If no match, add the new citation by filling the citation form.
 
 ![](~@imageBase/images/image159.png)
 
--   **Citation type:** Select the appropriate kind of publication. These
-    were presented in the introduction of the manual. A drop-down list
+-   **Citation type:** Select the appropriate kind of publication. These were presented in the introduction of the manual. A drop-down list
     is provided.
 
 -   **Title**: Title of the document
@@ -2053,9 +1650,7 @@ If no match, add the new citation by filling the citation form.
 
 -   **Publication date**: Enter at least the year
 
--   **ISSN/ISBN/Other number**: Unique identification number of the
-    document (other than the DOI, for which a specific field is
-    provided)
+-   **ISSN/ISBN/Other number**: Unique identification number of the document (other than the DOI, for which a specific field is provided)
 
 -   **Publisher**: Name of the publisher
 
@@ -2063,17 +1658,13 @@ If no match, add the new citation by filling the citation form.
 
 -   **Country/State**: Cuntry/State of the publisher address
 
--   **URL**: Link to the document or to a page where the document is
-    found
+-   **URL**: Link to the document or to a page where the document is found
 
 -   **DOI**: Digital Object Identifier of the document
 
 -   **Language**: Language (if multiple, main language)
 
--   **Abstract**: The abstract is optional, but we want to include it
-    whenever possible. When copy/pasted from a PDF document, edit the
-    content if necessary, to ensure that the flow of the text is
-    continuous.
+-   **Abstract**: The abstract is optional, but we want to include it whenever possible. When copy/pasted from a PDF document, edit the content if necessary, to ensure that the flow of the text is continuous.
 
     -   Instead of:
 
@@ -2087,14 +1678,9 @@ If no match, add the new citation by filling the citation form.
 
 -   **Notes**: additional notes, if any
 
--   **Attach file**: Filename (with path) of the document (in most
-    cases, this will not be provided; only the URL field will be filled)
+-   **Attach file**: Filename (with path) of the document (in most cases, this will not be provided; only the URL field will be filled)
 
--   **Flag**: the flag will be used internally for adminisrtaive/review
-    purpose. Citations that need review or confirmation for example can
-    be flagged. The citations can be filtered by flag in the "All
-    citations" page, allowing administrators and reviewers to take
-    action accordingly.
+-   **Flag**: the flag will be used internally for adminisrtaive/review purpose. Citations that need review or confirmation for example can be flagged. The citations can be filtered by flag in the "All citations" page, allowing administrators and reviewers to take action accordingly.
 
 ![](~@imageBase/images/image162.png)
 
@@ -2102,18 +1688,11 @@ If no match, add the new citation by filling the citation form.
 
 After entering all relevant information, click SAVE.
 
-If the citation had already been entered (in which case it appears in
-the Similar citations box), you only have to attach an additional
-dataset to it. Select the citations in the "Similar citations" box (to
-avoid creating a duplicate). The form will be automatically filled out.
-Go to the **Attach surveys** tab to attach the relevant dataset(s), and
-save the change.
+If the citation had already been entered (in which case it appears in Similar citations box), you only have to attach an additional dataset to it. Select the citations in the "Similar citations" box (to avoid creating a duplicate). The form will be automatically filled out. Go to the **Attach surveys** tab to attach the relevant dataset(s), and save the change.
 
 ![](~@imageBase/images/image163.png)
 
-The citation (if the status has been set to "Published") will now be
-visible in the user interface. The number of citations will be displayed
-in the catalog listings.
+The citation (if the status has been set to "Published") will now be visible in the user interface. The number of citations will be displayed in the catalog listings.
 
 ![](~@imageBase/images/image164.png)
 
@@ -2121,8 +1700,7 @@ In a study page, the citations (if any) will be shown in a tab.
 
 ![](~@imageBase/images/image165.png)
 
-All citations will also be listed and searchable in the Citations
-catalog.
+All citations will also be listed and searchable in the Citations catalog.
 
 ![](~@imageBase/images/image166.png)
 
@@ -2132,15 +1710,11 @@ catalog.
 
 ### Importing citations
 
-It is also possible to import citations in common citation formats such
-as BibTex and EndNote (RIS).
+It is also possible to import citations in common citation formats such as BibTex and EndNote (RIS).
 
 #### Using the administrator interface 
 
-To do this use the Import Citations link from the top menu. Paste the
-BibTex or RIS text into the form and then at the bottom of the screen
-click on Attach studies to link the citation to a particular study in
-the catalog.
+To do this use the Import Citations link from the top menu. Paste the BibTex or RIS text into the form and then at the bottom of the screen click on Attach studies to link the citation to a particular study in the catalog.
 
 ![](~@imageBase/images/image167.png)
 
@@ -2152,8 +1726,7 @@ the catalog.
 
 #### Using the administrator interface 
 
-The list of citations in your catalog can be exported to JSON or CSV
-format.
+The list of citations in your catalog can be exported to JSON or CSV format.
 
 ![](~@imageBase/images/image168.png)
 
@@ -2179,30 +1752,19 @@ Citations exported as CSV:
 
 ## Managing data requests
 
-Some datasets will be declared as being accessible only under license.
-This means that users need to be registered and submit a request for
-accessing data. Typically, this is done at the study level, and only
-apply to microdata and geographic datasets. Sometimes for a collection
-(see bulk data access).
+Some datasets will be declared as being accessible only under license. This means that users need to be registered and submit a request for accessing data. Typically, this is done at the study level, and only apply to microdata and geographic datasets. Sometimes for a collection (see bulk data access).
 
 #### Using the administrator interface 
 
 ![](~@imageBase/images/image172.png)
 
-Datasets that are assigned the Access Type Licensed require approval
-from a NADA administrator before the user can get access to the data
-files. From the site administration there are a number of ways to see if
-licensed requests have been received.
+Datasets that are assigned the Access Type Licensed require approval from a NADA administrator before the user can get access to the data files. From the site administration there are a number of ways to see if licensed requests have been received. 
 
--   **In the dashboard**: Pending requests show up as red in the catalog
-    quick summary section. Clicking on this link goes to the Licensed
-    Survey Requests management page.
+-   **In the dashboard**: Pending requests show up as red in the catalog quick summary section. Clicking on this link goes to the Licensed Survey Requests management page.
 
 > ![](~@imageBase/images/image173.png)
 
--   **From the Studies menu**: select Licensed Requests from the
-    submenu. The link shows a page with a list of Licensed Requests
-    received. The status column indicates the Pending requests.
+-   **From the Studies menu**: select Licensed Requests from the submenu. The link shows a page with a list of Licensed Requests received. The status column indicates the Pending requests.
 
 > ![](~@imageBase/images/image174.png)
 
@@ -2210,40 +1772,31 @@ licensed requests have been received.
 
 Click on the Edit link for to process a request.
 
-The Request information tab shows a summary of the information provided
-by the applicant.
+The Request information tab shows a summary of the information provided by the applicant.
 
 ![](~@imageBase/images/image176.png)
 
-To Approve or Deny or request further information for the request. Click
-on the Process tab.
+To Approve or Deny or request further information for the request. Click on the Process tab.
 
 ![](~@imageBase/images/image177.png)
 
--   Select Approve to approve the request. (other options include Deny
-    as well as Request more information from the applicant).
+-   Select Approve to approve the request. (other options include Deny as well as Request more information from the applicant).
 
--   Select the files that the user will be authorized to download -- it
-    is also possible to enter a maximum number of downloads and expiry
-    date for downloads.
+-   Select the files that the user will be authorized to download -- it is also possible to enter a maximum number of downloads and expiry date for downloads.
 
 -   Enter any comments to be sent to the applicant
 
--   Select Notify user by email to notify them that the application has
-    been processed.
+-   Select Notify user by email to notify them that the application has been processed.
 
 -   Select Update.
 
 **The remaining tabs:**
 
--   Communicate - provides a means to ask for more information from the
-    applicant
+-   Communicate - provides a means to ask for more information from the applicant
 
--   Monitor -- allows the administrator to see when and how many times
-    the applicant downloaded the data
+-   Monitor -- allows the administrator to see when and how many times the applicant downloaded the data
 
--   Forward Request -- provides a means to forward the request to
-    another person for review.
+-   Forward Request -- provides a means to forward the request to another person for review.
 
 #### Using the API 
 
