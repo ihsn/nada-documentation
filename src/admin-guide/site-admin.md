@@ -29,7 +29,6 @@ The equivalent of login when using the API is to provide the catalog URL and ent
 In R:
 
 ```r
-
 library(nadar)
 
 # Setting the API key for authenticating as administrator (equivalent to "login")
@@ -44,12 +43,11 @@ set_api_key(my_keys[5,1])  # Assuming the key is in cell A5
 
 set_api_url("http://nada-demo.ihsn.org/index.php/api/") 
 set_api_verbose(FALSE)
-
 ```
 
 In Python:
-```python
 
+```python
 import pynada as nada
 import pandas as pd
 
@@ -65,7 +63,6 @@ nada.set_api_key(my_keys.iat[4, 0])  # Assuming the key is in cell A5
 
 nada.set_api_url('https://nada-demo.ihsn.org/index.php/api/')
 nada.set_api_verbose(FALSE)
-
 ```
 
 Note: As an additional security, the API use can be restricted to some specific IP addresses. See ...
