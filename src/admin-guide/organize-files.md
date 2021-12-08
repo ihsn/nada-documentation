@@ -1,14 +1,12 @@
 # Organizing your files and folders
 
-NADA does not impose any organization of your files and folders. But if you manage a catalog, you probably have many files to organize. Some rules should be followed in the organization of these files, and in the naming of folders (and creation of unique identifiers for catalog entries). We suggest the following.
+NADA does not impose any organization of your files and folders. But if you manage a catalog, you probably have many files to organize. Some rules should be followed in the organization of these files into folders and in the naming of files and folders (and in the creation of unique identifiers for catalog entries). We provide below an example of file organization.
 
 -   Maintain a separate Library in a data store for each type (Microdata, Script, Image, etc) since in NADA they are listed separately under separate schema.
 
 -   Provide script friendly folder names. This includes avoiding spaces between characters in folder names. Script friendly folder names facilitate bulk processing of resources between the catalog and the archive, and during analysis and performance other data management tasks.
 
 ![](~@imageBase/images/image41.png)
-
-**Recommendations by data/resource type**
 
 ## Microdata
 
