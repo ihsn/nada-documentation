@@ -4,7 +4,7 @@ If you have just installed your NADA catalog and want to test it, we show you he
 
 ## Publishing microdata 
 
-Before you start, download the try_micro zip file from our GitHub repository and extract its content in a new folder. The content of this new folder should be as shown below. Note that this folder structure is not imposed by NADA (see section "Organizing your files" of the NADA Administrator Guide), but it is important to keep it as is as the AFR_1996_WDAAF_v01_M.rdf file, which contains metadata for the resources related to the dataset, includes relative paths where the resource files are expected to be found.
+Before you start, [download the try_micro zip file](https://github.com/mah0001/test-docs/blob/main/examples/microdata/try_micro.zip) from our GitHub repository and extract its content in a new folder. The content of this new folder should be as shown below. Note that this folder structure is not imposed by NADA (see section "Organizing your files" of the NADA Administrator Guide), but it is important to keep it as is as the AFR_1996_WDAAF_v01_M.rdf file, which contains metadata for the resources related to the dataset, includes relative paths where the resource files are expected to be found.
 
 > ![](~@imageBase/images/image16.png)
 
@@ -12,7 +12,7 @@ In these folders, you will find the following content:
 - In the root folder, the DDI-compliant metadata (xml file), the Dublin Core-compliant metadata for the related resources (rdf file), and a jpg image file to be used as a thumbnail in the NADA catalog.
 - In the *Data* folder, the dataset to be published in the catalog. In this case, the dataset is contained in a single compressed file for each one of the three formats that we want to make available (Stata, SPSS, and CSV).
 - In the *Doc* folder, all related documentation files. In this particular case, this is limited to a PDF file containing a working paper. In most cases, the documentation files will include survey questionnaires, interviewer manual, technical and analytical report, and others.
-- In the *Programs* folder, a Stata script (do file) used to format teh original dataset. It is good practce to share scripts and code that would allow users to replicate data processing, editing, tabulation, analysis, and visualizations.  
+- In the *Programs* folder, a Stata script (do file) used to format teh original dataset. It is good practice to share scripts and code that would allow users to replicate data processing, editing, tabulation, analysis, and visualizations.  
 
 ### Using the administrator interface
 
