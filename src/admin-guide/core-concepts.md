@@ -2,7 +2,7 @@
 
 ## Data
 
-![](~@imageBase/images/nada_tabs.PNG)
+![](~@imageBase/images/nada_tabs.png)
 
 NADA covers different types of **data used for quantitative analysis of social and economic issues**. This includes:
 
