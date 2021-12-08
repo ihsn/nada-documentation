@@ -1,6 +1,6 @@
 # Overview
 
-![](~@imageBase/images/nada_banner.PNG)
+![](~@imageBase/images/nada_banner.png)
 
 ## Why NADA?
 
@@ -14,7 +14,7 @@ NADA is an open-source web-based data cataloging application. It is used to crea
     
 -   Making data **accessible** means that the data are made accessible for download in the easiest possible manner, but in compliance with legal, ethical or other legitimate constraints.
 
-![](~@imageBase/images/nada_demo_browse.PNG)
+![](~@imageBase/images/nada_demo_browse.png)
 
 ## For what data?
 
