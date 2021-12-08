@@ -24,7 +24,7 @@ The Profile link will display your profile, with an option to edit its content a
 
 The profile can only be edited in the administrator interface; it cannot be edited using the API.
 
-The equivalent of a login when using the API is to provide the catalog URL and providing an API authentication key. This is done in R (NADAR package) and in Python (library PyNADA) using the functions **set_api_key** and **set_api_url**.
+The equivalent of a login when using the API is to provide the catalog URL and an API authentication key. This is done in R (NADAR package) and in Python (library PyNADA) using the functions **set_api_key** and **set_api_url**.
 
 Using R:
 
