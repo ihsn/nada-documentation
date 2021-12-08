@@ -40,7 +40,7 @@ We make a distinction between the following data types, as specific metadata sta
 
 The usability and discoverability of data depends heavily on the quality of the underlying metadata. For that reason, NADA relies on and requires structured metadata. Data documentation (metadata) is critical to both data users and data producers.
 
-Metadata help the [data user]{.underline}:
+Metadata help the **data user**:
 
 -   **Find and access** data of interest. Without labels, abstracts, keywords, and other important metadata element it might be difficult for a researcher to locate specific datasets and variables.
 
@@ -48,7 +48,7 @@ Metadata help the [data user]{.underline}:
 
 -   **Understand and use** the data. Without proper documentation, the risk is high that secondary users may misunderstand and misuse the data.
 
-The availability of good metadata also has significant benefits for [data producers.]{.underline} It:
+The availability of good metadata also has significant benefits for **data producers**. It:
 
 -   Ensures **transparency, auditability, and credibility** of the data production process.
 
