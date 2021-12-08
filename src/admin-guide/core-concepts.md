@@ -1,5 +1,7 @@
 # Core concepts
 
+We use in this document some concepts and a jargon that need to be well understood, starting with a definition of what constitute *data* and *metadata*, and the different *data types* in NADA. A specific metadata schema is used for each data type, so these concepts are essential. The documentation of NADA (this Administrator Guide and other documentation) also make extensive use of the terms "entry", "dataset", and "study". In most cases, these terms refer to one same thing: a catalog entry.     
+
 ## Data
 
 ![](~@imageBase/images/nada_tabs.png)
