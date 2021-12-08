@@ -38,4 +38,4 @@ cd PyNADA
 pip install PyNADA
 ```
 
-To install from github using the above methods, git needs to be installed on your computer and included in your PATH environment variable. Instructions on how to install git are provided here: https://github.com/git-guides/install-git.[Catalog administration](https://mah0001.github.io/test-docs/admin-guide/web-ui/)
+To install from github using the above methods, git needs to be installed on your computer and included in your PATH environment variable. Instructions on how to install git are provided here: https://github.com/git-guides/install-git [Catalog administration](https://mah0001.github.io/test-docs/admin-guide/web-ui/)
