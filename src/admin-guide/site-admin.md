@@ -16,7 +16,12 @@ The Site administration link will open the administrator interface ("Dashboard")
 
 The Profile link will display your profile, with an option to edit its content and to generate your API keys. An API key will be required to programmatically add, edit, extract, or delete information from the NADA catalog, using R or Python for example. The privileges that the API key will provide depend on the permissions you have to administer the catalog or specific component of it. 
 
-::: tip NOTE API keys, especially those with administrator privileges attached to them, are like your password and must be kept strictly confidential. If you have any reason to believe that your key has been compromised, cancel it immediately, and generate a new key. :::
+::: tip NOTE
+API keys, especially those with administrator privileges attached to them, are like your password and must be kept strictly confidential. If you have any reason to believe that your key has been compromised, cancel it immediately, and generate a new key.
+
+As an additional security, the API use can be restricted to some specific IP addresses. See ...
+:::
+
 
 ![](~@imageBase/images/image51.png)
 
@@ -64,8 +69,6 @@ nada.set_api_key(my_keys.iat[4, 0])  # Assuming the key is in cell A5
 nada.set_api_url('https://nada-demo.ihsn.org/index.php/api/')
 nada.set_api_verbose(FALSE)
 ```
-
-Note: As an additional security, the API use can be restricted to some specific IP addresses. See ...
 
 ## Dashboard
 
