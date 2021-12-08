@@ -2,9 +2,9 @@
 
 ## Login
 
-### Using the administrator interface 
+### Using the web interface 
 
-A login link is provided at the top-right of the NADA catalog site. This login will be used by administrators to access the administrator interface, or by registered users who need to login to request access to non- public datasets. The administrator interface will only be accessible to users who have been granted some administrative role in the catalog (full administrator, collection administrator, reviewer, or data request approver; the specific administrator privileges are defined by the full administrator in the "Users" section of the administrator interface).
+A login link is provided at the top-right of the NADA catalog site. This login will be used by administrators to access the administrator web interface, or by registered users who need to login to request access to non- public datasets. The web interface will only be accessible to users who have been granted some administrative role in the catalog (full administrator, collection administrator, reviewer, or data request approver; the specific administrator privileges are defined by the full administrator in the "Users" section of the web interface).
 
 ![](~@imageBase/images/image49.png)
 
@@ -12,12 +12,12 @@ After login as administrator, the login button will display a menu as follows:
 
 ![](~@imageBase/images/image50.png)
 
-The Site administration link will open the administrator interface ("Dashboard").
+The Site administration link will open the web interface ("Dashboard").
 
 The Profile link will display your profile, with an option to edit its content and to generate your API keys. An API key will be required to programmatically add, edit, extract, or delete information from the NADA catalog, using R or Python for example. The privileges that the API key will provide depend on the permissions you have to administer the catalog or specific component of it. 
 
 ::: tip NOTE
-API keys, especially those with administrator privileges attached to them, are like your password and must be kept strictly confidential. If you have any reason to believe that your key has been compromised, cancel it immediately, and generate a new key.
+API keys have administrator privileges attached to them, and are therefore like your password. They must be kept strictly confidential. If you have any reason to believe that your API key has been compromised, cancel it immediately, and generate a new key.
 
 As an additional security, the API use can be restricted to some specific IP addresses. See ...
 :::
@@ -27,7 +27,7 @@ As an additional security, the API use can be restricted to some specific IP add
 
 ### Using the API 
 
-The profile can only be edited in the administrator interface; it cannot be edited using the API.
+The profile can only be edited in the web interface; it cannot be edited using the API.
 
 The equivalent of a login when using the API is to provide the catalog URL and an API authentication key. This is done in R (NADAR package) and in Python (library PyNADA) using the functions **set_api_key** and **set_api_url**.
 
@@ -72,9 +72,9 @@ nada.set_api_verbose(FALSE)
 
 ## Dashboard
 
-### Using the administrator interface 
+### Using the web interface 
 
-After logging in to the site with administrator credentials, you will be taken to the **Dashboard** page of the Administrator interface. The page also includes the menu that provides access to all sections of the administrator interface.
+After logging in to the site with administrator credentials, you will be taken to the **Dashboard** page of the administrator web interface. The page also includes the menu that provides access to all sections of the web interface.
 
 ![](~@imageBase/images/image52.png)
 
@@ -103,7 +103,7 @@ There is no real equivalent to the dashboard in the API. But the content of the 
 
 ## Settings
 
-### Using the administrator interface 
+### Using the web interface 
 
 All settings for the application are controlled via the Settings menu at the top of the Site Administration page.
 
@@ -238,7 +238,7 @@ But countries can be named in different manners in datasets/metadata. For exampl
 
 To address this issue, catalog administrators can provide their instance of NADA with a reference list of countries and capture the alternative names that may be found in the metadata. Note that "countries" can be "territories", "economies", "regions", or groups of countries. A default list of country names is provided in the NADA application, which can be edited.
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 ![](~@imageBase/images/image72.png)
 
@@ -268,14 +268,13 @@ Warning: if you delete a country ...
 
 There is currently no possibility to upload or maintain a list of countries using the API. This option may be added in future versions of NADA.
 
-
 ## Regions
 
 ![](~@imageBase/images/image77.png)
 
 By region, we mean "country groups". The regions can be of different types, determined based on a geographic criterion (e.g., by continent), an administrative criteria (e.g., "OECD countries"), an economic criteria (e.g., high/middle/low-income countries), or other type of criteria (e.g., "landlocked"). In the example below, two types of groups are created: one by administrative region of the World Bank, and one by income level. Within a type, the groups do not have to be mutually exclusive. A country can belong to multiple groups.
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 ![](~@imageBase/images/image78.png)
 
@@ -295,7 +294,7 @@ Country groupings cannot be entered or maintained using the API; this may be imp
 
 ## Vocabularies
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 ![](~@imageBase/images/image81.png)
 
@@ -313,7 +312,7 @@ New HTML pages can be added to your NADA catalog, accessible from the main (top)
 
 ![](~@imageBase/images/image83.png)
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 Login as administrator, then click **Meny \> All pages.**
 
@@ -338,7 +337,7 @@ The NADA administrator interface and the embedded HTML editor provide limited op
 
 What are links?
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 To add a link, proceed as for adding a new page, but click on **Add new link**.
 
@@ -352,7 +351,7 @@ This is currently not doable via API.
 
 ### Reordering the top menu
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 To change the order in which the menu items appear in the user interface, proceed as for adding new menu, then click on **Reorder menu**.
 
@@ -1161,13 +1160,13 @@ Option not yet available in NADA.
 
 ### Deleting an entry
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 #### Using the API 
 
 ### Replacing an entry
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 #### Using the API 
 
@@ -1175,7 +1174,7 @@ Option not yet available in NADA.
 
 Risk of discrepancy
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 #### Using the API 
 
@@ -1185,7 +1184,7 @@ See the NADAR or PyNADA documentation.
 
 ### Publishing/unpublishing
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 In the Manage studies page:
 
@@ -1206,7 +1205,7 @@ To change it:
 
 ### Enabling a document viewer
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 #### Using the API 
 
@@ -1350,7 +1349,7 @@ The creation of collections will in general only be useful and necessary for lar
 
 There are no collections defined in the default NADA 4 installation. Collection page will be empty. After you create collections, they will be listed in the page.
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 To create a new collection, click on the Create new collection button.
 
@@ -1389,13 +1388,13 @@ Visiting the Dashboard will now also show the new collection listed below the Ce
 
 ### Changing the collection administrator
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 #### Using the API 
 
 ### Adding an entry
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 Add data: owned and borrowed
 
@@ -1403,13 +1402,13 @@ Add data: owned and borrowed
 
 ### Changing the ownership of an entry
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 #### Using the API 
 
 ### Adding the collection facet
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 ![](~@imageBase/images/image133.png)
 
@@ -1417,7 +1416,7 @@ Add data: owned and borrowed
 
 ### Collection groups
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 ![](~@imageBase/images/image134.png)
 
@@ -1433,7 +1432,7 @@ Why no logo?
 
 ### Enabling bulk data access
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 ![](~@imageBase/images/image137.png)
 
@@ -1441,7 +1440,7 @@ Why no logo?
 
 ### Transferring ownership of an entry
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 ![](~@imageBase/images/image138.png)
 
@@ -1481,7 +1480,7 @@ You can add your own facets and apply them to each data type independently. Face
 
 ### Creating a new facet
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 To manage facets, click on Settings \> Facets in the main menu.
 
@@ -1513,7 +1512,7 @@ Facets cannot be created using the API in NADA 5.2.0.
 
 ### Activating and ordering facets
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 To activate the facets and change the order in which they appear in the user interface, click on Configure.
 
@@ -1583,7 +1582,7 @@ Citations are added from the Citations menu.
 
 One citation can be related to more than one dataset. And of course, one dataset can have multiple citations. When you add a dataset to your catalog, and want to add citations to it, it may be the case that the citations was already entered but attached to another dataset. In such case, you will only have to add a dataset to the list of related datasets. You do not want to duplicate citations in your catalog. 
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 To add a citation - click on All citations then click on the Add New Citation button at the top right.
 
@@ -1671,7 +1670,7 @@ All citations will also be listed and searchable in the Citations catalog.
 
 It is also possible to import citations in common citation formats such as BibTex and EndNote (RIS).
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 To do this use the Import Citations link from the top menu. Paste the BibTex or RIS text into the form and then at the bottom of the screen click on Attach studies to link the citation to a particular study in the catalog.
 
@@ -1683,7 +1682,7 @@ To do this use the Import Citations link from the top menu. Paste the BibTex or 
 
 ### Exporting citations
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 The list of citations in your catalog can be exported to JSON or CSV format.
 
@@ -1705,7 +1704,7 @@ Citations exported as CSV:
 
 ### Deleting citations
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 #### Using the API 
 
@@ -1713,7 +1712,7 @@ Citations exported as CSV:
 
 Some datasets will be declared as being accessible only under license. This means that users need to be registered and submit a request for accessing data. Typically, this is done at the study level, and only apply to microdata and geographic datasets. Sometimes for a collection (see bulk data access).
 
-#### Using the administrator interface 
+#### Using the web interface 
 
 ![](~@imageBase/images/image172.png)
 
