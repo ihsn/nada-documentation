@@ -2,6 +2,8 @@
 
 ## Data
 
+![](~@imageBase/images/nada_tabs.PNG)
+
 NADA covers different types of **data used for quantitative analysis of social and economic issues**. This includes:
 
 -   **Microdata**: Microdata are the unit-level data on a population of individuals, households, dwellings, facilities, establishments, or other. They can be generated from surveys, censuses, administrative recording systems, or sensors.
@@ -29,7 +31,7 @@ contents of the Central Data Catalog into more refined *collections* will be des
 
 Collections are sub-categories of the Central Data Catalog. They allow administrators of a NADA instance to group studies into what can be thought of as sub-catalogs of the Central Data Catalog. This has a number of benefits from the user, the administrator, and the contributors' perspective.
 
--   From the users' perspective, being able to filter and view groups     (collections) of studies that logically belong together makes finding what they are looking for easier.
+-   From the users' perspective, being able to filter and view groups (collections) of studies that logically belong together makes finding what they are looking for easier.
 
 -   From the administrators' perspective, the ability to create collections of studies that may logically belong together facilitates the ability to decentralize the management of each collection of studies to specific administrators (for example collections can be managed by different departments in an institution).
 
