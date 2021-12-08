@@ -1,5 +1,7 @@
 # Overview
 
+![](~@imageBase/images/nada_banner.PNG)
+
 ## Why NADA?
 
 The volume and the diversity of socio-economic data available to researchers and analysts have increased considerably over the past decade. But the dissemination of these resources is highly fragmented, and many datasets remain poorly documented. Finding, accessing, and using the most relevant data can be challenging. The production of rich and structured metadata, and their publishing in catalogs with appropriate search features, can significantly improve access and use of data.
