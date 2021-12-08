@@ -606,3 +606,7 @@ nada.add_resource(dataset_id = my_doc_metadata['document_description']['title_st
 </code-block>
 
 </code-group>    
+
+That's it ! The document is now listed and accessible in your NADA catalog.
+  
+![](~@imageBase/images/image27b_catalog_listing.png)  
