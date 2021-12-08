@@ -2,13 +2,13 @@
 
 For a NADA catalog administrator, the process of publishing data and metadata consists of:
 
-1.  **Documenting the dataset**. Generating structured metadata compliant with one of the supported standards and schemas, documented at https://ihsn.github.io/nada-api-redoc/catalog-admin/# (and in the Schema Guide). The metadata can be generated using specialized software (metadata editors), using programming languages (like R or Python), or directly in NADA using the administrator interface (for all data types except geospatial). For microdata and for geographic datasets, it is highly recommended to make use of a specialized metadata editor, due to the complexity of the metadata standard. For other types of data, the use of a programming language like R or Python offers a powerful and higly-flexible option, recommended for automating tasks and when there is a need to "augment" metadata for example using machine learning solutions. The NADA administrator interface provides a user-friendly option to generate metadata, but should not be the preferred option as it does not provide (in its current version) the advanced functionalites of specialized metadata editors (especially for microdata), and the flexibility and reproducibility that the API option provides. 
+1.  **Documenting a dataset, i.e. generating structured metadata** compliant with one of the standards and schemas used in NADA. These standards and schemas are documented at https://ihsn.github.io/nada-api-redoc/catalog-admin/# (and in the Schema Guide). The metadata can be generated using specialized software (metadata editors), using programming languages (like R or Python), or directly in NADA using the administrator interface (for all data types except geospatial). For microdata and for geographic datasets, it is highly recommended to make use of a specialized metadata editor, due to the complexity of the metadata standard. For other types of data, the use of a programming language like R or Python offers a powerful and higly-flexible option, recommended for automating tasks and when there is a need to "augment" metadata for example using machine learning solutions. The NADA administrator interface provides a user-friendly option to generate metadata, but should not be the preferred option as it does not provide (in its current version) the advanced functionalites of specialized metadata editors (especially for microdata), and the flexibility and reproducibility that the API option provides. 
 
-2. **Publishing the metadata** in NADA, using the NADA administrator interface or programmatically with the NADA API and NADAR or PyNADA.
+2. **Publishing the metadata** in the NADA catalog, using the NADA administrator interface or programmatically with the NADA API and NADAR or PyNADA.
 
-3. **Uploading external resources** (files or links) to be made accessible in the catalog, with a brief description. These resources will be described using the **external resources** schema.
+3. **Uploading data and other files** (or providing links) for the resources to be made accessible on-line from the catalog, with a brief description. These resources must be uploaded with a brief description based on the simple **external resources** schema.
 
-4. **Defining an access policy** that applies to the dataset, when relevant. This will determine how users can obtain access to the data (direct access, access from another repository, licensed access, no access, or other). This typically applies to microdata and geographic datasets.
+4. **Defining an access policy** that applies to the dataset, if and when relevant. This will determine how users can obtain access to the data (direct access, access from another repository, licensed access, no access, or other). This typically applies to microdata and geographic datasets.
 
 # Core concepts
 
@@ -32,12 +32,20 @@ NADA covers different types of **data used for quantitative analysis of social a
 
 -   **Scripts**: Although they are not data *per se*, we also consider the programs and scripts used to edit, transform, tabulate, analyze and visualize data as resources that need to be documented, catalogued, and disseminated in data catalogs.
 
-### Central data catalog
+## Metadata
+
+Metadata is the documentation associated with a dataset, or "data about the data". Depending on the data type, the content of metadata will vary. To describe and structure this content, metadata are presented in the form of schemas. The schemas are detailed "checklists" of all pieces of information a user may want to obtain about a dataset (of any type). These checklists differ by data type. This is the reason why NADA makes use of multiple, specialized metadata standards and schemas.
+
+## Entries, datasets, and studies
+
+An entry is a "dataset" of any type listed in NADA. It can be a micro-dataset, an indicator, a geographic dataset, a statistical table, a document, an image, a video, or a script. The word "entry" is thus a generic term (in some documents, the word "study" is used as an alternative).
+
+## Central data catalog
 
 The default catalog created when a NADA instance is installed is the **Central Data Catalog**. All studies uploaded to the NADA are visible, searchable, and accessible from the Central Data Catalog. For many institutions the Central Data Catalog will remain the only catalog in their NADA instance. For some institutions, being able to divide the
 contents of the Central Data Catalog into more refined *collections* will be desirable.
 
-### Collection
+## Collection
 
 Collections are sub-categories of the Central Data Catalog. They allow administrators of a NADA instance to group studies into what can be thought of as sub-catalogs of the Central Data Catalog. This has a number of benefits from the user, the administrator, and the contributors' perspective.
 
@@ -49,15 +57,7 @@ Collections are sub-categories of the Central Data Catalog. They allow administr
 
 The creation of collections will in general only be useful and necessary large catalogs or for catalogs that desire more decentralized management of groups of studies by different departments.
 
-### Entries, datasets, and studies
-
-An entry is a "dataset" of any type listed in NADA. It can be a micro-dataset, an indicator, a geographic dataset, a statistical table, a document, an image, a video, or a script. The word "entry" is thus a generic term (in some documents, the word "study" is used as an alternative).
-
-### Metadata
-
-Metadata is the documentation associated with a dataset, or "data about the data". Depending on the data type, the content of metadata will vary. To describe and structure this content, metadata are presented in the form of schemas. The schemas are detailed "checklists" of all pieces of information a user may want to obtain about a dataset (of any type). These checklists differ by data type. This is the reason why NADA makes use of multiple, specialized metadata standards and schemas.
-
-### Data access type
+## Data access type
 
 NADA allows for the level of access to datasets for some types of data (microdata, geographic dataset) to be controlled at the study level. In other words, the level of restriction can differ from study to study and can be defined on a scale ranging from open access, with no restrictions, to no access. Briefly the available access types are:
 
@@ -75,11 +75,11 @@ NADA allows for the level of access to datasets for some types of data (microdat
 
 -   **Data not available** - data are not available for this study. Only metadata and related materials (like a study report) are published.
 
-### Citation
+## Citation
 
 Citations are references that can be included at the study level which point to published works that have used the data from a particular study. In many cases this will be a reference to a journal article, working paper, newspaper article, etc. Such resources are useful to researchers who are interested in seeing how the data have been used before. They are also a good way of showing the funders of surveys that the data are being used for policy and research purposes and thus are an indicator of some of the impact a study has had.
 
-### User
+## User
 
 Users in NADA can be defined according to three broad groups:
 
