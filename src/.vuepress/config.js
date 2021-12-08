@@ -39,9 +39,10 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
    */
   themeConfig: {
-    repo: 'https://github.com/mah0001/test-docs.git',
+    repo: 'https://github.com/mah0001/test-docs',
     editLinks: true,
-    docsDir: '',
+    docsDir: 'src',
+    docsBranch: 'main',
     editLinkText: 'Edit this page',
     lastUpdated: true,
     nav: [
