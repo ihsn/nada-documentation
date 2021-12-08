@@ -70,15 +70,6 @@ module.exports = {
           '/intro/overview-ui',
         ]
       },
-      /*{
-        title: 'User guide',   // required
-        path: '/user-guide/',      // optional, link of the title, which should be an absolute path and must exist
-        collapsable: false, // optional, defaults to true
-        sidebarDepth: 1,    // optional, defaults to 1
-        children: [
-          '/user-guide/'
-        ]
-      },*/
       {
         title: 'Installation guide',
         path: '/installation-guide/',
