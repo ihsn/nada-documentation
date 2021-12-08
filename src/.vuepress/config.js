@@ -139,7 +139,7 @@ module.exports = {
           '/admin-guide/api-tools',
           /*'/admin-guide/site-admin',*/
           {
-            title: "Site administration",
+            title: "Catalog administration",
             path: "/admin-guide/web-ui/",
             collapsable: true,
             sidebarDepth: 4,
