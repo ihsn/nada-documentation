@@ -1,53 +1,51 @@
 # Managing studies 
 
-This is page that contains the tools to add, edit, and delete entries in the catalog.
+This section of the Guide describes the various tools and approaches available to catalog administrators to add, edit, orgnize, and delete catalog entries (datasets).  
 
 ## Data types and external resources
 
-NADA is a cataloguing tool for multiple data types. All data types come with a specific metadata standard and schema that will contain the metadata. A catalog entry is specific to one data type. All catalog entries can be published with external resources.
+NADA distinguishes entries by data type. For each data type, a specific metadata standard or schema must be used to generate and store the metadata. The information contained in the metadata, and the way the metadata will be displayed and made searchable and accessible, is thus specific to each data type. Instructions are thus provided for each type of data, although the core principles are the same for all types of data. Also, **external resources** (which you can interpret as "any related electronic file that should be provided in a catalog entry page") can be attached to catalog entries independently of the data type.
 
 ### Data types
 
--   **Microdata**: Microdata are the unit-level data on a population of individuals, households, dwellings, facilities, establishments, or other. They can be generated from surveys, censuses, administrative recording systems, or sensors.
+As a reminder, the data types that NADA can ingest, and the related metadata standards and schemas, are the following:
 
--   **Statistical tables**: Statistical tables are summary (aggregated) statistical information provided in the form of cross-tabulations, e.g., in statistics yearbooks or census reports. They will often be a derived product of microdata.
+-   **Microdata**: Microdata are the unit-level data on a population of individuals, households, dwellings, facilities, establishments, or other. They can be generated from surveys, censuses, administrative recording systems, or sensors. Microdata are documented using the DDI-Codebook metadata standard.
 
--   **Indicators and time series**: Indicators are summary (or aggregated) measures derived from observed facts (often from microdata). When repeated over time at a regular frequency, the indicators form a time series.
+-   **Statistical tables**: Statistical tables are summary (aggregated) statistical information provided in the form of cross-tabulations, e.g., in statistics yearbooks or census reports. They will often be a derived product of microdata. Statistical tables are documented using a metadata schema developed by the World Bank Data Group.
 
--   **Geographic datasets and geographic data services**: Geographic (or geospatial) data identify and depict geographic locations, boundaries, and characteristics of the surface of the earth. They can be provided in the form of datasets or data services (web applications).
+-   **Indicators and time series**: Indicators are summary (or aggregated) measures derived from observed facts (often from microdata). When repeated over time at a regular frequency, the indicators form a time series. Indicators and time series are documented using a metadata schema developed by the World Bank Data Group.
 
--   **Text**: Text is data. Using natural language processing (NLP) techniques, text can be converted into structured information. NLP tools and models like named entity recognition, topic modeling, word embeddings, sentiment analysis, text summarization, and others make it possible to extract quantitative information from unstructured textual input.
+-   **Geographic datasets and geographic data services**: Geographic (or geospatial) data identify and depict geographic locations, boundaries, and characteristics of the surface of the earth. They can be provided in the form of datasets or data services (web applications). Geographic datasets and data services are documented using the ISO 19139 metadata standard.
 
--   **Images**: This refers to photos or images available in electronic format. Images can be processed using machine learning algorithms (for purposes of classification or other). Note that satellite or remote sensing imagery are considered here as geographic (raster) data, not as images.
+-   **Documents**: Text is data. Using natural language processing (NLP) techniques, documents (i.e. any bibliographic citation, such as a book, a paper, and article, a manual, etc.) can be converted into structured information. NLP tools and models like named entity recognition, topic modeling, word embeddings, sentiment analysis, text summarization, and others make it possible to extract quantitative information from unstructured textual input. Documents are documented using a schema based on the Dublin Core with a few aditional elements inspired by the MARC21 standard.  
 
--   **Videos**.
+-   **Images**: This refers to photos or images available in electronic format. Images can be processed using machine learning algorithms (for purposes of classification or other). Note that satellite or remote sensing imagery are considered here as geographic (raster) data, not as images. Images are documented using either the IPTC metadata standard, or the Dublin Core standard.
 
--   **Scripts**: Although they are not data *per se*, we also consider the programs and scripts used to edit, transform, tabulate, analyze and visualize data as resources that need to be documented, catalogued, and disseminated in data catalogs.
+-   **Videos**. Videos are documented using a metadata schema inspired by the Dublin Core and the VideoObject schema from schema.org.
+
+-   **Scripts**: Although they are not data *per se*, we also consider the programs and scripts used to edit, transform, tabulate, analyze and visualize data as resources that need to be documented, catalogued, and disseminated in data catalogs. Scripts are documented using a metadata schema developed by the World Bank Data Group.
+
+Information on the metadata standard and schemas is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/# and in a Schema Guide. 
 
 ### External resources
 
-Resources of any type, available in an electronic file or URL, that you may want to attach to an entry metadata.
-
-Specific simple metadata schema.
-
-Produce some metadata, then indicate file or URL. Then publish attached to an entry.
-
-At any time, can add or delete a resource to a catalog.
-
-RDF in Nesstar; otherwise can generate with API or in NADA.
+External resources are electronic files (or links to electronic files) of any type, that you may want to attach to an entry metadata as "related materials". This could for example be the PDF version of the survey questionnaire and interviewer manual related to a survey microdataset, or visualizations related to a published document. A simple metadata schema (based on the Dublin Core standard) is used to document external resources. This schema includes an element that indicates the type of the resource (e.g., microdata, analytical document, administrative document, technical document, map, website, etc.) In NADA, you will publish the metadata related to a dataset, then add such external resources to it. 
 
 ## Adding an entry: multiple approaches
 
-A new entry can be added to a NADA catalog in different manners. We already mentioned that this can be done using either the web interface, or the catalog API and a programming language. The way an entry will be added to a catalog also depends on the form in which the metadata are available. 
-- Metadata compliant with one of the recognized standards and schemas may be provided "ready for upload" in electronic files. In such case, the process will consist of uploading the metadata file(s), uploading the related resource files (data, documents, etc.), and selecting data dissemination options (access policy). Uploading such files can be done using the web interface or the API. 
-- Metadata can be created from scratch for a new entry in the NADA web interface. 
-- A new entry and the related metadata can be created and published using the NADA API. 
+A new entry can be added to a NADA catalog in different manners. We already mentioned that this can be done either **using the web interface**, or **using the catalog API** and a programming language. 
 
-We briefly present below these three options. In subsequent sections, we will describe how they are applied (when available) to each data type. 
+The way an entry is added to a NADA catalog will also depends on the form in which the metadata are available: 
+- When **metadata compliant with one of the recognized standards and schemas is provided** in electronic files: the process will then consist of uploading the metadata file(s), uploading the related resource files (data, documents, etc.), and selecting data dissemination options (access policy). Uploading such files can be done using the web interface or using the API. 
+- When metadata are not readily available in an electronic file, **metadata can be created from scratch in NADA** and published using the web interface. This option is not (yet) available for Geospatial data, and is not recommended for microdata.  
+- When metadata are not readily available in an electronic file, **metadata can be created using a programming language (R or Python)** and published using the API. 
+
+We briefly present these three options below. In subsequent sections, we will describe in detail how they are applied (when available) to each data type. 
 
 ### Loading metadata files
 
-When metadata files compliant with a metadata standard or schema recognized by NADA are available (typically generated using a specialized metadata editor), these files can be uploaded in NADA using the administrator interface. The interface will still be used to upload the related resource files, to add a logo/thumbnail, to specify the access policy. This approach currently applies to microdata and to geographic datasets. It will be added to other data types in future releases of NADA.
+When metadata files compliant with a metadata standard or schema recognized by NADA are available (typically generated using a specialized metadata editor), these files can be uploaded in NADA using the web interface. The interface will also be used to upload the related resource files (the *external resources*), to add a logo/thumbnail, and to specify the dataset access policy. This approach currently applies to microdata and to geographic datasets. It will be added to other data types in future releases of NADA.
 
 To use this approach, you will need to access the page in the administrator interface where you can add, edit, and delete entries. 
 
