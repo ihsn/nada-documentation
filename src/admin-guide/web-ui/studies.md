@@ -45,7 +45,7 @@ We briefly present these three options below. In subsequent sections, we will de
 
 ### Loading metadata files using the web interface
 
-When metadata files compliant with a metadata standard or schema recognized by NADA are available (typically generated using a specialized metadata editor), these files can be uploaded in NADA using the web interface. The interface will also be used to upload the related resource files (the *external resources*), to add a logo/thumbnail, and to specify the dataset access policy. This approach currently applies to microdata and to geographic datasets. It will be added to other data types in future releases of NADA.
+When metadata files compliant with a metadata standard or schema recognized by NADA are available (typically generated using a specialized metadata editor), these files can be uploaded in NADA using the web interface. The interface will also be used to upload the related resource files (the *external resources*), to add a logo/thumbnail, and to specify the dataset access policy. This approach currently applies only to microdata and external resources. It will be added to other data types in future releases of NADA.
 
 To use this approach, you will need to access the page in the administrator interface where you can add, edit, and delete entries. 
 
@@ -66,6 +66,8 @@ In this page, the **Add study** button will allow you to access the pages where 
 The metadata can be created directly in NADA, using the embedded metadata editor. This approach will also require access to the "Add entry" page of the NADA administrator interface (see above). The option is available for all data types but is recommended only for data that require limited metadata (such as images, or documents). For other types of data, manually generating comprehensive metadata can be a very tedious process (e.g., for microdata where metadata related to hundreds if not thousands of variables would have to be manually entered).
 
 ### Loading metadata files using the API
+
+This approach currently applies only to microdata, geographic datasets, and external resources. It will be added to other data types in future releases of NADA. 
 
 If you use this approach, you will need an API key with administrator privileges. API keys must be kept strictly confidential. Avoid entering them in clear in your scripts, as you may accidentally reveal your API key when sharing your scripts (if that happens, immediately cancel your key, and issue a new one).
 
@@ -91,18 +93,11 @@ nada.set_api_key(my_keys.iat\[4, 0\])
 nada.set_api_url(\'https:// *your_catalog_url* /index.php/api/\')
 ```
 
-Then use function in NADAR or PyNADA to add an entry. Available functions are:
-
+Then use function in NADAR or PyNADA to add an entry by ***importing*** the metadata using the available *import* functions. 
 In NADAR:
-    - microdata_add
-    - timeseries_add and timeseries_database_add
-    - document_add
-    - geospatial_add
-    - image_add
-    - video_add
-    - script_add
-    - table_add
-    - external_resources_add
+    - import_ddi
+    - geospatial_import
+    - external_resources_import
 
 Examples are provided in the next sections. 
 
@@ -123,7 +118,7 @@ For microdata, the use of a specialized DDI metadata editor to generate metadata
 
 ### Loading metadata (web interface) 
 
-If you have used a specialized metadata editor like the Nesstar Publisher software application, you have obtained as an output an XML file that contains the study metadata (compliant with the DDI Codebook metadata standard), and a RDF file containing a description of the related resources (questionnaires, reports, technical documents, data files, etc.) These two files can be uploaded in NADA. 
+If you have used a specialized metadata editor like the Nesstar Publisher software application to document your microdata, you have obtained as an output an XML file that contains the study metadata (compliant with the DDI Codebook metadata standard), and a RDF file containing a description of the related resources (questionnaires, reports, technical documents, data files, etc.) These two files can be uploaded in NADA. 
 
 In the administrator interface, select **Studies \> Manage studies** and the collection in which you want to add the dataset (if you have not created any collection, the only option will be to upload the dataset in the Central catalog; this can be transferred to another collection later if necessary). Then click on **Add study**.
 
@@ -221,21 +216,214 @@ Once you have entered and saved metadata, proceed as explained in the previous s
 
 ### Loading metadata (API)
 
-This will be the case when the microdata have been documented using a tool like the Nesstar Publisher. An example of such case was provided in section "Getting started -- Publishing microdata", which corresponds to the Use Case 009 available in R and in Python in the NADA GitHub repository.
+If you have used a specialized metadata editor like the Nesstar Publisher software application to document your microdata, you have obtained as an output an XML file that contains the study metadata (compliant with the DDI Codebook metadata standard), and a RDF file containing a description of the related resources (questionnaires, reports, technical documents, data files, etc.) These two files can be uploaded in NADA using the API and the R package NADAR or the Python library Pynada. We provided an example in section "Getting started -- Publishing microdata", which we replicate here.
+
+<code-group>
+<code-block title="R">
+
+```r
+library(nadar)
+library(readxl)
+  
+# Set administrator API key and catalog URL
+# The API key must be kept strictly confidential and never be entered in clear in a script, 
+# to avoid accidental sharing. A recommended option is to read it from an external file. 
+  
+my_keys <- read.csv("C:/CONFIDENTIAL/my_keys.csv", header = F, stringsAsFactors = F)
+set_api_key(my_keys[5,1])  # We assume here that the key is stored in cell A5
+set_api_url("http://nada-demo.ihsn.org/index.php/api/")  # Enter the URL of your catalog
+set_api_verbose(FALSE)
+
+# Set the default folder, where the DDI and RDF files are stored.
+# This folder has a sub-folder /Doc where the external resource is located (the
+# resources must be stored in a folder with a relative path corresponding to the
+# path provided in the RDF file)
+
+setwd("C:/demo_nada_files/try_micro")  
+
+# Upload the DDI (only contains the dataset metadata; does not contain data)
+
+import_ddi(xml_file = "./AFR_1996_WDAAF_v01_M.xml", 
+           repositoryid = "central",
+           overwrite = "yes", 
+           access_policy = "open",  # This is where we set the access policy
+           published = 1)  # Set this to 0 to upload as draft
+
+# Upload the RDF and the resource files
+# The location (relative path) of the resource files is provided in the RDF file;
+# As long as the files are found in the correct folders, they will be uploaded to
+# the web server and made accessible in the NADA catalog. To avoid entering the
+# same resources multiple times, we delete all resources (in case any had been 
+# uploaded previously) before running the function.
+
+external_resources_delete_all(dataset_idno = "AFR_1996_WDAAF_v01_M")
+
+external_resources_import(dataset_idno = "AFR_1996_WDAAF_v01_M", 
+                          rdf_file = "./AFR_1996_WDAAF_v01_M.rdf",
+                          skip_uploads = FALSE,
+                          overwrite = "yes")
+
+# We want to make the data accessible from the NADA catalog; the data files must
+# therefore be uploaded on the web server. It is essential to declare the type
+# as "microdata" (dctype = "dat/micro") as this will allow NADA to apply the
+# appropriate access restrictions corresponding to the access policy for the  
+# dataset (in this case, we entered option access_policy = "open" in the 
+# ddi_import function, so the data files will be made directly accessible from
+# the catalog without requiring users to register or request permission).
+
+external_resources_add(
+  idno = "AFR_1996_WDAAF_v01_M",
+  dctype = "dat/micro",
+  title = "Data in CSV format",
+  overwrite = "yes",
+  file_path = "./Data/AFR_1996_WDAAF_v01_CSV.zip"
+)
+
+external_resources_add(
+  idno = "AFR_1996_WDAAF_v01_M",
+  dctype = "dat/micro",
+  title = "Data in Stata 8 format",
+  overwrite = "yes",
+  file_path = "./Data/AFR_1996_WDAAF_v01_M_STATA8.zip"
+)
+
+external_resources_add(
+  idno = "AFR_1996_WDAAF_v01_M",
+  dctype = "dat/micro",
+  title = "Data in SPSS format",
+  overwrite = "yes",
+  file_path = "./Data/AFR_1996_WDAAF_v01_SPSS.zip"
+)
+
+# Add a thumbnail
+
+thumbnail_upload(idno = "AFR_1996_WDAAF_v01_M", thumbnail = "./logo.JPG")
+```
+
+<code-block title="Python">
+
+```Python
+
+import pynada as nada
+import pandas as pd
+import os
+
+# Set administrator API key and catalog URL
+# The API key must be kept strictly confidential and never be entered in clear in a script, 
+# to avoid accidental sharing. A recommended option is to read it from an external file. 
+  
+my_keys = pd.read_csv("C:/CONFIDENTIAL/my_keys.csv", header = None)
+nada.set_api_key(my_keys.iat[4, 0])  # Assuming the key is stored in cell A5
+nada.set_api_url('https://nada-demo.ihsn.org/index.php/api/')  # Enter the URL of your catalog
+
+# Set the default folder, where the DDI and RDF files are stored.
+# This folder has a sub-folder /Doc where the external resource is located (the
+# resources must be stored in a folder with a relative path corresponding to the
+# path provided in the RDF file)
+
+os.chdir("demo_nada_files/try_micro")
+
+# Upload the DDI
+
+nada.import_DDI(file = "AFR_1996_WDAAF_v01_M.xml",
+                overwrite = "yes",
+                repository_id = "central",
+                access_policy = "open",  # This is where we set the access policy
+                published = 1)  # Set this to 0 to upload as draft
+
+# Upload the RDF and the resource files
+# The location (relative path) of the resource files is provided in the RDF file;
+# As long as the files are found in the correct folders, they will be uploaded to
+# the web server and made accessible in the NADA catalog. To avoid entering the
+# same resources multiple times, we delete all resources (in case any had been 
+# uploaded previously) before running the function.
+
+nada.delete_all_resources("AFR_1996_WDAAF_v01_M")
+
+nada.import_RDF(dataset_id = "AFR_1996_WDAAF_v01_M",
+                file = "AFR_1996_WDAAF_v01_M.rdf")
+
+# We want to make the data accessible from the NADA catalog; the data files must
+# therefore be uploaded on the web server. It is essential to declare the type
+# as "microdata" (dctype = "dat/micro") as this will allow NADA to apply the
+# appropriate access restrictions corresponding to the access policy for the  
+# dataset (in this case, we entered option access_policy = "open" in the 
+# ddi_import function, so the data files will be made directly accessible from
+# the catalog without requiring users to register or request permission).
+
+nada.add_resource(dataset_id = "AFR_1996_WDAAF_v01_M",
+                  dctype = "dat/micro",
+                  title = "Data in CSV format",
+                  file_path = "Data/AFR_1996_WDAAF_v01_CSV.zip",
+                  overwrite = "yes")
+
+nada.add_resource(dataset_id = "AFR_1996_WDAAF_v01_M",
+                  dctype = "dat/micro",
+                  title = "Data in Stata 8 format",
+                  file_path = "Data/AFR_1996_WDAAF_v01_M_STATA8.zip",
+                  overwrite = "yes")
+
+nada.add_resource(dataset_id = "AFR_1996_WDAAF_v01_M",
+                  dctype = "dat/micro",
+                  title = "Data in SPSS format",
+                  file_path = "Data/AFR_1996_WDAAF_v01_SPSS.zip",
+                  overwrite = "yes")
+
+# Add a thumbnail
+
+nada.upload_thumbnail(dataset_id = "AFR_1996_WDAAF_v01_M", file_path = "logo.JPG")
+  
+```
+</code-block>
+</code-group>
 
 ### From scratch (API)
 
-A micro-dataset can also be documented directly in a r or Python script. As the DDI schema is relatively complex, the use of a specialized DDI metadata editor like the Nesstar Publisher is often recommended. This tool provides the possibility to easily extract metadata from the data files (list of variables, labels, summary statistics). The same can be done using R or Python, but this requires relatively advanced experience in R or Python programming. Typically, microdata will be documented programmatically when (i) the dataset is small, and/or (ii) when there is no intent to generate detailed, variable-level metadata. We provide here an example of the documentation of a simple dataset.
+If you do not have metadata readily available, you can generate it using R or Python, then publish it using the NADA API and the NADAR package or PyNADA library. As the DDI schema is relatively complex, the use of a specialized DDI metadata editor like the Nesstar Publisher may be a better option to document microdata. But this can be done using R or Python. Typically, microdata will be documented programmatically when (i) the dataset is not too complex, and/or (ii) when there is no intent to generate detailed, variable-level metadata. We provide here an example of the documentation of a simple micro-dataset using R and Python.
 
-Using R
+@@@@@@ complete the example
 
-Using Python
+<code-group>
+<code-block title="R">
+
+```r
+library(nadar)
+library(readxl)
+  
+# Set administrator API key and catalog URL
+# The API key must be kept strictly confidential and never be entered in clear in a script, 
+# to avoid accidental sharing. A recommended option is to read it from an external file. 
+  
+my_keys <- read.csv("C:/CONFIDENTIAL/my_keys.csv", header = F, stringsAsFactors = F)
+set_api_key(my_keys[5,1])  # We assume here that the key is stored in cell A5
+set_api_url("http://nada-demo.ihsn.org/index.php/api/")  # Enter the URL of your catalog
+set_api_verbose(FALSE)
+```
+
+<code-block title="Python">
+```Python
+
+import pynada as nada
+import pandas as pd
+import os
+
+# Set administrator API key and catalog URL
+# The API key must be kept strictly confidential and never be entered in clear in a script, 
+# to avoid accidental sharing. A recommended option is to read it from an external file. 
+  
+my_keys = pd.read_csv("C:/CONFIDENTIAL/my_keys.csv", header = None)
+nada.set_api_key(my_keys.iat[4, 0])  # Assuming the key is stored in cell A5
+nada.set_api_url('https://nada-demo.ihsn.org/index.php/api/')  # Enter the URL of your catalog
+  
+```
+</code-block>
+</code-group>
 
 ## Adding a geographic dataset
 
 ### Loading metadata (web interface) 
 
-Option not yet available in NADA.
+This option is currently not available. It will be added in a future version of NADA. To upload metadata for a geographic dataset available in an XML file compliant with the ISO19139 standard, the API option (see below) must be used.
 
 ### From scratch (web interface)
 
@@ -252,7 +440,7 @@ This option is currently not provided. The ISO19139 schema is complex. An ISO191
 
 ### Loading metadata (web interface) 
 
-Option not yet available in NADA.
+This option is currently not available. It will be added in a future version of NADA. 
 
 ### From scratch (web interface)
 
@@ -326,6 +514,7 @@ The header of the entry page, with a thumbnail:
 
 ### Loading metadata (API) 
 
+This option is currently not available. It will be added in a future version of NADA. 
 
 ### From scratch (API)
 
@@ -976,7 +1165,7 @@ Currently no option to upload a metadata file (will be implemented in future ver
 
 ### Loading metadata (web interface) 
 
-Option not yet available in NADA.
+This option is currently not available. It will be added in a future version of NADA. 
 
 ### From scratch (web interface)
 
@@ -986,6 +1175,7 @@ Option not yet available in NADA.
 
 ### Loading metadata (API) 
 
+This option is currently not available. It will be added in a future version of NADA.
 
 ### From scratch (API)
 
@@ -1005,7 +1195,7 @@ Two components: series, and source database.
 
 ### Loading metadata (web interface) 
 
-Option not yet available in NADA.
+This option is currently not available. It will be added in a future version of NADA.
 
 ### From scratch (web interface)
 
@@ -1015,6 +1205,7 @@ Option not yet available in NADA.
 
 ### Loading metadata (API) 
 
+This option is currently not available. It will be added in a future version of NADA.
 
 ### From scratch (API)
 
@@ -1027,7 +1218,7 @@ Currently no option to upload a metadata file (will be implemented in future ver
 
 ### Loading metadata (web interface) 
 
-Option not yet available in NADA.
+This option is currently not available. It will be added in a future version of NADA.
 
 ### From scratch (web interface)
 
@@ -1037,6 +1228,7 @@ Option not yet available in NADA.
 
 ### Loading metadata (API) 
 
+This option is currently not available. It will be added in a future version of NADA.
 
 ### From scratch (API)
 
@@ -1050,16 +1242,19 @@ Use Case 006
 
 ## Adding a video
 
-Currently no option to upload a metadata file (will be implemented in future versions of NADA). Can enter from scratch, or generate the metadata and upload using the API.
+
 
 ### Loading metadata (web interface) 
 
-Option not yet available in NADA.
+This option is currently not available. It will be added in a future version of NADA.
 
 ### From scratch (web interface)
 
+
+
 ### Loading metadata (API) 
 
+This option is currently not available. It will be added in a future version of NADA.
 
 ### From scratch (API)
 
@@ -1067,11 +1262,9 @@ Use Case 005
 
 ## Adding scripts
 
-Currently no option to upload a metadata file (will be implemented in future versions of NADA). Can enter from scratch, or generate the metadata and upload using the API.
-
 ### Loading metadata (web interface) 
 
-Option not yet available in NADA.
+This option is currently not available. It will be added in a future version of NADA.
 
 ### From scratch (web interface)
 
@@ -1080,6 +1273,8 @@ Option not yet available in NADA.
 ![](~@imageBase/images/image115.png)
 
 ### Loading metadata (API) 
+
+This option is currently not available. It will be added in a future version of NADA.
 
 ### From scratch (API)
 
@@ -1090,11 +1285,13 @@ Option not yet available in NADA.
 
 ### Using the API 
 
+
 ## Replacing an entry
 
 ### Using the administrator interface 
 
 ### Using the API 
+
 
 ## Editing an entry
 
@@ -1107,6 +1304,7 @@ Risk of discrepancy
 Powerful automation options. Can programmatically change any specific piece of metadata, for one or multiple entries.
 
 See the NADAR or PyNADA documentation.
+
 
 ## Publishing/unpublishing
 
@@ -1125,15 +1323,14 @@ In the study page:
 
 ### Using the API 
 
-When an entry is added:
 
-To change it:
 
 ## Enabling a document viewer
 
 ### Using the administrator interface 
 
 ### Using the API 
+
 
 ## Publishing data in MongoDB 
 
@@ -1151,15 +1348,17 @@ Can only be done via API (not UI).
 
 Access policy for data published in API: ...
 
-## Organizing/formatting data
 
-## Data dictionary
+### Organizing/formatting data
 
-## Lookup file
+### Data dictionary
 
-## Uploading
+### Lookup file
 
-## Informing users
+### Uploading
+
+### Informing users
+
 
 ## Adding visualizations using widgets
 
