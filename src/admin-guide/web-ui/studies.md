@@ -110,7 +110,6 @@ Examples are provided in the next sections.
 
 Metadata can also be generated programmatically, for example using R or Python, and uploaded to NADA using the API and the NADAR package of PyNADA library. This option allows automation of many tasks and offers the additional advantage of transparency and replicability. For administrators with knowledge of R and/or Python, this is a recommended approach except for microdata (for which the best approach is to use a specialized metadata editor). The metadata generated programmatically must comply with one of the metadata standards and schemas used by NADA, documented in the NADA API and in the Guide on the Use of Metadata Schemas. If you use this approach, you will need to provide an API key with administrator privileges and the catalog URL in your script, as shown in the previous paragraph. Then you add the code that generates the metadata and publish it in your catalog using the relevant *_add* function. Examples are provided in the next sections. 
 
-
 ## Adding microdata
 
 Creating a Microdata entry can be done in two different ways using the administrator interface and the API:
@@ -202,15 +201,23 @@ That's it. Your data and metadata are now visible to all users who have access t
 
 ### From scratch (web interface)
 
+If you want to add a microdata entry to your catalog using the web interface, but do not have metadata ready to be uploaded (in the form of a DDI-compliant XML file and an optional RDF file), you have the possibility to create a new entry in the NADA administrator web interface. Note however that this option is limited to the *study description* section of the DDI metadata standard. The *study description* of the DDI standard describes the overall aspects of the study (typically a survey). Other sections of the DDI are used to document each data file (*file description*), and each variable (*variable description*). In the current version of the metadata editor embedded in the NADA web interface, the file and variable description sections are not included. For that reason, the use of this option is not recommended except for cases when no file and variable description is available. In other cases, the use of a specialized metadata editor (like the Nesstar Publisher) or the more complex programatic option (described below) are recommended. Documenting files and variables (when available) adds rich metadata that will increase the visibility, discoverability, and usability of your datasets.
+
+To document a micro-dataset from scratch using the web interface, select "Add study" in the dashboard page, then select the option *microdata* in the **Create new study** box. Then click **Create**.
+
 ![](~@imageBase/images/image100.png)
 
+The *Overview* tab of a new, empty entry will be displayed. 
+
 ![](~@imageBase/images/image101.png)
+
+Click on the **Metadata** tab to open the (limited) DDI metadata editor. The left navigation bar allows you to navigate in the metadata entry form. Enter a much information as you can in the metadata fields, then click **Save**.
 
 ![](~@imageBase/images/image102.png)
 
 ![](~@imageBase/images/image103.png)
 
-Then files ...
+Once you have entered and saved metadata, proceed as explained in the previous section to upload files, select options, add a thumbnail, and publish your metadata. To add external resources, use the **Add resource** in the External resources page.
 
 ### Loading metadata (API)
 
