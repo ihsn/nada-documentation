@@ -43,7 +43,7 @@ The way an entry is added to a NADA catalog will also depends on the form in whi
 
 We briefly present these three options below. In subsequent sections, we will describe in detail how they are applied (when available) to each data type. 
 
-### Loading metadata files
+### Loading metadata files using the web interface
 
 When metadata files compliant with a metadata standard or schema recognized by NADA are available (typically generated using a specialized metadata editor), these files can be uploaded in NADA using the web interface. The interface will also be used to upload the related resource files (the *external resources*), to add a logo/thumbnail, and to specify the dataset access policy. This approach currently applies to microdata and to geographic datasets. It will be added to other data types in future releases of NADA.
 
@@ -61,11 +61,44 @@ In this page, the **Add study** button will allow you to access the pages where 
 
 ![](~@imageBase/images/image94.png)
 
-### Creating an entry from scratch 
+### Creating an entry from scratch in the web interface
 
 The metadata can be created directly in NADA, using the embedded metadata editor. This approach will also require access to the "Add entry" page of the NADA administrator interface (see above). The option is available for all data types but is recommended only for data that require limited metadata (such as images, or documents). For other types of data, manually generating comprehensive metadata can be a very tedious process (e.g., for microdata where metadata related to hundreds if not thousands of variables would have to be manually entered).
 
-### Using the catalog API 
+### Loading metadata files using the API
+
+If you use this approach, you will need an API key with administrator privileges. API keys must be kept strictly confidential. Avoid entering them in clear in your scripts, as you may accidentally reveal your API key when sharing your scripts (if that happens, immediately cancel your key, and issue a new one).
+
+Once you have obtained a key (issued by a NADA administrator), you will have to enter it (and the URL of the catalog you are administering) before you implement any of the catalog administration functions available in NADAR or PyNADA. This will be the first commands in your R or Python scripts. It is done as follows:
+
+Using R:
+
+```r
+library(nadar)
+
+my_key <- read.csv("*...*/my_keys.csv", header=F, stringsAsFactors=F)
+set_api_key(my_key\[5,1\]) # Assuming the key is in cell A5
+set_api_url("http://*your_catalog_url*/index.php/api/")
+set_api_verbose(FALSE)
+```
+
+Using Python:
+
+```python
+import pynada as nada
+my_key = pd.read_csv(".../my_keys.csv", header=None)
+nada.set_api_key(my_keys.iat\[4, 0\])
+nada.set_api_url(\'https:// *your_catalog_url* /index.php/api/\')
+```
+
+Then use function in NADAR or PyNADA to add an entry. Available functions are:
+- microdata_add
+- document_add
+- ...
+
+Examples are provided in the next sections. 
+
+### Creating an entry from scratch using the API 
 
 Metadata can also be generated programmatically, for example using R or Python, and uploaded to NADA using the API and the NADAR package of PyNADA library. This option allows automation of many tasks and offers the additional advantage of transparency and replicability. For administrators with knowledge of R and/or Python, this is a recommended approach except for microdata (for which the best approach is to use a specialized metadata editor). The metadata generated programmatically must comply with one of the metadata standards and schemas used by NADA, documented in the NADA API and in the Guide on the Use of Metadata Schemas.
 
@@ -92,6 +125,9 @@ my_key = pd.read_csv(".../my_keys.csv", header=None)
 nada.set_api_key(my_keys.iat\[4, 0\])
 nada.set_api_url(\'https:// *your_catalog_url* /index.php/api/\')
 ```
+
+Then generate metadata compliant with a schema, and use the add function. Examples are provided in the next sections. 
+
 
 ## Adding microdata
 
