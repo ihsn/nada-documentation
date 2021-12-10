@@ -1354,7 +1354,6 @@ We provide here another example, where a list of documents with core metadata is
 <code-block title="R">
 
 ```r
-
 # ==============================================================================
 # NADA Demo Catalog - Use of API examples                      Use case ID: 002
 #
@@ -1770,13 +1769,59 @@ This option is currently not available. It will be added in a future version of 
 This option is currently not available. It will be added in a future version of NADA.
 
 ### From scratch (API)
-
+    
 Use Case 006
+<code-group>
+<code-block title="R">
 
+```r
+
+```
+</code-block>
+    
+<code-block title="Python">
+
+```Python
+  
+```
+</code-block>
+</code-group> 
+    
+    
 Use Case 013
+<code-group>
+<code-block title="R">
 
+```r
+
+```
+</code-block>
+    
+<code-block title="Python">
+
+```Python
+  
+```
+</code-block>
+</code-group> 
+    
+    
 Use Case 016
+<code-group>
+<code-block title="R">
 
+```r
+
+```
+</code-block>
+    
+<code-block title="Python">
+
+```Python
+  
+```
+</code-block>
+</code-group> 
 
 ## Adding an indicator / time series
 
@@ -1799,6 +1844,21 @@ This option is currently not available. It will be added in a future version of 
 ### From scratch (API)
 
 Use Case 007
+<code-group>
+<code-block title="R">
+
+```r
+
+```
+</code-block>
+    
+<code-block title="Python">
+
+```Python
+  
+```
+</code-block>
+</code-group>     
 
 
 ## Adding an image
@@ -2224,11 +2284,11 @@ my_video = {
     }
 }
 
-nada.upload_video(idno=my_video['video_description']['idno'],
-                  metadata=my_video,
-                  published=1,
-                  overwrite="yes",
-                  thumbnail=thumb_file)
+nada.upload_video(idno = my_video['video_description']['idno'],
+                  metadata = my_video,
+                  published = 1,
+                  overwrite = "yes",
+                  thumbnail = thumb_file)
 ```
 </code-block>
 </code-group>    
@@ -2252,13 +2312,81 @@ This option is currently not available. It will be added in a future version of 
 
 ### From scratch (API)
 
+<code-group>
+<code-block title="R">
 
+```r
+
+```
+</code-block>
+    
+<code-block title="Python">
+
+```Python
+  
+```
+</code-block>
+</code-group> 
+
+    
 ## Deleting an entry
 
 ### Using the administrator interface 
 
 ### Using the API 
 
+Deleting an entry (of any type except external resource) from a catalog only requires knowing the unique identifier of the entry in the catalog. The entry can then be deleted using NADAR (for R users) or PyNADA (for Python users), after providing an API authentication key and the URL of the catalog, as follows (assuming the entry to be deleted has an ID = ABC123):
+    
+In R:
+```r
+library(nadar)
+    
+my_keys <- read.csv("C:/CONFIDENTIAL/my_keys.csv", header=F, stringsAsFactors=F)
+set_api_key(my_keys[5,1])  # Assuming the key is in cell A5
+set_api_url("http://nada-demo.ihsn.org/index.php/api/") 
+
+catalog_delete(idno = "ABC123")
+```   
+
+In Python:
+```python
+import pynada as nada
+
+my_keys = pd.read_csv("confidential/my_keys.csv", header=None)
+nada.set_api_key(my_keys.iat[4, 0])  # Assuming the key is in cell A5
+nada.set_api_url('http://nada-demo.ihsn.org/index.php/api/')
+           
+nada.catalog_delete(idno = "ABC123")           
+```   
+  
+    
+## Deleting external resources 
+           
+### Using the administrator interface 
+
+### Using the API 
+  
+In R:
+```r
+library(nadar)
+    
+my_keys <- read.csv("C:/CONFIDENTIAL/my_keys.csv", header=F, stringsAsFactors=F)
+set_api_key(my_keys[5,1])  # Assuming the key is in cell A5
+set_api_url("http://nada-demo.ihsn.org/index.php/api/") 
+
+@@@@@@@
+```   
+
+In Python:
+```python
+import pynada as nada
+
+my_keys = pd.read_csv("confidential/my_keys.csv", header=None)
+nada.set_api_key(my_keys.iat[4, 0])  # Assuming the key is in cell A5
+nada.set_api_url('http://nada-demo.ihsn.org/index.php/api/')
+           
+@@@@@@@@    
+```     
 
 ## Replacing an entry
 
