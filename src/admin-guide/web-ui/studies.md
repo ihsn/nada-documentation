@@ -61,7 +61,7 @@ In this page, the **Add study** button will allow you to access the pages where 
 
 ![](~@imageBase/images/image94.png)
 
-### Creating an entry from scratch in the web interface
+### Creating an entry from scratch using the web interface
 
 The metadata can be created directly in NADA, using the embedded metadata editor. This approach will also require access to the "Add entry" page of the NADA administrator interface (see above). The option is available for all data types but is recommended only for data that require limited metadata (such as images, or documents). For other types of data, manually generating comprehensive metadata can be a very tedious process (e.g., for microdata where metadata related to hundreds if not thousands of variables would have to be manually entered).
 
