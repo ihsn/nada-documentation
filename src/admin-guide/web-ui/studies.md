@@ -299,7 +299,8 @@ external_resources_add(
 
 thumbnail_upload(idno = "AFR_1996_WDAAF_v01_M", thumbnail = "./logo.JPG")
 ```
-
+</code-block>
+    
 <code-block title="Python">
 
 ```Python
@@ -375,6 +376,7 @@ nada.upload_thumbnail(dataset_id = "AFR_1996_WDAAF_v01_M", file_path = "logo.JPG
   
 ```
 </code-block>
+    
 </code-group>
 
 ### From scratch (API)
@@ -399,7 +401,8 @@ set_api_key(my_keys[5,1])  # We assume here that the key is stored in cell A5
 set_api_url("http://nada-demo.ihsn.org/index.php/api/")  # Enter the URL of your catalog
 set_api_verbose(FALSE)
 ```
-
+</code-block>
+    
 <code-block title="Python">
 ```Python
 
@@ -419,6 +422,7 @@ nada.set_api_url('https://nada-demo.ihsn.org/index.php/api/')  # Enter the URL o
 </code-block>
 </code-group>
 
+    
 ## Adding a geographic dataset
 
 ### Loading metadata (web interface) 
@@ -431,8 +435,832 @@ This option is currently not provided. The ISO19139 schema is complex. An ISO191
 
 ### Loading metadata (API) 
 
+    
+    
 ### From scratch (API)
 
+<code-group>
+<code-block title="R">
+
+```r
+# ==============================================================================
+# NADA Demo Catalog - Use of API examples                      Use case ID: 014
+#
+# Use case description: document a geographic dataset (vector / shape files)
+# containing the outline of Rohingyas refugee camps in Cox Bazar (Bangladesh) in
+# January 2021. The data are downloaded from the OCHA open data platform (HDX).
+#
+# In this example, we DO NOT seek to extract all metadata available in the data
+# files. We could extract information on the features contained in the shape 
+# files and document them using the ISO19110 (features description) of the schema.
+# This would document the fact that the data contain variables District, Upazila,
+# Settlement, Union, Area_Acres, Camp_name, and more (with categories for each).
+# Another script example is provided that shows how to include features
+# descriptions.
+#
+# The published metadata will be structured using a schema described in:
+#    https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Geospatial
+#
+# Script tested with NADA version: 5.0
+# Date: 2021-09-14
+#
+#   ** This script requires a valid API key with administrator privileges.**
+#
+# ==============================================================================
+
+library(nadar)
+library(sf)
+
+# Set API key (stored in a CSV file; not to be entered in clear) and catalog URL
+
+my_keys <- read.csv("C:/CONFIDENTIAL/my_keys.csv", header=F, stringsAsFactors=F)
+set_api_key(my_keys[5,1])  # Assuming the key is in cell A5
+set_api_url("http://nada-demo.ihsn.org/index.php/api/") 
+set_api_verbose(FALSE)
+
+setwd("E:/demo_nada_files/UC014/GEO_COX")
+
+thumb_file = "shape_camps.JPG"
+
+# Download the data files
+# -----------------------
+
+urls <- list("https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/7cec91fb-d0a8-4781-9f8d-9b69772ef2fd/download/210415_rrc_geodata_al1al2al3.gdb.zip",
+             "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/ace4b0a6-ef0f-46e4-a50a-8c552cfe7bf3/download/200908_rrc_outline_camp_al1.zip",
+             "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/bd5351e7-3ffc-4eaa-acbc-c6d917b5549c/download/200908_rrc_outline_camp_al1.kmz",
+             "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/9d5693ec-eeb8-42ed-9b65-4c279f523276/download/200908_rrc_outline_block_al2.zip",
+             "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/ed119ae4-b13d-4473-9afe-a8c36e07870b/download/200908_rrc_outline_block_al2.kmz",
+             "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/0d2d87ae-52a5-4dca-b435-dcd9c617b417/download/210118_rrc_outline_subblock_al3.zip",
+             "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/6286c4a5-d2ab-499a-b019-a7f0c327bd5f/download/210118_rrc_outline_subblock_al3.kmz")
+
+for(url in urls) {
+  f <- basename(url) 
+  if (!file.exists(f)) {
+    download.file(url, destfile=f, mode="wb")
+  }
+}
+
+# We extract the bounding box and nb of features from the available shape files
+# (Note: all shape files cover the same area)
+
+unzip("./Data/200908_rrc_outline_camp_al1.zip", exdir = "./temp")
+al1 <- st_read("./temp/200908_rrc_outline_camp_al1/200908_rrc_outline_camp_al1.shp")
+al1_bb <- st_bbox(al1)
+al1_nf <- length(al1)
+
+unzip("./Data/200908_rrc_outline_block_al2.zip", exdir = "./temp")
+al2 <- st_read("./temp/200908_rrc_outline_block_al2/200908_rrc_outline_block_al2.shp")
+al2_bb <- st_bbox(al2)
+al2_nf <- length(al2)
+
+unzip("./Data/210118_rrc_outline_subblock_al3.zip", exdir = "./temp")
+al3 <- st_read("./temp/210118_rrc_outline_subblock_al3/210118_rrc_outline_subblock_al3.shp")
+al3_bb <- st_bbox(al3)
+al3_nf <- length(al3)
+
+# Generate the metadata compliant with the schema (ISO 19139)
+
+geo_id = "UC014"
+
+meta_cox <- list(
+
+  metadata_information = list(    
+    producers = list(list(name = "NADA team")),
+    production_date = "2021-09-14",
+    version = "v01"
+  ),
+    
+  description = list(
+    
+    idno=geo_id,
+    
+    language="English",
+    
+    characterSet = list(
+      codeListValue = "utf8"
+    ),
+    
+    hierarchyLevel = list("dataset"),
+    
+    contact = list(
+      list(
+        organisationName = "Site Management Sector, RRRC, Inter Sector Coordination Group (ISCG)",
+        contactInfo = list(
+          address = list(country = "Bangladesh"),
+          onlineResource = list(
+            linkage = "https://www.humanitarianresponse.info/en/operations/bangladesh/",
+            name = "Website"
+          )
+        ),
+        role = "owner"
+      )
+    ),
+    
+    dateStamp="2021-04-18",
+    
+    metadataStandardName = "ISO 19115:2003/19139",
+    
+    dataSetURI="https://data.humdata.org/dataset/outline-of-camps-sites-of-rohingya-refugees-in-cox-s-bazar-bangladesh",
+    
+    spatialRepresentationInfo = list(
+      #al1
+      list(
+        vectorSpatialRepresentationInfo = list(
+          topologyLevel = "geometryOnly",
+          geometricObjects = list(
+            geometricObjectType = "surface",
+            geometricObjectCount = as.character(al1_nf) 
+          )
+        )
+      ),
+      # al2
+      list(
+        vectorSpatialRepresentationInfo = list(
+          topologyLevel = "geometryOnly",
+          geometricObjects = list(
+            geometricObjectType = "surface",
+            geometricObjectCount = as.character(al2_nf)
+          )
+        )
+      ),
+      # al3
+      list(
+        vectorSpatialRepresentationInfo = list(
+          topologyLevel = "geometryOnly",
+          geometricObjects = list(
+            geometricObjectType = "surface",
+            geometricObjectCount = as.character(al3_nf)
+          )
+        )
+      )
+    ),
+    
+    referenceSystemInfo = list(
+      list(
+        code = "4326", 
+        codeSpace = "EPSG"
+      )
+    ),
+    
+    identificationInfo = list(
+      list(
+        citation = list(
+          title="Bangladesh, Outline of camps of Rohingya refugees in Cox's Bazar, January 2021",
+          date=list(list(date="2021-01-20", type= "creation")),
+          citedResponsibleParty = list(
+            list(
+              organisationName = "Site Management Sector, RRRC, Inter Sector Coordination Group (ISCG)",
+              contactInfo = list(
+                address = list(
+                  country = "Bangladesh"
+                ),
+                onlineResource = list(
+                  linkage = "https://www.humanitarianresponse.info/en/operations/bangladesh/",
+                  name = "Website"
+                )
+              ),
+              role = "owner"
+            )
+          )
+        ),
+        
+        abstract = "These polygons were digitized through a comnibination of methodologies, originally using VHR satellite imagery and GPS points collected in the field, verified and amended according to Site Management Sector, RRRC, Camp in Charge (CiC) officers inputs, with technical support from other partners.",
+
+        credit = "Site Management Sector, RRRC, Inter Sector Coordination Group (ISCG)",
+        
+        status = "completed",
+        
+        pointOfContact = list(
+          list(
+            organisationName = "Site Management Sector, RRRC, Inter Sector Coordination Group (ISCG)",
+            contactInfo = list(
+              address = list(
+                country = "Bangladesh"
+              ),
+              onlineResource = list(
+                linkage = "https://www.humanitarianresponse.info/en/operations/bangladesh/",
+                name = "Website"
+              )
+            ),
+            role = "pointOfContact"
+          )
+        ),
+        
+        resourceMaintenance = list(
+          list(
+            maintenanceOrUpdateFrequency="asNeeded"
+          )
+        ),
+        
+        graphicOverview = list(
+          list(fileName = "41405641910_e05b7ff46c_c.jpg", 
+               fileDescription = "Block D5, Kutupalong extension camp, Cox's Bazar - 1 (photo WB)",
+               fileType = "image"),
+          list(fileName = "41405643020_0e6fd51506_c.jpg", 
+               fileDescription = "Block D5, Kutupalong extension camp, Cox's Bazar - 2 (photo WB)",
+               fileType = "image"),
+          list(fileName = "41405642400_16fa81c6a9_c.jpg", 
+               fileDescription = "Near Block D5, Kutupalong extension Camp, Cox's Bazar (photo WB)",
+               fileType = "image")
+        ),
+        
+        resourceFormats = list(
+          list(name = "application/zip", 
+               specification = "ESRI Shapefile (zipped)", 
+               FormatDistributor = list(organisationName = "ESRI")),
+          list(name = "application/vnd.google-earth.kmz", 
+               specification = "KMZ file", 
+               FormatDistributor = list(organisationName = "Google")),
+          list(name = "ESRI Geodatabase", 
+               FormatDistributor = list(organisationName = "ESRI"))
+        ),
+        
+        descriptiveKeywords = list(
+          list(type = "theme", keyword = "Refugee camp"),
+          list(type = "theme", keyword = "forced displacement"),
+          list(type = "theme", keyword = "Rohingya"
+          )
+        ),	
+        
+        resourceConstraints = list(
+          list(
+            legalConstraints = list(
+              accessConstraints = list("unrestricted"),
+              useConstraints = list("licenceUnrestricted"),
+              uselimitation = list("License: http://creativecommons.org/publicdomain/zero/1.0/legalcode")
+            )
+          )
+        ),
+        
+        spatialRepresentationType = "vector",
+        
+        language = list("eng"),
+        
+        characterSet = list(),
+        
+        topicCategory = list("structure"),
+        
+        extent=list(
+          geographicElement = list(
+            list(
+              geographicBoundingBox = list(
+                southBoundLatitude = 20.91856,
+                westBoundLongitude = 92.12973,
+                northBoundLatitude = 21.22292,
+                eastBoundLongitude = 92.26863
+              )
+            )
+          ),
+          temporalElement=list(
+            list(extent="")
+          )
+        )
+      )
+    ),
+    
+    #contentInfo,
+    distributionInfo = list(
+      distributionFormat = list(
+        list(name = "application/zip", specification = "ESRI Shapefile (zipped)", FormatDistributor = list(organisationName = "ESRI")),
+        list(name = "application/vnd.google-earth.kmz", specification = "KMZ file", FormatDistributor = list(organisationName = "Google")),
+        list(name = "ESRI Geodatabase", FormatDistributor = list(organisationName = "ESRI"))
+      ),
+      distributor = list(
+        list(
+          organisationName = "OCHA", 
+          contactInfo = list(
+            onlineResource = list(
+              linkage = "https://data.humdata.org/dataset/outline-of-camps-sites-of-rohingya-refugees-in-cox-s-bazar-bangladesh",
+              name = "Website"
+            )
+          )
+        )
+      ),
+      
+      # The data are publicly available on-line. As we do not plan to control 
+      # access in the NADA catalog, we provide links in the transferOptions
+      # section below. AN alternative would be to drop this section, and to
+      # document/upload the data as external resources. Declaring them as 
+      # dctype = 'dat/mic" would then offer the possibility to select a data
+      # access policy. 
+      
+      transferOptions = list(
+        onLine = list(
+          list(
+            filename="https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/7cec91fb-d0a8-4781-9f8d-9b69772ef2fd/download/210118_rrc_geodata_al1al2al3.gdb.zip",
+            title="210118_RRC_GeoData_AL1,AL2,AL3.gdb.zip",
+            description="This zipped geodatabase file (GIS) contains the Camp boundary (Admin level-1) and and camp-block boundary (admin level-2 or camp sub-division) and sub-block boundary of Rohingya refugee camps and administrative level-3 or sub block division of Camp 1E-1W, Camp 2E-2W, Camp 8E-8W, Camp 4 Extension, Camp 3-7, Camp 9-20, and Camp 21-27 in Cox's Bazar, Bangladesh. Updated: April 18, 2021",
+            dctype="map",
+            dcformat="application/zip"
+          ),
+          list(
+            filename="https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/ace4b0a6-ef0f-46e4-a50a-8c552cfe7bf3/download/200908_rrc_outline_camp_al1.zip",
+            title="200908_RRC_Outline_Camp_AL1.zip",
+            description="This zipped shape file (GIS) contains the Camp boundary (Admin level-1) of Rohingya refugees in Cox's Bazar, Bangladesh. Updated: April 18, 2021",
+            dctype="map",
+            dcformat="application/zip"
+          ),
+          list(
+            filename="https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/bd5351e7-3ffc-4eaa-acbc-c6d917b5549c/download/200908_rrc_outline_camp_al1.kmz",
+            title="200908_RRC_Outline_Camp_AL1.kmz",
+            description="This kmz file (Google Earth) contains the Camp boundary (Admin level-1) of Rohingya refugees in Cox's Bazar, Bangladesh. Updated: April 18, 2021",
+            dctype="map",
+            dcformat="application/zip"
+          ),
+          list(
+            filename="https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/9d5693ec-eeb8-42ed-9b65-4c279f523276/download/200908_rrc_outline_block_al2.zip",
+            title="200908_RRC_Outline_Block_AL2.zip",
+            description="This zipped shape file (GIS) contains the camp-block boundary (admin level-2 or camp sub-division) of Rohingya refugees in Cox's Bazar, Bangladesh. Updated: April 18, 2021",
+            dctype="map",
+            dcformat="application/zip"
+          ),
+          list(
+            filename="https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/ed119ae4-b13d-4473-9afe-a8c36e07870b/download/200908_rrc_outline_block_al2.kmz",
+            title="200908_RRC_Outline_Block_AL2.kmz",
+            description="This kmz file (Google Earth) contains the camp-block boundary (admin level-2 or camp sub-division) of Rohingya refugees in Cox's Bazar, Bangladesh. Updated: April 18, 2021",
+            dctype="map",
+            dcformat="application/zip"
+          ),
+          list(
+            filename="https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/0d2d87ae-52a5-4dca-b435-dcd9c617b417/download/210118_rrc_outline_subblock_al3.zip",
+            title="210118_RRC_Outline_SubBlock_AL3.zip",
+            description="This zipped shape file (GIS) contains the camp-sub-block (Admin level-3) of Camp 1E-1W, Camp 2E-2W, Camp 8E-8W, Camp 4 Extension, Camp 3-7, Camp 9-20, and Camp 21-27 in Cox's Bazar, Bangladesh. Updated: April 18, 2021",
+            dctype="map",
+            dcformat="application/zip"
+          ),
+          list(
+            filename="https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/6286c4a5-d2ab-499a-b019-a7f0c327bd5f/download/210118_rrc_outline_subblock_al3.kmz",
+            title="210118_RRC_Outline_SubBlock_AL3.kmz",
+            description="This kmz file (Google Earth) contains the camp-sub-block (Admin level-3) of Camp 1E-1W, Camp 2E-2W, Camp 8E-8W, Camp 4 Extension, Camp 3-7, Camp 9-20, and Camp 21-27 in Cox's Bazar, Bangladesh. Updated: April 18, 2021",
+            dctype="map",
+            dcformat="application/zip"
+          )
+        )
+      ),
+      
+      dataQualityInfo=list(
+        scope="dataset", 
+        lineage=list(
+          processStep=list(
+            list(
+              description="The camps are continuously expanding, and Camp Boundaries are structured around the GoB, RRRC official governance structure of the camps, taking into account the potential new land allocation. The database is kept as accurate as possible, given these challenges."
+            )
+          )
+        )
+      ),
+      
+      metadataMaintenance=list(
+        maintenanceAndUpdateFrequency="asNeeded"
+      )
+      
+    )
+  )  
+)
+
+# Publish metadata in catalog
+
+geospatial_add(idno = geo_id, 
+               metadata = meta_cox, 
+               repositoryid = "central", 
+               published = 1, 
+               thumbnail = thumb_file, 
+               overwrite = "yes")
+
+
+# Add a link to Google Earth as an external resource
+
+external_resources_add(
+  title = "Google Earth aerial image",
+  idno = geo_id,
+  dctype = "web",
+  description = "Link to Google Earth aerial image of the Kutupalong Refugee Camp",
+  file_path = "https://earth.google.com/web/search/rohingya+cox+camp/@21.2127084,92.1634829,15.88307203a,976.95413757d,35y,0h,45t,0r/data=CnwaUhJMCiUweDMwYWRlNzZkNTlkMGM1NGY6MHg0ZjllZDY5MWExMzg5YTlmGU6D_TJzNjVAIRDM0eN3CldAKhFyb2hpbmd5YSBjb3ggY2FtcBgCIAEiJgokCT3JGaHIwztAEZgmrtRF0irAGZzEE0DJu1RAIcpYcp98KzzAKAI",
+  overwrite = "yes"
+)
+```
+</code-block>
+    
+<code-block title="Python">
+```Python
+# ==============================================================================
+# NADA Demo Catalog - Use of API examples                      Use case ID: 014
+#
+# Use case description: document a geographic dataset (vector / shape files)
+# containing the outline of Rohingyas refugee camps in Cox Bazar (Bangladesh) in
+# January 2021. The data are downloaded from the OCHA open data platform (HDX).
+#
+# In this example, we DO NOT seek to extract all metadata available in the data
+# files. We could extract information on the features contained in the shape
+# files and document them using the ISO19110 (features description) of the schema.
+# This would document the fact that the data contain variables District, Upazila,
+# Settlement, Union, Area_Acres, Camp_name, and more (with categories for each).
+# Another script example is provided that shows how to include features
+# descriptions.
+#
+# The published metadata will be structured using a schema described in:
+#    https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Geospatial
+#
+# Script tested with NADA version: 5.0
+# Date: 2021-09-14
+#
+#   ** This script requires a valid API key with administrator privileges.**
+#
+# ==============================================================================
+import urllib
+import pynada as nada
+import pandas as pd
+import geopandas as gpd
+import os
+from os.path import exists as file_exists
+from zipfile import ZipFile
+
+# Set API key (stored in a CSV file; not to be entered in clear) and catalog URL
+
+my_keys = pd.read_csv("confidential/my_keys.csv", header=None)
+nada.set_api_key(my_keys.iat[4, 0])  # Assuming the key is in cell A5
+nada.set_api_url('https://nada-demo.ihsn.org/index.php/api/')
+
+os.chdir("demo_nada_files/UC014/GEO_COX")
+
+thumb_file = "shape_camps.JPG"
+
+# Download the data files
+# -----------------------
+
+urls = [
+    "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/7cec91fb-d0a8-4781-9f8d"
+    "-9b69772ef2fd/download/210415_rrc_geodata_al1al2al3.gdb.zip",
+    "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/ace4b0a6-ef0f-46e4-a50a"
+    "-8c552cfe7bf3/download/200908_rrc_outline_camp_al1.zip",
+    "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/bd5351e7-3ffc-4eaa-acbc"
+    "-c6d917b5549c/download/200908_rrc_outline_camp_al1.kmz",
+    "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/9d5693ec-eeb8-42ed-9b65"
+    "-4c279f523276/download/210415_rrc_outline_block_al2.zip",
+    "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/ed119ae4-b13d-4473-9afe"
+    "-a8c36e07870b/download/210413_rrc_outline_block_al2.kmz",
+    "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/0d2d87ae-52a5-4dca-b435"
+    "-dcd9c617b417/download/210118_rrc_outline_subblock_al3.zip",
+    "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource/6286c4a5-d2ab-499a-b019"
+    "-a7f0c327bd5f/download/210118_rrc_outline_subblock_al3.kmz"
+]
+
+for url in urls:
+    f = os.path.basename(url)
+    if not file_exists(f'Data/{f}'):
+        try:
+            nada.download_file(url, f'Data/{f}', mode="wb")
+        except urllib.error.HTTPError:
+            print("Not found")
+
+# We extract the bounding box and nb of features from the available shape files
+# (Note: all shape files cover the same area)
+ZipFile("Data/200908_rrc_outline_camp_al1.zip").extractall("temp")
+al1 = gpd.read_file("temp/200908_rrc_outline_camp_al1/200908_rrc_outline_camp_al1.shp")
+# or read file directly from zipfile:
+# al1 = gpd.read_file("Data/200908_rrc_outline_camp_al1.zip!200908_RRC_Outline_Camp_AL1/200908_RRC_Outline_Camp_AL1
+# .shp")
+al1_bb = al1.total_bounds
+al1_nf = len(al1.columns)
+
+ZipFile("Data/210415_rrc_outline_block_al2.zip").extractall("temp")
+al2 = gpd.read_file("temp/210415_rrc_outline_block_al2/210413_rrc_outline_block_al2.shp")
+al2_bb = al2.total_bounds
+al2_nf = len(al2.columns)
+
+ZipFile("Data/210118_rrc_outline_subblock_al3.zip").extractall("temp")
+al3 = gpd.read_file("temp/210118_rrc_outline_subblock_al3/210118_rrc_outline_subblock_al3.shp")
+al3_bb = al3.total_bounds
+al3_nf = len(al3.columns)
+
+# Generate the metadata compliant with the schema (ISO 19139)
+
+geo_id = "UC014"
+metadata_information = {
+    'producers': [{'name': "NADA team"}],
+    'production_date': "2021-09-14",
+    'version': "v01"
+}
+description = {
+    'idno': geo_id,
+    'language': "English",
+    'characterSet': {
+        'codeListValue': "utf8"
+    },
+    'hierarchyLevel': ["dataset"],
+    'contact': [
+        {
+            'organisationName': "Site Management Sector, RRRC, Inter Sector Coordination Group (ISCG)",
+            'contactInfo': {
+                'address': {'country': "Bangladesh"},
+                'onlineResource': {
+                    'linkage': "https://www.humanitarianresponse.info/en/operations/bangladesh/",
+                    'name': "Website"
+                }
+            },
+            'role': "owner"
+        }
+    ],
+    'dateStamp': "2021-04-18",
+    'metadataStandardName': "ISO 19115:2003/19139",
+    'dataSetURI': "https://data.humdata.org/dataset/outline-of-camps-sites-of-rohingya-refugees-in-cox-s-bazar"
+                  "-bangladesh",
+    'spatialRepresentationInfo': [
+        # al1
+        {
+            'vectorSpatialRepresentationInfo': {
+                'topologyLevel': "geometryOnly",
+                'geometricObjects': [
+                    {
+                        'geometricObjectType': "surface",
+                        'geometricObjectCount': al1_nf
+                    }]
+            }
+        },
+        # al2
+        {
+            'vectorSpatialRepresentationInfo': {
+                'topologyLevel': "geometryOnly",
+                'geometricObjects': [
+                    {
+                        'geometricObjectType': "surface",
+                        'geometricObjectCount': al2_nf
+                    }]
+            }
+        },
+        # al3
+        {
+            'vectorSpatialRepresentationInfo': {
+                'topologyLevel': "geometryOnly",
+                'geometricObjects': [
+                    {
+                        'geometricObjectType': "surface",
+                        'geometricObjectCount': al3_nf
+                    }]
+            }
+        }
+    ],
+    'referenceSystemInfo': [
+        {
+            'code': "4326",
+            'codeSpace': "EPSG"
+        }
+    ],
+    'identificationInfo': [
+        {
+            'citation': {
+                'title': "Bangladesh, Outline of camps of Rohingya refugees in Cox's Bazar, January 2021",
+                'date': [{'date': "2021-01-20", 'type': "creation"}],
+                'citedResponsibleParty': [
+                    {
+                        'organisationName': "Site Management Sector, RRRC, Inter Sector Coordination Group (ISCG)",
+                        'contactInfo': {
+                            'address': {
+                                'country': "Bangladesh"
+                            },
+                            'onlineResource': {
+                                'linkage': "https://www.humanitarianresponse.info/en/operations/bangladesh/",
+                                'name': "Website"
+                            }
+                        },
+                        'role': "owner"
+                    }
+                ]},
+            'abstract': "These polygons were digitized through a combination of methodologies, "
+                        "originally using VHR satellite imagery and GPS points collected in the "
+                        "field, verified and amended according to Site Management Sector, RRRC, "
+                        "Camp in Charge (CiC) officers inputs, with technical support from other "
+                        "partners.",
+            'credit': "Site Management Sector, RRRC, Inter Sector Coordination Group (ISCG)",
+            'status': "completed",
+            'pointOfContact': [
+                {
+                    'organisationName': "Site Management Sector, RRRC, Inter Sector Coordination Group (ISCG)",
+                    'contactInfo': {
+                        'address': {
+                            'country': "Bangladesh"
+                        },
+                        'onlineResource': {
+                            'linkage': "https://www.humanitarianresponse.info/en/operations/bangladesh/",
+                            'name': "Website"
+                        }
+                    },
+                    'role': "pointOfContact"
+                }
+            ],
+            'resourceMaintenance': [
+                {
+                    'maintenanceOrUpdateFrequency': "asNeeded"
+                }
+            ],
+            'graphicOverview': [
+                {
+                    'fileName': "41405641910_e05b7ff46c_c.jpg",
+                    'fileDescription': "Block D5, Kutupalong extension camp, Cox's Bazar - 1 (photo WB)",
+                    'fileType': "image"},
+                {
+                    'fileName': "41405643020_0e6fd51506_c.jpg",
+                    'fileDescription': "Block D5, Kutupalong extension camp, Cox's Bazar - 2 (photo WB)",
+                    'fileType': "image"},
+                {
+                    'fileName': "41405642400_16fa81c6a9_c.jpg",
+                    'fileDescription': "Near Block D5, Kutupalong extension Camp, Cox's Bazar (photo WB)",
+                    'fileType': "image"}
+            ],
+            'resourceFormats': [
+                {
+                    'name': "application/zip",
+                    'specification': "ESRI Shapefile (zipped)",
+                    'FormatDistributor': {'organisationName': "ESRI"}},
+                {
+                    'name': "application/vnd.google-earth.kmz",
+                    'specification': "KMZ file",
+                    'FormatDistributor': {'organisationName': "Google"}},
+                {
+                    'name': "ESRI Geodatabase",
+                    'FormatDistributor': {'organisationName': "ESRI"}}
+            ],
+            'descriptiveKeywords': [
+                {'type': "theme", 'keyword': "Refugee camp"},
+                {'type': "theme", 'keyword': "forced displacement"},
+                {'type': "theme", 'keyword': "Rohingya"}
+            ],
+            'resourceConstraints': [
+                {
+                    'legalConstraints': {
+                        'accessConstraints': ["unrestricted"],
+                        'useConstraints': ["licenceUnrestricted"],
+                        'uselimitation': ["License: http://creativecommons.org/publicdomain/zero/1.0/legalcode"]
+                    }
+                }
+            ],
+            'spatialRepresentationType': "vector",
+            'language': ["eng"],
+            'characterSet': [],
+            'topicCategory': ["structure"],
+            'extent': {
+                'geographicElement': [
+                    {
+                        'geographicBoundingBox': {
+                            'southBoundLatitude': 20.91856,
+                            'westBoundLongitude': 92.12973,
+                            'northBoundLatitude': 21.22292,
+                            'eastBoundLongitude': 92.26863
+                        }
+                    }
+                ],
+                'temporalElement': [{'extent': ""}]
+            }
+        }
+    ],
+    'contentInfo': [],
+    'distributionInfo': {
+        'distributionFormat': [
+            {
+                'name': "application/zip", 'specification': "ESRI Shapefile (zipped)",
+                'FormatDistributor': {'organisationName': "ESRI"}},
+            {
+                'name': "application/vnd.google-earth.kmz", 'specification': "KMZ file",
+                'FormatDistributor': {'organisationName': "Google"}},
+            {'name': "ESRI Geodatabase", 'FormatDistributor': {'organisationName': "ESRI"}}
+        ],
+        'distributor': [
+            {
+                'organisationName': "OCHA",
+                'contactInfo': {
+                    'onlineResource': {
+                        'linkage': "https://data.humdata.org/dataset/outline-of-camps-sites-of-rohingya-refugees-in"
+                                   "-cox-s-bazar-bangladesh",
+                        'name': "Website"
+                    }
+                }
+            }
+        ],
+        # The data are publicly available on-line. As we do not plan to control
+        # access in the NADA catalog, we provide links in the transferOptions
+        # section below. AN alternative would be to drop this section, and to
+        # document/upload the data as external resources. Declaring them as
+        # dctype = 'dat/mic" would then offer the possibility to select a data
+        # access policy.
+
+        'transferOptions': {
+            'onLine': [
+                {
+                    'filename': "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource"
+                                "/7cec91fb-d0a8-4781-9f8d-9b69772ef2fd/download/210415_rrc_geodata_al1al2al3.gdb.zip",
+                    'title': "210415_RRC_GeoData_AL1,AL2,AL3.gdb.zip",
+                    'description': "This zipped geodatabase file (GIS) contains the Camp boundary (Admin level-1) and "
+                                   "and camp-block boundary (admin level-2 or camp sub-division) and sub-block "
+                                   "boundary of Rohingya refugee camps and administrative level-3 or sub block "
+                                   "division of Camp 1E-1W, Camp 2E-2W, Camp 8E-8W, Camp 4 Extension, Camp 3-7, "
+                                   "Camp 9-20, and Camp 21-27 in Cox's Bazar, Bangladesh. Updated: April 18, 2021",
+                    'dctype': "map",
+                    'dcformat': "application/zip"
+                },
+                {
+                    'filename': "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource"
+                                "/ace4b0a6-ef0f-46e4-a50a-8c552cfe7bf3/download/200908_rrc_outline_camp_al1.zip",
+                    'title': "200908_RRC_Outline_Camp_AL1.zip",
+                    'description': "This zipped shape file (GIS) contains the Camp boundary (Admin level-1) of "
+                                   "Rohingya refugees in Cox's Bazar, Bangladesh. Updated: April 18, 2021",
+                    'dctype': "map",
+                    'dcformat': "application/zip"
+                },
+                {
+                    'filename': "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource"
+                                "/bd5351e7-3ffc-4eaa-acbc-c6d917b5549c/download/200908_rrc_outline_camp_al1.kmz",
+                    'title': "200908_RRC_Outline_Camp_AL1.kmz",
+                    'description': "This kmz file (Google Earth) contains the Camp boundary (Admin level-1) of "
+                                   "Rohingya refugees in Cox's Bazar, Bangladesh. Updated: April 18, 2021",
+                    'dctype': "map",
+                    'dcformat': "application/zip"
+                },
+                {
+                    'filename': "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource"
+                                "/9d5693ec-eeb8-42ed-9b65-4c279f523276/download/210415_rrc_outline_block_al2.zip",
+                    'title': "210415_RRC_Outline_Block_AL2.zip",
+                    'description': "This zipped shape file (GIS) contains the camp-block boundary (admin level-2 or "
+                                   "camp sub-division) of Rohingya refugees in Cox's Bazar, Bangladesh. Updated: "
+                                   "April 18, 2021",
+                    'dctype': "map",
+                    'dcformat': "application/zip"
+                },
+                {
+                    'filename': "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource"
+                                "/ed119ae4-b13d-4473-9afe-a8c36e07870b/download/210413_rrc_outline_block_al2.kmz",
+                    'title': "210413_RRC_Outline_Block_AL2.kmz",
+                    'description': "This kmz file (Google Earth) contains the camp-block boundary (admin level-2 or "
+                                   "camp sub-division) of Rohingya refugees in Cox's Bazar, Bangladesh. Updated: "
+                                   "April 18, 2021",
+                    'dctype': "map",
+                    'dcformat': "application/zip"
+                },
+                {
+                    'filename': "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource"
+                                "/0d2d87ae-52a5-4dca-b435-dcd9c617b417/download/210118_rrc_outline_subblock_al3.zip",
+                    'title': "210118_RRC_Outline_SubBlock_AL3.zip",
+                    'description': "This zipped shape file (GIS) contains the camp-sub-block (Admin level-3) of Camp "
+                                   "1E-1W, Camp 2E-2W, Camp 8E-8W, Camp 4 Extension, Camp 3-7, Camp 9-20, "
+                                   "and Camp 21-27 in Cox's Bazar, Bangladesh. Updated: April 18, 2021",
+                    'dctype': "map",
+                    'dcformat': "application/zip"
+                },
+                {
+                    'filename': "https://data.humdata.org/dataset/1a67eb3b-57d8-4062-b562-049ad62a85fd/resource"
+                                "/6286c4a5-d2ab-499a-b019-a7f0c327bd5f/download/210118_rrc_outline_subblock_al3.kmz",
+                    'title': "210118_RRC_Outline_SubBlock_AL3.kmz",
+                    'description': "This kmz file (Google Earth) contains the camp-sub-block (Admin level-3) of Camp "
+                                   "1E-1W, Camp 2E-2W, Camp 8E-8W, Camp 4 Extension, Camp 3-7, Camp 9-20, "
+                                   "and Camp 21-27 in Cox's Bazar, Bangladesh. Updated: April 18, 2021",
+                    'dctype': "map",
+                    'dcformat': "application/zip"
+                }
+            ]
+        },
+    },
+    'dataQualityInfo': [
+        {
+            'scope': "dataset",
+            'lineage': {
+                'processStep': [
+                    {
+                        'description': "The camps are continuously expanding, and Camp Boundaries are structured around "
+                                       "the GoB, RRRC official governance structure of the camps, taking into account "
+                                       "the potential new land allocation. The database is kept as accurate as possible, "
+                                       "given these challenges."
+                    }
+                ]
+            }
+        }],
+    'metadataMaintenance': {
+        'maintenanceAndUpdateFrequency': "asNeeded"
+    }
+}
+
+# Publish metadata in catalog
+nada.create_geospatial_dataset(
+    dataset_id=geo_id,
+    repository_id="central",
+    published=1,
+    overwrite="yes",
+    description=description,
+    metadata_information=metadata_information
+)
+nada.upload_thumbnail(dataset_id=geo_id, file_path=thumb_file)
+
+# Add a link to Google Earth as an external resource
+nada.add_resource(
+    dataset_id=geo_id,
+    dctype="web",
+    title="Google Earth aerial image",
+    description="Link to Google Earth aerial image of the Kutupalong Refugee Camp",
+    file_path="https://earth.google.com/web/search/rohingya+cox+camp/@21.2127084,92.1634829,15.88307203a,"
+             "976.95413757d,35y,0h,45t,"
+             "0r/data=CnwaUhJMCiUweDMwYWRlNzZkNTlkMGM1NGY6MHg0ZjllZDY5MWExMzg5YTlmGU6D_TJzNjVAIRDM0eN3CldAKhFyb2hpbmd5YSBjb3ggY2FtcBgCIAEiJgokCT3JGaHIwztAEZgmrtRF0irAGZzEE0DJu1RAIcpYcp98KzzAKAI",
+)
+```
+</code-block>
+</code-group>
+    
 
 ## Adding a document
 
@@ -522,38 +1350,39 @@ An example was provided in section "Getting Started -- Publishing a document". T
 
 We provide here another example, where a list of documents with core metadata is available as a CSV file. A script (written in R or in Python) reads the file, maps the columns of the file to the schema elements, and publishes the documents in NADA. This example corresponds to Use Case 007 in the NADA GitHub repository.
 
-Using R
+<code-group>
+<code-block title="R">
 
 ```r
-# ==============================================================================
-# NADA Demo Catalog - Use of API examples Use case ID: 002
-#
-# Use case description: generate metadata and publish in NADA a collection of
-# documents for which metadata are available in a CSV file.
-# The CSV file contains the following columns:
-# - document_url
-# - pdf_url (URL to the PDF version of the document)
-# - txt_url (URL to the TXT version of the document, if available)
-# - author (list of authors, as one string)
-# - identifier (unique identifier of the document; could be a DOI or other)
-# - abstract
-# - series
-# - language (we assume here that only English or French are valid values)
-# - publisher
-# - title
-# - type
-# - date_published (in ISO format; could be YYY, or YYYY-MM, or YYYY-MM-DD)
-# - countries (country names, separated by a ";")
-#
 
+# ==============================================================================
+# NADA Demo Catalog - Use of API examples                      Use case ID: 002
+#
+# Use case description: generate metadata and publish in NADA a collection of 
+# documents for which metadata are available in a CSV file. 
+# The CSV file contains the following columns:
+#   - document_url	
+#   - pdf_url	(URL to the PDF version of the document)
+#   - txt_url	(URL to the TXT version of the document, if available)	
+#   - author (list of authors, as one string)	
+#   - identifier (unique identifier of the document; could be a DOI or other)	
+#   - abstract 	
+#   - series	
+#   - language (we assume here that only English or French are valid values)	
+#   - publisher	
+#   - title	
+#   - type	
+#   - date_published (in ISO format; could be YYY, or YYYY-MM, or YYYY-MM-DD)
+#   - countries (country names, separated by a ";")
+#
 # The published metadata will be structured using a schema described in:
-# https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Documents
+#    https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Documents
 #
 # Script tested with NADA version: 5.0
 # Date: 2021-09-10
-# See output in http://nada-demo.ihsn.org/index.php/catalog
+# See output in http://nada-demo.ihsn.org/index.php/catalog 
 #
-# \*\* This script requires a valid API key with administrator privileges.\*\*
+#   ** This script requires a valid API key with administrator privileges.**
 #
 # ==============================================================================
 
@@ -562,611 +1391,374 @@ library(readxl)
 library(rlist)
 library(stringr)
 
-# Set API key (stored in a CSV file; not to be entered in clear) and catalog URL 
-my_keys <- read.csv("C:/CONFIDENTIAL/my_keys.csv", header=F, stringsAsFactors=F)
+# Set API key (stored in a CSV file; not to be entered in clear) and catalog URL
 
-set_api_key(my_keys\[5,1\]) # Assuming the key is in cell A5
-set_api_url("http://nada-demo.ihsn.org/index.php/api/")
+my_keys <- read.csv("C:/CONFIDENTIAL/my_keys.csv", header=F, stringsAsFactors=F)
+set_api_key(my_keys[5,1])  # Assuming the key is in cell A5
+set_api_url("http://nada-demo.ihsn.org/index.php/api/") 
 set_api_verbose(FALSE)
 
-# Set the default folder, and load the CSV file
-setwd("E:/demo_nada_files/UC002")
+# Set the default folder, and load the CSV file 
 
-doc_list <- read.csv("NADA_demo_list_docs.csv",
-stringsAsFactors=FALSE)
+setwd("E:/demo_nada_files/UC002")   
+doc_list <- read.csv("NADA_demo_list_docs.csv", stringsAsFactors=FALSE)
 
 # Generate the schema-compliant metadata, and publish in NADA catalog
-
 # We need to map the columns in the CSV file to elements of the schema.
 
 for(i in 1:nrow(doc_list)) {
-
-# Download the PDF file if not already done
-
-pdf_url <- doc_list\$pdf_url\[i\]
-pdf_filename <- paste0(doc_list\$identifier\[i\], ".pdf")
-if(!file.exists(pdf_filename)) {
+  
+  # Download the PDF file if not already done
+  
+  pdf_url  <- doc_list$pdf_url[i]
+  pdf_filename <- paste0(doc_list$identifier[i], ".pdf")
+  if(!file.exists(pdf_filename)) {
     download.file(pdf_url, pdf_filename, mode="wb")
-}
-
-# Take a screenshot of the cover page to be used as thumbnail
-
-thumb_file <- gsub(".pdf", ".jpg", pdf_filename)
-capture_pdf_cover(pdf_filename)
-
-# Map the CSV columns to metadata elements from the schema
-
-id <- doc_list\$identifier\[i\]
-
-title <- doc_list\$title\[i\]
-
-date <- as.character(doc_list\$date_published\[i\])
-
-abstract <- doc_list\$abstract\[i\]
-
-publisher <- doc_list\$publisher\[i\]
-
-series <- doc_list\$series\[i\]
-
-type <- doc_list\$type\[i\]
-
-author_list = list()
-
-authors <- unlist(strsplit(doc_list\$author\[i\], ";"))
-
-for(a in authors) {
-
-author = unlist(strsplit(a, ",")) # Format in CSV is "lastname, firstname"
-
-ln = str_trim(author\[1\])
-
-fn = str_trim(author\[2\])
-
-this_author = list(last_name = ln, first_name = fn)
-
-author_list = list.append(author_list, this_author)
-
-}
-
-if(doc_list\$language\[i\] == "English") {
-
-lang_name = "English"
-
-lang_code = "EN"
-
-} else if (doc_list\$language\[i\] == "French") {
-
-lang_name = "French"
-
-lang_code = "FR"
-
-}
-
-language <- list(list(name=lang_name, code=lang_code))
-
-ctry_list = list()
-
-countries <- unlist(strsplit(doc_list\$countries\[i\], ";"))
-
-for(c in countries) {
-
-ctry = list(name = str_trim(c)) # Removes start/end whitespaces
-
-ctry_list = list.append(ctry_list, ctry)
-
-}
-
-# Document the file, and publish in the NADA catalog
-
-this_doc_metadata <- list(
-
-metadata_information = list( # This block is optional but recommended
-
-producers = list(
-
-list(name = "NADA team")
-
-),
-
-production_date = "2021-09-11",
-
-version = "v01"
-
-),
-
-document_description = list(
-
-title_statement = list(idno = id, title = title),
-
-date_published = date,
-
-type = type,
-
-authors = author_list,
-
-series = series,
-
-publisher = publisher,
-
-abstract = abstract,
-
-ref_country = ctry_list,
-
-languages = language
-
-)
-
-)
-
-# Publish the document in the NADA central catalog
-
-add_document(idno =
-this_doc_metadata\$document_description\$title_statement\$idno,
-
-metadata = this_doc_metadata,
-
-repositoryid = "central",
-
-published = 1,
-
-thumbnail = thumb_file,
-
-overwrite = "yes")
-
-# Note: to publish the document in a collection (e.g. "Handbooks"), we would
-# enter repositoryid = "Handbooks" instead of "repositoryid = "central".
-# The collection must have been previously created in the catalog.
-# ==============================================================================
-# Uploading the document metadata will not upload the document itself. To make
-# the document available in/from the catalog, we need to upload the file to the
-# server or provide a link to an external URL, as an "external resource".
-# More than one resource can be attached to a catalog entry, as long as their
-# title differ; here, some documents are available in PDF and TXT formats.
-# ==============================================================================
-# The "type" column in the CSV file does not comply with dctype in the
-# external resources schema; we map the types accordingly
-# Note: to get a list of types found in the CSV file:
-table(doc_list\$type)
-
-if(doc_list\$type\[i\] == "book") dctype = "doc/ref" # Reference
-document
-
-if(doc_list\$type\[i\] == "manual") dctype = "doc/ref"
-
-# Provide a link to the PDF file and to the TXT file if it exists
-# If we have links to a PDF and a TXT file, we mention the format in the title.
-
-title_pdf = title
-
-if(doc_list\$txt_url\[i\] != "") {
-
-title_pdf = paste0(title, " - PDF version")
-
-title_txt = paste0(title, " - TXT version")
+  }
+  
+  # Take a screenshot of the cover page to be used as thumbnail 
+  
+  thumb_file <- gsub(".pdf", ".jpg", pdf_filename)
+  capture_pdf_cover(pdf_filename)
+  
+  # Map the CSV columns to metadata elements from the schema
+  
+  id        <- doc_list$identifier[i]
+  title     <- doc_list$title[i]
+  date      <- as.character(doc_list$date_published[i])
+  abstract  <- doc_list$abstract[i]
+  publisher <- doc_list$publisher[i]
+  series    <- doc_list$series[i]
+  type      <- doc_list$type[i]
+
+  author_list = list()
+  authors <- unlist(strsplit(doc_list$author[i], ";"))
+  for(a in authors) {
+    author = unlist(strsplit(a, ","))  # Format in CSV is "lastname, firstname"
+    ln = str_trim(author[1])
+    fn = str_trim(author[2])
+    this_author = list(last_name = ln, first_name = fn)    
+    author_list = list.append(author_list, this_author)
+  }
+  
+  if(doc_list$language[i] == "English") {
+    lang_name = "English"
+    lang_code = "EN"
+  } else if (doc_list$language[i] == "French") {
+    lang_name = "French"
+    lang_code = "FR"
+  }  
+  language  <- list(list(name=lang_name, code=lang_code))
+  
+  ctry_list = list()
+  countries <- unlist(strsplit(doc_list$countries[i], ";"))
+  for(c in countries) {
+    ctry = list(name = str_trim(c)) # Removes start/end whitespaces    
+    ctry_list = list.append(ctry_list, ctry)
+  }
+
+  # Document the file, and publish in the NADA catalog
+  
+  this_doc_metadata <- list(
+    
+    metadata_information = list(    # This block is optional but recommended
+      producers = list(
+        list(name = "NADA team")
+      ),
+      production_date = "2021-09-11",
+      version = "v01"
+    ),  
+
+    document_description = list(
+      title_statement = list(idno = id, title = title),
+      date_published = date,
+      type = type,
+      authors = author_list,
+      series = series,
+      publisher = publisher,
+      abstract = abstract,
+      ref_country = ctry_list,
+      languages = language
+    )
+    
+  )
+
+  # Publish the document in the NADA central catalog 
+  
+  add_document(idno = this_doc_metadata$document_description$title_statement$idno, 
+               metadata = this_doc_metadata, 
+               repositoryid = "central", 
+               published = 1, 
+               thumbnail = thumb_file, 
+               overwrite = "yes")
+  
+  # Note: to publish the document in a collection (e.g. "Handbooks"), we would 
+  # enter repositoryid = "Handbooks" instead of "repositoryid = "central".
+  # The collection must have been previously created in the catalog.
+  
+  # ==============================================================================
+  # Uploading the document metadata will not upload the document itself. To make 
+  # the document available in/from the catalog, we need to upload the file to the
+  # server or provide a link to an external URL, as an "external resource".
+  # More than one resource can be attached to a catalog entry, as long as their 
+  # title differ; here, some documents are available in PDF and TXT formats.
+  # ==============================================================================
+  
+  # The "type" column in the CSV file does not comply with dctype in the 
+  # external resources schema; we map the types accordingly 
+  # Note: to get a list of types found in the CSV file: table(doc_list$type) 
+  
+  if(doc_list$type[i] == "book")   dctype = "doc/ref"   # Reference document
+  if(doc_list$type[i] == "manual") dctype = "doc/ref"
+
+  # Provide a link to the PDF file and to the TXT file if it exists
+  # If we have links to a PDF and a TXT file, we mention the format in the title. 
+  title_pdf = title
+  if(doc_list$txt_url[i] != "") {
+    title_pdf = paste0(title, " - PDF version")
+    title_txt = paste0(title, " - TXT version")
+  } 
+
+  # Create link to PDF file
+  external_resources_add(
+    title = title_pdf,
+    idno = this_doc_metadata$document_description$title_statement$idno,
+    dctype = dctype,
+    file_path = doc_list$pdf_url[i],
+    overwrite = "yes"
+  )
+  
+  # Create link to TXT file, if it exists
+  if(doc_list$txt_url[i] != "") {
+    external_resources_add(
+      title = title_txt,
+      idno = this_doc_metadata$document_description$title_statement$idno,
+      dctype = dctype,
+      file_path = doc_list$txt_url[i],
+      overwrite = "yes"
+    )
+  }  
 
 }
 
-# Create link to PDF file
+# Alternative: If we wanted to upload the PDF file instead of providing a link : 
 
-external_resources_add(
-
-title = title_pdf,
-
-idno = this_doc_metadata\$document_description\$title_statement\$idno,
-
-dctype = dctype,
-
-file_path = doc_list\$pdf_url\[i\],
-
-overwrite = "yes"
-
-)
-
-# Create link to TXT file, if it exists
-
-if(doc_list\$txt_url\[i\] != "") {
-
-external_resources_add(
-
-title = title_txt,
-
-idno = this_doc_metadata\$document_description\$title_statement\$idno,
-
-dctype = dctype,
-
-file_path = doc_list\$txt_url\[i\],
-
-overwrite = "yes"
-
-)
-
-}
-
-}
-
-# Alternative: If we wanted to upload the PDF file instead of providing a link :
-
-# external_resources_add(
-
-# title = title,
-
-# idno = this_doc_metadata\$document_description\$title_statement\$idno,
-
-# dctype = dctype,
-
-# file_path = pdf_filename,
-
-# overwrite = "yes"
-
-# )
+  # external_resources_add(
+  #   title = title,
+  #   idno = this_doc_metadata$document_description$title_statement$idno,
+  #   dctype = dctype,
+  #   file_path = pdf_filename,
+  #   overwrite = "yes"
+  # )
 ```
-
-
-Using Python
-
+    
+</code-block>
+    
+<code-block title="Python">
 ```python
 # ==============================================================================
-
-# NADA Demo Catalog - Use of API examples Use case ID: 002
-
+# NADA Demo Catalog - Use of API examples                      Use case ID: 002
 #
-
 # Use case description: generate metadata and publish in NADA a collection of
-
 # documents for which metadata are available in a CSV file.
-
 # The CSV file contains the following columns:
-
-# - document_url
-
-# - pdf_url (URL to the PDF version of the document)
-
-# - txt_url (URL to the TXT version of the document, if available)
-
-# - author (list of authors, as one string)
-
-# - identifier (unique identifier of the document; could be a DOI or other)
-
-# - abstract
-
-# - series
-
-# - language (we assume here that only English or French are valid values)
-
-# - publisher
-
-# - title
-
-# - type
-
-# - date_published (in ISO format; could be YYY, or YYYY-MM, or YYYY-MM-DD)
-
-# - countries (country names, separated by a ";")
-
+#   - document_url
+#   - pdf_url	(URL to the PDF version of the document)
+#   - txt_url	(URL to the TXT version of the document, if available)
+#   - author (list of authors, as one string)
+#   - identifier (unique identifier of the document; could be a DOI or other)
+#   - abstract
+#   - series
+#   - language (we assume here that only English or French are valid values)
+#   - publisher
+#   - title
+#   - type
+#   - date_published (in ISO format; could be YYY, or YYYY-MM, or YYYY-MM-DD)
+#   - countries (country names, separated by a ";")
 #
-
 # The published metadata will be structured using a schema described in:
-
-# https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Documents
-
+#    https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Documents
 #
-
 # Script tested with NADA version: 5.0
-
 # Date: 2021-09-29
-
 # See output in http://nada-demo.ihsn.org/index.php/catalog
-
 #
-
-# \*\* This script requires a valid API key with administrator privileges.\*\*
-
+#   ** This script requires a valid API key with administrator privileges.**
 #
-
 # ==============================================================================
 
 import os
-
 import pandas as pd
-
 import pynada as nada
 
-# # Set API key (stored in a CSV file; not to be entered in clear) and
-catalog URL
+# Set API key (stored in a CSV file; not to be entered in clear) and catalog URL
 
 my_keys = pd.read_csv("confidential/my_keys.csv", header=None)
+nada.set_api_key(my_keys.iat[1, 0])
+nada.set_api_url('https://nada-demo.ihsn.org/index.php/api/')
 
-nada.set_api_key(my_keys.iat\[1, 0\])
-
-nada.set_api_url(\'https://nada-demo.ihsn.org/index.php/api/\')
-
-# # Set the default folder, and load the CSV file
+# Set the default folder, and load the CSV file
 
 os.chdir("E:/demo_nada_files/UC002")
+doc_list = pd.read_csv("NADA_demo_list_docs.csv", encoding='cp1252')
 
-doc_list = pd.read_csv("NADA_demo_list_docs.csv", encoding=\'cp1252\')
-
-# # Generate the schema-compliant metadata, and publish in NADA
-catalog
-
-# # We need to map the columns in the CSV file to elements of the
-schema.
+# Generate the schema-compliant metadata, and publish in NADA catalog
+# We need to map the columns in the CSV file to elements of the schema.
 
 for i in range(len(doc_list)):
 
-# Download the file if not already done
-
-pdf_url = doc_list\[\'pdf_url\'\]\[i\]
-
-pdf_filename = doc_list\[\'identifier\'\]\[i\] + ".pdf"
-
-if not os.path.exists(pdf_filename):
-
-nada.download_file(url=pdf_url, output_fname=pdf_filename, mode=\'wb\')
-
-# # Take a screenshot of the cover page to be used as thumbnail
-
-thumb_file = nada.pdf_to_thumbnail(pdf_filename, page_no=1)
-
-# # Map the CSV columns to metadata elements from the schema
-
-idno = doc_list\[\'identifier\'\]\[i\]
-
-title = doc_list\[\'title\'\]\[i\]
-
-date = str(doc_list\[\'date_published\'\]\[i\])
-
-abstract = doc_list\[\'abstract\'\]\[i\]
-
-publisher = doc_list\[\'publisher\'\]\[i\]
-
-series = doc_list\[\'series\'\]\[i\] if
-pd.notna(doc_list\[\'series\'\]\[i\]) else ""
-
-dtype = doc_list\[\'type\'\]\[i\]
-
-author_list = \[\]
-
-authors = doc_list\[\'author\'\]\[i\].split(\';\')
-
-# Format in CSV is "lastname, firstname"
-
-# NADA API - "authors":\[{"first_name":"","initial":"",
-"last_name":""}\]
-
-for a in authors:
-
-this_author = {\'first_name\': (a.split(\',\')\[1\]).strip(),
-
-\'last_name\': (a.split(\',\')\[0\]).strip()
-
-}
-
-author_list.append(this_author)
-
-language = \[\]
-
-lang_list = doc_list\[\'language\'\]\[i\].split()
-
-for lang in lang_list:
-
-ln = {}
-
-if lang == "English":
-
-ln = {"name": \'English\', "code": \'EN\'}
-
-elif lang == "French":
-
-ln = {"name": \'French\', "code": \'FR\'}
-
-language.append(ln)
-
-ctry_list = \[\]
-
-countries = doc_list\[\'countries\'\]\[i\].split(\';\')
-
-for c in countries:
-
-ctry = {\'name\': c.strip()}
-
-ctry_list.append(ctry)
-
-# Document the file, and publish in the NADA catalog
-
-this_doc_metadata = {
-
-\'metadata_information\': {
-
-# This block is optional but recommended
-
-\'producers\': \[{\'name\': "NADA team"}\],
-
-\'production_date\': "2021-09-11",
-
-\'version\': "v01",
-
-},
-
-\'document_description\': {
-
-\'title_statement\':
-
-{"idno": idno,
-
-"title": title
-
-},
-
-\'type\': dtype,
-
-\'abstract\': abstract,
-
-\'ref_country\': ctry_list,
-
-\'date_published\': date,
-
-\'languages\': language,
-
-\'series\': series,
-
-\'authors\': author_list,
-
-\'publisher\': publisher,
-
-}
-
-}
-
-# Publish the document in the NADA central catalog
-
-idno =
-this_doc_metadata\[\'document_description\'\]\[\'title_statement\'\]\[\'idno\'\]
-
-nada.create_document_dataset(
-
-dataset_id=idno,
-
-repository_id="central",
-
-published=1,
-
-overwrite="yes",
-
-\*\*this_doc_metadata,
-
-thumbnail_path=thumb_file
-
-)
-
-# # # Note: to publish the document in a collection (e.g.
-"Handbooks"), we would
-
-# # # enter repositoryid = "Handbooks" instead of "repositoryid =
-"central".
-
-# # # The collection must have been previously created in the
-catalog.
-
-# #
-
-# # #
-==============================================================================
-
-# # # Uploading the document metadata will not upload the document
-itself. To make
-
-# # # the document available in/from the catalog, we need to upload
-the file to the
-
-# # # server or provide a link to an external URL, as an "external
-resource".
-
-# # # More than one resource can be attached to a catalog entry, as
-long as their
-
-# # # title differ; here, some documents are available in PDF and TXT
-formats.
-
-# # #
-==============================================================================
-
-# #
-
-# # # The "type" column in the CSV file does not comply with dctype
-in the
-
-# # # external resources schema; we map the types accordingly
-
-# # # Note: to get a list of types found in the doc_list dataframe,
-use:
-
-# # doc_list\[\'type\'\].value_counts()
-
-reference_documents = \["book", "manual"\]
-
-if doc_list\[\'type\'\]\[i\] in reference_documents:
-
-dctype = "doc/ref"
-
-# # # # # Provide a link to the PDF file and to the TXT file if it
-exists
-
-# # # # # If we have links to a PDF and a TXT file, we mention the
-format in the title.
-
-if pd.notna(doc_list\[\'pdf_url\'\]\[i\]):
-
-title_pdf = title + " - PDF version"
-
-if pd.notna(doc_list\[\'txt_url\'\]\[i\]):
-
-title_txt = title + " - TXT version"
-
-# # # # # # Create link to PDF file
-
-if pd.notna(doc_list\[\'pdf_url\'\]\[i\]):
-
-nada.add_resource(
-
-dataset_id=idno,
-
-dctype=dctype,
-
-title=title_pdf,
-
-file_path=doc_list\[\'pdf_url\'\]\[i\],
-
-overwrite="yes"
-
-)
-
-#
-
-# # # # Create link to TXT file, if it exists
-
-if pd.notna(doc_list\[\'txt_url\'\]\[i\]):
-
-nada.add_resource(
-
-dataset_id=idno,
-
-dctype=dctype,
-
-title=title_txt,
-
-file_path=doc_list\[\'txt_url\'\]\[i\],
-
-overwrite="yes"
-
-)
-
-# # # Alternative: If we wanted to upload the PDF file instead of
-providing a link :
-
-# nada.add_resource(
-
-# dataset_id=idno,
-
-# dctype=dctype,
-
-# title=title,
-
-# file_path=pdf_filename,
-
-# overwrite="yes"
-
-# )
+    # Download the file if not already done
+
+    pdf_url = doc_list['pdf_url'][i]
+    pdf_filename = doc_list['identifier'][i] + ".pdf"
+    if not os.path.exists(pdf_filename):
+        nada.download_file(url=pdf_url, output_fname=pdf_filename, mode='wb')
+
+    # Take a screenshot of the cover page to be used as thumbnail
+
+    thumb_file = nada.pdf_to_thumbnail(pdf_filename, page_no=1)
+
+    # Map the CSV columns to metadata elements from the schema
+
+    idno = doc_list['identifier'][i]
+    title = doc_list['title'][i]
+    date = str(doc_list['date_published'][i])
+    abstract = doc_list['abstract'][i]
+    publisher = doc_list['publisher'][i]
+    series = doc_list['series'][i] if pd.notna(doc_list['series'][i]) else ""
+    dtype = doc_list['type'][i]
+    author_list = []
+    authors = doc_list['author'][i].split(';')
+    # Format in CSV is "lastname, firstname"
+    # NADA API - "authors":[{"first_name":"","initial":"", "last_name":""}]
+    for a in authors:
+        this_author = {'first_name': (a.split(',')[1]).strip(),
+                       'last_name': (a.split(',')[0]).strip()
+                       }
+        author_list.append(this_author)
+
+    language = []
+    lang_list = doc_list['language'][i].split()
+    for lang in lang_list:
+        ln = {}
+        if lang == "English":
+            ln = {"name": 'English', "code": 'EN'}
+        elif lang == "French":
+            ln = {"name": 'French', "code": 'FR'}
+        language.append(ln)
+
+    ctry_list = []
+    countries = doc_list['countries'][i].split(';')
+    for c in countries:
+        ctry = {'name': c.strip()}
+        ctry_list.append(ctry)
+
+    # Document the file, and publish in the NADA catalog
+
+    this_doc_metadata = {
+        'metadata_information': {
+            # This block is optional but recommended
+            'producers': [{'name': "NADA team"}],
+            'production_date': "2021-09-11",
+            'version': "v01",
+        },
+        'document_description': {
+            'title_statement':
+                {"idno": idno,
+                 "title": title
+                 },
+            'type': dtype,
+            'abstract': abstract,
+            'ref_country': ctry_list,
+            'date_published': date,
+            'languages': language,
+            'series': series,
+            'authors': author_list,
+            'publisher': publisher,
+        }
+    }
+
+    # Publish the document in the NADA central catalog
+    idno = this_doc_metadata['document_description']['title_statement']['idno']
+
+    nada.create_document_dataset(
+        dataset_id=idno,
+        repository_id="central",
+        published=1,
+        overwrite="yes",
+        **this_doc_metadata,
+        thumbnail_path=thumb_file
+    )
+    
+    # Note: to publish the document in a collection (e.g. "Handbooks"), we would
+    # enter repositoryid = "Handbooks" instead of "repositoryid = "central".
+    # The collection must have been previously created in the catalog.
+    
+    # ==============================================================================
+    # Uploading the document metadata will not upload the document itself. To make
+    # the document available in/from the catalog, we need to upload the file to the
+    # server or provide a link to an external URL, as an "external resource".
+    # More than one resource can be attached to a catalog entry, as long as their
+    # title differ; here, some documents are available in PDF and TXT formats.
+    # ==============================================================================
+    
+    # The "type" column in the CSV file does not comply with dctype in the
+    # external resources schema; we map the types accordingly
+    # Note: to get a list of types found in the doc_list dataframe, use:
+    # doc_list['type'].value_counts()
+    reference_documents = ["book", "manual"]
+    if doc_list['type'][i] in reference_documents:
+        dctype = "doc/ref"
+
+    # Provide a link to the PDF file and to the TXT file if it exists
+    # If we have links to a PDF and a TXT file, we mention the format in the title.
+
+    if pd.notna(doc_list['pdf_url'][i]):
+        title_pdf = title + " - PDF version"
+
+    if pd.notna(doc_list['txt_url'][i]):
+        title_txt = title + " - TXT version"
+
+    # Create link to PDF file
+    if pd.notna(doc_list['pdf_url'][i]):
+        nada.add_resource(
+            dataset_id=idno,
+            dctype=dctype,
+            title=title_pdf,
+            file_path=doc_list['pdf_url'][i],
+            overwrite="yes"
+        )
+    
+    # Create link to TXT file, if it exists
+    if pd.notna(doc_list['txt_url'][i]):
+        nada.add_resource(
+            dataset_id=idno,
+            dctype=dctype,
+            title=title_txt,
+            file_path=doc_list['txt_url'][i],
+            overwrite="yes"
+        )
+
+    # Alternative: If we wanted to upload the PDF file instead of providing a link :
+
+    # nada.add_resource(
+    #     dataset_id=idno,
+    #     dctype=dctype,
+    #     title=title,
+    #     file_path=pdf_filename,
+    #     overwrite="yes"
+    # )
 ```
+</code-block>
+</code-group>
+
 
 ## Adding a table
-
-Currently no option to upload a metadata file (will be implemented in future versions of NADA). Can enter from scratch, or generate the metadata and upload using the API.
 
 ### Loading metadata (web interface) 
 
 This option is currently not available. It will be added in a future version of NADA. 
-
+    
 ### From scratch (web interface)
 
 ![](~@imageBase/images/image108.png)
@@ -1185,14 +1777,11 @@ Use Case 013
 
 Use Case 016
 
-Deleting:
 
 ## Adding an indicator / time series
 
-Currently no option to upload a metadata file (will be implemented in future versions of NADA). Can enter from scratch, or generate the metadata and upload using the API.
-
-Two components: series, and source database.
-
+Reminder: two components: series and database
+    
 ### Loading metadata (web interface) 
 
 This option is currently not available. It will be added in a future version of NADA.
@@ -1234,15 +1823,247 @@ This option is currently not available. It will be added in a future version of 
 
 The API advantage: face detection, labels, ...
 
-Use Case 002
+<code-group>
+<code-block title="R">
 
-Use Case 003
+```r
+# ==============================================================================
+# NADA Demo Catalog - Use of API examples                      Use case ID: 003
+#
+# Use case description: document an image and publish it in a NADA catalog.
+#
+# The published metadata will be structured using a schema described in:
+#    https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Images
+#
+# Script tested with NADA version: 5.0
+# Date: 2021-09-10
+# See output in http://nada-demo.ihsn.org/index.php/catalog 
+#
+#   ** This script requires a valid API key with administrator privileges.**
+#
+# ==============================================================================
 
-Use Case 006
+library(nadar)
+
+# Set API key (stored in a CSV file; not to be entered in clear) and catalog URL
+
+my_keys <- read.csv("C:/CONFIDENTIAL/my_keys.csv", header=F, stringsAsFactors=F)
+set_api_key(my_keys[5,1])  # Assuming the key is in cell A5
+set_api_url("http://nada-demo.ihsn.org/index.php/api/") 
+set_api_verbose(FALSE)
+
+# Set the default folder and download the image files (in 3 resolutions)
+
+setwd("E:/demo_nada_files/UC003")   
+
+download.file("https://live.staticflickr.com/8176/8000988887_777a58e8cb_w_d.jpg",
+              "img_001_small.jpg", mode = "wb")
+download.file("https://live.staticflickr.com/8176/8000988887_777a58e8cb_c_d.jpg",
+              "img_001_medium.jpg", mode = "wb")
+download.file("https://live.staticflickr.com/8176/8000988887_58b6766162_o_d.jpg",
+              "img_001_original.jpg", mode = "wb")
+
+# Generate the image metadata
+
+my_image <- list(
+  
+  metadata_information = list(    
+    producers = list(list(name = "NADA team")),
+    production_date = "2021-09-11",
+    version = "v01"
+  ),
+  
+  image_description = list(
+    
+    idno = "IMG_001",
+    
+    iptc = list(
+      photoVideoMetadataIPTC = list(
+        title                = "Somo Samo village well",
+        imageSupplierImageId = "8000988887",
+        headline             = "Residents get water from an artesian well, Sindh, Pakistan",
+        dateCreated          = "2007-02-08T00:00:00Z",
+        creatorNames         = list("Caroline Suzman"),
+        description          = "The village was settled about 100 years ago. There are over 120 traditional wells that villagers have used to try to get water from over the years. The PPAF funded artesian well has greatly improved the quality of life in the village. One of the challenges that the PPAF and the villagers faced was having to convince the government to construct an artesian well so close to the Indian border. There are 553 households in the village and an equal mix of Hindus and Muslims who co- exist harmoniously. By April 2007 the community will have a water management plan. Amongst other things, this will involve the transporting of the water from the artesian well to other Hamlets. Some of the challenges faced by the Pakistan Poverty Action Fund (PPAF) projects is the difficulty in bringing qualified people into remote areas like the Thar desert.",
+        digitalImageGuid     = "8000988887",
+        locationsShown       = list(list(countryCode = "PAK", countryName = "Pakistan")),
+        keywords             = list("Well, Carrying, Gathering, Activity, 
+                                     Thar desert, Sindh, Water, Woman, 
+                                     South Asia, Water supply"),
+        sceneCodes           = list("010600, 011000, 011100, 011900"),
+        subjectCodes         = list("06000000, 09000000, 14000000"),
+        source               = "World Bank",
+        supplier             = list(list(name = "World Bank")),
+        usageTerms           = "Attribution License"
+      )
+    ),  
+
+    license = list(list(name = "Attribution License", 
+                        uri = "https://creativecommons.org/licenses/by/2.0/")),
+      
+    album = list(list(name = "World Bank Projects in Pakistan"))
+
+  )
+  
+) 
+
+# Publish the image metadata in the NADA catalog
+
+image_add(idno = my_image$image_description$idno, 
+          metadata = my_image,
+          repositoryid = "central",
+          overwrite = "yes", 
+          published = 1,
+          thumbnail = "img_001_small.jpg")
+
+# Add the image (in 3 different resolutions) as external resources (type "pic")
+
+external_resources_add(
+  title = "Somo Samo village well - Small size (400 x 267)",
+  idno = my_image$image_description$idno,
+  dctype = "pic",
+  file_path = "img_001_small.jpg",
+  overwrite = "yes"
+)
+
+external_resources_add(
+  title = "Somo Samo village well - Medium size (800 x 533)",
+  idno = my_image$image_description$idno,
+  dctype = "pic",
+  file_path = "img_001_medium.jpg",
+  overwrite = "yes"
+)
+
+external_resources_add(
+  title = "Somo Samo village well - Original size (4368 x 2912)",
+  idno = my_image$image_description$idno,
+  dctype = "pic",
+  file_path = "img_001_original.jpg",
+  overwrite = "yes"
+)
+```
+</code-block>
+    
+<code-block title="Python">
+    
+```python
+# ==============================================================================
+# NADA Demo Catalog - Use of API examples                      Use case ID: 003
+#
+# Use case description: document an image and publish it in a NADA catalog.
+#
+# The published metadata will be structured using a schema described in:
+#    https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Images
+#
+# Script tested with NADA version: 5.0
+# Date: 2021-09-10
+# See output in http://nada-demo.ihsn.org/index.php/catalog
+#
+#   ** This script requires a valid API key with administrator privileges.**
+#
+# ==============================================================================
+
+import os
+import pynada as nada
+import pandas as pd
+
+# # Set API key (stored in a CSV file; not to be entered in clear) and catalog URL
+
+my_keys = pd.read_csv("confidential/my_keys.csv", header=None)
+nada.set_api_key(my_keys.iat[4, 0])  # Assuming the key is in cell A5
+nada.set_api_url('http://nada-demo.ihsn.org/index.php/api/')
+
+# Set the default folder and download the image files (in 3 resolutions)
+
+os.chdir("E:/demo_nada_files/UC003")
+
+nada.download_file("https://live.staticflickr.com/8176/8000988887_777a58e8cb_w_d.jpg",
+                   "img_001_small.jpg", mode="wb")
+nada.download_file("https://live.staticflickr.com/8176/8000988887_777a58e8cb_c_d.jpg",
+                   "img_001_medium.jpg", mode="wb")
+nada.download_file("https://live.staticflickr.com/8176/8000988887_58b6766162_o_d.jpg",
+                   "img_001_original.jpg", mode="wb")
+
+# Generate the image metadata
+
+my_image = {
+    "metadata_information": {
+        "producers": [{"name": "NADA team"}],
+        "production_date": "2021-09-11",
+        "version": "v01"
+    },
+    "image_description": {
+        "idno": "IMG_001",
+        "iptc": {
+            "photoVideoMetadataIPTC": {
+                "title": "Somo Samo village well",
+                "imageSupplierImageId": "8000988887",
+                "headline": "Residents get water from an artesian well, Sindh, Pakistan",
+                "dateCreated": "2007-02-08T00:00:00Z",
+                "creatorNames": ["Caroline Suzman"],
+                "description": "The village was settled about 100 years ago. There are over 120 traditional wells that villagers have used to try to get water from over the years. The PPAF funded artesian well has greatly improved the quality of life in the village. One of the challenges that the PPAF and the villagers faced was having to convince the government to construct an artesian well so close to the Indian border. There are 553 households in the village and an equal mix of Hindus and Muslims who co- exist harmoniously. By April 2007 the community will have a water management plan. Amongst other things, this will involve the transporting of the water from the artesian well to other Hamlets. Some of the challenges faced by the Pakistan Poverty Action Fund (PPAF) projects is the difficulty in bringing qualified people into remote areas like the Thar desert.",
+                "digitalImageGuid": "8000988887",
+                "locationsShown": [{"countryCode": "PAK", "countryName": "Pakistan"}],
+                "keywords": [
+                    "Well, Carrying, Gathering, Activity,Thar,desert, Sindh, Water, Woman,South Asia, Water supply"],
+                "sceneCodes": ["010600, 011000, 011100, 011900"],
+                "subjectCodes": ["06000000, 09000000, 14000000"],
+                "source": "World Bank",
+                "supplier": [{"name": "World Bank"}],
+                "usageTerms": "Attribution License"
+            }
+        },
+        "license": [{"name": "Attribution License",
+                     "uri": "https://creativecommons.org/licenses/by/2.0/"
+                     }],
+        "album": [{"name": "World Bank Projects in Pakistan"}],
+    }
+}
+
+# Publish the image metadata in the NADA catalog
+
+nada.create_image_dataset(
+    dataset_id=my_image['image_description']['idno'],
+    repository_id="central",
+    published=1,
+    overwrite="yes",
+    **my_image,
+    thumbnail_path="img_001_small.jpg"
+)
+
+# Add the image (in 3 different resolutions) as external resources (type "pic")
+
+nada.add_resource(
+    dataset_id=my_image['image_description']['idno'],
+    dctype="pic",
+    dcformat="image/jpeg",
+    title="Somo Samo village well - Small size (400 x 267)",
+    file_path="img_001_small.jpg",
+    overwrite="yes"
+)
+
+nada.add_resource(
+    dataset_id=my_image['image_description']['idno'],
+    dctype="pic",
+    dcformat="image/jpeg",
+    title="Somo Samo village well - Medium size (800 x 533)",
+    file_path="img_001_medium.jpg",
+    overwrite="yes"
+)
+
+nada.add_resource(
+    dataset_id=my_image['image_description']['idno'],
+    dctype="pic",
+    dcformat="image/jpeg",
+    title="Somo Samo village well - Original size (4368 x 2912)",
+    file_path="img_001_original.jpg",
+    overwrite="yes"
+)
+```
+</code-block>
+</code-group>    
 
 ## Adding a video
-
-
 
 ### Loading metadata (web interface) 
 
@@ -1258,7 +2079,160 @@ This option is currently not available. It will be added in a future version of 
 
 ### From scratch (API)
 
-Use Case 005
+<code-group>
+<code-block title="R">
+
+```r
+# ==============================================================================
+# NADA Demo Catalog - Use of API examples                      Use case ID: 005
+#
+# Use case description: document a video and publish it in a NADA catalog.
+# The video will be embedded in the catalog page (not provided as an external
+# resource).
+#
+# The video used in this example is a UNHCR video available on YouTube at 
+# https://www.youtube.com/watch?v=7Aif1xjstws
+#
+# The published metadata will be structured using a schema described in:
+#    https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Videos
+#
+# Script tested with NADA version: 5.0
+# Date: 2021-09-11
+#
+#   ** This script requires a valid API key with administrator privileges.**
+#
+# ==============================================================================
+
+library(nadar)
+
+# Set API key (stored in a CSV file; not to be entered in clear) and catalog URL
+
+my_keys <- read.csv("C:/CONFIDENTIAL/my_keys.csv", header=F, stringsAsFactors=F)
+set_api_key(my_keys[5,1])  # Assuming the key is in cell A5
+set_api_url("http://nada-demo.ihsn.org/index.php/api/") 
+set_api_verbose(FALSE)
+
+thumb_file = "E:/demo_nada_files/UC005/vdo_001.jpg"
+
+# Generate the schema-compliant metadata, and publish it in NADA catalog
+
+my_video = list(
+  
+  metadata_information = list(    
+    producers = list(list(name = "NADA team")),
+    production_date = "2021-09-11",
+    version = "v01"
+  ),
+  
+  video_description = list(
+    idno = "VDO_001",
+    title = "Mogadishu, Somalia: A Call for Help",
+    alt_title = "Somalia: Guterres in Mogadishu",
+    date_published = "2011-09-01",
+    description = "During a landmark visit, the UN High Commissioner for Refugees calls on the international community to rapidly increase aid to Somalia.",
+    genre = "Documentary",
+    persons = list(
+      list(name = "António Guterres", role = "High Commissioner for Refugees"),
+      list(name = "Fadhumo", role = "Somali internally displaced person (IDP)")
+    ),  
+    main_entity = "United Nations High Commission for Refugees (UNHCR), the UN Refugee Agency",
+    ref_country = list(
+      list(name = "Somalia", code = "SOM")
+    ),   
+    content_location = "Mogadishu, Somalia",
+    content_reference_time = "2011-09",
+    languages = list(
+      list(name = "English", code = "EN")
+    ),
+    creator = "United Nations High Commission for Refugees (UNHCR)",
+    video_url = "https://www.youtube.com/watch?v=7Aif1xjstws",
+    embed_url = "https://www.youtube.com/embed/7Aif1xjstws",
+    duration = "PT2M14S"  # 2 minutes and 14 seconds
+  )
+  
+)
+
+# Publish the video in the NADA catalog
+
+video_add(idno = my_video$video_description$idno, 
+          metadata = my_video,
+          published = 1, 
+          overwrite = "yes", 
+          thumbnail = thumb_file)
+```
+</code-block>
+    
+<code-block title="Python">
+    
+```python
+# ==============================================================================
+# NADA Demo Catalog - Use of API examples                      Use case ID: 005
+#
+# Use case description: document a video and publish it in a NADA catalog.
+# The video will be embedded in the catalog page (not provided as an external
+# resource).
+#
+# The video used in this example is a UNHCR video available on YouTube at
+# https://www.youtube.com/watch?v=7Aif1xjstws
+#
+# The published metadata will be structured using a schema described in:
+#    https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Videos
+#
+# Script tested with NADA version: 5.0
+# Date: 2021-10-05
+#
+#   ** This script requires a valid API key with administrator privileges.**
+#
+# ==============================================================================
+
+import pandas as pd
+import pynada as nada
+
+# Set API key (stored in a CSV file; not to be entered in clear) and catalog URL
+
+my_keys = pd.read_csv("confidential/my_keys.csv", header=None)
+nada.set_api_key(my_keys.iat[4, 0])  # Assuming the key is in cell A5
+nada.set_api_url('http://nada-demo.ihsn.org/index.php/api/')
+
+thumb_file = "E:/demo_nada_files/UC005/vdo_001.jpg"
+
+# Generate the schema-compliant metadata, and publish it in NADA catalog
+
+my_video = {
+    "metadata_information": {
+        "producers": [{"name": "NADA team"}],
+        "production_date": "2021-10-05",
+        "version": "v01"},
+    "video_description": {
+        "idno": "VDO_001",
+        "title": "Mogadishu, Somalia: A Call for Help",
+        "alt_title": "Somalia: Guterres in Mogadishu",
+        "description": "During a landmark visit, the UN High Commissioner for Refugees calls on the international "
+                       "community to rapidly increase aid to Somalia.",
+        "genre": "Documentary",
+        "persons": [{"name": "António Guterres", "role": "High Commissioner for Refugees"},
+                    {"name": "Fadhumo", "role": "Somali internally displaced person (IDP)"}],
+        "main_entity": "United Nations High Commission for Refugees (UNHCR), the UN Refugee Agency",
+        "video_url": "https://www.youtube.com/watch?v=7Aif1xjstws",
+        "embed_url": "https://www.youtube.com/embed/7Aif1xjstws",
+        "duration": "PT2M14S",  # 2 minutes and 14 seconds
+        "content_location": "Mogadishu, Somalia",
+        "content_reference_time": "2011-09",
+        "country": "Somalia",
+        "language": "English",
+        "creator": "United Nations High Commission for Refugees (UNHCR)"
+    }
+}
+
+nada.upload_video(idno=my_video['video_description']['idno'],
+                  metadata=my_video,
+                  published=1,
+                  overwrite="yes",
+                  thumbnail=thumb_file)
+```
+</code-block>
+</code-group>    
+    
 
 ## Adding scripts
 
