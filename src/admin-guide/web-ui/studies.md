@@ -2302,9 +2302,17 @@ This option is currently not available. It will be added in a future version of 
 
 ### From scratch (web interface)
 
+You have the possibility to create a new *script* entry in the NADA administrator web interface, using the embedded metadata editor. A *script* entry is used to document and publish all scripts related to one same data processing and/or ananlysis project that involves scripts written in any programming language (R, Python, Stata, SPSS, SAS, other, or a combination of them). The objective of documenting and publishing scripts is to make research and analysis fully transparent, reproducible, and replicable. Ideally, the data that serve as input the the scripts, and the publications that are the output of the analysis, will also be documented and published in the catalog (as microdata, indicators, documents, tables, or other). 
+    
+To document a research project (scripts) from scratch using the web interface, select "Add study" in the dashboard page, then select the option *script* in the **Create new study** box. Then click **Create**.
+    
 ![](~@imageBase/images/image114.png)
 
+The *Overview* tab of a new, empty entry will be displayed. Click on the **Metadata** tab. The metadata editor embedded in NADA will be displayed, providing a form compliant with the NADA metadata schema for documenting data processing and analysis projects. After filling out the fields with as much detail as possible, click on **Save**.     
+
 ![](~@imageBase/images/image115.png)
+    
+Once you have entered and saved metadata, proceed as explained in previous section to upload files, select options, add a thumbnail, and publish your metadata. To add external resources, use the **Add resource** in the *External resources* page.    
 
 ### Loading metadata (API) 
 
