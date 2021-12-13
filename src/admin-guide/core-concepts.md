@@ -32,6 +32,10 @@ Metadata is the documentation associated with a dataset, or "data about the data
 
 An entry is a "dataset" of any type listed in NADA. It can be a micro-dataset, an indicator, a geographic dataset, a statistical table, a document, an image, a video, or a script. The word "entry" is thus a generic term (in some documents, the word "study" is used as an alternative).
 
+## External resources
+
+External resources are the materials you may want to share in your catalog together with a dataset, either by providing an option to download electronic files, or by providing an external link (URL) to a resource. You may consider "all materials related to a dataset/catalog entry" as an external resource. For a survey microdataset, this will for example include the survey questionnaire, the interviewer manual, the survey report, data processing and tabulation scripts, photos taken during data collection, visualizations, etc. For an image dataset, this may include multiple version of the image file (in different resolutions). For a publication, this may include a MS-Excel file containing all tables shown in the publication, the scripts used to generate visualizations, etc. A simple metadata schema is used to document external resources. In NADA, the external resources will be shown and made accessible in a DOWNLOADS tab. 
+
 ## Central data catalog
 
 The default catalog created when a NADA instance is installed is the **Central Data Catalog**. All studies uploaded to the NADA are visible, searchable, and accessible from the Central Data Catalog. For many institutions the Central Data Catalog will remain the only catalog in their NADA instance. For some institutions, being able to divide the
