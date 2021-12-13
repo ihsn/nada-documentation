@@ -452,7 +452,8 @@ This option is currently not provided. The ISO19139 schema is complex. An ISO191
 
 You can generate the metadata using R or Python, then publish it using the NADA API and the NADAR package or PyNADA library. For geographic data, NADA makes use of the ISO 19139 metadata standard. 
 
-:::tip Note The documentation of the ISO 19139 metadata standard (as implemented in NADA) is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Geospatial. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. :::
+:::tip Note The documentation of the ISO 19139 metadata standard (as implemented in NADA) is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Geospatial. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas.:::
+    
     
 <code-group>
 <code-block title="R">
