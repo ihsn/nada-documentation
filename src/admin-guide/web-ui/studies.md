@@ -133,7 +133,7 @@ library(nadar)
 
 # Define the NADA catalog URL and provide an API key
 set_api_url("http://nada-demo.ihsn.org/index.php/api/")
-set_api_key("a1b2c3d4e5")  # Note: an API should always be kept confidential
+set_api_key("a1b2c3d4e5")  # Note: an API key must always be kept confidential
 
 thumb  <- "C:/DOCS/teaching_lao.JPG"  # Cover page image to be used as thumbnail
 
@@ -196,7 +196,7 @@ The Python equivalent of the R example provided above is as follows:
 
 # Define the NADA catalog URL and provide an API key
 set_api_url("http://nada-demo.ihsn.org/index.php/api/")
-set_api_key("a1b2c3d4e5")  # Note: an API should always be kept confidential
+set_api_key("a1b2c3d4e5")  # Note: an API key must always be kept confidential
 
 thumb  <- "C:/DOCS/teaching_lao.JPG"  # Cover page image to be used as thumbnail
 
