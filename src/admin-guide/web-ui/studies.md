@@ -103,15 +103,132 @@ Examples are provided in the next sections.
 
 ### Creating an entry from scratch using the API 
 
-Metadata can also be generated programmatically, for example using R or Python, and uploaded to NADA using the API and the NADAR package of PyNADA library. This option allows automation of many tasks and offers the additional advantage of transparency and replicability. For administrators with knowledge of R and/or Python, this is a recommended approach except for microdata (for which the best approach is to use a specialized metadata editor). 
+Metadata can also be generated and published programmatically, for example using R or Python, and uploaded to NADA using the API and the NADAR package of PyNADA library. This option allows automation of many tasks and offers the additional advantage of transparency and replicability. For administrators with knowledge of R and/or Python, this is a recommended approach except for microdata (for which the best approach is to use a specialized metadata editor). 
 
-The metadata generated programmatically must comply with one of the metadata standards and schemas used by NADA, documented in the NADA API and in the Guide on the Use of Metadata Schemas. 
+The metadata generated programmatically must comply with one of the metadata standards and schemas used by NADA, documented in the NADA API and in the Guide on the Use of Metadata Schemas. If you use this approach, you will need to provide an API key with administrator privileges and the catalog URL in your script, as shown in the previous paragraph. Then you add the code that generates the metadata and publish it in your catalog using the relevant *_add* function.
 
 :::tip Note 
-   The documentation of the metadata standards and schemas recognized by NADA is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
+The documentation of the metadata standards and schemas recognized by NADA is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
 :::
 
-If you use this approach, you will need to provide an API key with administrator privileges and the catalog URL in your script, as shown in the previous paragraph. Then you add the code that generates the metadata and publish it in your catalog using the relevant *_add* function. Examples are provided in the next sections. 
+In all schemas, most elements are *optional*. This means that schema-compliant metadata can be very brief and simple. Almost no one will ever make use of all metadata elements available in a schema to document a datatset. We provide below a very simple example of the use of R and Python for publishing a document (with only a few metadata elements).
+
+#### Generating compliant metadata using R
+
+Metadata compliant with a standard/schema can be generated using R, and directly uploaded in a NADA catalog without having to be saved as a JSON file. An object must be created in the R script that contains metadata compliant with the JSON schema. The example below shows how such an object is created and published in a NADA catalog. We assume here that we have a document with the following information: 
+
+   - document unique id: *ABC123* 
+   - title: *Teaching in Lao PDR*
+   - authors: *Luis Benveniste, Jeffery Marshall, Lucrecia Santibañez (World Bank)*
+   - date published: *2007*
+   - countries: *Lao PDR*. 
+   - The document is available from the World Bank Open knowledge Repository at http://hdl.handle.net/10986/7710.   
+
+We will use the DOCUMENT schema to document the publication, and the EXTERNAL RESOURCE schema to publish a link to the document.
+
+In R or Python, publishing metadata (and data) in a NADA catalog requires that we first identify the on-line catalog where the metadata will be published (by providing its URL) and provide a key to authenticate as a catalog administrator. We then create an object (a list in R, or a dictionary in Python) that we will name *my_doc* (this is a user-defined name, not an imposed name). Within this list (dictionary), we will enter all metadata elements, some of which can be simple elements, while others are lists (dictionaries). The first element to be included is the `document_description`, which is required. Within it, we add the `title_statement` which is also required and contains the mandatory elements `idno` and `title` (all documents must have a unique ID number for cataloguing purpose, and a title). The list of countries that the document covers is a <u>repeatable</u> element, i.e. a list of lists (although we only have one country in this case). Information on the authors is also a repeatable element, allowing us to capture the information on the three co-authors individually. This *my_doc* object is then published in a NADA catalog. Last, we publish (as an external resource) a link to the file, with only basic information. We do not need to document this resource in detail, as it corresponds to the metadata provided in *my_doc*. If we had a different external resource (for example an Excel table that contains all tables shown in the publication), we would make use of more of the external resources metadata elements to document it. Note that instead of a URL, we could have provided a path to an electronic file (e.g., to the PDF document), in which case the file would be uploaded to the web server and made available directly from the on-line catalog. We had previously captured a screenshot of the cover page of the document to be used as thumbnail in the catalog (optional).
+
+```r
+library(nadar)
+
+# Define the NADA catalog URL and provide an API key
+set_api_url("http://nada-demo.ihsn.org/index.php/api/")
+set_api_key("a1b2c3d4e5")  # Note: an API should always be kept confidential
+
+thumb  <- "C:/DOCS/teaching_lao.JPG"  # Cover page image to be used as thumbnail
+
+# Generate and publish the metadata on the publication
+
+doc_id <- "ABC001" 
+
+my_doc <- list(
+
+   document_description = list(
+   
+      title_statement = list(
+        idno = doc_id, 
+        title = "Teaching in Lao PDR"
+      ),
+      
+      date_published = "2007",
+  
+      ref_country = list(
+        list(name = "Lao PDR",  code = "LAO")
+      ),
+      
+      # Authors: we only have one author, but this is a list of lists 
+      # as the 'authors' element is a repeatable element in the schema
+      authors = list(
+        list(first_name = "Luis",     last_name = "Benveniste", affiliation = "World Bank"),
+        list(first_name = "Jeffery",  last_name = "Marshall",   affiliation = "World Bank"),
+        list(first_name = "Lucrecia", last_name = "Santibañez", affiliation = "World Bank")
+      )
+
+   )
+   
+)
+
+# Publish the metadata in the central catalog 
+add_document(idno = doc_id, 
+             metadata = my_doc, 
+             repositoryid = "central", 
+             published = 1,
+             thumbnail = thumb,
+             overwrite = "yes")
+
+# Add a link as an external resource of type document/analytical (doc/anl).
+external_resources_add(
+  title = "A comparison of the poverty profiles of Chad and Niger, 2020",
+  idno = doc_id,
+  dctype = "doc/anl",
+  file_path = "http://hdl.handle.net/10986/7710",
+  overwrite = "yes"
+)
+```
+
+The document is now available in the NADA catalog.
+
+#### Generating compliant metadata using Python @@@@
+
+The Python equivalent of the R example provided above is as follows:
+
+```python
+
+# Define the NADA catalog URL and provide an API key
+set_api_url("http://nada-demo.ihsn.org/index.php/api/")
+set_api_key("a1b2c3d4e5")  # Note: an API should always be kept confidential
+
+thumb  <- "C:/DOCS/teaching_lao.JPG"  # Cover page image to be used as thumbnail
+
+# Generate and publish the metadata on the publication
+
+@@@ doc_id = "ABC001"
+
+document_description = {
+
+  'title_statement': {
+      'idno': "ABC001",
+      'title': "Teaching in Lao PDR"
+  },
+  
+  'date_published': "2007",
+
+  'ref_country': [
+		{'name': "Lao PDR", 'code': "Lao"}
+	],
+  
+  # Authors: we only have one author, but this is a list of lists 
+  # as the 'authors' element is a repeatable element in the schema
+  'authors': [
+      {'first_name': "Luis",     'last_name': "Benveniste", 'affiliation' = "World Bank"},
+      {'first_name': "Jeffery",  'last_name': "Marshall",   'affiliation' = "World Bank"},
+      {'first_name': "Lucrecia", 'last_name': "Santibañez", 'affiliation' = "World Bank"},
+  ]
+  
+}
+```
+
+Examples specific to each data type are provided in the next sections. 
 
 ## Adding microdata
 
