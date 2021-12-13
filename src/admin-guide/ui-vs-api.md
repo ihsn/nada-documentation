@@ -2,8 +2,8 @@
 
 For most catalog maintenance tasks, NADA administrators have two main options:
 
--   use the NADA administrator web interface, and/or
--   use the NADA administrator API, with R or Python  
+-   use the NADA administrator **web interface**, and/or
+-   use the NADA administrator **API, with R or Python**  
 
 The choice between the two options is not a mutually exclusive one. Some tasks are only possible using the web interface, others (mostly related to automation of tasks) only using the API option and R or Python. The list of tasks that can only be accomplished with one OR the other option is short and will be reducing over time as the API and interface are further developed). Your choice will depend on your experience and level of expertise (the use of the API requires some expertise in R or Python), on the need you have for automation of tasks (which requires the use of the API solution), and on your personal preference. A good level of expertise in R or Python, combined with the use of the NADAR (for R users) or PyNADA (for Python users) open many opportunities for increased control and efficiency in the maintenance of NADA data catalogs.
 
