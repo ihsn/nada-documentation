@@ -3159,7 +3159,7 @@ In the study page:
 ### Using the API 
 
 	
-## Making data accessible via API 
+# Making data accessible via API 
 
 In addition to providing tools to maintain **metadata** via API, NADA provides a solution to store and disseminate **data** via API. In the current version of NADA, this solution applies to **indicators/time series** and **tabular** data. It could also be implemented to microdata (this option is not documented here, but will be added in future versions of the documentation).
 	
@@ -3176,7 +3176,7 @@ Publishing data in mongoDB and making them accessible via API is a simple proces
 - A data dictionary is created (in R or Python) and published together with the data.
 - The data is then accessible via API.
 
-### Formatting and publishing time series data
+## Formatting and publishing time series data
 
 Time series / indicators will typically come in a format suitable for publishing in the NADA API. The CSV data file must include (i) the series’ unique *identifier*, (ii) the series *features* (or *dimensions*), and (iii) the *value*. 
 - The *identifier* will be a string or a numeric variable that provides a unique identifier for the series/indicator. For example, the World Bank’s identifier for the *Population, Total* series of the World Development Indicators (WDI) database is *SP.POP.TOTL*. It is "SP.POP.TOTL.FE.IN* for the female population "SP.POP.TOTL.MA.IN* for the male population.
@@ -3284,7 +3284,7 @@ To see a data dictionary:
 To query the data:
 	
 	
-### Formatting and publishing tabular data
+## Formatting and publishing tabular data
 	
 The content of statistical tables (cross-tabulations), when it can be converted to a long format, can also be published in the data API. We provide here a simple example. Using R or Python, the format of statistical tables can be reshaped to match the requirements of the NADA data API, saved as CSV, and published in mongoDB. We provide here a simple example.
 	
@@ -3376,13 +3376,19 @@ publish_table_to_MongoDB(tblid, csv_data, my_tbl)
 Example using Python	
 	
 
-### Lookup file
+## Using a lookup file
 
+@@@@@	
+For long lists of value labels (such as detailed, nested geographic codes): instead of long data dictionary, refer to a table in database
 
-### Informing users
+## Informing users
 
+@@@@	
+Users will need some instructions to make use of the data API.
+What to provide?	
+	
 
-## Adding visualizations using widgets
+# Adding data visualizations 
 
 Dynamic visualizations such as charts and maps can be added to a catalog entry page using widgets. The use of widgets is only possible via the API (this cannot be done through the administrator interface). The visualizations are generated outside NADA, for example using a JavaScript library. NADA itself does not provide a tool for creating visualizations; it only provides a convenient solution to embed visualizations in catalog pages. The NADA demo catalog includes such visualizations. See for example:
 
@@ -3396,7 +3402,7 @@ Visualizations can however be applied to any data type, as long as the underlyin
 
 The widgets (zip files) used in the NADA demo catalog are available in the NADA GitHub repository (Use Cases).
 
-### Requirements
+## Requirements
 
 A visualization widget can be added to a catalog page in two steps. First, upload a zipped widget source file to a catalog. Second, attach the widget to entry page(s). A zipped widget file contains one [index.html]{.underline} file, and supporting files such as a CSS and a thumbnail image.
 
@@ -3406,17 +3412,12 @@ In R:
 library(nadar)
 
 widgets_create
-
 uuid = widget_uuid,
 
 options = list(
-
-title = "title of widget",
-
-thumbnail = "thumbnail.jpg",
-
-description = "description of widget"
-
+   title = "title of widget",
+   thumbnail = "thumbnail.jpg",
+   description = "description of widget"
 ),
 
 zip_file = zip_file
@@ -3424,11 +3425,8 @@ zip_file = zip_file
 )
 
 widgets_attach(
-
-idno = dataset_id,
-
-uuid = widget_uuid
-
+   idno = dataset_id,
+   uuid = widget_uuid
 )
 ```
 
@@ -3438,25 +3436,16 @@ In Python:
 import pynada as nada
 
 nada.upload_widget(
-
 widget_id = widget_uuid,
-
 title = " title of widget ",
-
 file_path = zip_file,
-
 thumbnail = "thumbnail.JPG",
-
 description = " description of widget "
-
 )
 
 nada.attach_widget(
-
 dataset_id = dataset_id,
-
 widget_id = widget_uuid,
-
 )
 ```
 
@@ -3468,30 +3457,32 @@ Thus, it is advisable to codify key contents of entry pages, such as country nam
 
 Since a widget is a self-sufficient web application, it is possible to import any JavaScript libraries to visualize data. It is also desirable to utilize a front-end framework (ex. Vue JS) and a CSS framework (ex. Bootstrap JS) to implement a JavaScript widget in a more structured way. The following examples are implemented using open-source Java libraries including jQuery, Vue, Bootstrap, eCharts (chart), Leaflet (map), and Tabulator (grid). Other libraries/frameworks could be used.
 
-### Example 1: eCharts bar/line chart
+## Example 1: eCharts bar/line chart
 
 ![](~@imageBase/images/image120.png)
 
 ![](~@imageBase/images/image121.png)
 
-### Example 2: eCharts map
+## Example 2: eCharts map
 
 ![](~@imageBase/images/image122.png)
 
 ![](~@imageBase/images/image123.png)
 
-### Example 3: location of image in a OSM map
+## Example 3: location of image in a OSM map
 
 ![](~@imageBase/images/image124.png)
 
 ![](~@imageBase/images/image125.png)
 
-### Other examples:
+## Other examples:
 
 Demo catalog ; links to GitHub
 
-## Adding a data preview grid 
+# Adding a data preview grid 
 
+For time series / indicators
+	
 The grids are generated outside NADA. In the example below, the grid produced using the open-source W2UI application. Other applications could be used, such as Grid JS, Tabulator, or other (including commercial applications). NADA itself does not provide a tool for generating data grids; it only provides a convenient solution to embed grids in catalog pages.
 
 ![](~@imageBase/images/image126.png)
