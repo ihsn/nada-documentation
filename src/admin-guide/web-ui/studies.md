@@ -2519,7 +2519,7 @@ for i in range(len(geo_list)):
 </code-block>
 </code-group> 
 
-### Publishing the data in the data API
+### Making the data accessible via API
 	
 @@@@ Content of table can be published and made accessible via API. See section ...	
 	
