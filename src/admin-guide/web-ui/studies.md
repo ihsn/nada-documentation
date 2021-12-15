@@ -1412,6 +1412,8 @@ nada.add_resource(
 ## Adding a document
 	
 ![](~@imageBase/images/data_tabs_document.png)
+
+In the examples below, we will show different ways to upload a document taken from the World Bank website:
 	
 ![](~@imageBase/images/image28.png)
 
