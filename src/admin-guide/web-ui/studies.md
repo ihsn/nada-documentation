@@ -3386,7 +3386,17 @@ Example using Python
 ### Using a lookup file
 
 @@@@@	
-For long lists of value labels (such as detailed, nested geographic codes): instead of long data dictionary, refer to a table in database
+For long lists of value labels (such as detailed, nested geographic codes): instead of long data dictionary, refer to a table in database.
+	
+Example: Census data with population total, by state, district, sub-district, town (urban) or village (rural). System with nested codes. Can be thousands of observations.
+(show table). Not only very long list, also used for multiple tables. 
+
+Another example would be a list of occupations, or industries, used in many tables (national or international classifications, which can be long). Many tables can use the same classification. 
+	
+In such cases, it would be too tedious and inconvenient to produce a data dictionary in R or Python script.
+	
+To do that: ...	
+	
 
 ### Informing users
 
@@ -3394,6 +3404,9 @@ For long lists of value labels (such as detailed, nested geographic codes): inst
 Users will need some instructions to make use of the data API.
 What to provide?	
 	
+### SDMX compatibility
+	
+@@@@	
 
 ## Adding data visualizations 
 
