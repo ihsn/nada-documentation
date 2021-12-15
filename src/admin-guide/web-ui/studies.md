@@ -2604,7 +2604,7 @@ Adding visualizations is done by using widgets. See section ...
 
 When data are made accessible via API, they can also be displayed and made searchable in a data (pre)view grid. As for data visualizations, this option makes use of external tools and of the widget solution, to provide maximum flexibility to catalog administrators. Multiple open source JavaScript grid applications are availble, as well as commercial ones. The example below makes use of the ... library. For information on how to implement widgets, see section ... 
 	
-![](~@imageBase/images/data_preview.png)
+![](~@imageBase/images/data_preview_series.png)
 	
 ## Adding an image
 
