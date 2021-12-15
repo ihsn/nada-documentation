@@ -1898,6 +1898,11 @@ for i in range(len(doc_list)):
 </code-block>
 </code-group>
 
+### Enabling a PDF document viewer
+
+@@@@ iFrame - Show document in NADA page
+	
+	
 ## Adding a table
 
 ### Loading metadata (web interface) 
@@ -1936,7 +1941,6 @@ The documentation of the table metadata schema is available at https://ihsn.gith
 We provide here an example of R and Python scripts in which a collection of tables ("Country profiles") from the World Bank's World Development Indicators (WDI) are published and publish in a NADA catalog. These tables are published by the World Bank and made available in CSV, XLS and PDF formats. See "COUNTRY PROFILES" at http://wdi.worldbank.org/table. The table is available separately for the world and for geographic regions, country groups (income level, etc), and country. The same metadata apply to all, except for the country tables. We therefore generate the metadata once, and use a function to publish all tables in a loop. In this example, we only publish tables for world, WB operations geographic regions, and countries of South Asia. This will result in publishing 15 tables. We could provide the list of all countries to the loop to publish 200+ tables. The example shows the advantage that R or Python (and the NADA API) provide for automating data documentation and publishing tasks.
     
 When documenting a table using R or Python, the table metadata must be structured using a schema described in https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Tables.
-
 
 <code-group>
 <code-block title="R">
@@ -2515,6 +2519,11 @@ for i in range(len(geo_list)):
 </code-block>
 </code-group> 
 
+### Publishing the data in the data API
+	
+@@@@ Content of table can be published and made accessible via API. See section ...	
+	
+	
 ## Adding an indicator / time series
 
 Reminder: two components: series and database
@@ -2559,7 +2568,10 @@ Use Case 007
 </code-block>
 </code-group>     
 
-
+### Making the data accessible via API
+	
+@@@@ Data can be published and made accessible via API. See section ...	
+	
 ## Adding an image
 
 Currently no option to upload a metadata file (will be implemented in future versions of NADA). Can enter from scratch, or generate the metadata and upload using the API.
@@ -3152,14 +3164,9 @@ In the study page:
 
 
 
-## Enabling a document viewer
-
-### Using the administrator interface 
-
-### Using the API 
 
 	
-# Making data accessible via API 
+## Making data accessible via API 
 
 In addition to providing tools to maintain **metadata** via API, NADA provides a solution to store and disseminate **data** via API. In the current version of NADA, this solution applies to **indicators/time series** and **tabular** data. It could also be implemented to microdata (this option is not documented here, but will be added in future versions of the documentation).
 	
@@ -3176,7 +3183,7 @@ Publishing data in mongoDB and making them accessible via API is a simple proces
 - A data dictionary is created (in R or Python) and published together with the data.
 - The data is then accessible via API.
 
-## Formatting and publishing time series data
+### Formatting and publishing time series data
 
 Time series / indicators will typically come in a format suitable for publishing in the NADA API. The CSV data file must include (i) the series’ unique *identifier*, (ii) the series *features* (or *dimensions*), and (iii) the *value*. 
 - The *identifier* will be a string or a numeric variable that provides a unique identifier for the series/indicator. For example, the World Bank’s identifier for the *Population, Total* series of the World Development Indicators (WDI) database is *SP.POP.TOTL*. It is "SP.POP.TOTL.FE.IN* for the female population "SP.POP.TOTL.MA.IN* for the male population.
@@ -3284,7 +3291,7 @@ To see a data dictionary:
 To query the data:
 	
 	
-## Formatting and publishing tabular data
+### Formatting and publishing tabular data
 	
 The content of statistical tables (cross-tabulations), when it can be converted to a long format, can also be published in the data API. We provide here a simple example. Using R or Python, the format of statistical tables can be reshaped to match the requirements of the NADA data API, saved as CSV, and published in mongoDB. We provide here a simple example.
 	
@@ -3376,19 +3383,19 @@ publish_table_to_MongoDB(tblid, csv_data, my_tbl)
 Example using Python	
 	
 
-## Using a lookup file
+### Using a lookup file
 
 @@@@@	
 For long lists of value labels (such as detailed, nested geographic codes): instead of long data dictionary, refer to a table in database
 
-## Informing users
+### Informing users
 
 @@@@	
 Users will need some instructions to make use of the data API.
 What to provide?	
 	
 
-# Adding data visualizations 
+## Adding data visualizations 
 
 Dynamic visualizations such as charts and maps can be added to a catalog entry page using widgets. The use of widgets is only possible via the API (this cannot be done through the administrator interface). The visualizations are generated outside NADA, for example using a JavaScript library. NADA itself does not provide a tool for creating visualizations; it only provides a convenient solution to embed visualizations in catalog pages. The NADA demo catalog includes such visualizations. See for example:
 
@@ -3402,7 +3409,7 @@ Visualizations can however be applied to any data type, as long as the underlyin
 
 The widgets (zip files) used in the NADA demo catalog are available in the NADA GitHub repository (Use Cases).
 
-## Requirements
+### Requirements
 
 A visualization widget can be added to a catalog page in two steps. First, upload a zipped widget source file to a catalog. Second, attach the widget to entry page(s). A zipped widget file contains one [index.html]{.underline} file, and supporting files such as a CSS and a thumbnail image.
 
@@ -3457,29 +3464,29 @@ Thus, it is advisable to codify key contents of entry pages, such as country nam
 
 Since a widget is a self-sufficient web application, it is possible to import any JavaScript libraries to visualize data. It is also desirable to utilize a front-end framework (ex. Vue JS) and a CSS framework (ex. Bootstrap JS) to implement a JavaScript widget in a more structured way. The following examples are implemented using open-source Java libraries including jQuery, Vue, Bootstrap, eCharts (chart), Leaflet (map), and Tabulator (grid). Other libraries/frameworks could be used.
 
-## Example 1: eCharts bar/line chart
+### Example 1: eCharts bar/line chart
 
 ![](~@imageBase/images/image120.png)
 
 ![](~@imageBase/images/image121.png)
 
-## Example 2: eCharts map
+### Example 2: eCharts map
 
 ![](~@imageBase/images/image122.png)
 
 ![](~@imageBase/images/image123.png)
 
-## Example 3: location of image in a OSM map
+### Example 3: location of image in a OSM map
 
 ![](~@imageBase/images/image124.png)
 
 ![](~@imageBase/images/image125.png)
 
-## Other examples:
+### Other examples:
 
 Demo catalog ; links to GitHub
 
-# Adding a data preview grid 
+## Adding a data preview grid 
 
 For time series / indicators
 	
