@@ -1,4 +1,4 @@
-# Managing content 
+# Adding and managing content 
 
 This section of the Guide describes the various tools and approaches available to catalog administrators to add, edit, orgnize, and delete catalog entries (datasets).  
 
@@ -32,7 +32,7 @@ Information on the metadata standard and schemas is available at https://ihsn.gi
 
 External resources are electronic files (or links to electronic files) of any type, that you may want to attach to an entry metadata as "related materials". This could for example be the PDF version of the survey questionnaire and interviewer manual related to a survey microdataset, or visualizations related to a published document. A simple metadata schema (based on the Dublin Core standard) is used to document external resources. This schema includes an element that indicates the type of the resource (e.g., microdata, analytical document, administrative document, technical document, map, website, etc.) In NADA, you will publish the metadata related to a dataset, then add such external resources to it. 
 
-## Adding an entry: approaches
+## Adding a catalog entry: four approaches
 
 A new entry can be added to a NADA catalog in different manners. We already mentioned that this can be done either **using the web interface**, or **using the catalog API** and a programming language. 
 
@@ -231,6 +231,8 @@ document_description = {
 Examples specific to each data type are provided in the next sections. 
 
 ## Adding microdata
+
+![](~@imageBase/images/data_tabs_microdata.png)
 
 Creating a Microdata entry can be done in two different ways using the administrator interface and the API:
 
@@ -558,6 +560,8 @@ nada.set_api_url('https://nada-demo.ihsn.org/index.php/api/')  # Enter the URL o
     
 ## Adding a geographic dataset
 
+![](~@imageBase/images/data_tabs_geospatial.png)	
+	
 ### Loading metadata (web interface) 
 
 This option is currently not available. It will be added in a future version of NADA. To upload metadata for a geographic dataset available in an XML file compliant with the ISO19139 standard, the API option (see below) must be used.
@@ -1406,7 +1410,9 @@ nada.add_resource(
 @@@	
 
 ## Adding a document
-
+	
+![](~@imageBase/images/data_tabs_document.png)
+	
 ![](~@imageBase/images/image28.png)
 
 ### Loading metadata (web interface) 
@@ -1908,6 +1914,8 @@ for i in range(len(doc_list)):
 	
 ## Adding a table
 
+![](~@imageBase/images/data_tabs_table.png)
+	
 ### Loading metadata (web interface) 
 
 This option is currently not available. It will be added in a future version of NADA. 
@@ -2532,7 +2540,9 @@ for i in range(len(geo_list)):
 	
 	
 ## Adding an indicator / time series
-
+	
+![](~@imageBase/images/data_tabs_timeseries.png)
+	
 Reminder: two components: series and database
     
 ### Loading metadata (web interface) 
@@ -2586,6 +2596,8 @@ Use Case 007
 	
 ## Adding an image
 
+![](~@imageBase/images/data_tabs_image.png)
+	
 Currently no option to upload a metadata file (will be implemented in future versions of NADA). Can enter from scratch, or generate the metadata and upload using the API.
 
 ### Loading metadata (web interface) 
@@ -2854,6 +2866,8 @@ nada.add_resource(
 
 ## Adding a video
 
+![](~@imageBase/images/data_tabs_video.png)
+	
 ### Loading metadata (web interface) 
 
 This option is currently not available. It will be added in a future version of NADA.
@@ -3031,6 +3045,8 @@ nada.upload_video(idno = my_video['video_description']['idno'],
 
 ## Adding scripts
 
+![](~@imageBase/images/data_tabs_script.png)
+	
 ### Loading metadata (web interface) 
 
 This option is currently not available. It will be added in a future version of NADA.
