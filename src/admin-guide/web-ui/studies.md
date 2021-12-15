@@ -3186,7 +3186,7 @@ Publishing data in mongoDB and making them accessible via API is a simple proces
 ### Formatting and publishing time series data
 
 Time series / indicators will typically come in a format suitable for publishing in the NADA API. The CSV data file must include (i) the series’ unique *identifier*, (ii) the series *features* (or *dimensions*), and (iii) the *value*. 
-- The *identifier* will be a string or a numeric variable that provides a unique identifier for the series/indicator. For example, the World Bank’s identifier for the *Population, Total* series of the World Development Indicators (WDI) database is *SP.POP.TOTL*. It is "SP.POP.TOTL.FE.IN* for the female population "SP.POP.TOTL.MA.IN* for the male population.
+- The *identifier* will be a string or a numeric variable that provides a unique identifier for the series/indicator. For example, the World Bank’s identifier for the *Population, Total* series of the World Development Indicators (WDI) database is *SP.POP.TOTL*. It is *SP.POP.TOTL.FE.IN* for the female population and *SP.POP.TOTL.MA.IN* for the male population.
 - The *features* (or *dimensions*) of the series/indicator are additional qualifiers of the values of the series/indicator. For example, the features for the *Population, Total* series could be “country_name”, “country_code”, and “Year”. The features are the information that, combined with the series identifier, will provide the necessary information to define what a given value represents.  
 - The *value* is the estimate that corresponds to the series and its features.
 	
