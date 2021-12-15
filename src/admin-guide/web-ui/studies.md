@@ -2539,6 +2539,7 @@ for i in range(len(geo_list)):
 ### Adding data visualizations
 	
 ### Adding a data preview
+
 	
 	
 ## Adding an indicator / time series
@@ -2592,9 +2593,18 @@ Use Case 007
 @@@@ Data can be published and made accessible via API. See section ...	
 
 ### Adding data visualizations
+
+When data are made accessible via API (or when the dataset is small enough to be embedded in a visualization script), you may add interactive visualizations (charts, maps) in the series' metadata page. The visualizations are generated using external charting or mapping tools, so there is considerable flexibility in the type of visualizations you can embed in a NADA page. The example below provides a very simple example (line chart) developed using eCharts, an open source JavaScript library developed by Baidu and published by the Apache Foundation.   
+	
+![](~@imageBase/images/visualization_series.png)
+
+Adding visualizations is done by using widgets. See section ...	
 	
 ### Adding a data preview
 
+When data are made accessible via API, they can also be displayed and made searchable in a data (pre)view grid. As for data visualizations, this option makes use of external tools and of the widget solution, to provide maximum flexibility to catalog administrators. Multiple open source JavaScript grid applications are availble, as well as commercial ones. The example below makes use of the ... library. For information on how to implement widgets, see section ... 
+	
+![](~@imageBase/images/data_preview.png)
 	
 ## Adding an image
 
