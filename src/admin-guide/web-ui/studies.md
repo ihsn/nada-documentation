@@ -1,4 +1,4 @@
-# Managing catalog entries 
+# Managing content 
 
 This section of the Guide describes the various tools and approaches available to catalog administrators to add, edit, orgnize, and delete catalog entries (datasets).  
 
@@ -32,7 +32,7 @@ Information on the metadata standard and schemas is available at https://ihsn.gi
 
 External resources are electronic files (or links to electronic files) of any type, that you may want to attach to an entry metadata as "related materials". This could for example be the PDF version of the survey questionnaire and interviewer manual related to a survey microdataset, or visualizations related to a published document. A simple metadata schema (based on the Dublin Core standard) is used to document external resources. This schema includes an element that indicates the type of the resource (e.g., microdata, analytical document, administrative document, technical document, map, website, etc.) In NADA, you will publish the metadata related to a dataset, then add such external resources to it. 
 
-## Adding an entry: multiple approaches
+## Adding an entry: approaches
 
 A new entry can be added to a NADA catalog in different manners. We already mentioned that this can be done either **using the web interface**, or **using the catalog API** and a programming language. 
 
