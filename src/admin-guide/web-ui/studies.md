@@ -1401,6 +1401,9 @@ nada.add_resource(
 </code-block>
 </code-group>
     
+### Displaying a slide show of previews
+	
+@@@	
 
 ## Adding a document
 
@@ -2523,6 +2526,10 @@ for i in range(len(geo_list)):
 	
 @@@@ Content of table can be published and made accessible via API. See section ...	
 	
+### Adding data visualizations
+	
+### Adding a data preview
+	
 	
 ## Adding an indicator / time series
 
@@ -2571,6 +2578,11 @@ Use Case 007
 ### Making the data accessible via API
 	
 @@@@ Data can be published and made accessible via API. See section ...	
+
+### Adding data visualizations
+	
+### Adding a data preview
+
 	
 ## Adding an image
 
@@ -3065,6 +3077,10 @@ The documentation of the script metadata schema is available at https://ihsn.git
 </code-block>
 </code-group> 
 
+## Featuring an entry
+
+@@@	
+	
     
 ## Deleting an entry
 
