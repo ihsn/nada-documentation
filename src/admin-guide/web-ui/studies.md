@@ -34,7 +34,9 @@ In the NADA catalog, data will be organized by type. ALL entries are listed in t
 
 NADA will only display a tab when there is at least one data of the corresponding type in the catalog. Tabs are automatically added when an entry for a new data type is added. 
 
-The sequence in which the tabs are displayed can be controlled. @@@@@@@@@
+The sequence in which the tabs are displayed can be controlled. 
+
+@@@@@@@@@
 
 ![](~@imageBase/images/nada_tabs.png)
 
@@ -4361,7 +4363,8 @@ Arguments:
    table_id (Required) Table name	
 	
 ### Replacing a mongoDB table
-@@@ overwrite = "yes" in NADAR
+@@@ 
+overwrite = "yes" in NADAR
 data_api_publish_table(
   db_id,
   table_id,
@@ -4400,8 +4403,8 @@ https://nada-demo.ihsn.org/index.php/api/tables/data/demo/tbl_uc_016
 	
 ### Querying the data
 @@@	
+
 The API will extract data from a database where each cell of each table represents an observation. Some tables contain thousands or even millions of observations. By building and running an API query, you will filter and extract the observations and variables that match your criteria. To build such a filter, you will need (i) the list of variables available in the table, and (ii) the codes used for each variable. For example, if you are interested in extracting ...
-@@@
 	
 Build your query 
 
@@ -4516,7 +4519,7 @@ Since a widget is a self-sufficient web application, it is possible to import an
 
 ![](~@imageBase/images/image125.png)
 
-### Other examples:
+### Other examples
 
 Demo catalog ; links to GitHub
 
