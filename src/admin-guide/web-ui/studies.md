@@ -1408,6 +1408,7 @@ nada.add_resource(
 ### Displaying a slide show of previews
 	
 @@@	
+![](~@imageBase/images/geospatial_slide_show.png)
 
 ## Adding a document
 	
