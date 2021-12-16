@@ -119,7 +119,7 @@ Metadata can also be generated and published programmatically, for example using
 
 The metadata generated programmatically must comply with one of the metadata standards and schemas used by NADA, documented in the NADA API and in the Guide on the Use of Metadata Schemas. If you use this approach, you will need to provide an API key with administrator privileges and the catalog URL in your script, as shown in the previous paragraph. Then you add the code that generates the metadata and publish it in your catalog using the relevant *_add* function.
 
-:::tip Note 
+:::tip Metadata standards and schemas 
 The documentation of the metadata standards and schemas recognized by NADA is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
 :::
 
@@ -253,9 +253,10 @@ Creating a Microdata entry can be done in two different ways using the administr
 -   By uploading pre-existing metadata (typically generated using a specialized metadata editor, like the Nesstar Publisher application for microdata) using the API.
 -   By generating and uploading new metadata programatically, using R or Python and the API.
 
+:::tip Metadata standard: The DDI Codebook 
+
 For microdatasets, NADA makes use of the DDI Codebook (or DDI 2.n) metadata standard. 
 
-:::tip Note 
 The documentation of the DDI Codebook metadata standards is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Survey. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
 :::
 
@@ -578,7 +579,10 @@ nada.set_api_url('https://nada-demo.ihsn.org/index.php/api/')  # Enter the URL o
 	
 For geographic data, NADA makes use of the ISO 19139 metadata standard. 
 
-:::tip Note 
+:::tip Metadata standard: ISO 19139 
+
+For geographic data, NADA makes use of the ISO 19139 metadata standard.
+	
 The documentation of the ISO 19139 metadata standard (as implemented in NADA) is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Geospatial. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas.
 :::	
 	
@@ -1434,10 +1438,11 @@ nada.add_resource(
 Time series are often contained in multi-indicators databases, like the World Bank's [World Development Indicators - WDI](https://datatopics.worldbank.org/world-development-indicators/), whose on-line version contains 1,430 indicators (as of 2021). To document not only the series but also the databases they belong to, we propose two metadata schemas: one to document series/indicators, and one to document databases. In the NADA application, a series can be documented and published without an associated database, but information on a database will only be published when associated with a series. The information on a database is thus treated as an "attachment" to the information on a series. 
 
 In a NADA catalog, a **SERIES DESCRIPTION** tab will display all metadata related to the series. The (optional) **SOURCE DATABASE** tab will display the metadata related to the database, is any. The database information is displayed for information; it is not indexed by the NADA catalog.
-	
-For documenting indicators/time series and their databases, NADA makes use of two metadata schemas developed by the World Bank Development Data Group (one for documenting the time series/indicators, the other one to document the database (if any) they belong to. 
 
-:::tip Note 
+:::tip Metadata schemas 
+
+For documenting indicators/time series and their databases, NADA makes use of two metadata schemas developed by the World Bank Development Data Group (one for documenting the time series/indicators, the other one to document the database (if any) they belong to.
+	
 The documentation of the time series metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#operation/createTimeSeries. The documentation of the database metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#operation/createTimeseriesDB. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
 :::	
 
@@ -2387,9 +2392,12 @@ When data are made accessible via API, they can also be displayed and made searc
 
 ![](~@imageBase/images/data_tabs_table.png)
 	
-For documenting tables, NADA makes use of a metadata schema developed by the World Bank Development Data Group. 
+ 
 
-:::tip Note 
+:::tip Metadata schema
+	
+For documenting tables, NADA makes use of a metadata schema developed by the World Bank Development Data Group.
+	
 The documentation of the table metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Tables. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
 :::
 	
@@ -3018,9 +3026,12 @@ for i in range(len(geo_list)):
 	
 ![](~@imageBase/images/data_tabs_document.png)
 	
-For documents, NADA makes use of the Dublin Core metadata standard, augmented with a few elements inspired by the MARC21 standard. 
 
-:::tip Note 
+
+:::tip Metadata standard: Dublin Core 
+
+For documents, NADA makes use of the Dublin Core metadata standard, augmented with a few elements inspired by the MARC21 standard. 
+	
 The documentation of the Dublin Core metadata standard (as implemented in NADA for documenting publications) is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Documents. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
 :::
 
@@ -3525,9 +3536,12 @@ for i in range(len(doc_list)):
 
 ![](~@imageBase/images/data_tabs_image.png)
 	
-For documenting images, NADA offers two options: the IPTC metadata standard, or the Dublin Core metadata standard. 
 
-:::tip Note 
+
+:::tip Metadata standards: IPTC and Dublin Core
+	
+For documenting images, NADA offers two options: the IPTC metadata standard, or the Dublin Core metadata standard. 
+	
 The documentation of the image metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Images. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
 ::: 	
 	
@@ -3797,9 +3811,12 @@ nada.add_resource(
 
 ![](~@imageBase/images/data_tabs_video.png)
 	
-For documenting videos, NADA uses the Dublin Core metadata standard augmented with some elements from the videoObject from schema.org. 
 
-:::tip Note 
+
+:::tip Metadata standards: Dublin Core and schema.org 
+	
+For documenting videos, NADA uses the Dublin Core metadata standard augmented with some elements from the videoObject from schema.org. 
+	
 The documentation of the video metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Videos. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
 :::
 	
@@ -3988,9 +4005,12 @@ Documenting, cataloguing and disseminating data has the potential to increase th
 
 Technological solutions such as GitHub, Jupyter Notebooks and Jupiter Lab have been developed to facilitate the preservation, versioning, and sharing of code, and to enable collaborative work around data analysis. And recommendations and style guides have been produced to foster usability, adaptability, and reproducibility of code. But these solutions do not fully address the issue of discoverability of data analysis scripts, which requires better documentation and cataloguing solutions. We therefore propose --as a complement to existing solutions-- a metadata schema to document data analysis projects and the related scripts. The production of structured metadata will contribute not only to discoverability, but also to the reproducibility, replicability, and auditability of data analytics.
 	
-For documenting scripts/research projects, NADA uses a metadata schema developed by the World Bank Development Data Group. 
 
-:::tip Note 
+
+:::tip Metadata schema
+
+For documenting scripts/research projects, NADA uses a metadata schema developed by the World Bank Development Data Group. 
+	
 The documentation of the script metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Scripts. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
 :::	
 	
