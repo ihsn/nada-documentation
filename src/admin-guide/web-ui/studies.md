@@ -253,6 +253,12 @@ Creating a Microdata entry can be done in two different ways using the administr
 -   By uploading pre-existing metadata (typically generated using a specialized metadata editor, like the Nesstar Publisher application for microdata) using the API.
 -   By generating and uploading new metadata programatically, using R or Python and the API.
 
+For microdatasets, NADA makes use of the DDI Codebook (or DDI 2.n) metadata standard. 
+
+:::tip Note 
+The documentation of the DDI Codebook metadata standards is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Survey. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
+:::
+
 For microdata, the use of a specialized DDI metadata editor to generate metadata is highly recommended (like the Nesstar Publisher or the World Bank's Metadata Editor). Indeed, the DDI should contain a description of the variables included in the data files, preferably with summary statistics. Generating variable-level metadata can be a very tedious process as some datasets may include hundreds, even thousands of variables. Metadata editors have the capacity to extract the list of variables and some metadata (variable names, labels, value labels, and summary statistics) directly from the data files. The alternatives to generating the metadata using a specialized editor are to enter the metadata in NADA, or to enter them in R or Python scripts.
 
 ### Loading metadata (web interface) 
@@ -520,12 +526,8 @@ nada.upload_thumbnail(dataset_id = "AFR_1996_WDAAF_v01_M", file_path = "logo.JPG
 
 ### From scratch (API)
 
-If you do not have metadata readily available, you can generate the metadata using R or Python, then publish it using the NADA API and the NADAR package or PyNADA library. For microdatasets, NADA makes use of the DDI Codebook (or DDI 2.n) metadata standard. 
-
-:::tip Note 
-The documentation of the DDI Codebook metadata standards is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Survey. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
-:::
-    
+If you do not have DDI-compliant metadata readily available, you can generate the metadata using R or Python, then publish it using the NADA API and the NADAR package or PyNADA library. 
+	
 As the DDI schema is relatively complex, the use of a specialized DDI metadata editor like the Nesstar Publisher may be a better option to document microdata. But this can be done using R or Python. Typically, microdata will be documented programmatically when (i) the dataset is not too complex, and/or (ii) when there is no intent to generate detailed, variable-level metadata. We provide here an example of the documentation of a simple micro-dataset using R and Python.
 
 @@@@@@ Provide a complete example in R and Python
@@ -574,6 +576,12 @@ nada.set_api_url('https://nada-demo.ihsn.org/index.php/api/')  # Enter the URL o
 
 ![](~@imageBase/images/data_tabs_geospatial.png)	
 	
+For geographic data, NADA makes use of the ISO 19139 metadata standard. 
+
+:::tip Note 
+The documentation of the ISO 19139 metadata standard (as implemented in NADA) is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Geospatial. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas.
+:::	
+	
 ### Loading metadata (web interface) 
 
 This option is currently not available. It will be added in a future version of NADA. To upload metadata for a geographic dataset available in an XML file compliant with the ISO19139 standard, the API option (see below) must be used.
@@ -583,16 +591,11 @@ This option is currently not available. It will be added in a future version of 
 This option is currently not provided. The ISO19139 schema is complex. An ISO19139 editor may be implemented in future versions. In the meantime, the GeoNetwork editor can be used, or the API option described below.
 
 ### Loading metadata (API) 
-
-    
+@@@    
     
 ### From scratch (API)
 
-You can generate the metadata using R or Python, then publish it using the NADA API and the NADAR package or PyNADA library. For geographic data, NADA makes use of the ISO 19139 metadata standard. 
-
-:::tip Note 
-The documentation of the ISO 19139 metadata standard (as implemented in NADA) is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Geospatial. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas.
-:::
+You can generate the metadata using R or Python, then publish it using the NADA API and the NADAR package or PyNADA library. 
         
 <code-group>
 <code-block title="R">
@@ -1431,6 +1434,12 @@ nada.add_resource(
 Time series are often contained in multi-indicators databases, like the World Bank's [World Development Indicators - WDI](https://datatopics.worldbank.org/world-development-indicators/), whose on-line version contains 1,430 indicators (as of 2021). To document not only the series but also the databases they belong to, we propose two metadata schemas: one to document series/indicators, and one to document databases. In the NADA application, a series can be documented and published without an associated database, but information on a database will only be published when associated with a series. The information on a database is thus treated as an "attachment" to the information on a series. 
 
 In a NADA catalog, a **SERIES DESCRIPTION** tab will display all metadata related to the series. The (optional) **SOURCE DATABASE** tab will display the metadata related to the database, is any. The database information is displayed for information; it is not indexed by the NADA catalog.
+	
+For documenting indicators/time series and their databases, NADA makes use of two metadata schemas developed by the World Bank Development Data Group (one for documenting the time series/indicators, the other one to document the database (if any) they belong to. 
+
+:::tip Note 
+The documentation of the time series metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#operation/createTimeSeries. The documentation of the database metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#operation/createTimeseriesDB. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
+:::	
 
 ![](~@imageBase/images/series_database_tabs.png)	
 	
@@ -1450,11 +1459,7 @@ This option is currently not available. It will be added in a future version of 
 
 ### From scratch (API)
 
-You can generate the metadata using R or Python, then publish it using the NADA API and the NADAR package or PyNADA library. For documenting indicators/time series and their databases, NADA makes use of two metadata schemas developed by the World Bank Development Data Group (one for documenting the time series/indicators, the other one to document the database (if any) they belong to. 
-
-:::tip Note 
-The documentation of the time series metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#operation/createTimeSeries. The documentation of the database metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#operation/createTimeseriesDB. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
-:::
+You can generate the metadata using R or Python, then publish it using the NADA API and the NADAR package or PyNADA library. 
     
 Use Case 007
     
@@ -2382,6 +2387,12 @@ When data are made accessible via API, they can also be displayed and made searc
 
 ![](~@imageBase/images/data_tabs_table.png)
 	
+For documenting tables, NADA makes use of a metadata schema developed by the World Bank Development Data Group. 
+
+:::tip Note 
+The documentation of the table metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Tables. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
+:::
+	
 ### Loading metadata (web interface) 
 
 This option is currently not available. It will be added in a future version of NADA. 
@@ -2409,11 +2420,7 @@ This option is currently not available. It will be added in a future version of 
 
 ### From scratch (API)
 
-You can generate the metadata using R or Python, then publish it using the NADA API and the NADAR package or PyNADA library. For documenting tables, NADA makes use of a metadata schema developed by the World Bank Development Data Group. 
-
-:::tip Note 
-The documentation of the table metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Tables. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
-:::
+You can generate the metadata using R or Python, then publish it using the NADA API and the NADAR package or PyNADA library. 
     
 We provide here an example of R and Python scripts in which a collection of tables ("Country profiles") from the World Bank's World Development Indicators (WDI) are published and publish in a NADA catalog. These tables are published by the World Bank and made available in CSV, XLS and PDF formats. See "COUNTRY PROFILES" at http://wdi.worldbank.org/table. The table is available separately for the world and for geographic regions, country groups (income level, etc), and country. The same metadata apply to all, except for the country tables. We therefore generate the metadata once, and use a function to publish all tables in a loop. In this example, we only publish tables for world, WB operations geographic regions, and countries of South Asia. This will result in publishing 15 tables. We could provide the list of all countries to the loop to publish 200+ tables. The example shows the advantage that R or Python (and the NADA API) provide for automating data documentation and publishing tasks.
     
@@ -3001,12 +3008,21 @@ for i in range(len(geo_list)):
 @@@@ Content of table can be published and made accessible via API. See section ...	
 	
 ### Adding data visualizations
+@@@	
 	
 ### Adding a data preview
+@@@	
+	
 	
 ## Adding a document
 	
 ![](~@imageBase/images/data_tabs_document.png)
+	
+For documents, NADA makes use of the Dublin Core metadata standard, augmented with a few elements inspired by the MARC21 standard. 
+
+:::tip Note 
+The documentation of the Dublin Core metadata standard (as implemented in NADA for documenting publications) is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Documents. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
+:::
 
 In the examples below, we will show different ways to upload a document taken from the World Bank website:
 	
@@ -3092,12 +3108,8 @@ This option is currently not available. It will be added in a future version of 
 
 ### From scratch (API)
 
-You can generate the metadata using R or Python, then publish it using the NADA API and the NADAR package or PyNADA library. For documents, NADA makes use of the Dublin Core metadata standard, augmented with a few elements inspired by the MARC21 standard. 
-
-:::tip Note 
-The documentation of the Dublin Core metadata standard (as implemented in NADA for documenting publications) is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Documents. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
-:::
-    
+You can generate the metadata using R or Python, then publish it using the NADA API and the NADAR package or PyNADA library. 
+	
 An example of R and Python scripts was provided in section "Getting Started -- Publishing a document". That example is available in the NADA GitHub repository as Use Case 001. 
 
 We provide here another example, where a list of documents with their core metadata is available as a CSV file. A script (written in R or in Python) reads the file, maps the columns of the file to the schema elements, and publishes the documents in NADA. This example corresponds to Use Case 002 in the NADA GitHub repository.
@@ -3513,7 +3525,13 @@ for i in range(len(doc_list)):
 
 ![](~@imageBase/images/data_tabs_image.png)
 	
-Currently no option to upload a metadata file (will be implemented in future versions of NADA). Can enter from scratch, or generate the metadata and upload using the API.
+For documenting images, NADA offers two options: the IPTC metadata standard, or the Dublin Core metadata standard. 
+
+:::tip Note 
+The documentation of the image metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Images. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
+::: 	
+	
+There is currently no option to upload a metadata file (this option will be implemented in future versions of NADA). The available options are to create the metadata in the NADA web interface or programatically using R or Python.
 
 ### Loading metadata (web interface) 
 
@@ -3531,11 +3549,7 @@ This option is currently not available. It will be added in a future version of 
 
 ### From scratch (API)
 
-You can generate the metadata using R or Python, then publish it using the NADA API and the NADAR package or PyNADA library. For documenting images, NADA offers two options: the IPTC metadata standard, or the Dublin Core metadata standard. 
-
-:::tip Note 
-The documentation of the image metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Images. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
-::: 
+You can generate the metadata using R or Python, then publish it using the NADA API and the NADAR package or PyNADA library. 
     
 The API advantage: face detection, labels, ...
 
@@ -3783,13 +3797,19 @@ nada.add_resource(
 
 ![](~@imageBase/images/data_tabs_video.png)
 	
+For documenting videos, NADA uses the Dublin Core metadata standard augmented with some elements from the videoObject from schema.org. 
+
+:::tip Note 
+The documentation of the video metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Videos. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
+:::
+	
 ### Loading metadata (web interface) 
 
 This option is currently not available. It will be added in a future version of NADA.
 
 ### From scratch (web interface)
 
-
+@@@
 
 ### Loading metadata (API) 
 
@@ -3797,11 +3817,7 @@ This option is currently not available. It will be added in a future version of 
 
 ### From scratch (API)
 
-You can generate the metadata using R or Python, then publish it using the NADA API and the NADAR package or PyNADA library. For documenting videos, NADA uses the Dublin Core metadata standard augmented with some elements from the videoObject from schema.org. 
-
-:::tip Note 
-The documentation of the video metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Videos. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
-:::
+You can generate the metadata using R or Python, then publish it using the NADA API and the NADAR package or PyNADA library. 
     
 <code-group>
 <code-block title="R">
@@ -3972,6 +3988,12 @@ Documenting, cataloguing and disseminating data has the potential to increase th
 
 Technological solutions such as GitHub, Jupyter Notebooks and Jupiter Lab have been developed to facilitate the preservation, versioning, and sharing of code, and to enable collaborative work around data analysis. And recommendations and style guides have been produced to foster usability, adaptability, and reproducibility of code. But these solutions do not fully address the issue of discoverability of data analysis scripts, which requires better documentation and cataloguing solutions. We therefore propose --as a complement to existing solutions-- a metadata schema to document data analysis projects and the related scripts. The production of structured metadata will contribute not only to discoverability, but also to the reproducibility, replicability, and auditability of data analytics.
 	
+For documenting scripts/research projects, NADA uses a metadata schema developed by the World Bank Development Data Group. 
+
+:::tip Note 
+The documentation of the script metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Scripts. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
+:::	
+	
 ### Loading metadata (web interface) 
 
 This option is currently not available. It will be added in a future version of NADA.
@@ -3996,11 +4018,7 @@ This option is currently not available. It will be added in a future version of 
 
 ### From scratch (API)
 
-You can generate the metadata using R or Python, then publish it using the NADA API and the NADAR package or PyNADA library. For documenting scripts/research projects, NADA uses a metadata schema developed by the World Bank Development Data Group. 
-
-:::tip Note 
-The documentation of the script metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#tag/Scripts. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
-:::
+You can generate the metadata using R or Python, then publish it using the NADA API and the NADAR package or PyNADA library. 
     
 <code-group>
 <code-block title="R">
