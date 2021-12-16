@@ -3222,8 +3222,8 @@ Making your data accessible via API has multiple advantages:
 NADA stores the data and the related data dictionary in a mongoDB database (an open source software). To make use of the data API solution, mongoDB must have been installed on your server. See the Installation Guide for more information. 
 	
 Publishing data in mongoDB and making them accessible via API is a simple process that consists of:
-- Preparing your data: data must be stored in a CSV file (or a zipped CSV file) and organized in a *long format*.  
-- The CSV (or zip) file is published in the NADA mongoDB database using the NADAR package (for R users) or the PyNADA library (for Python users). There is currently no option to publish data to mongoDB using the NADA web interface. 
+- Preparing your data: data must be stored in a CSV file (or a zipped CSV file) and organized in a *long format*. The content of this CSV file will be a "table" in mongoDB. 
+- The CSV (or zip) file is published in a mongoDB database using the NADAR package (for R users) or the PyNADA library (for Python users). A name will have to be given to the database. A database can contain multiple tables. There is currently no option to publish data to mongoDB using the NADA web interface. 
 - A data dictionary is created (in R or Python) and published together with the data.
 - The data is then accessible via API.
 
@@ -3261,6 +3261,19 @@ When published in mongoDB, the CSV file will be provided with the following core
 	
 Using R
 
+Description of the NADAR function:	
+data_api_create_table(
+  db_id,
+  table_id,
+  metadata,
+  api_key = NULL,
+  api_base_url = NULL
+)
+Arguments
+db_id (Required) database name
+table_id (Required) Table name
+metadata Table metadata
+	
 ```r
 library(nadar)
 library(readxl)
@@ -3318,22 +3331,18 @@ my_tbl <- list(
 )
 
 # Publish the CSV file to MongoDB database 
-
 publish_table_to_MongoDB(tblid, csv_data, my_tbl) 
 	
 ```	
 
 Using Python
 	
+Description of the PyNADA function:
+@@@	
+	
 ```python
 # Same example, in Python	
 ```	
-	
-To get confirmation that the data are in mongoDB:
-To see a data dictionary:	
-
-To query the data:
-	
 	
 ### Formatting and publishing tabular data
 	
@@ -3427,7 +3436,7 @@ publish_table_to_MongoDB(tblid, csv_data, my_tbl)
 Example using Python	
 	
 
-### Using a lookup file
+### Using lookup files
 
 @@@@@	
 For long lists of value labels (such as detailed, nested geographic codes): instead of long data dictionary, refer to a table in database.
@@ -3441,15 +3450,61 @@ In such cases, it would be too tedious and inconvenient to produce a data dictio
 	
 To do that: ...	
 	
+### Deleting a mongoDB table
+@@@	
+NADAR: 
+data_api_delete_table(db_id, table_id, api_key = NULL, api_base_url = NULL)
+Arguments:
+   db_id (Required) database name
+   table_id (Required) Table name	
+	
+### Replacing a mongoDB table
+@@@ overwrite = "yes" in NADAR
+data_api_publish_table(
+  db_id,
+  table_id,
+  table_metadata,
+  csvfile,
+  overwrite = "no",
+  api_key = NULL,
+  api_base_url = NULL
+)
+	
+### Appending to a mongoDB table	
+@@@	
+Not yet implemented.	
 
-### Informing users
+### Listing tables available in mongDB
 
-@@@@	
+NADAR: data_api_list_tables(api_key = NULL, api_base_url = NULL)
+	
+PyNADA: 
+	
+Web browser: You can view a list of all tables published in your catalog's mongoDB database by entering the following URL in your browser (after replacing "nada-demo.ihsn.org" with your own catalog URL): https://nada-demo.ihsn.org/index.php/api/tables/list. A list of all tables with some summary information on each table will be displayed.
+	
+![](~@imageBase/images/data_api_list.png)	
+	
+### Retrieving metadata on a table
+@@@
+https://nada-demo.ihsn.org/index.php/api/tables/info/demo/tbl_uc_016	
+	
+![](~@imageBase/images/data_api_info1.png)
+![](~@imageBase/images/data_api_info2.png)	
+	
+### Viewing data in JSON
+https://nada-demo.ihsn.org/index.php/api/tables/data/demo/tbl_uc_016
+
+![](~@imageBase/images/data_api_data1.png)	
+	
+### Querying the data
+@@@	
+	
+### Informing and guiding users
+
 Users will need some instructions to make use of the data API.
-What to provide?	
+What to provide? @@@@	
 	
-### SDMX compatibility
-	
+### A note on SDMX compatibility
 @@@@	
 
 ## Adding data visualizations 
