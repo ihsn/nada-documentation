@@ -2565,7 +2565,7 @@ Time series are often contained in multi-indicators databases, like the World Ba
 
 In a NADA catalog, a **SERIES DESCRIPTION** tab will display all metadata related to the series. The (optional) **SOURCE DATABASE** tab will display the metadata related to the database, is any. The database information is displayed for information; it is not indexed by the NADA catalog.
 
-![](~@imageBase/images/series_database_tab.png)	
+![](~@imageBase/images/series_database_tabs.png)	
 	
 ### Loading metadata (web interface) 
 
