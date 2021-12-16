@@ -3962,6 +3962,16 @@ nada.upload_video(idno = my_video['video_description']['idno'],
 
 ![](~@imageBase/images/data_tabs_script.png)
 	
+Documenting, cataloguing and disseminating data has the potential to increase the volume and diversity of data analysis. There is also much value in documenting, cataloguing and disseminating **data processing and analysis scripts**. There are multiple reasons to include reproducibility, replicability, and auditability of data analytics as a component of a data dissemination system. They include:  
+
+   -	Improve the **quality of research and analytical work**. Public scrutiny enables contestability and independent quality control; it is a strong incentive for additional rigor. 
+   -	Allow the **re-purposing or expansion of analytical work** by the research community, thereby increasing its relevance, utility and value of both the data and of the analytical work that makes use of them. 
+   -	Protect the **reputation and credibility** of the analysis. 
+   -	Provide students and researchers with useful **training and reference materials** on socio-economic development analysis.  
+   -	Satisfy a **requirement** imposed by peer reviewed journals or financial sponsors of research. 	
+
+Technological solutions such as GitHub, Jupyter Notebooks and Jupiter Lab have been developed to facilitate the preservation, versioning, and sharing of code, and to enable collaborative work around data analysis. And recommendations and style guides have been produced to foster usability, adaptability, and reproducibility of code. But these solutions do not fully address the issue of discoverability of data analysis scripts, which requires better documentation and cataloguing solutions. We therefore propose --as a complement to existing solutions-- a metadata schema to document data analysis projects and the related scripts. The production of structured metadata will contribute not only to discoverability, but also to the reproducibility, replicability, and auditability of data analytics.
+	
 ### Loading metadata (web interface) 
 
 This option is currently not available. It will be added in a future version of NADA.
