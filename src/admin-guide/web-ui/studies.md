@@ -3498,6 +3498,26 @@ https://nada-demo.ihsn.org/index.php/api/tables/data/demo/tbl_uc_016
 	
 ### Querying the data
 @@@	
+The API will extract data from a database where each cell of each table represents an observation. Some tables contain thousands or even millions of observations. By building and running an API query, you will filter and extract the observations and variables that match your criteria. To build such a filter, you will need (i) the list of variables available in the table, and (ii) the codes used for each variable. For example, if you are interested in extracting ...
+@@@
+	
+Build your query 
+
+The information on variables and codes gives you what you need to build your query. The query will always be structured as follows:   
+[base URL][/maximum number of observations (optional)][?][your query][format of data] 
+
+The base URL will always be [URL] 
+
+The maximum number of observations is an optional parameter. By default, the API will return only the first 400 observations (the rest being available in subsequent pages]. To change this parameter, enter "/" followed by the number.  
+
+Your query will start with a "? followed by a list of filters describing the variables and values of interest. This filter can use the operators "AND", "OR", and "!" (not). To select multiple values for a variable, use the "," as a separator or "-" to define a range. For example, to select ... 
+
+To list the variables you are interested in, enter "features=" followed by a list of variables separated by commas. 
+
+Last, select the format in which you want the data to be returned by the API; the options are "format=JSON" or "format= CSV".  
+
+In our example, assume we want  ...	
+		
 	
 ### Informing and guiding users
 
