@@ -1439,7 +1439,7 @@ In a NADA catalog, a **SERIES DESCRIPTION** tab will display all metadata relate
 
 :::tip Metadata schemas 
 
-For documenting indicators/time series and their databases, NADA makes use of two metadata schemas developed by the World Bank Development Data Group (one for documenting the time series/indicators, the other one to document the database (if any) they belong to.
+For documenting indicators/time series and their databases, NADA makes use of two metadata schemas developed by the World Bank Development Data Group: one for documenting the time series/indicators, the other one to document the database (if any) they belong to.
 	
 The documentation of the time series metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#operation/createTimeSeries. The documentation of the database metadata schema is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/#operation/createTimeseriesDB. A Schema Guide is also available, which provides more detailed information on the structure, content, and use of the metadata standards and schemas. 
 :::	
