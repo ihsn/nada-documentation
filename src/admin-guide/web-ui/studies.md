@@ -253,7 +253,7 @@ Creating a Microdata entry can be done in two different ways using the administr
 -   By uploading pre-existing metadata (typically generated using a specialized metadata editor, like the Nesstar Publisher application for microdata) using the API.
 -   By generating and uploading new metadata programatically, using R or Python and the API.
 
-:::tip Metadata standard: The DDI Codebook 
+:::tip Metadata standard: the DDI Codebook 
 
 For microdatasets, NADA makes use of the DDI Codebook (or DDI 2.n) metadata standard. 
 
@@ -577,8 +577,6 @@ nada.set_api_url('https://nada-demo.ihsn.org/index.php/api/')  # Enter the URL o
 
 ![](~@imageBase/images/data_tabs_geospatial.png)	
 	
-For geographic data, NADA makes use of the ISO 19139 metadata standard. 
-
 :::tip Metadata standard: ISO 19139 
 
 For geographic data, NADA makes use of the ISO 19139 metadata standard.
