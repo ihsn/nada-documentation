@@ -2097,8 +2097,8 @@ for i in list_lang:
     if i['name'] == "Arabic": i['code'] = "ar"
     if i['name'] == "Chinese": i['code'] = "cn"
 
-# # We split the information extracted on topics
-# # (make it a list of dictionaries with codes and names as required by our metadata schema)
+# We split the information extracted on topics
+# (make it a list of dictionaries with codes and names as required by our metadata schema)
 
 list_topics = []
 top = src_topic.split(",")
@@ -2134,7 +2134,7 @@ src_version = [{"version": src_update,
 # We also derive the list of countries and year range for the whole database.
 # ------------------------------------------------------------------------------
 
-# # Download and unzip WDI CSV files if not previously done
+# Download and unzip WDI CSV files if not previously done
 if not os.path.exists("WDI_csv.zip"):
     nada.download_file("http://databank.worldbank.org/data/download/WDI_csv.zip", "WDI_csv.zip")
 
@@ -2152,7 +2152,7 @@ wdi_cty = pd.read_csv("WDICountry.csv", header='infer', sep=",", encoding="utf-8
 wdi_cty = wdi_cty.loc[:, ~wdi_cty.columns.str.match('Unnamed')]  # drop sys generated unnamed column full of nan
 
 
-# # Convert factors to characters in data frames
+# Convert factors to characters in data frames
 def cat_tostring(var):
     return var.astype(str) if type(var) == "category" else var
 
@@ -2162,8 +2162,8 @@ for d in dfs:
     df = eval(d)
     df.applymap(lambda x: cat_tostring(x))
 
-# # Check that the number of series in WDIData corresponds to the number of series
-# # for which metadata are provided in WDISeries
+# Check that the number of series in WDIData corresponds to the number of series
+# for which metadata are provided in WDISeries
 try:
     assert (len(pd.unique(wdi_dat['Indicator Code'])) == len(pd.unique(wdi_ser['Series Code'])))
 except AssertionError:
@@ -2180,14 +2180,14 @@ wdi_dat2 = wdi_dat.melt(id_vars=['Country Name', 'Country Code', 'Indicator Name
                         value_name="value")
 wdi_dat2['year'] = wdi_dat2['year'].astype(int)
 
-# # Reshape the data file to identify the range of years with data, by series
+# Reshape the data file to identify the range of years with data, by series
 wdi_dat2 = wdi_dat2[wdi_dat2.value.notnull()]
 ser_yrs = wdi_dat2.groupby('Indicator Code').agg(min_year=('year', 'min'), max_year=('year', 'max'))
 wdi_ser = pd.merge(wdi_ser, ser_yrs, left_on=["Series Code"], right_on=["Indicator Code"], how='left')
 src_start = int((wdi_ser['min_year'].min(skipna=True)))
 src_end = int(wdi_ser['max_year'].max(skipna=True))
 
-# # Reshape the data file to identify the list of countries with data, by series
+# Reshape the data file to identify the list of countries with data, by series
 wdi_dat3 = wdi_dat2[wdi_dat2['Indicator Code'].isin(selected_series)]
 wdi_dat3 = wdi_dat3[wdi_dat3['value'].notnull()]
 wdi_dat3 = wdi_dat3.sort_values(by=['Indicator Code']).groupby(['Indicator Code', 'Country Code']).count().reset_index()
@@ -2226,13 +2226,13 @@ wdi_ser['url_meta_J'] = "https://api.worldbank.org/v2/sources/2/series/" \
 wdi_ser['url_meta_X'] = "https://api.worldbank.org/v2/sources/2/series/" \
                         + (wdi_ser['Series Code']).str.lower() + "/metadata"
 
-# # Add the URL license (series ar CC BY-4.0)
+# Add the URL license (series ar CC BY-4.0)
 wdi_ser['License Url'] = np.where(wdi_ser['License Type'] == "CC BY-4.0",
                                   "https://creativecommons.org/licenses/by/4.0/", "")
 
-# # ------------------------------------------------------------------------------
-# # GENERATE THE DATABASE-LEVEL METADATA FOR NADA
-# # ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# GENERATE THE DATABASE-LEVEL METADATA FOR NADA
+# ------------------------------------------------------------------------------
 database_description = {
     'title_statement': {
         'idno': src_id,
@@ -2274,9 +2274,9 @@ nada.create_timeseries_database(published=1,
                                 overwrite="yes",
                                 database_description=database_description)
 
-# # --------------------------------------------------------------------------------------
-# # GENERATE SERIES-LEVEL METADATA AND PUBLISH IN NADA
-# # --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# GENERATE SERIES-LEVEL METADATA AND PUBLISH IN NADA
+# --------------------------------------------------------------------------------------
 
 for index, row in wdi_ser.iterrows():
     if row['Series Code'] not in selected_series:
@@ -2297,7 +2297,7 @@ for index, row in wdi_ser.iterrows():
     for t in top:
         list_topics_series.append({"id": "", "name": t})
 
-    # # We add selected keywords where relevant
+    # We add selected keywords where relevant
     keyw = []
     if "global financial inclusion database" in row['Source'].lower():
         keyw.append({"name": "findex"})
@@ -2347,7 +2347,7 @@ for index, row in wdi_ser.iterrows():
     if row['Series Code'] == "SP.DYN.IMRT.IN": thumb = "thumb_hea.jpg"
     if row['Series Code'] == "SP.POP.DPND": thumb = "thumb_dep.jpg"
 
-    # # Publish the metadata in NADA
+    # Publish the metadata in NADA
     nada.create_timeseries_dataset(dataset_id=series_description['idno'],
                                    repository_id="central",
                                    published=1,
