@@ -1,6 +1,6 @@
 # Adding and managing content 
 
-This section of the Guide describes the various tools and approaches available to catalog administrators to add, edit, orgnize, and delete catalog entries (datasets).  
+This section of the Guide describes the various tools and approaches available to catalog administrators to add, edit, organize, and delete catalog entries (datasets).  
 
 ## Data types and external resources
 
