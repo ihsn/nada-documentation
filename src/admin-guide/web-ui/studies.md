@@ -28,6 +28,16 @@ As a reminder, the data types that NADA can ingest, and the related metadata sta
 
 Information on the metadata standard and schemas is available at https://ihsn.github.io/nada-api-redoc/catalog-admin/# and in a Schema Guide. 
 
+### Data type tabs
+
+In the NADA catalog, data will be organized by type. ALL entries are listed in the first tab, labeled "All". The entries for each data type will be displayed in a separate tab in the catalog listing. This will allow users to focus their attention to data of the type of interest. 
+
+NADA will only display a tab when there is at least one data of the corresponding type in the catalog. Tabs are automatically added when an entry for a new data type is added. 
+
+The sequence in which the tabs are displayed can be controlled. @@@@@@@@@
+
+![](~@imageBase/images/nada_tabs.png)
+
 ### External resources
 
 External resources are electronic files (or links to electronic files) of any type, that you may want to attach to an entry metadata as "related materials". This could for example be the PDF version of the survey questionnaire and interviewer manual related to a survey microdataset, or visualizations related to a published document. A simple metadata schema (based on the Dublin Core standard) is used to document external resources. This schema includes an element that indicates the type of the resource (e.g., microdata, analytical document, administrative document, technical document, map, website, etc.) In NADA, you will publish the metadata related to a dataset, then add such external resources to it. 
