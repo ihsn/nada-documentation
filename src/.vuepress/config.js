@@ -11,7 +11,7 @@ module.exports = {
    */
   description: description,
 
-  base: "/test-docs/",
+  base: "/nada-documentation/",
 
   configureWebpack: {
     resolve: {
