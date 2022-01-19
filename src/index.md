@@ -17,11 +17,11 @@ actionLink: /intro/
     <p>Covers NADA installation and configurations</p>
   </div>
   <div class="feature">
-    <h2><a href="/getting-started">Getting started</a></h2>
+    <h2><a href="getting-started">Getting started</a></h2>
     <p>Get started with publishing content</p>
   </div>
   <div class="feature">
-    <h2><a href="/admin-guide">Administrator Guide</a></h2>
+    <h2><a href="admin-guide/overview.html">Administrator Guide</a></h2>
     <p>Guide for site administrators for managing and publishing datasets</p>
   </div>  
 </div>

@@ -4,7 +4,7 @@ If you have just installed your NADA catalog and want to test it, we show you he
 
 ## Publishing microdata 
 
-Before you start, [download the try_micro zip file](https://github.com/mah0001/test-docs/raw/main/examples/microdata/try_micro.zip) from our GitHub repository and extract its content in a new folder. The content of this new folder should be as shown below. Note that this folder structure is not imposed by NADA (see section "Organizing your files" of the NADA Administrator Guide), but it is important to keep it as is as the AFR_1996_WDAAF_v01_M.rdf file, which contains metadata for the resources related to the dataset, includes relative paths where the resource files are expected to be found.
+Before you start, [download the try_micro zip file](https://github.com/ihsn/nada-documentation/raw/main/examples/microdata/try_micro.zip) from our GitHub repository and extract its content in a new folder. The content of this new folder should be as shown below. Note that this folder structure is not imposed by NADA (see section "Organizing your files" of the NADA Administrator Guide), but it is important to keep it as is as the AFR_1996_WDAAF_v01_M.rdf file, which contains metadata for the resources related to the dataset, includes relative paths where the resource files are expected to be found.
 
 > ![](~@imageBase/images/image16.png)
 

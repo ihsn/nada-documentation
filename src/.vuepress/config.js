@@ -39,7 +39,7 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
    */
   themeConfig: {
-    repo: 'https://github.com/mah0001/test-docs',
+    repo: 'https://github.com/ihsn/nada-documentation',
     editLinks: true,
     docsDir: 'src',
     docsBranch: 'main',
@@ -52,7 +52,7 @@ module.exports = {
       },
       {
         text: 'Admin guide',
-        link: '/admin-guide/'
+        link: '/admin-guide/overview.html'
       },
       {
         text: 'NADA',
