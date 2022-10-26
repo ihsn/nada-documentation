@@ -5,6 +5,8 @@ Use cases are on GitHub with R and Python code.
 
 ## Edit targeted fields
 
+todo
+
 ## Adding widgets
 
 ## Image recognition and exclusion of faces
