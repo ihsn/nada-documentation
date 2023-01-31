@@ -128,6 +128,7 @@ module.exports = {
           '/admin-guide/organize-files',
           '/admin-guide/ui-vs-api',
           '/admin-guide/api-tools',
+          '/admin-guide/general-troubleshooting',
           /*'/admin-guide/site-admin',*/
           {
             title: "Catalog administration",
@@ -152,7 +153,7 @@ module.exports = {
               '/admin-guide/web-ui/data-deposit-admin',
               '/admin-guide/web-ui/translate',
               '/admin-guide/web-ui/backup',
-              '/admin-guide/web-ui/use-api',              
+              '/admin-guide/web-ui/use-api'              
             ]
           },
           '/admin-guide/admin-api'
