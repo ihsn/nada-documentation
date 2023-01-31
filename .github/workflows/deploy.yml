@@ -33,6 +33,7 @@ jobs:
     - name: Init new repo in dist folder and commit generated files
       run: |
         cd src/.vuepress/dist
+        git config --global --add safe.directory /github/workspace/src/.vuepress/dist
         git init
         git add -A
         git config --local user.email "action@github.com"
