@@ -156,7 +156,8 @@ module.exports = {
               '/admin-guide/web-ui/use-api'              
             ]
           },
-          '/admin-guide/admin-api'
+          '/admin-guide/admin-api',
+          '/admin-guide/extend-login'
         ],
         //initialOpenGroupIndex: -1 // optional, defaults to 0, defines the index of initially opened subgroup
       }
