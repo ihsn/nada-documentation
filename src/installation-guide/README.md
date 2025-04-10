@@ -101,7 +101,7 @@ $ chmod -R 755 datafiles files logs
 Make sure you set the web server user account to be owner of the files and folders. For example, if you are running Apache with the user account `www-data`, run this command to change the ownership:
 
 ```bash
-$ chmod www-data:www-data -R <nada-root-folder> 
+$ chown www-data:www-data -R <nada-root-folder> 
 ```
 
 
@@ -174,7 +174,9 @@ mysql> CREATE DATABASE nada;
 Now create a user who can access the new nada database and give the user only the rights necessary to run the NADA.
 
 ```
-mysql> GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, CREATE TEMPORARY TABLES,LOCK TABLES ON nada.* TO 'nada'@'localhost' IDENTIFIED BY 'yourpassword';
+mysql> CREATE USER 'nada'@'localhost' IDENTIFIED BY 'yourpassword';
+mysql> GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, CREATE TEMPORARY TABLES,LOCK TABLES ON nada.* TO 'nada'@'localhost';
+mysql> FLUSH PRIVILEGES;;
 ```
 
 **`yourpassword`** -  can be anything you choose. It is a good practice to use a password that contains text, numbers and special characters.
