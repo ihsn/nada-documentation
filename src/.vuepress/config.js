@@ -96,6 +96,7 @@ module.exports = {
             path: "/installation-guide/upgrade/",
             collapsable: false,
             children: [
+              '/installation-guide/upgrade/upgrade-54',
               '/installation-guide/upgrade/upgrade-52',
               '/installation-guide/upgrade/upgrade-50',
               '/installation-guide/upgrade/upgrade-44',

@@ -50,6 +50,6 @@ In your NADA root folder (/nada/), create/edit `.htaccess` file:
 </IfModule>
 ```
 
-```note
+:::tip Note
 Note: For hosting NADA in a subfolder e.g. `https://example.com/nada/`, uncomment the line for RewriteBase and make sure to use the correct subfolder name.
-```
+:::
