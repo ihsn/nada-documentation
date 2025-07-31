@@ -88,7 +88,8 @@ module.exports = {
               '/installation-guide/configurations/captcha',
               '/installation-guide/configurations/email',
               '/installation-guide/configurations/google-analytics',
-              '/installation-guide/configurations/clean-urls'
+              '/installation-guide/configurations/clean-urls',
+              '/installation-guide/configurations/csp'
             ]
           },
           {
