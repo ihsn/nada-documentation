@@ -1,4 +1,4 @@
-# Content Security Policy (CSP) - User Guide
+# Content Security Policy (CSP)
 
 ## What is Content Security Policy (CSP)?
 
