@@ -132,7 +132,7 @@ module.exports = {
           '/admin-guide/ui-vs-api',
           '/admin-guide/api-tools',
           '/admin-guide/general-troubleshooting',
-          '/admin-guide/custom-public-access-fields'          
+          '/admin-guide/custom-public-access-fields',          
           {
             title: "Catalog administration",
             path: "/admin-guide/web-ui/",
