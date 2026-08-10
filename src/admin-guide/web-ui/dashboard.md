@@ -7,13 +7,13 @@ taken to the Dashboard page of the Administrator interface. The page
 also includes the menu that provides access to all sections of the
 administrator interface.
 
-![](~@imageBase/images/image52.png)
+![](/images/image52.png)
 
 The Dashboard provides a quick glance summary for administrators to get
 an overall picture of the content of the catalog as well as of pending
 tasks for the administrator.
 
-![](~@imageBase/images/image53.png)
+![](/images/image53.png)
 
 Box 1 (*Central Data Catalog*) provides information on the total number
 of entries (of any type) listed in the catalog. It distinguishes the
@@ -37,7 +37,7 @@ Central Catalog), with information on the date when the entry was
 created and last modified (the buttons displayed in this page are
 described in section Manage collections).
 
-![](~@imageBase/images/image54.png)
+![](/images/image54.png)
 
 Box 2 (*Collection: \[collection name\]*) will only be displayed when
 your catalog contains Collections. One box will be displayed per

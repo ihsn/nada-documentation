@@ -22,7 +22,7 @@ English. This option is used to modify the display of labels/text in the
 NADA interface. It allows catalog administrators to adapt the user
 interface to specific terms used in their organization.
 
-![](~@imageBase/images/image236.png)
+![](/images/image236.png)
 
 
 ## Adding or selecting the new language 
@@ -31,11 +31,11 @@ interface to specific terms used in their organization.
 
 Select the language and click "Edit".
 
-![](~@imageBase/images/image237.png)
+![](/images/image237.png)
 
 ## Translating content in the user interface
 
-![](~@imageBase/images/image238.png)
+![](/images/image238.png)
 
 The items for which no translation is available will be displayed with a
 red background. Enter your translation in the box. Note that if the
@@ -43,11 +43,11 @@ length of the translation is significantly longer than the text in
 English, the text may not display properly in the interface (when used
 in menus, buttons, or other locations with limited space).
 
-![](~@imageBase/images/image239.png)
+![](/images/image239.png)
 
 After translating a section, make sure to Save it.
 
-![](~@imageBase/images/image240.png)
+![](/images/image240.png)
 
 To translate the text in an optimized manner, it will in some cases be
 important to know where the translation will be used. This will ensure
@@ -83,8 +83,8 @@ The Download option in the Translate summary table allows you to
 download the PHP files containing the translations and share them with
 other NADA users.
 
-![](~@imageBase/images/image241.png)
+![](/images/image241.png)
 
-![](~@imageBase/images/image242.png)
+![](/images/image242.png)
 
 How to use these files in my NADA?

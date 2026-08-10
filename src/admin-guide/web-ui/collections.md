@@ -1,6 +1,6 @@
 # Managing collections
 
-![](~@imageBase/images/image127.png)
+![](/images/image127.png)
 
 ## Why do we have collections?
 
@@ -16,11 +16,11 @@ There are no collections defined in the default NADA 4 installation. Collection 
 
 To create a new collection, click on the Create new collection button.
 
-![](~@imageBase/images/image128.png)
+![](/images/image128.png)
 
 This will open:
 
-![](~@imageBase/images/image129.png)
+![](/images/image129.png)
 
 Under Collection Identification, provide a short name for the collection. This will become the URL for the collection so pick carefully. For Title, fill in the fill title for the collection. This will be the name displayed at the top of the collection page. 
 
@@ -32,7 +32,7 @@ To format the page and include images it is possible to enter HTML code into thi
 
 Upload a file to display next to the collection as it is listed on the collection page. NOTE: This image should be 82 X 82 pixels. If the upload does not work automatically then copy the thumbnail image to the "files" folder as shown above.
 
-![](~@imageBase/images/image130.png)
+![](/images/image130.png)
 
 The Weight field determines in what order collections are shown in the collection list. 0,1,2,3 etc. The Select collection type drop-down is a system value to distinguish between collections that should be viewed as internal to the organization or external. For example, some collections may be made up entirely of studies from an organization outside the host catalog. These collections can be designated as external. The Section dropdown allows for the categorization as either a collection based on a specialized collection (like health) or based on a regional breakdown. Selecting Publish -- publishes the collection. Click on Submit to save the changes.
 
@@ -42,9 +42,9 @@ The new collection now also shows in the collection list on the Central Catalog 
 
 Visiting the Dashboard will now also show the new collection listed below the Central Data Catalog. With a number of green buttons as shortcut links to manage the studies on the collection, assign administrators for the collection, a history of activity on the collection and a link to edit the collection as in the steps above.
 
-![](~@imageBase/images/image131.png)
+![](/images/image131.png)
 
-![](~@imageBase/images/image132.png)
+![](/images/image132.png)
 
 ### Using the API 
 
@@ -60,23 +60,23 @@ Add data: owned and borrowed
 
 ### Using the administrator interface 
 
-![](~@imageBase/images/image138.png)
+![](/images/image138.png)
 
-![](~@imageBase/images/image139.png)
+![](/images/image139.png)
 
-![](~@imageBase/images/image140.png)
+![](/images/image140.png)
 
-![](~@imageBase/images/image141.png)
+![](/images/image141.png)
 
-![](~@imageBase/images/image142.png)
+![](/images/image142.png)
 
-![](~@imageBase/images/image143.png)
+![](/images/image143.png)
 
-![](~@imageBase/images/image144.png)
+![](/images/image144.png)
 
 Also: can access to collection tools in Dashboard:
 
-![](~@imageBase/images/image145.png)
+![](/images/image145.png)
 
 ### Using the API 
 
@@ -90,7 +90,7 @@ Also: can access to collection tools in Dashboard:
 
 ### Using the administrator interface 
 
-![](~@imageBase/images/image133.png)
+![](/images/image133.png)
 
 ### Using the API 
 
@@ -98,13 +98,13 @@ Also: can access to collection tools in Dashboard:
 
 ### Using the administrator interface 
 
-![](~@imageBase/images/image134.png)
+![](/images/image134.png)
 
-![](~@imageBase/images/image135.png)
+![](/images/image135.png)
 
 Preview
 
-![](~@imageBase/images/image136.png)
+![](/images/image136.png)
 
 Why no logo?
 
@@ -114,7 +114,7 @@ Why no logo?
 
 ### Using the administrator interface 
 
-![](~@imageBase/images/image137.png)
+![](/images/image137.png)
 
 ### Using the API 
 

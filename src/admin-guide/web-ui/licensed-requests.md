@@ -8,7 +8,7 @@ apply to microdata and geographic datasets. Sometimes for a collection
 
 ## Using the administrator interface 
 
-![](~@imageBase/images/image172.png)
+![](/images/image172.png)
 
 Datasets that are assigned the Access Type Licensed require approval
 from a NADA administrator before the user can get access to the data
@@ -19,27 +19,27 @@ licensed requests have been received.
     quick summary section. Clicking on this link goes to the Licensed
     Survey Requests management page.
 
-> ![](~@imageBase/images/image173.png)
+> ![](/images/image173.png)
 
 -   **From the Studies menu**: select Licensed Requests from the
     submenu. The link shows a page with a list of Licensed Requests
     received. The status column indicates the Pending requests.
 
-> ![](~@imageBase/images/image174.png)
+> ![](/images/image174.png)
 
-![](~@imageBase/images/image175.png)
+![](/images/image175.png)
 
 Click on the Edit link for to process a request.
 
 The Request information tab shows a summary of the information provided
 by the applicant.
 
-![](~@imageBase/images/image176.png)
+![](/images/image176.png)
 
 To Approve or Deny or request further information for the request. Click
 on the Process tab.
 
-![](~@imageBase/images/image177.png)
+![](/images/image177.png)
 
 -   Select Approve to approve the request. (other options include Deny
     as well as Request more information from the applicant).

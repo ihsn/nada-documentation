@@ -1,15 +1,16 @@
 # Upgrade from 5.2 to 5.4
 
-This upgrade covers all changes for NADA 5.2x to NADA 5.4x. 
+This upgrade covers database changes from NADA **5.2.x** to **5.4.x**.
 
+Also deploy the NADA **5.4** application files (zip release or Git tag) over your existing install, preserve your `application/config` customizations (especially `database.php` and `email.php`), and clear caches if your environment uses them. Then apply the SQL below.
 
 ## 1. Backup database
-Before you make any changes to the database, make sure to backup your database.
 
+Before you change the database, take a full backup.
 
-## 2: Update database
-Use a database client such as PHPMyAdmin/ MySQL Workbench or Command line (CLI) to connect to the database to apply these changes.
+## 2. Update database
 
+Use a database client (phpMyAdmin, MySQL Workbench, or the CLI) to run the following on your NADA database.
 
 ### Database changes for 5.2 to 5.4
 

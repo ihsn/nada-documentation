@@ -1,6 +1,6 @@
 # Widgets
 
-![Widget Overview Screenshot](~@imageBase/images/widget-chart.png)
+![Widget Overview Screenshot](/images/widget-chart.png)
 
 ## Introduction
 
@@ -72,10 +72,10 @@ Create an `index.html` file with the following content:
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"
-    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"><\/script>
 
   <!-- ECharts for the widget -->
-  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"><\/script>
 
   <script type="text/javascript">
     var dom = document.getElementById('container');
@@ -108,7 +108,7 @@ Create an `index.html` file with the following content:
     }
 
     window.addEventListener('resize', myChart.resize);
-  </script>
+  <\/script>
 </body>
 
 </html>
@@ -122,7 +122,7 @@ Create an `index.html` file with the following content:
 ### Step 2: Test
 To test your chart renders correctly, you can open the file `index.html` in a web browser to preview.
 
-![Line chart preview](~@imageBase/images/echarts-example-preview.png)
+![Line chart preview](/images/echarts-example-preview.png)
 
 ---
 

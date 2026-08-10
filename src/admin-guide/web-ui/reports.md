@@ -4,19 +4,19 @@ NADA logs events and generates summary reports. It is not a full usage
 monitoring system, and it is highly recommended to implement one like
 Google Analytics.
 
-![](~@imageBase/images/image192.png)
+![](/images/image192.png)
 
 ## Pre-designed reports
 
-![](~@imageBase/images/image193.png)
+![](/images/image193.png)
 
-![](~@imageBase/images/image194.png)
+![](/images/image194.png)
 
-![](~@imageBase/images/image195.png)
+![](/images/image195.png)
 
 ## Site logs
 
-![](~@imageBase/images/image196.png)
+![](/images/image196.png)
 
 What is logged?
 

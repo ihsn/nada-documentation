@@ -1,6 +1,6 @@
 # Managing users
 
-![](~@imageBase/images/image178.png)
+![](/images/image178.png)
 
 ## Types of user accounts
 
@@ -24,9 +24,9 @@ A.  **Regular user accounts** can be created in two ways: (i) by registering an 
 
 (i) A **Regular user** account can be created by a site visitor directly from the *register* screen from the login link on the user interface of the application.
 
-![](~@imageBase/images/image179.png)
+![](/images/image179.png)
 
-![](~@imageBase/images/image180.png)
+![](/images/image180.png)
 
 The **regular user** created by this process ***has no access to the site administration.*** This account can only be used to apply and gain access to public and licensed datasets.
 
@@ -36,23 +36,23 @@ B.  **Administrator accounts** can only be created/ modified/deleted/ by an **ad
 
 User accounts can be viewed, created, modified, and deleted from the Administrator web interface through the ***All users*** menu item in the top menu bar ***once logged in as an administrator***.
 
-![](~@imageBase/images/image178.png)
+![](/images/image178.png)
 
 The **User management** interface displays all accounts listed in the catalog in a tabular format.
 
-![](~@imageBase/images/image181.png)
+![](/images/image181.png)
 
 To create a new user from the administrator view, either (i) select the **Add user** option in **Users** menu, or (ii) click on the **Create new user account** button in **User management** interface. Both methods will take the administrator to the account creation form.
 
-![](~@imageBase/images/image178.png)
+![](/images/image178.png)
 
-![](~@imageBase/images/image182.png)
+![](/images/image182.png)
 
-![](~@imageBase/images/image183.png)
+![](/images/image183.png)
 
 Administrators can also **Edit** and **Delete** accounts. This is done from the ***Actions*** column in the *User Management* section.
 
-![](~@imageBase/images/image184.png)
+![](/images/image184.png)
 
 ## Defining roles
 
@@ -66,21 +66,21 @@ Often organizations will not want to assign full administrative rights to all me
 
 A.  To create a user role, click on the ***User Roles*** button in the top right of the **User Management** screen.
 
-![](~@imageBase/images/image185.png)
+![](/images/image185.png)
 
 B.  In the ***Create a new role box*** enter a role name (label) and a short description for the role. Then click the **Create a new role button**.
 
 The new role will be created and listed in the **Manage roles** table.
 
-![](~@imageBase/images/image186.png)
+![](/images/image186.png)
 
 C.  Next the permissions for the new role need to be defined. To set the permissions click on the ***Permissions*** link next to the role you wish to assign permissions to.
 
-![](~@imageBase/images/image187.png)
+![](/images/image187.png)
 
 D.  Select the set of permissions you wish to assign and then click the ***Submit*** button at the bottom of the screen.
 
-![](~@imageBase/images/image188.png)
+![](/images/image188.png)
 
 The following permissions/roles can be assigned:
 
@@ -111,12 +111,12 @@ To assign that role to the user Peter in the example below we need to edit the i
 
 A.  Click the ***edit*** button next to the user you want to assign the role to.
 
-![](~@imageBase/images/image189.png)
+![](/images/image189.png)
 
 B.  Select the ***Licensed Request Review*** role at the bottom of the page as well as any other role(s) you want user Peter to fulfill. Then click the **Update** button.
 
-![](~@imageBase/images/image190.png)
+![](/images/image190.png)
 
-![](~@imageBase/images/image191.png)
+![](/images/image191.png)
 
 Note that if a role is deleted, it will not delete user accounts that are associated with the role. The users will just not have access to the deleted role anymore. For example, if a user has the "Licensed reviewer" role, and if we delete the "Licensed reviewer" role from the catalog. The user account won't be deleted, but it loses the Licensed reviewer role.

@@ -9,3 +9,11 @@ For a NADA catalog administrator, the process of publishing data and metadata co
 3. **Uploading data and other files** (or providing links) for the resources to be made accessible on-line from the catalog, with a brief description. These resources must be uploaded with a brief description based on the simple **external resources** schema.
 
 4. **Defining an access policy** that applies to the dataset, if and when relevant. This will determine how users can obtain access to the data (direct access, access from another repository, licensed access, no access, or other). This typically applies to microdata and geographic datasets.
+
+## Where to go next
+
+- [Getting started](/getting-started/) — short publish tutorials (microdata, documents, indicators, geospatial)
+- [Content by data type](/admin-guide/content/) — full reference for microdata, geospatial, indicators, tables, documents, images, videos, and scripts
+- [Site administration](/admin-guide/web-ui/) — site settings, collections, users, Solr, and related tools
+- [API & automation](/api-guide/) — NADAR/PyNADA, examples, data API, widgets
+- [Core concepts](/admin-guide/core-concepts) — data types, collections, access policies, and users

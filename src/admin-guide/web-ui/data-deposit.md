@@ -11,7 +11,7 @@ landing page (to be developed by the catalog administrator). This
 landing page should provide some information to data depositors on what
 to deposit, and how, and a link to the Data Deposit application itself.
 
-![](~@imageBase/images/image197.png)
+![](/images/image197.png)
 
 ## Overview
 
@@ -34,7 +34,7 @@ the burden on data curators (when depositors enter detailed metadata);
 it is however a system that minimizes the burden on data depositors. All
 metadata is exportable to DDI 2.5
 
-![](~@imageBase/images/image198.png)
+![](/images/image198.png)
 
 ## Installation and activation
 
@@ -54,7 +54,7 @@ Run the SQL from the file `install/schema.dd.mysql.sql` on your NADA database. T
 ```
 
 - Save the file.
-- Open web browser and navigate to <your-nada-website>indexe.php/datadeposit to see data deposit frontend.
+- Open web browser and navigate to `https://your-nada-website/index.php/datadeposit` to see data deposit frontend.
 
 
 
@@ -67,7 +67,7 @@ process, as well as what to expect once a deposit is submitted. Once a
 contributor is ready to deposit, the first step is to click the Deposit
 Data button. This prompts the contributor to log in to the application.
 
-![](~@imageBase/images/image199.png)
+![](/images/image199.png)
 Once a depositor logs in to the deposit application, the first page they
 see is titled **My projects.** This page lists all deposit projects
 initiated and submitted by the individual who is logged in, as well as
@@ -101,7 +101,7 @@ Deposit status can take any of the following values:
 
 ## Creating a new deposit project
 
-![](~@imageBase/images/image200.png)
+![](/images/image200.png)
 
 ## Project information
 
@@ -112,20 +112,20 @@ collaborators on the project who would also have view and edit rights to
 the project. Collaboration and project description details are optional,
 but the title and project short name are mandatory.
 
-![](~@imageBase/images/image201.png)
+![](/images/image201.png)
 
 Once this section is saved, a draft deposit project is created in the
 system, assigned a unique project id, and listed under the specified
 project title. On My Projects page, the project is listed with Edit,
 (View) Summary, and Delete options available for the depositor.
 
-![](~@imageBase/images/image202.png)
+![](/images/image202.png)
 
 When editing the project, you will notice that there are additional tabs
 available, and the project information is now displayed on the first
 tab - the Project Information Tab.
 
-![](~@imageBase/images/image203.png)
+![](/images/image203.png)
 
 ## Study Description
 
@@ -134,7 +134,7 @@ details. The current version of the data deposit application accepts
 microdata, so the deposit form fields correspond to DDI metadata fields,
 which is the international metadata standard for microdata.
 
-![](~@imageBase/images/image204.png)
+![](/images/image204.png)
 
 There are a few functions available to aid the deposit process. The
 depositor can adjust form settings, import metadata from another
@@ -147,19 +147,19 @@ However, the depositor can customize the form settings to hide/display
 help (descriptions for each field including examples) or show only
 recommended fields, or mandatory fields.
 
-![](~@imageBase/images/image205.png)
+![](/images/image205.png)
 
 ***Show field help***
 
-![](~@imageBase/images/image206.png)
+![](/images/image206.png)
 
 ***Show Recommended Fields***
 
-![](~@imageBase/images/image207.png)
+![](/images/image207.png)
 
 ***Show Mandatory Fields***
 
-![](~@imageBase/images/image208.png)
+![](/images/image208.png)
 
 ## Metadata Import
 
@@ -169,7 +169,7 @@ project in their projects list, to avoid manually filling all the form
 fields, and then edit as needed. To import, click the **Import
 Metadata** button then select the relevant project to import from.
 
-![](~@imageBase/images/image209.png)
+![](/images/image209.png)
 
 ## Form display options: Expand All/Collapse All
 
@@ -192,7 +192,7 @@ the form. Completed tasks are indicated by a green check mark.
 Data Files and resources are uploaded from the **Data files and other
 Resources** tab**.**
 
-![](~@imageBase/images/image210.png)
+![](/images/image210.png)
 
 The depositor can either drag and drop multiple files of up to 2G B and
 click **Start Upload**, or click **Add Files**, navigate to the file
@@ -210,32 +210,32 @@ names and selecting Delete from the batch actions dropdown menu then
 clicking Apply. To upload new files, click the Upload button above the
 top right corner of the table.
 
-![](~@imageBase/images/image211.png)
+![](/images/image211.png)
 
 Depositors have the option to define the file or document type when
 uploading resources. This is done via the Edit link. This step is
 optional for the depositor as file type can also be defined during
 curation.
 
-![](~@imageBase/images/image212.png)
+![](/images/image212.png)
 
 Now in place of N/A, the Type column will reflect the file type as
 defined by the depositor. The total file count is displayed under
 Pending Tasks and on the bottom right corner of the table.
 
-![](~@imageBase/images/image213.png)
+![](/images/image213.png)
 
 ## Citations (optional)
 
 The **Citations** tab is optional and is used to enter details of any
 publications that have used the data being deposited.
 
-![](~@imageBase/images/image214.png)
+![](/images/image214.png)
 
 To add a citation, click the **Add New Citation** button to launch the
 citations form.
 
-![](~@imageBase/images/image215.png)
+![](/images/image215.png)
 
 Once all the details are added and submitted, the new citation will be
 listed under the citations tab with options to edit or delete it and add
@@ -243,7 +243,7 @@ another citation. The number of citations added to the project is also
 listed under Pending Tasks. To add another citation, click the **Add New
 Citation** button and follow the same process.
 
-![](~@imageBase/images/image216.png)
+![](/images/image216.png)
 
 ## Deposit Review and Submit
 
@@ -258,17 +258,17 @@ format that can be read by software including NADA; a print preview
 review. These options are available on the top right above the project
 information box.
 
-![](~@imageBase/images/image217.png)
+![](/images/image217.png)
 
-![](~@imageBase/images/image218.png)
+![](/images/image218.png)
 
-![](~@imageBase/images/image219.png)
+![](/images/image219.png)
 
 Once all the deposit information is reviewed and found to be
 satisfactory, it is ready for submission. Project submission is done
 from the Submit sub-menu.
 
-![](~@imageBase/images/image220.png)
+![](/images/image220.png)
 
 This presents a form where the depositor specifies
 
@@ -303,7 +303,7 @@ to edit the deposit once it is submitted. Clicking the **Submit** button
 will submit the deposit. The depositor receives a confirmation email of
 the deposit.
 
-![](~@imageBase/images/image221.png)
+![](/images/image221.png)
 
 The updated status of the deposit is reflected on **My Projects** page,
 and a summary of the deposit can be viewed by clicking on the project
@@ -312,7 +312,7 @@ updates need to be made to the project after submission, the depositor
 needs to contact the administrator to request the project to be
 re-opened.
 
-![](~@imageBase/images/image222.png)
+![](/images/image222.png)
 
 The status of the deposit will as change as the deposit goes through the
 curation workflow. It will be updated to reflect the current status of

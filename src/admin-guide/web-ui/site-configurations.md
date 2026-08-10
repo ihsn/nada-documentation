@@ -5,31 +5,31 @@
 All settings for the application are controlled via the Settings menu at
 the top of the Site Administration page.
 
-![](~@imageBase/images/image55.png)
+![](/images/image55.png)
 
 There are seven main settings sections.
 
-> ![](~@imageBase/images/image56.png)
+> ![](/images/image56.png)
 
 ## General site settings
 
-![](~@imageBase/images/image57.png)
+![](/images/image57.png)
 
 The **Website title** will become the frontpage title of the NADA
 catalog. In the user interface:
 
-![](~@imageBase/images/image58.png)
+![](/images/image58.png)
 
 **Website footer**: The footer text can be changed in this field. This
 displays at the bottom of your site page when your theme outputs it (see
-[Customizing themes](/installation-guide/configurations/customizing-themes/)).
+[Customizing themes](/installation-guide/configurations/customizing-themes)).
 
-![](~@imageBase/images/image59.png)
+![](/images/image59.png)
 
 **Default home page**: The initial page that loads when a user visits
 the NADA site can be set here. In this case the catalog page is set to
 open by default. For a full guide (menus, static views, and the default
-`home.php` template), see [Customizing the home page](/admin-guide/web-ui/customizing-home-page/).
+`home.php` template), see [Customizing the home page](/admin-guide/web-ui/customizing-home-page).
 
 **Webmaster name**: The name of the webmaster can be set here. This is
 the name that will be used in system emails sent to users.
@@ -61,36 +61,36 @@ To change the language of the application, expand the language section
 and choose the desired language. Click **Update** to save and apply the
 setting.
 
-![](~@imageBase/images/image60.png)
+![](/images/image60.png)
 
 The change of language will apply to both the user and the administrator
 interfaces.
 
-![](~@imageBase/images/image61.png)
+![](/images/image61.png)
 
-![](~@imageBase/images/image62.png)
+![](/images/image62.png)
 
 If you see content that is not in the selected language, it means that
 some translations are missing. If a translation is missing, or if you
 think that the translation is not accurate, you can add/edit the
 translation yourself. See the section "Translating NADA".
 
-![](~@imageBase/images/image63.png)
+![](/images/image63.png)
 
-![](~@imageBase/images/image64.png)
+![](/images/image64.png)
 
-![](~@imageBase/images/image65.png)
+![](/images/image65.png)
 
 ## Use of HTML Editor
 
 A basic HTML editor is provided in the menu and page creating section of
 the application. This setting allows this to be turned on or off.
 
-![](~@imageBase/images/image66.png)
+![](/images/image66.png)
 
 ## Survey catalog settings
 
-![](~@imageBase/images/image67.png)
+![](/images/image67.png)
 
 **Catalog folder**: This is the folder where the files for the study are
 stored on the server. This includes the DDI, eternal resources and data
@@ -135,7 +135,7 @@ folder from the Site Administration -- Manage Studies page page.
 **Catalog search page size**: This setting determines how many studies
 are displayed by default to the user on the search page -- catalog view.
 
-![](~@imageBase/images/image68.png)
+![](/images/image68.png)
 
 ## Site login
 
@@ -157,7 +157,19 @@ automatically logged out.
 created by the users at registration, or for manual user creation by
 administrators. The use of strong passwords is recommended.
 
-![](~@imageBase/images/image69.png)
+![](/images/image69.png)
+
+## Search provider
+
+Under Site configurations you can choose how the public catalog search runs:
+
+| Provider | Meaning |
+|----------|---------|
+| **Database (db)** | Built-in MySQL/MariaDB/SQL Server search (default; no Solr required) |
+| **Solr** | Full-text search via Apache Solr |
+| **OpenSearch** / **Semantic** | Other search backends (separate configuration) |
+
+To use Solr: install and index Solr first, then set **Search provider** to **Solr**. Full steps: [Solr search](/admin-guide/web-ui/solr) (admin) · [Solr install](/installation-guide/installation-solr).
 
 ## SMTP settings
 
@@ -175,7 +187,7 @@ cannot be done using the administrator interface). Once done, it is
 essential to test the email settings. This can be done using the "Test
 email configurations" button.
 
-![](~@imageBase/images/image70.png)
+![](/images/image70.png)
 
 Another way to test if the email settings are working is to use the
 "forgot password" option from the user login page. If no mail is

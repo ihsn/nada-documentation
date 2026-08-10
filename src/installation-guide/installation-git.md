@@ -1,70 +1,68 @@
-# Installation using GIT
+# Install with Git
 
-You can use GIT to install NADA, make sure your web server meets the software requirements, [see installation page](/installation-guide/installation). 
+Use Git when you want to track upstream changes or work from a specific branch/tag. Confirm [system requirements](./#system-requirements), clone and run Composer below, then **finish the install with your platform guide** ([Linux](./platform-linux) or [Windows](./platform-windows)) — permissions, database, web server, and installer.
 
+## Install a Git client
 
-## GIT client
+You need Git on the machine where you clone the code:
 
-For running the GIT commands to get/clone the source code, you'll need to install GIT on your web server or your local machine. There are several options available:
+- [Git SCM](https://git-scm.com/downloads)
+- [GitHub Desktop](https://desktop.github.com/)
+- [SourceTree](https://www.sourcetreeapp.com/)
 
-- SourceTree - https://www.sourcetreeapp.com/
-- GIT SCM - https://git-scm.com/downloads
-- Github Desktop - https://desktop.github.com/
+The examples below use the Git command line.
 
-There are many other GIT tools available, you can use whichever you prefer. Almost all GIT tools, come with a command line (CLI) tool. We will be using the GIT CLI commands.
-
-## Download NADA 
-
-To get the source code, use the following command. This will create a copy of the source code into a local folder on your machine or web server.
+## Clone NADA
 
 ```bash
+# Creates a folder named nada
+git clone https://github.com/ihsn/nada.git
 
-#this will create a folder named nada
-git clone https://github.com/ihsn/nada.git 
-
-#to create a different folder name
+# Or choose a folder name
 git clone https://github.com/ihsn/nada.git <folder-name>
-
 ```
 
-## NADA 5.2
-The above command will download the source code and by default switch to the `master` branch. For NADA 5.2, you'll need to switch to the 5.2 branch, run the below code:
+### Choose a release / branch
+
+`git clone` checks out the default branch (usually `master` / `main`). For a specific release, prefer a **tagged release** from [GitHub Releases](https://github.com/ihsn/nada/releases):
 
 ```bash
 cd <your-nada-folder>
-git checkout nada-5.2
+git fetch --tags
+git checkout V5.4.1   # example — use the tag you need
 ```
 
-## Update dependencies (Composer)
-NADA uses a Composer (package manager) for managing third party libraries. To update the dependencies, run these commands to download composer and update any packages/libraries that need updating:
+If you follow a maintenance branch instead, check the project README or release notes for the correct branch name for your target version (for example NADA 5.4.x).
+
+## Install PHP dependencies (Composer)
+
+NADA uses Composer for third-party libraries. Release zip packages often already include `vendor/`. After a fresh Git clone you usually need to run Composer.
+
+Install Composer using the official installer: [https://getcomposer.org/download/](https://getcomposer.org/download/)
+
+Then, from the NADA root:
 
 ```bash
-#Download composer
-php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php -r "if (hash_file('sha384', 'composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-php composer-setup.php
-php -r "unlink('composer-setup.php');"
+php composer.phar install
+# or, if composer is installed globally:
+composer install
+```
 
-#update/install packages
+If install fails, try a clean vendor tree:
+
+```bash
+rm -rf vendor
+rm -f composer.lock
 php composer.phar install
 ```
 
-:::tip Composer information
-To learn more about composer, see https://getcomposer.org/
+::: tip
+More about Composer: [https://getcomposer.org/](https://getcomposer.org/)
 :::
 
+## Continue on your platform
 
-If the commands fail to update the packages, you can try:
-
-```bash
-#remove the folder for vendor files
-rm -rf vendor
-
-#run composer to do a fresh install
-rm composer.lock
-php composer.phar install
-```
-
-## Configure database
-
-
+1. [Installation (Linux)](./platform-linux) — from permissions / database onward (or start at download if the clone already created your app root)
+2. **or** [Installation (Windows)](./platform-windows)
+3. Database: [MySQL / MariaDB](./database-mysql) or [SQL Server](./installation-sqlsrv)
+4. Then post-install [Configurations](./configurations/)

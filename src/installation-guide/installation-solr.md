@@ -1,86 +1,189 @@
-# Installation (SOLR Fulltext search)
+# Solr full-text search
 
-Solr is the popular, blazing-fast, open source enterprise search platform built on Apache Lucene™. - https://solr.apache.org/
+[Solr](https://solr.apache.org/) is an **optional** full-text search engine. It is typically faster and more capable than NADA’s built-in database search, especially for large catalogs and variable-level search.
 
-Solr provides a much faster and better fulltext search as compared to the built-in database search. To use Solr with NADA, the steps provided below are for Solr 9. The same steps can be used for older versions of Solr with some minor changes.
+By default NADA uses database search (`search_provider = db`). After Solr is installed and indexed, you switch the catalog to Solr in Site configurations.
 
-## Solr installation on Windows
+## Checklist
 
-1. Download the Solr 9 binary zip package - https://solr.apache.org/downloads.html
-2. Extract the zip file to a folder e.g. c:\solr
-3. Solr requires JAVA installed on the machine. To download JAVA, visit https://jdk.java.net/19/ and download the version available for Windows:
+1. Install Java and Solr ([Windows](#install-solr-on-windows) or [Linux](#install-solr-on-linux)).
+2. Confirm Solr Admin UI at `http://localhost:8983` (or your Solr host).
+3. Continue in the admin guide: [Solr search](/admin-guide/web-ui/solr) — connect NADA, create core, schema, index, and enable the search provider.
 
-<img src="https://user-images.githubusercontent.com/223824/200645009-657f8f28-033e-4d43-a3e9-38a3d7cdd21a.png" />
+---
 
-4. Extract the Java zip to a folder e.g. c:\java
-5. For Solr to find Java on your machine, you'll need to create a environment variable for `JAVA_HOME`. Click on the system Start menu and search for `system environment variables`, open the settings page and then click on the `Environment Variables` option.
+## Requirements
 
-![image](https://user-images.githubusercontent.com/223824/200649307-8a069cc9-bad4-4b4d-abe8-ea8e34ab01f4.png)
+| Component | Notes |
+|-----------|--------|
+| **Solr** | 9.x recommended (examples below assume Solr 9) |
+| **Java** | A JDK version supported by your Solr release — see [Solr system requirements](https://solr.apache.org/guide/) |
+| **Network** | PHP/NADA host must reach Solr (often `localhost:8983`) |
+| **NADA access** | Site administrator with permission to edit configurations |
 
+Do not expose Solr’s Admin UI (`8983`) to the public internet without authentication and a firewall.
 
-Under `System variables`, click on the `New` button to create a new variable. For the `variable name` type `JAVA_HOME` and provide path to the folder where you have installed Java.
+---
 
-![image](https://user-images.githubusercontent.com/223824/200650274-5fef9594-8321-450f-9056-ff0b8b84dac3.png)
+## Install Solr on Windows
 
+For a full NADA install on Windows, see [Installation (Windows)](./platform-windows).
 
-7. Test Solr installation: Go to the start menu and search for `Command` or `cmd` and open the App. Now switch to the folder where you have installed Solr by typing:
+### 1. Install Java
+
+1. Install a supported JDK for your Solr version (Windows x64).
+2. Set a system environment variable **`JAVA_HOME`** to the JDK folder (for example `C:\Java\jdk-17`).
+3. Open a new Command Prompt and run `echo %JAVA_HOME%` to confirm.
+
+### 2. Install Solr
+
+1. Download the Solr 9 binary package from [solr.apache.org/downloads](https://solr.apache.org/downloads.html).
+2. Extract it to a stable folder, for example `C:\solr`.
+3. Open Command Prompt:
+
+```bat
+cd C:\solr
+bin\solr.cmd start
+```
+
+On some installs the command is `bin\solr start`. Use whichever script exists under `bin`.
+
+4. Open `http://localhost:8983` in a browser. You should see the Solr Admin UI.
+5. Stop Solr for the next step:
+
+```bat
+bin\solr.cmd stop
+```
+
+### 3. Run Solr as a Windows service (NSSM)
+
+Solr does not install a Windows service by itself. [NSSM](https://nssm.cc/download) can run Solr in the background and start it on reboot.
+
+1. Download and extract NSSM (for example to `C:\nssm`).
+2. Open an **elevated** Command Prompt:
+
+```bat
+cd C:\nssm\win64
+nssm install solr9
+```
+
+3. In the NSSM dialog:
+
+| Field | Example |
+|-------|---------|
+| **Path** | `C:\solr\bin\solr.cmd` |
+| **Startup directory** | `C:\solr\bin` |
+| **Arguments** | `start -f -p 8983` |
+
+4. On the **Details** tab, set a display name (for example `Apache Solr 9`) and install the service.
+5. Start the service from **Services** (`services.msc`), or:
+
+```bat
+nssm start solr9
+```
+
+6. Confirm `http://localhost:8983` again.
+
+---
+
+## Install Solr on Linux
+
+For a full NADA install on Linux, see [Installation (Linux)](./platform-linux).
+
+Examples below use Debian/Ubuntu-style commands and `/opt/solr`. Adjust paths and package names for your distribution.
+
+### 1. Install Java
 
 ```bash
-  cd c:\solr
+sudo apt update
+sudo apt install openjdk-17-jdk-headless
+java -version
 ```
 
-To start Solr, type:
+Use a JDK version supported by your Solr release.
+
+### 2. Install Solr
 
 ```bash
-  bin/solr start
+cd /tmp
+# Download the Solr 9.x tgz from https://solr.apache.org/downloads.html
+tar xzf solr-9.*.tgz
+sudo mkdir -p /opt/solr
+sudo cp -a solr-9.*/* /opt/solr/
+sudo useradd --system --home-dir /opt/solr --shell /usr/sbin/nologin solr || true
+sudo chown -R solr:solr /opt/solr
 ```
 
-If the command was successful, you'll see the message reporting the status of Solr and the URL where Solr is running e.g. `http://localhost:8983`
+Test start:
 
-8. Open the web browser and visit `http://localhost:8983` to confirm that Solr is running.
-9. Go back to the command line and type `bin/solr stop` to stop Solr. 
-10. Solr must be configured as service otherwise whenever your system restarts or Solr application crashes, it will not start on its own. 
-
-Solr on Windows does not provide any built-in options to run as a service. To run Solr as service, we will use a third party tool NSSM to create a Windows service.
-
-a. Download NSSM - https://nssm.cc/download
-
-b. Extract NSSM to a folder - c:\nssm
-
-c. Open `command line` and change folder to c:\nssm and run:
-
-```
-  nssm install solr9
+```bash
+sudo -u solr /opt/solr/bin/solr start
 ```
 
-This will open NSSM Service installer:
+Open `http://YOUR_SERVER:8983`. Then stop:
 
-![image](https://user-images.githubusercontent.com/223824/200653863-0eba7922-856f-413c-ac75-0d03aa85f1fa.png)
-
-Fill in the information with Solr path and start options:
-
-* Path: Path to the Solr executable file
-* Startup directory: Path to your Solr/bin folder
-* Arguments: `start -f -p 8983`
-
-Switch to the tab `Details`:
-
-![image](https://user-images.githubusercontent.com/223824/200654641-7e963800-7d08-461e-b281-ea3964df26ea.png)
-
-Precess `Install service` to finish the installation.
-
-13. Now you can manage Solr via System services to start, stop and set it to automatically start on system reboot.
-14. Visit http://localhost:8983 to confirm Solr is running. If you don't see it running, go to the 'Services' and change the service status to start.
-
-## Create Solr core/collection for NADA
-
-To use Solr with NADA, you'll need to create a new core/collection. To create a new core, you can do that using the following command:
-
-```
-bin/solr create_core -c nada
+```bash
+sudo -u solr /opt/solr/bin/solr stop
 ```
 
-## Update Solr schema file 
+### 3. systemd unit (recommended)
 
-todo
+Create `/etc/systemd/system/solr.service`:
 
+```ini
+[Unit]
+Description=Apache Solr
+After=network.target
+
+[Service]
+Type=forking
+User=solr
+Group=solr
+Environment=SOLR_PID_DIR=/opt/solr
+Environment=SOLR_HOME=/opt/solr/server/solr
+WorkingDirectory=/opt/solr
+ExecStart=/opt/solr/bin/solr start
+ExecStop=/opt/solr/bin/solr stop
+Restart=on-failure
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now solr
+sudo systemctl status solr
+```
+
+Confirm `http://YOUR_SERVER:8983`. Restrict port **8983** with a firewall if the server is publicly reachable.
+
+---
+
+## Next: connect NADA and index
+
+With Solr running, finish setup in the administrator guide:
+
+**[Solr search](/admin-guide/web-ui/solr)** — `solr.php` connection, create core, schema, indexing, and enabling the search provider.
+
+---
+
+## Troubleshooting (install)
+
+| Issue | What to check |
+|-------|----------------|
+| Solr Admin UI not reachable | Java installed; Solr started; port `8983`; firewall |
+| Service fails on boot (Windows) | NSSM service path/arguments; `JAVA_HOME` for the service account |
+| Service fails on boot (Linux) | `systemctl status solr`; user `solr` owns `/opt/solr`; `LimitNOFILE` |
+
+For ping, schema, and indexing issues after connect, see [Solr search — troubleshooting](/admin-guide/web-ui/solr#troubleshooting).
+
+---
+
+## Related
+
+- [Installation overview](./) · [Installation (Linux)](./platform-linux) · [Installation (Windows)](./platform-windows)
+- [Solr search (admin)](/admin-guide/web-ui/solr)
+- [Site configurations](/admin-guide/web-ui/site-configurations)
+- [Apache Solr documentation](https://solr.apache.org/guide/)

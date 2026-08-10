@@ -15,7 +15,7 @@ install_github("mah0001/nadar")
 
 Once installed, NADAR functions and their documentation will be available in R, RStudio, or other IDE.
 
-![](~@imageBase/images/image47.png)
+![](/images/image47.png)
 
 ## Python library PyNADA
 
@@ -25,7 +25,7 @@ The PyNADA package was developed for Python 3.n. It is available on GitHub (http
 pip install pynada
 ```
 
-![](~@imageBase/images/image48.png)
+![](/images/image48.png)
 
 You can also install the latest development version directly from the github repository with:
 ```python
@@ -38,4 +38,4 @@ cd PyNADA
 pip install PyNADA
 ```
 
-To install from github using the above methods, git needs to be installed on your computer and included in your PATH environment variable. Instructions on how to install git are provided here: https://github.com/git-guides/install-git [Catalog administration](/admin-guide/web-ui/)
+To install from github using the above methods, git needs to be installed on your computer and included in your PATH environment variable. Instructions on how to install git are provided here: https://github.com/git-guides/install-git

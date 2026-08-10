@@ -1,6 +1,6 @@
 # Countries
 
-![](~@imageBase/images/image71.png)
+![](/images/image71.png)
 Most entries in a data catalog will relate to one or multiple countries.
 All metadata standards and schemas used by NADA include an element to
 capture this information:
@@ -42,14 +42,14 @@ edited.
 
 ## Using the administrator interface 
 
-![](~@imageBase/images/image72.png)
+![](/images/image72.png)
 
 To add a new country, click "Add new country". To edit a country, click
 on "Edit". In both cases, you will be taken to a form where the country
 name to be used as the reference, its code (ISO, or possibly other), and
 the variants of the country name (aliases), can be entered or edited.
 
-![](~@imageBase/images/image73.png)
+![](/images/image73.png)
 
 The list of countries entered in this list will serve as a control list
 for metadata entered in NADA. When metadata are imported and contain
@@ -68,13 +68,13 @@ fixes (i.e. the aliases for country names) will be stored, so the
 chances of finding non-compliant names in metadata is likely to rapidly
 reduce over time.
 
-![](~@imageBase/images/image74.png)
+![](/images/image74.png)
 
 Clicking on any flagged name, or on the main menu item Settings \>
 Countries, will open the page where the mappings can be done. In that
 page, click on "Country mappings".
 
-![](~@imageBase/images/image75.png)
+![](/images/image75.png)
 
 This will open a table showing the list of non-compliant country names.
 For each one of them, you can select a country from the list of
@@ -90,7 +90,7 @@ impact is that they will not be identified in the filter by country
 (facet), which only shows the countries found in the reference list as
 options.
 
-![](~@imageBase/images/image76.png)
+![](/images/image76.png)
 
 Warning: if you delete a country ...
 

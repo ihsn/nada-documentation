@@ -6,7 +6,7 @@ NADA does not impose any organization of your files and folders. But if you mana
 
 -   Provide script friendly folder names. This includes avoiding spaces between characters in folder names. Script friendly folder names facilitate bulk processing of resources between the catalog and the archive, and during analysis and performance other data management tasks.
 
-![](~@imageBase/images/image41.png)
+![](/images/image41.png)
 
 ## Microdata
 
@@ -18,7 +18,7 @@ NADA does not impose any organization of your files and folders. But if you mana
 
 **Example:**
 
-![](~@imageBase/images/image42.png)
+![](/images/image42.png)
 
 ## Documents
 
@@ -26,22 +26,22 @@ The documents folder can hold various types of documents, with assignment of doc
 
 **Example:**
 
-![](~@imageBase/images/image43.png)
+![](/images/image43.png)
 
 ## Geospatial Data
 
-![](~@imageBase/images/image44.png)
+![](/images/image44.png)
 
 Machine readable folder and sub-folder names that indicate the geographical coverage, time-period and version as well as the contents of each folder. The original data should be stored separately in a clearly labeled folder and should not be overwritten.
 
 ## Tables
 
-![](~@imageBase/images/image45.png)
+![](/images/image45.png)
 
 Machine readable folder and sub-folder names that indicate the geographical coverage, time-period and folder content. The original data should be stored separately in a clearly labeled folder and should not be overwritten.
 
 ## Time Series
 
-![](~@imageBase/images/image46.png)
+![](/images/image46.png)
 
 Machine readable folder names for each indicator, sub-folder names that capture the indicator name, time-period and folder content. The original data should be stored separately in a clearly labeled folder and should not be overwritten.

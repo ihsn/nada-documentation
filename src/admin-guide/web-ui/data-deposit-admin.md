@@ -9,14 +9,14 @@ the workflow, see what is in the pipeline (draft and submitted
 projects); review deposits that are still in draft status and feedback
 to depositors before they submit.
 
-![](~@imageBase/images/image223.png)
+![](/images/image223.png)
 
 For each deposit, there are three primary actions that can be performed
 by an administrator: Assign, Edit and Delete.
 
 ## Assign tasks 
 
-![](~@imageBase/images/image224.png)
+![](/images/image224.png)
 
 An administrator can assign a deposit to a curator, who also has
 administrative rights to access the deposit admin site. The system sends
@@ -25,7 +25,7 @@ curators on who is managing the deposit. To assign a deposit to a
 curator, click the assign link then select the assignee from the list of
 admins and click submit.
 
-![](~@imageBase/images/image225.png)
+![](/images/image225.png)
 
 Once a deposit is assigned, a tag is displayed next to the deposit with
 the initials of the assigned curator. The tag is color coded to signal
@@ -34,7 +34,7 @@ projects is work in progress. This can be updated by the curator once it
 is resolved. This status is independent of the deposit workflow status
 and is updated separately.
 
-![](~@imageBase/images/image226.png)
+![](/images/image226.png)
 
 ## Features to keep track of assigned tasks
 
@@ -42,7 +42,7 @@ An administrator can view all active tasks by using this url:
 
 Catalog url+ **/admin/datadeposit/tasks**
 
-![](~@imageBase/images/image227.png)
+![](/images/image227.png)
 
 A curator/admin can view their tasks by using this url: Catalog url+
 **/admin/datadeposit/tasks/my_tasks**
@@ -50,11 +50,11 @@ A curator/admin can view their tasks by using this url: Catalog url+
 Tasks are listed in order starting with deposit projects assigned to the
 curator/admin, followed by deposits assigned by the admin to others.
 
-![](~@imageBase/images/image228.png)
+![](/images/image228.png)
 
 ## Edit deposits (Manage projects)
 
-![](~@imageBase/images/image229.png)
+![](/images/image229.png)
 
 The Edit link opens a Manage Projects page where an administrator can
 manage a deposit project from the following tabs:
@@ -76,7 +76,7 @@ uploaded files and citations. From this tab, an administrator can also:
 project information but not included in the DDI, these will need to be
 added to the citation repository and attached to the study separately.
 
-![](~@imageBase/images/image230.png)
+![](/images/image230.png)
 
 ## Process (Update Status)
 
@@ -84,7 +84,7 @@ added to the citation repository and attached to the study separately.
 > the deposit to any of the available statuses (draft, accepted,
 > processed, closed) and notify the depositor as well as collaborators
 > by email. Reopen sets the status of a project to draft.
-> ![](~@imageBase/images/image231.png)
+> ![](/images/image231.png)
 
 **NOTE:** Since the data deposit system does not automatically publish
 or add content to the catalog and archive, when the administrator
@@ -101,7 +101,7 @@ project with the study in the archive and catalog.
 > This tab lists all the files uploaded to the project, indicates where
 > they are stored, and provides their download links.
 >
-> ![](~@imageBase/images/image232.png)
+> ![](/images/image232.png)
 
 ## Communicate
 
@@ -110,7 +110,7 @@ collaborators regarding deposits without leaving the deposit site.
 Emails sent this way are logged in the project deposit history and are
 useful for reference e.g if updates on embargo dates are sent via email.
 
-> ![](~@imageBase/images/image233.png)
+> ![](/images/image233.png)
 
 ## Deposit History
 
@@ -118,11 +118,11 @@ The deposit history tab provides a log of changes made to the deposit.
 If a depositor updates a deposit, the administrator is informed of the
 changes in the deposit.
 
-> ![](~@imageBase/images/image234.png)
+> ![](/images/image234.png)
 
 ## Delete projects
 
-![](~@imageBase/images/image235.png)
+![](/images/image235.png)
 
 The delete link enables the administrator to delete deposits projects.
 To avoid inadvertent deletion, the system will request the confirmation

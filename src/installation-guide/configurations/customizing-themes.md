@@ -3,7 +3,7 @@
 The **public catalog** appearance—top navigation, footer, typography, colors—is controlled by the **site theme**: PHP layouts and CSS under `themes/{theme-name}/`. The active theme is set in **`application/config/template.php`** via **`$template['theme_name']`** (by default **`nada52`**).
 
 ::: tip Administrator settings vs theme files
-**Website title** and **Website footer** can be edited under [Site configurations](/admin-guide/web-ui/site-configurations/). The theme must **output** those values where you want them (for example `website_title` is commonly used in the header/footer). If your footer does not show the admin **Website footer** text, edit the theme’s **`footer.php`** to include `<?php echo $this->config->item('website_footer'); ?>` where appropriate.
+**Website title** and **Website footer** can be edited under [Site configurations](/admin-guide/web-ui/site-configurations). The theme must **output** those values where you want them (for example `website_title` is commonly used in the header/footer). If your footer does not show the admin **Website footer** text, edit the theme’s **`footer.php`** to include `<?php echo $this->config->item('website_footer'); ?>` where appropriate.
 :::
 
 ## When to customize `nada52` directly
@@ -47,6 +47,6 @@ If you plan **heavy** layout changes or want clean merges when upgrading:
 
 ## Related documentation
 
-- [Customizing the home page](/admin-guide/web-ui/customizing-home-page/) — body content at `/`, static views under `application/views/static/custom/`.
-- [Tracking website traffic using Google Analytics](/installation-guide/configurations/google-analytics/) — injecting scripts (often in `layout.php` / `<head>`).
-- [Site configurations](/admin-guide/web-ui/site-configurations/) — **Website title**, **Website footer**, caching.
+- [Customizing the home page](/admin-guide/web-ui/customizing-home-page) — body content at `/`, static views under `application/views/static/custom/`.
+- [Tracking website traffic using Google Analytics](/installation-guide/configurations/google-analytics) — injecting scripts (often in `layout.php` / `<head>`).
+- [Site configurations](/admin-guide/web-ui/site-configurations) — **Website title**, **Website footer**, caching.

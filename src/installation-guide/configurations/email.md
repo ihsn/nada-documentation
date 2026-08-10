@@ -1,5 +1,7 @@
 # Email configurations
 
+For SMTP drivers, SendGrid, and troubleshooting, see also [Email (advanced)](./email-advanced).
+
 For the NADA to function correctly it is important that this step be completed.
 
 Many of the functions within the NADA – such as registration and applying for access to datasets require that the NADA be able to send emails to users. 
@@ -12,11 +14,11 @@ A. Open the file application/config/email.php in notepad
 
 B. Fill in the section using SMTP server with authentication enabled highlighted in below image
 
-![](~@imageBase/images/smtp-config.png)
+![](/images/smtp-config.png)
 
 C. For Gmail user will have to fill the gmail smtp section shown as below
 
-![](~@imageBase/images/gmail-email-config.png)
+![](/images/gmail-email-config.png)
 
 D. Save file
 
@@ -33,7 +35,7 @@ B.	Go to Site administration, click on the Settings menu and choose “Settings�
 
 C.	Find the section “SMTP settings”
 
-![](~@imageBase/images/smtp-settings.png)
+![](/images/smtp-settings.png)
 
 D.	If the PHP/web server is configured to send email using PHP’s MAIL function, select the first option and don’t fill in anything else.
 
@@ -67,7 +69,7 @@ The quickest way to test if the email settings are working is to use the “forg
 
 *	Click on forgot password 
 
-![](~@imageBase/images/forgot-password.png)
+![](/images/forgot-password.png)
  
 *	Enter the administrator or any other accounts email address. 
 

@@ -48,7 +48,7 @@ curl -X GET "https://your-catalog-url.com/api/widgets/" \
 }
 ```
 
-![List Widgets API](screenshots/api-list-widgets.png)
+*[List Widgets API — screenshot asset not in repo: `screenshots/api-list-widgets.png`]*
 
 ---
 
@@ -144,7 +144,7 @@ curl -X POST "https://your-catalog-url.com/api/widgets/my-widget-uuid-001" \
 }
 ```
 
-![Create Widget API](screenshots/api-create-widget.png)
+*[Create Widget API — screenshot asset not in repo: `screenshots/api-create-widget.png`]*
 
 ---
 
@@ -204,7 +204,7 @@ curl -X POST "https://your-catalog-url.com/api/widgets/delete/my-widget-uuid-001
 }
 ```
 
-![Delete Widget API](screenshots/api-delete-widget.png)
+*[Delete Widget API — screenshot asset not in repo: `screenshots/api-delete-widget.png`]*
 
 ---
 
@@ -262,7 +262,7 @@ https://your-catalog-url.com/widgets/view/{uuid}
 
 This page displays widget information, metadata, and related studies.
 
-![Widget View Page](screenshots/widget-view-page.png)
+*[Widget View Page — screenshot asset not in repo: `screenshots/widget-view-page.png`]*
 
 **Embed Preview:**
 ```
@@ -271,7 +271,7 @@ https://your-catalog-url.com/widgets/embed/{uuid}
 
 This page shows the widget as it would appear when embedded, with responsive iframe support via pym.js.
 
-![Widget Embed Preview](screenshots/widget-embed-preview.png)
+*[Widget Embed Preview — screenshot asset not in repo: `screenshots/widget-embed-preview.png`]*
 
 **Widgets List:**
 ```
@@ -280,7 +280,7 @@ https://your-catalog-url.com/widgets/
 
 Browse all available widgets in the catalog.
 
-![Widgets List Page](screenshots/widgets-list-page.png)
+*[Widgets List Page — screenshot asset not in repo: `screenshots/widgets-list-page.png`]*
 
 ---
 
@@ -364,7 +364,7 @@ curl -X POST "https://your-catalog-url.com/api/widgets/detach_study" \
 }
 ```
 
-![Detach Widget from Study](screenshots/detach-widget-study.png)
+*[Detach Widget from Study — screenshot asset not in repo: `screenshots/detach-widget-study.png`]*
 
 ---
 
@@ -410,8 +410,8 @@ Each widget has the following metadata fields:
 Widgets are automatically enhanced with pym.js for responsive iframe embedding. The embed endpoint automatically injects:
 
 ```html
-<script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"></script>
-<script>window.onload = function () {var pymChild = new pym.Child();}</script>
+<script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"><\/script>
+<script>window.onload = function () {var pymChild = new pym.Child();}<\/script>
 ```
 
 This ensures widgets automatically resize to fit their container.
@@ -440,7 +440,7 @@ You can include dependencies in two ways:
 1. **Via CDN** (recommended for most cases):
 ```html
 <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"><\/script>
 
 <!-- Bootstrap 5 CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">

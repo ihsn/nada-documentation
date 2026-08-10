@@ -10,7 +10,7 @@ The following facets are displayed by default in NADA:
 -   Data type (shown only when a catalog includes entries of more than
     one type)
 
-![](~@imageBase/images/image146.png)
+![](/images/image146.png)
 
 You can add your own facets and apply them to each data type
 independently. Facets must be created based on metadata elements in the
@@ -20,7 +20,7 @@ When metadata are documented using CVs, make it easier. All metadata
 schemas used in NADA have an element "tags" that provides much
 flexibility to create custom facets.
 
-![](~@imageBase/images/image4.png)
+![](/images/image4.png)
 
 ## Creating a new facet
 
@@ -28,9 +28,9 @@ flexibility to create custom facets.
 
 To manage facets, click on Settings \> Facets in the main menu.
 
-![](~@imageBase/images/image133.png)
+![](/images/image133.png)
 
-![](~@imageBase/images/image147.png)
+![](/images/image147.png)
 
 Click on **Create new facet**. In each relevant schema, you will have to
 identify the element that corresponds to the facet being created. In
@@ -44,7 +44,7 @@ In the Create Facet form, you will provide a short name for the facet, a
 title (header to be displayed in the user interface), and a status
 (Enabled/Disabled).
 
-![](~@imageBase/images/image148.png)
+![](/images/image148.png)
 
 In the **Field** section, select the metadata field that correspond to
 your facet. For example, if you create a facet to allow users to filter
@@ -59,7 +59,7 @@ For example, the field "language" has a component "name" and a component
 will have to select the element "name". The fields that contain more
 than one component are identified with a \* in the drop-down list.
 
-![](~@imageBase/images/image149.png)
+![](/images/image149.png)
 
 **Filter and Filter value**: These options allow you to limit the filter
 to some specific values in the metadata. An example of the use of filter
@@ -70,7 +70,7 @@ After creating a new facet, you must click on the **Indexer** button to
 reindex the metadata in your catalog. Without doing this, the facet will
 not be displayed in your catalog.
 
-![](~@imageBase/images/image150.png)
+![](/images/image150.png)
 
 ## Using the API 
 
@@ -83,7 +83,7 @@ Facets cannot be created using the API in NADA 5.2.0.
 To activate the facets and change the order in which they appear in the
 user interface, click on Configure.
 
-![](~@imageBase/images/image151.png)
+![](/images/image151.png)
 
 The different data types are displayed in tabs where all available
 facets are listed. In each tab, select the facet you want to display in
@@ -92,7 +92,7 @@ On/Off). The order of the facets can be modified by drag and drop. When
 a change is made in the selection and/or order, click on **Update** to
 save it.
 
-![](~@imageBase/images/image152.png)
+![](/images/image152.png)
 
 ## Using the API 
 
@@ -106,7 +106,7 @@ specific elements found in the metadata schemas. The "tags" field
 available in all metadata schemas contains two elements: tag, and
 tag_group.
 
-![](~@imageBase/images/image153.png)
+![](/images/image153.png)
 
 Let's assume you want to create a facet that would apply to ALL data
 types and filter entries by pricing policy, with two possible options:
@@ -128,7 +128,7 @@ parameters:
 
 -   Filter value: *fee_or_free*
 
-![](~@imageBase/images/image154.png)
+![](/images/image154.png)
 
 The selection of the "tags" field and the filter and filter value must
 be entered for ALL data types. After saving it and reindexing, a new

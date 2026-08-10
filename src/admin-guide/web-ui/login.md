@@ -12,12 +12,12 @@ data request approver; the specific administrator privileges are defined
 by the full administrator in the "Users" section of the administrator
 interface).
 
-![](~@imageBase/images/image49.png)
+![](/images/image49.png)
 
 After login as administrator, the login button will display a menu as
 follows.
 
-![](~@imageBase/images/image50.png)
+![](/images/image50.png)
 
 The Site administration link will open the administrator interface
 ("Dashboard").
@@ -34,7 +34,7 @@ them, are like your password and must be kept strictly confidential. If
 you have any reason to believe that your key has been compromised,
 cancel it immediately, and generate a new key.
 
-![](~@imageBase/images/image51.png)
+![](/images/image51.png)
 
 ## Using the API 
 

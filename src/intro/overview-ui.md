@@ -7,7 +7,7 @@ examples we provide here are extracted from this catalog. As the content
 may be subject to frequent changes, the examples below may not fully
 correspond to the on-line version.
 
-![](~@imageBase/images/image2.png)
+![](/images/image2.png)
 
 The main page of NADA is a listing of all datasets available in the
 catalog. In the default view, all data types are listed in the same
@@ -16,7 +16,7 @@ listing by data type. Only tabs for which data are available in the
 catalog will be displayed. Few catalogs are expected to have tabs for
 all data types.
 
-![](~@imageBase/images/image3.png)
+![](/images/image3.png)
 
 The left panel will provide a set of facets (filters), which can be
 specific to each data type. Facets provide a convenient solution for
@@ -27,30 +27,30 @@ is only used for documenting images, or the element "Software/language"
 is only applicable to scripts), different facets are displayed in the
 type-specific tabs.
 
-![](~@imageBase/images/image4.png)
+![](/images/image4.png)
 
 When filters are applied, the selection(s) will be displayed in pills
 above the listing of results.
 
-![](~@imageBase/images/image5.png)
+![](/images/image5.png)
 
 In addition to facets, users can identify datasets of interest using the
 **search** tool. Depending on the configuration of the catalog. In NADA
 5.2, a lexical search is implemented (future versions will provide
 lexical and semantic searchability).
 
-![](~@imageBase/images/image6.png)
+![](/images/image6.png)
 
 The results of search and filter(s) will be displayed for the whole
 catalog ("All" tab) and by data type.
 
-![](~@imageBase/images/image7.png)
+![](/images/image7.png)
 
 For **[microdata]{.underline}**, the search engine will not only
 identify the [datasets]{.underline} where the keyword was found, but
 also the specific [variables]{.underline} that match the query.
 
-![](~@imageBase/images/image8.png)
+![](/images/image8.png)
 
 For microdata, a "Variable view" option is provided to display a list of
 variables (instead of a list of studies) that match the keyword.
@@ -63,23 +63,23 @@ information on how the variable was calculated, universe of population
 covered by the variable, variable and value labels, and summary
 statistics as relevant.
 
-![](~@imageBase/images/image9.png)
+![](/images/image9.png)
 
-![](~@imageBase/images/image10.png)
+![](/images/image10.png)
 
 For all entries in the catalog, all available metadata are displayed in
 the entry page.
 
-![](~@imageBase/images/image11.png)
+![](/images/image11.png)
 
 Some entries may include visualizations, if provided by the data
 curator.
 
-![](~@imageBase/images/image12.png)
+![](/images/image12.png)
 
 Some entries may also provide a data preview grid.
 
-![](~@imageBase/images/image13.png)
+![](/images/image13.png)
 
 Some entries will provide direct, unrestricted access to the related
 resources (documents, images, datasets, scripts, etc.) Other entries may
@@ -92,11 +92,11 @@ questionnaires, reports, tables, and others will be published).
 Depending on the access policy, users will be able to download the data,
 or to register and request access to datasets.
 
-![](~@imageBase/images/image14.png)
+![](/images/image14.png)
 
 Users will have access to all metadata and to selected data via API.
 
 <https://nada-demo.ihsn.org/index.php/api/tables>
 
-![](~@imageBase/images/image15.png)
+![](/images/image15.png)
 

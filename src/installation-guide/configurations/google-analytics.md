@@ -14,14 +14,14 @@ The Tracking ID will have the format UA-XXXXXXXX-X. You will need to copy the tr
 
 ```html
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"><\/script>
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 
 gtag('config', 'UA-15191223-3');
-</script>
+<\/script>
 ```
 
 ### 3. Adding the tracking code to your NADA
@@ -35,7 +35,7 @@ $template['theme_name']='wb';
 
 The configuration setting `theme_name` points to the folder inside the themes folder in NADA. Locate the theme under the themes folder, and open the `layout.php` file in any text editor such as notepad or notepad++.
 
-Paste the Google site tracking code just before the closing </head> tag and save the file.
+Paste the Google site tracking code just before the closing `</head>` tag and save the file.
 
 
 ### 4. Verify the tracking is working

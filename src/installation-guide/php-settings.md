@@ -1,99 +1,105 @@
 # PHP settings
 
-## Finding the correct PHP.INI
+## Finding the correct php.ini
 
-To make sure you are editing the correct PHP.INI settings file, create a PHP file (e.g. info.php) in your nada website folder with the following contents:
+Create a temporary PHP file (for example `info.php`) in your NADA web folder:
 
 ```php
 <?php phpinfo(); ?>
 ```
 
-Open the phpinfo page in your web browser and you should see output similar to below screenshot. Edit the php.ini file displayed by the setting **Loaded Configuration File**.
+Open it in the browser and note **Loaded Configuration File**. Edit that `php.ini`, then **delete `info.php`** from the server.
 
-![NADA installer](~@imageBase/images/php-info.png)
+![PHP info](/images/php-info.png)
 
-
+---
 
 ## File upload limits
 
-By default PHP allows uploads of 2MB which could be a problem if you have large files that you want to upload. To change the settings:
+By default PHP often allows only small uploads (for example 2MB). For large data files, raise both of these together:
 
-1. Edit the `php.ini` file in notepad/notepad++ and look for the setting **upload_max_filesize**
-
-2. The line should look like: 
-
-```php
-; Maximum allowed size for uploaded files.
-; http://php.net/upload-max-filesize
-
-upload_max_filesize = 2M
-```
-
-3. Change it to the required file upload limit per your needs
-
-```php
+```ini
 upload_max_filesize = 800M
-```
-
-4. There is another setting that MUST be changed as well for the file upload limits to work. Look for the configuration **post_max_size** and change it to match the value for upload_max_filesize:
-
-```php
 post_max_size = 800M
 ```
 
-## TimeZone settings
+`post_max_size` must be at least as large as `upload_max_filesize`.
 
-This is for setting the timezone for your application. To findout what is the correct timezone for your website, go to http://php.net/manual/en/timezones.php and find your country/city. 
+---
 
-Example::
+## Time zone
 
-```php
+Set your site’s time zone ([list of time zones](https://www.php.net/manual/en/timezones.php)):
+
+```ini
 date.timezone = "America/New_York"
 ```
 
+---
 
-## Increase page execution/timeout
-This setting controls the maximum execution time of a page in seconds.
+## Execution time and memory
 
-```php
+```ini
 max_execution_time = 300
-```
-
-
-## Increase PHP memory limit
-
-It controls the memory available to PHP scripts.
-
-```php
 memory_limit = 128M
 ```
 
+Increase further if large imports or API jobs time out.
+
+---
 
 ## Enable PHP extensions
 
-NADA requires the following PHP extensions:
+NADA requires:
 
-* xsl
-* mbstring
-* mysqli
-* sqlsrv - only if you are using Microsoft SQL Server, see page [Installation with SQL Server](installation-guide/installation-sqlsrv)
+- xsl
+- xml
+- mbstring
+- **mysqli** — if using MySQL or MariaDB
+- **sqlsrv** — if using Microsoft SQL Server ([Install with SQL Server](./installation-sqlsrv))
 
-To enable XSL extension, add this line:
+Use the extension that matches your database choice (MySQL/MariaDB **or** SQL Server — not both required).
 
-```php
+**Minimum PHP version:** 7.4 · **Recommended:** PHP 8.x
+
+### Windows
+
+**Recommended:** use [PHP Manager for IIS](https://www.iis.net/downloads/community/2018/05/php-manager-150-for-iis-10) to register PHP and enable extensions — see [Installation (Windows) — Install PHP](./platform-windows#step-1-install-php-and-register-it-with-iis).
+
+You can also edit `php.ini` directly. Enable extensions with `.dll` names (exact names depend on your PHP build):
+
+```ini
 extension=php_xsl.dll
-```
-
-To enable mbstring:
-
-```php
 extension=php_mbstring.dll
+extension=php_mysqli.dll
 ```
 
+Restart IIS or recycle the app pool after saving (or use PHP Manager’s refresh). See [Installation (Windows)](./platform-windows).
 
+### Linux
 
+Prefer your distribution’s packages / `phpenmod`, for example:
 
+```bash
+sudo apt install php-xsl php-xml php-mbstring php-mysql
+# or enable modules if already installed:
+sudo phpenmod xsl mbstring mysqli
+sudo systemctl restart apache2
+```
 
+If you edit `php.ini` directly, module lines typically look like:
 
+```ini
+extension=xsl
+extension=mbstring
+extension=mysqli
+```
 
+See [Installation (Linux)](./platform-linux).
 
+---
+
+## Related
+
+- [Installation](./)  
+- [Debug](./debug)  

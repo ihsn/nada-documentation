@@ -2,22 +2,22 @@
   "name": "NADA",
   "version": "0.0.1",
   "description": "Data catalog",
-  "main": "index.js",
+  "type": "module",
   "authors": {
     "name": "Mehmood Asghar",
     "email": "mah0001@gmail.com"
   },
   "repository": "/NADA",
   "scripts": {
-    "dev": "vuepress dev src",
-    "build": "vuepress build src"
+    "dev": "vitepress dev src",
+    "build": "vitepress build src",
+    "preview": "vitepress preview src"
   },
   "license": "MIT",
   "devDependencies": {
-    "markdown-it-imsize": "^2.0.1",
-    "vuepress": "^1.5.3"
+    "vitepress": "^1.6.3"
   },
   "dependencies": {
-    "vuepress-plugin-code-copy": "^1.0.6"
+    "leaflet": "^1.9.4"
   }
 }

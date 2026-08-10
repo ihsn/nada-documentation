@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Guía de Migración NADA: 4.x a 5.x (Linux)</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } 
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.at { color: #204a87; } 
+code span.bn { color: #0000cf; } 
+code span.cf { color: #204a87; font-weight: bold; } 
+code span.ch { color: #4e9a06; } 
+code span.cn { color: #8f5902; } 
+code span.co { color: #8f5902; font-style: italic; } 
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.dt { color: #204a87; } 
+code span.dv { color: #0000cf; } 
+code span.er { color: #a40000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #0000cf; } 
+code span.fu { color: #204a87; font-weight: bold; } 
+code span.im { } 
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.kw { color: #204a87; font-weight: bold; } 
+code span.op { color: #ce5c00; font-weight: bold; } 
+code span.ot { color: #8f5902; } 
+code span.pp { color: #8f5902; font-style: italic; } 
+code span.sc { color: #ce5c00; font-weight: bold; } 
+code span.ss { color: #4e9a06; } 
+code span.st { color: #4e9a06; } 
+code span.va { color: #000000; } 
+code span.vs { color: #4e9a06; } 
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } 
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Guía de Migración NADA: 4.x a 5.x (Linux)</h1>
+</header>
+<h1 id="migración-de-nada-4.x-a-5.x-linux">Migración de NADA 4.x a 5.x
+(Linux)</h1>
+<p>Esta guía cubre la migración completa desde cualquier instalación de
+NADA <strong>4.x</strong> hasta la versión más reciente
+<strong>5.6</strong> en un servidor Linux con Apache y MySQL o
+MariaDB.</p>
+<p>El proceso despliega NADA 5.6 en una <strong>carpeta nueva</strong>
+junto a la instalación existente, la conecta a la base de datos actual y
+ejecuta las actualizaciones de base de datos de cada versión en
+secuencia. La instalación anterior permanece intacta hasta que esté
+listo para realizar el cambio.</p>
+<p>Cadena de migración completa: <strong>4.x → 5.0 → 5.2 → 5.4 → 5.5 →
+5.6</strong></p>
+<blockquote>
+<p><strong>Warning: Requiere tiempo fuera de servicio</strong></p>
+<p>Esta es una actualización de versión mayor. Planifique una ventana de
+mantenimiento. Active el modo de mantenimiento antes de iniciar los
+pasos de migración de la base de datos.</p>
+</blockquote>
+<hr />
+<h2 id="verificar-la-versión-actual-de-nada">1. Verificar la versión
+actual de NADA</h2>
+<p>Abra el archivo <code>index.php</code> en la raíz de su instalación
+de NADA existente y busque la constante de versión cerca del inicio del
+archivo:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode php"><code class="sourceCode php"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">define</span>(<span class="st">&#39;APP_VERSION&#39;</span><span class="ot">,</span> <span class="st">&#39;4.4&#39;</span>)<span class="ot">;</span></span></code></pre></div>
+<p>Esto indica dónde debe comenzar en la cadena de migración. Si ya está
+en una versión 5.x, avance a la sección correspondiente.</p>
+<p>Mientras el archivo está abierto, también anote la línea
+<code>ENVIRONMENT</code> — necesitará actualizarla antes de entrar en
+producción:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode php"><code class="sourceCode php"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">define</span>(<span class="st">&#39;ENVIRONMENT&#39;</span><span class="ot">,</span> <span class="kw">isset</span>(<span class="va">$_SERVER</span>[<span class="st">&#39;CI_ENV&#39;</span>]) <span class="ot">?</span> <span class="va">$_SERVER</span>[<span class="st">&#39;CI_ENV&#39;</span>] <span class="ot">:</span> <span class="st">&#39;development&#39;</span>)<span class="ot">;</span></span></code></pre></div>
+<hr />
+<h2 id="lista-de-verificación-previa-a-la-migración">2. Lista de
+verificación previa a la migración</h2>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>Versión de PHP: <code>php -v</code>
+— PHP <strong>8.x</strong> es requerido para NADA 5.6; planifique una
+actualización de PHP si está en 7.x</label></li>
+<li><label><input type="checkbox"></input>Versión de MySQL / MariaDB:
+<code>mysql --version</code></label></li>
+<li><label><input type="checkbox"></input>Espacio en disco disponible para una
+carpeta de instalación paralela</label></li>
+<li><label><input type="checkbox"></input>Apache <code>mod_rewrite</code>
+activo: <code>apache2ctl -M | grep rewrite</code></label></li>
+<li><label><input type="checkbox"></input>Tiene las credenciales de
+administrador de NADA del catálogo existente</label></li>
+</ul>
+<hr />
+<h2 id="respaldar-la-base-de-datos">3. Respaldar la base de datos</h2>
+<p>Tome una copia de seguridad completa de la base de datos antes de
+realizar cualquier cambio.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mysqldump</span> <span class="at">-u</span> nada_user <span class="at">-p</span> nada_db <span class="op">&gt;</span> nada_backup_<span class="va">$(</span><span class="fu">date</span> +%Y%m%d<span class="va">)</span>.sql</span></code></pre></div>
+<p>También haga una copia de seguridad de los archivos de
+configuración:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> /var/www/nada/application/config ~/nada_config_backup</span></code></pre></div>
+<hr />
+<h2 id="desplegar-nada-5.6-en-una-carpeta-nueva">4. Desplegar NADA 5.6
+en una carpeta nueva</h2>
+<p>Descargue la última versión de NADA 5.6 desde <a href="https://github.com/ihsn/nada/releases">GitHub Releases</a> y
+extráigala en un directorio nuevo:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /tmp</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Descargue nada-5.6.zip desde GitHub Releases, luego:</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> unzip nada-5.6.zip <span class="at">-d</span> /var/www/nada5</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chown <span class="at">-R</span> www-data:www-data /var/www/nada5</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mkdir <span class="at">-p</span> /var/www/nada5/files /var/www/nada5/logs</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chmod <span class="at">-R</span> 755 /var/www/nada5</span></code></pre></div>
+<p>Copie la configuración de base de datos existente a la nueva
+instalación — esto conecta NADA 5 a su base de datos actual:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> cp /var/www/nada/application/config/database.php <span class="dt">\</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  /var/www/nada5/application/config/database.php</span></code></pre></div>
+<p>Abra el archivo <code>database.php</code> copiado y actualice dos
+configuraciones:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode php"><code class="sourceCode php"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">$db</span>[<span class="st">&#39;default&#39;</span>][<span class="st">&#39;dbdriver&#39;</span>] <span class="op">=</span> <span class="st">&#39;mysqli&#39;</span><span class="ot">;</span>   <span class="co">// era &#39;mysql&#39; en NADA 4</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">$db</span>[<span class="st">&#39;default&#39;</span>][<span class="st">&#39;db_debug&#39;</span>] <span class="op">=</span> <span class="kw">FALSE</span><span class="ot">;</span></span></code></pre></div>
+<hr />
+<h2 id="configurar-la-carpeta-datafiles">5. Configurar la carpeta
+datafiles</h2>
+<p>La carpeta <code>datafiles/</code> contiene todo el contenido subido:
+archivos DDI/XML, microdatos, documentos y recursos asociados. La nueva
+instalación necesita acceso a esta carpeta. Elija una opción:</p>
+<p><strong>Opción A — Enlace simbólico (recomendado)</strong></p>
+<p>Crea un puntero a la carpeta existente sin duplicar ningún
+archivo:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ln <span class="at">-s</span> /var/www/nada/datafiles /var/www/nada5/datafiles</span></code></pre></div>
+<p>Verifique el enlace:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-la</span> /var/www/nada5/datafiles</span></code></pre></div>
+<p><strong>Opción B — Copiar</strong></p>
+<p>Use esta opción si los enlaces simbólicos no son posibles en su
+entorno o si desea una copia completamente independiente:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> cp <span class="at">-r</span> /var/www/nada/datafiles /var/www/nada5/datafiles</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chown <span class="at">-R</span> www-data:www-data /var/www/nada5/datafiles</span></code></pre></div>
+<blockquote>
+<p><strong>Tip: Catálogos grandes</strong></p>
+<p>Para catálogos con carpetas <code>datafiles/</code> de gran tamaño,
+la Opción B puede requerir mucho tiempo y espacio en disco. La Opción A
+es ampliamente preferida.</p>
+</blockquote>
+<hr />
+<h2 id="activar-el-modo-de-mantenimiento">6. Activar el modo de
+mantenimiento</h2>
+<p>Edite <code>application/config/config.php</code> en la nueva
+instalación de NADA 5:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode php"><code class="sourceCode php"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="va">$config</span>[<span class="st">&quot;maintenance_mode&quot;</span>] <span class="op">=</span> <span class="dv">1</span><span class="ot">;</span></span></code></pre></div>
+<hr />
+<h2 id="configurar-apache">7. Configurar Apache</h2>
+<p>Cree un virtual host para la nueva instalación. Use un nombre de host
+de prueba o un puerto alternativo para probar antes de cambiar el
+tráfico de producción:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> nano /etc/apache2/sites-available/nada5.conf</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode apache"><code class="sourceCode apache"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;VirtualHost</span><span class="at"> *:80</span><span class="fu">&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    ServerName<span class="st"> nada5-staging.ejemplo.org</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    DocumentRoot<span class="st"> /var/www/nada5</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">&lt;Directory</span><span class="at"> /var/www/nada5</span><span class="fu">&gt;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        <span class="ex">AllowOverride</span><span class="ch"> </span><span class="kw">All</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        Require<span class="st"> all granted</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">&lt;/Directory&gt;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    ErrorLog<span class="st"> ${APACHE_LOG_DIR}/nada5-error.log</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    CustomLog<span class="st"> ${APACHE_LOG_DIR}/nada5-access.log combined</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;/VirtualHost&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> a2enmod rewrite</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> a2ensite nada5.conf</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl reload apache2</span></code></pre></div>
+<hr />
+<h2 id="ejecutar-la-migración-de-base-de-datos-4.x-5.0">8. Ejecutar la
+migración de base de datos 4.x → 5.0</h2>
+<blockquote>
+<p><strong>Danger: Cambios irreversibles en la base de
+datos</strong></p>
+<p>Los pasos de esta sección realizan cambios irreversibles en su base
+de datos. Confirme que el respaldo del Paso 3 está completo antes de
+continuar.</p>
+</blockquote>
+<p>Abra el controlador de migración en su navegador:</p>
+<pre><code>http://nada5-staging.ejemplo.org/index.php/nada5_upgrade/run</code></pre>
+<p>La página ejecutará cada paso de migración y mostrará el
+resultado:</p>
+<ul>
+<li><strong>Éxito:</strong> el paso aparece con estado completado</li>
+<li><strong>Fallo:</strong> se muestra la sentencia SQL que falló junto
+con el mensaje de error</li>
+</ul>
+<p><strong>Ejecutar sentencias SQL fallidas manualmente</strong></p>
+<p>Si algún paso falla, conéctese a la base de datos y ejecute la
+sentencia fallida directamente:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql</span> <span class="at">-u</span> nada_user <span class="at">-p</span> nada_db</span></code></pre></div>
+<p>Pegue la sentencia SQL del resultado del fallo. Errores comunes:</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 46%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr>
+<th>Error</th>
+<th>Significado</th>
+<th>Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Duplicate column name</code></td>
+<td>El cambio ya fue aplicado</td>
+<td>Omitir — es seguro ignorarlo</td>
+</tr>
+<tr>
+<td><code>Table doesn&#39;t exist</code></td>
+<td>Un paso previo falló</td>
+<td>Corrija el fallo anterior primero, luego reintente</td>
+</tr>
+<tr>
+<td><code>Duplicate entry</code></td>
+<td>Los datos ya fueron insertados</td>
+<td>Omitir — es seguro ignorarlo</td>
+</tr>
+</tbody>
+</table>
+<p>Después de corregir cualquier fallo, recargue la URL de actualización
+para confirmar que no quedan errores.</p>
+<hr />
+<h2 id="aplicar-cambios-de-base-de-datos-5.0-5.2">9. Aplicar cambios de
+base de datos 5.0 → 5.2</h2>
+<p>Conéctese a su base de datos:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql</span> <span class="at">-u</span> nada_user <span class="at">-p</span> nada_db</span></code></pre></div>
+<p>Ejecute los siguientes bloques SQL en orden.</p>
+<h3 id="section">5.0.4 → 5.0.5</h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> `variable_groups` (</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  `id` <span class="dt">int</span>(<span class="dv">11</span>) <span class="kw">NOT</span> <span class="kw">NULL</span> AUTO_INCREMENT,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  `sid` <span class="dt">int</span>(<span class="dv">11</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  `vgid` <span class="dt">varchar</span>(<span class="dv">45</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  `variables` <span class="dt">varchar</span>(<span class="dv">5000</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  `variable_groups` <span class="dt">varchar</span>(<span class="dv">500</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  `group_type` <span class="dt">varchar</span>(<span class="dv">45</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  `label` <span class="dt">varchar</span>(<span class="dv">255</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  `universe` <span class="dt">varchar</span>(<span class="dv">255</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  `notes` <span class="dt">varchar</span>(<span class="dv">500</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  `txt` <span class="dt">varchar</span>(<span class="dv">500</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  `definition` <span class="dt">varchar</span>(<span class="dv">500</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (`id`)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>) AUTO_INCREMENT<span class="op">=</span><span class="dv">1</span> <span class="kw">DEFAULT</span> CHARSET<span class="op">=</span>utf8;</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `users` <span class="kw">ADD</span> `otp_code` <span class="dt">varchar</span>(<span class="dv">45</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>;</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `users` <span class="kw">ADD</span> `otp_expiry` <span class="dt">int</span>(<span class="dv">11</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>;</span></code></pre></div>
+<h3 id="section-1">5.0.5 → 5.0.6</h3>
+<div class="sourceCode" id="cb19"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `api_keys` <span class="kw">DROP</span> <span class="kw">INDEX</span> `key_UNIQUE`;</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `api_keys` <span class="kw">CHANGE</span> `key` `api_key` <span class="dt">VARCHAR</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>;</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `api_keys` <span class="kw">ADD</span> <span class="kw">UNIQUE</span> <span class="kw">KEY</span> `idx_api_key_unq` (`api_key`);</span></code></pre></div>
+<h3 id="section-2">5.0.6 → 5.2</h3>
+<div class="sourceCode" id="cb20"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `api_logs` <span class="kw">ADD</span> `user_id` <span class="dt">int</span> <span class="kw">DEFAULT</span> <span class="kw">NULL</span>;</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> `ci_sessions`;</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> `ci_sessions` (</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  `id` <span class="dt">varchar</span>(<span class="dv">128</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  `ip_address` <span class="dt">varchar</span>(<span class="dv">45</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  `timestamp` <span class="dt">int</span> unsigned <span class="kw">NOT</span> <span class="kw">NULL</span> <span class="kw">DEFAULT</span> <span class="st">&#39;0&#39;</span>,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  `data` <span class="dt">blob</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (`id`),</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">KEY</span> `ci_sessions_timestamp` (`timestamp`)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> `data_classifications`;</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> `data_classifications` (</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  `id` <span class="dt">int</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  `code` <span class="dt">varchar</span>(<span class="dv">45</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  `title` <span class="dt">varchar</span>(<span class="dv">100</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (`id`),</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">UNIQUE</span> <span class="kw">KEY</span> `code_UNIQUE` (`code`)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>) <span class="kw">DEFAULT</span> CHARSET<span class="op">=</span>utf8;</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> `data_classifications` (<span class="kw">id</span>,code,title) <span class="kw">VALUES</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>,<span class="st">&#39;public&#39;</span>,<span class="st">&#39;Public use&#39;</span>),</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>(<span class="dv">2</span>,<span class="st">&#39;official&#39;</span>,<span class="st">&#39;Official use&#39;</span>),</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>(<span class="dv">3</span>,<span class="st">&#39;confidential&#39;</span>,<span class="st">&#39;Confidential&#39;</span>);</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> `facets` (</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>    `id` <span class="dt">int</span> <span class="kw">NOT</span> <span class="kw">NULL</span> AUTO_INCREMENT,</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>    `name` <span class="dt">varchar</span>(<span class="dv">20</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>    `title` <span class="dt">varchar</span>(<span class="dv">45</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>    `facet_type` <span class="dt">varchar</span>(<span class="dv">10</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>    `enabled` <span class="dt">int</span> <span class="kw">DEFAULT</span> <span class="st">&#39;0&#39;</span>,</span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>    `mappings` mediumtext,</span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>    <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (`id`),</span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">UNIQUE</span> <span class="kw">KEY</span> `name_UNIQUE` (`name`)</span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>) AUTO_INCREMENT<span class="op">=</span><span class="dv">1</span> <span class="kw">DEFAULT</span> CHARSET<span class="op">=</span>utf8;</span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> facets(name,title,facet_type,enabled) <span class="kw">VALUES</span></span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>(<span class="st">&#39;year&#39;</span>,<span class="st">&#39;Years&#39;</span>,<span class="st">&#39;core&#39;</span>,<span class="dv">1</span>),</span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a>(<span class="st">&#39;data_class&#39;</span>,<span class="st">&#39;Data classifications&#39;</span>,<span class="st">&#39;core&#39;</span>,<span class="dv">1</span>),</span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a>(<span class="st">&#39;dtype&#39;</span>,<span class="st">&#39;License&#39;</span>,<span class="st">&#39;core&#39;</span>,<span class="dv">1</span>),</span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a>(<span class="st">&#39;country&#39;</span>,<span class="st">&#39;Countries&#39;</span>,<span class="st">&#39;core&#39;</span>,<span class="dv">1</span>),</span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>(<span class="st">&#39;collection&#39;</span>,<span class="st">&#39;Collections&#39;</span>,<span class="st">&#39;core&#39;</span>,<span class="dv">1</span>),</span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a>(<span class="st">&#39;type&#39;</span>,<span class="st">&#39;Data types&#39;</span>,<span class="st">&#39;core&#39;</span>,<span class="dv">1</span>),</span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a>(<span class="st">&#39;tag&#39;</span>,<span class="st">&#39;Tags&#39;</span>,<span class="st">&#39;core&#39;</span>,<span class="dv">1</span>);</span>
+<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> `facet_terms` (</span>
+<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a>  `id` <span class="dt">int</span> <span class="kw">NOT</span> <span class="kw">NULL</span> AUTO_INCREMENT,</span>
+<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a>  `facet_id` <span class="dt">int</span> <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a>  `value` <span class="dt">varchar</span>(<span class="dv">300</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a>  `weight` <span class="dt">int</span> <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (`id`)</span>
+<span id="cb20-53"><a href="#cb20-53" aria-hidden="true" tabindex="-1"></a>) AUTO_INCREMENT<span class="op">=</span><span class="dv">1</span> <span class="kw">DEFAULT</span> CHARSET<span class="op">=</span>utf8;</span>
+<span id="cb20-54"><a href="#cb20-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-55"><a href="#cb20-55" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> `survey_facets` (</span>
+<span id="cb20-56"><a href="#cb20-56" aria-hidden="true" tabindex="-1"></a>  `id` <span class="dt">int</span> <span class="kw">NOT</span> <span class="kw">NULL</span> AUTO_INCREMENT,</span>
+<span id="cb20-57"><a href="#cb20-57" aria-hidden="true" tabindex="-1"></a>  `sid` <span class="dt">int</span> <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-58"><a href="#cb20-58" aria-hidden="true" tabindex="-1"></a>  `facet_id` <span class="dt">int</span> <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-59"><a href="#cb20-59" aria-hidden="true" tabindex="-1"></a>  `term_id` <span class="dt">int</span> <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-60"><a href="#cb20-60" aria-hidden="true" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (`id`)</span>
+<span id="cb20-61"><a href="#cb20-61" aria-hidden="true" tabindex="-1"></a>) AUTO_INCREMENT<span class="op">=</span><span class="dv">1</span> <span class="kw">DEFAULT</span> CHARSET<span class="op">=</span>utf8;</span>
+<span id="cb20-62"><a href="#cb20-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-63"><a href="#cb20-63" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> `filestore` (</span>
+<span id="cb20-64"><a href="#cb20-64" aria-hidden="true" tabindex="-1"></a>  `id` <span class="dt">int</span> <span class="kw">NOT</span> <span class="kw">NULL</span> AUTO_INCREMENT,</span>
+<span id="cb20-65"><a href="#cb20-65" aria-hidden="true" tabindex="-1"></a>  `file_name` <span class="dt">varchar</span>(<span class="dv">255</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-66"><a href="#cb20-66" aria-hidden="true" tabindex="-1"></a>  `file_path` <span class="dt">varchar</span>(<span class="dv">500</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-67"><a href="#cb20-67" aria-hidden="true" tabindex="-1"></a>  `file_ext` <span class="dt">varchar</span>(<span class="dv">10</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-68"><a href="#cb20-68" aria-hidden="true" tabindex="-1"></a>  `is_image` tinyint(<span class="dv">4</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-69"><a href="#cb20-69" aria-hidden="true" tabindex="-1"></a>  `changed` <span class="dt">int</span> <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-70"><a href="#cb20-70" aria-hidden="true" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (`id`),</span>
+<span id="cb20-71"><a href="#cb20-71" aria-hidden="true" tabindex="-1"></a>  <span class="kw">UNIQUE</span> <span class="kw">KEY</span> `idx_filestore_file` (`file_name`)</span>
+<span id="cb20-72"><a href="#cb20-72" aria-hidden="true" tabindex="-1"></a>) AUTO_INCREMENT<span class="op">=</span><span class="dv">1</span> <span class="kw">DEFAULT</span> CHARSET<span class="op">=</span>utf8;</span>
+<span id="cb20-73"><a href="#cb20-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-74"><a href="#cb20-74" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> `survey_locations` (</span>
+<span id="cb20-75"><a href="#cb20-75" aria-hidden="true" tabindex="-1"></a>  `id` <span class="dt">int</span>(<span class="dv">11</span>) <span class="kw">NOT</span> <span class="kw">NULL</span> AUTO_INCREMENT,</span>
+<span id="cb20-76"><a href="#cb20-76" aria-hidden="true" tabindex="-1"></a>  `sid` <span class="dt">int</span>(<span class="dv">11</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-77"><a href="#cb20-77" aria-hidden="true" tabindex="-1"></a>  `location` geometry <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-78"><a href="#cb20-78" aria-hidden="true" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (`id`),</span>
+<span id="cb20-79"><a href="#cb20-79" aria-hidden="true" tabindex="-1"></a>  SPATIAL <span class="kw">KEY</span> `idx_location` (`location`)</span>
+<span id="cb20-80"><a href="#cb20-80" aria-hidden="true" tabindex="-1"></a>) <span class="kw">DEFAULT</span> CHARSET<span class="op">=</span>utf8;</span>
+<span id="cb20-81"><a href="#cb20-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-82"><a href="#cb20-82" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> `role_permissions` (</span>
+<span id="cb20-83"><a href="#cb20-83" aria-hidden="true" tabindex="-1"></a>  `id` <span class="dt">int</span>(<span class="dv">11</span>) <span class="kw">NOT</span> <span class="kw">NULL</span> AUTO_INCREMENT,</span>
+<span id="cb20-84"><a href="#cb20-84" aria-hidden="true" tabindex="-1"></a>  `role_id` <span class="dt">varchar</span>(<span class="dv">45</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-85"><a href="#cb20-85" aria-hidden="true" tabindex="-1"></a>  `resource` <span class="dt">varchar</span>(<span class="dv">45</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-86"><a href="#cb20-86" aria-hidden="true" tabindex="-1"></a>  `permissions` <span class="dt">varchar</span>(<span class="dv">500</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-87"><a href="#cb20-87" aria-hidden="true" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (`id`)</span>
+<span id="cb20-88"><a href="#cb20-88" aria-hidden="true" tabindex="-1"></a>) AUTO_INCREMENT<span class="op">=</span><span class="dv">1</span> <span class="kw">DEFAULT</span> CHARSET<span class="op">=</span>utf8;</span>
+<span id="cb20-89"><a href="#cb20-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-90"><a href="#cb20-90" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> `roles` (</span>
+<span id="cb20-91"><a href="#cb20-91" aria-hidden="true" tabindex="-1"></a>  `id` <span class="dt">int</span>(<span class="dv">11</span>) <span class="kw">NOT</span> <span class="kw">NULL</span> AUTO_INCREMENT,</span>
+<span id="cb20-92"><a href="#cb20-92" aria-hidden="true" tabindex="-1"></a>  `name` <span class="dt">varchar</span>(<span class="dv">100</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-93"><a href="#cb20-93" aria-hidden="true" tabindex="-1"></a>  `description` <span class="dt">varchar</span>(<span class="dv">255</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-94"><a href="#cb20-94" aria-hidden="true" tabindex="-1"></a>  `weight` <span class="dt">int</span>(<span class="dv">11</span>) <span class="kw">DEFAULT</span> <span class="st">&#39;0&#39;</span>,</span>
+<span id="cb20-95"><a href="#cb20-95" aria-hidden="true" tabindex="-1"></a>  `is_admin` tinyint(<span class="dv">4</span>) <span class="kw">DEFAULT</span> <span class="st">&#39;0&#39;</span>,</span>
+<span id="cb20-96"><a href="#cb20-96" aria-hidden="true" tabindex="-1"></a>  `is_locked` tinyint(<span class="dv">4</span>) <span class="kw">DEFAULT</span> <span class="st">&#39;0&#39;</span>,</span>
+<span id="cb20-97"><a href="#cb20-97" aria-hidden="true" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (`id`)</span>
+<span id="cb20-98"><a href="#cb20-98" aria-hidden="true" tabindex="-1"></a>) AUTO_INCREMENT<span class="op">=</span><span class="dv">1</span> <span class="kw">DEFAULT</span> CHARSET<span class="op">=</span>utf8;</span>
+<span id="cb20-99"><a href="#cb20-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-100"><a href="#cb20-100" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> <span class="kw">roles</span>(<span class="kw">id</span>,name,description,weight,is_admin,is_locked) <span class="kw">VALUES</span></span>
+<span id="cb20-101"><a href="#cb20-101" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>,<span class="st">&#39;admin&#39;</span>,<span class="st">&#39;It is the site administrator and has access to all site content&#39;</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb20-102"><a href="#cb20-102" aria-hidden="true" tabindex="-1"></a>(<span class="dv">2</span>,<span class="st">&#39;user&#39;</span>,<span class="st">&#39;General user account with no access to site administration&#39;</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>);</span>
+<span id="cb20-103"><a href="#cb20-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-104"><a href="#cb20-104" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> `user_roles` (</span>
+<span id="cb20-105"><a href="#cb20-105" aria-hidden="true" tabindex="-1"></a>  `id` <span class="dt">int</span>(<span class="dv">11</span>) <span class="kw">NOT</span> <span class="kw">NULL</span> AUTO_INCREMENT,</span>
+<span id="cb20-106"><a href="#cb20-106" aria-hidden="true" tabindex="-1"></a>  `user_id` <span class="dt">int</span>(<span class="dv">11</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-107"><a href="#cb20-107" aria-hidden="true" tabindex="-1"></a>  `role_id` <span class="dt">int</span>(<span class="dv">11</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-108"><a href="#cb20-108" aria-hidden="true" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (`id`)</span>
+<span id="cb20-109"><a href="#cb20-109" aria-hidden="true" tabindex="-1"></a>) AUTO_INCREMENT<span class="op">=</span><span class="dv">1</span> <span class="kw">DEFAULT</span> CHARSET<span class="op">=</span>utf8;</span>
+<span id="cb20-110"><a href="#cb20-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-111"><a href="#cb20-111" aria-hidden="true" tabindex="-1"></a><span class="co">-- migrar administradores existentes de la versión anterior</span></span>
+<span id="cb20-112"><a href="#cb20-112" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> user_roles (user_id, role_id)</span>
+<span id="cb20-113"><a href="#cb20-113" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span> user_id, <span class="fu">group_id</span> <span class="kw">FROM</span> users_groups <span class="kw">WHERE</span> <span class="fu">group_id</span><span class="op">=</span><span class="dv">1</span>;</span>
+<span id="cb20-114"><a href="#cb20-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-115"><a href="#cb20-115" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> survey_types;</span>
+<span id="cb20-116"><a href="#cb20-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-117"><a href="#cb20-117" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> `survey_types` (</span>
+<span id="cb20-118"><a href="#cb20-118" aria-hidden="true" tabindex="-1"></a>  `id` <span class="dt">int</span>(<span class="dv">11</span>) <span class="kw">NOT</span> <span class="kw">NULL</span> AUTO_INCREMENT,</span>
+<span id="cb20-119"><a href="#cb20-119" aria-hidden="true" tabindex="-1"></a>  `code` <span class="dt">varchar</span>(<span class="dv">50</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-120"><a href="#cb20-120" aria-hidden="true" tabindex="-1"></a>  `title` <span class="dt">varchar</span>(<span class="dv">250</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-121"><a href="#cb20-121" aria-hidden="true" tabindex="-1"></a>  `weight` <span class="dt">int</span> <span class="kw">DEFAULT</span> <span class="st">&#39;0&#39;</span>,</span>
+<span id="cb20-122"><a href="#cb20-122" aria-hidden="true" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (`id`),</span>
+<span id="cb20-123"><a href="#cb20-123" aria-hidden="true" tabindex="-1"></a>  <span class="kw">UNIQUE</span> <span class="kw">KEY</span> `title_UNIQUE` (`code`)</span>
+<span id="cb20-124"><a href="#cb20-124" aria-hidden="true" tabindex="-1"></a>) AUTO_INCREMENT<span class="op">=</span><span class="dv">1</span> <span class="kw">DEFAULT</span> CHARSET<span class="op">=</span>utf8;</span>
+<span id="cb20-125"><a href="#cb20-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-126"><a href="#cb20-126" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> `survey_types`(`id`,`code`,`title`,weight) <span class="kw">VALUES</span></span>
+<span id="cb20-127"><a href="#cb20-127" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>,<span class="st">&#39;survey&#39;</span>,<span class="st">&#39;Survey&#39;</span>,<span class="dv">100</span>),</span>
+<span id="cb20-128"><a href="#cb20-128" aria-hidden="true" tabindex="-1"></a>(<span class="dv">2</span>,<span class="st">&#39;geospatial&#39;</span>,<span class="st">&#39;Geospatial&#39;</span>,<span class="dv">90</span>),</span>
+<span id="cb20-129"><a href="#cb20-129" aria-hidden="true" tabindex="-1"></a>(<span class="dv">3</span>,<span class="st">&#39;timeseries&#39;</span>,<span class="st">&#39;Time series&#39;</span>,<span class="dv">80</span>),</span>
+<span id="cb20-130"><a href="#cb20-130" aria-hidden="true" tabindex="-1"></a>(<span class="dv">4</span>,<span class="st">&#39;document&#39;</span>,<span class="st">&#39;Document&#39;</span>,<span class="dv">50</span>),</span>
+<span id="cb20-131"><a href="#cb20-131" aria-hidden="true" tabindex="-1"></a>(<span class="dv">5</span>,<span class="st">&#39;table&#39;</span>,<span class="st">&#39;Table&#39;</span>,<span class="dv">70</span>),</span>
+<span id="cb20-132"><a href="#cb20-132" aria-hidden="true" tabindex="-1"></a>(<span class="dv">6</span>,<span class="st">&#39;image&#39;</span>,<span class="st">&#39;Photo&#39;</span>,<span class="dv">40</span>),</span>
+<span id="cb20-133"><a href="#cb20-133" aria-hidden="true" tabindex="-1"></a>(<span class="dv">7</span>,<span class="st">&#39;script&#39;</span>,<span class="st">&#39;Script&#39;</span>,<span class="dv">30</span>),</span>
+<span id="cb20-134"><a href="#cb20-134" aria-hidden="true" tabindex="-1"></a>(<span class="dv">8</span>,<span class="st">&#39;visualization&#39;</span>,<span class="st">&#39;Visualization&#39;</span>,<span class="dv">60</span>),</span>
+<span id="cb20-135"><a href="#cb20-135" aria-hidden="true" tabindex="-1"></a>(<span class="dv">9</span>,<span class="st">&#39;video&#39;</span>,<span class="st">&#39;Video&#39;</span>,<span class="dv">40</span>);</span>
+<span id="cb20-136"><a href="#cb20-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-137"><a href="#cb20-137" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> `widgets` (</span>
+<span id="cb20-138"><a href="#cb20-138" aria-hidden="true" tabindex="-1"></a>  `id` <span class="dt">int</span> <span class="kw">NOT</span> <span class="kw">NULL</span> AUTO_INCREMENT,</span>
+<span id="cb20-139"><a href="#cb20-139" aria-hidden="true" tabindex="-1"></a>  `uuid` <span class="dt">varchar</span>(<span class="dv">100</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-140"><a href="#cb20-140" aria-hidden="true" tabindex="-1"></a>  `title` <span class="dt">varchar</span>(<span class="dv">250</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-141"><a href="#cb20-141" aria-hidden="true" tabindex="-1"></a>  `thumbnail` <span class="dt">varchar</span>(<span class="dv">300</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-142"><a href="#cb20-142" aria-hidden="true" tabindex="-1"></a>  `description` <span class="dt">varchar</span>(<span class="dv">450</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-143"><a href="#cb20-143" aria-hidden="true" tabindex="-1"></a>  `storage_path` <span class="dt">varchar</span>(<span class="dv">255</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-144"><a href="#cb20-144" aria-hidden="true" tabindex="-1"></a>  `published` <span class="dt">int</span> <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-145"><a href="#cb20-145" aria-hidden="true" tabindex="-1"></a>  `created` <span class="dt">int</span> <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-146"><a href="#cb20-146" aria-hidden="true" tabindex="-1"></a>  `changed` <span class="dt">int</span> <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-147"><a href="#cb20-147" aria-hidden="true" tabindex="-1"></a>  `created_by` <span class="dt">int</span> <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-148"><a href="#cb20-148" aria-hidden="true" tabindex="-1"></a>  `changed_by` <span class="dt">int</span> <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-149"><a href="#cb20-149" aria-hidden="true" tabindex="-1"></a>  `options` text,</span>
+<span id="cb20-150"><a href="#cb20-150" aria-hidden="true" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (`id`),</span>
+<span id="cb20-151"><a href="#cb20-151" aria-hidden="true" tabindex="-1"></a>  <span class="kw">UNIQUE</span> <span class="kw">KEY</span> `uuid_UNIQUE` (`uuid`)</span>
+<span id="cb20-152"><a href="#cb20-152" aria-hidden="true" tabindex="-1"></a>) AUTO_INCREMENT<span class="op">=</span><span class="dv">1</span> <span class="kw">DEFAULT</span> CHARSET<span class="op">=</span>utf8;</span>
+<span id="cb20-153"><a href="#cb20-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-154"><a href="#cb20-154" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> `survey_widgets` (</span>
+<span id="cb20-155"><a href="#cb20-155" aria-hidden="true" tabindex="-1"></a>  `id` <span class="dt">int</span> <span class="kw">NOT</span> <span class="kw">NULL</span> AUTO_INCREMENT,</span>
+<span id="cb20-156"><a href="#cb20-156" aria-hidden="true" tabindex="-1"></a>  `sid` <span class="dt">int</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-157"><a href="#cb20-157" aria-hidden="true" tabindex="-1"></a>  `widget_uuid` <span class="dt">varchar</span>(<span class="dv">145</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-158"><a href="#cb20-158" aria-hidden="true" tabindex="-1"></a>  `url` <span class="dt">varchar</span>(<span class="dv">500</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-159"><a href="#cb20-159" aria-hidden="true" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (`id`),</span>
+<span id="cb20-160"><a href="#cb20-160" aria-hidden="true" tabindex="-1"></a>  <span class="kw">KEY</span> `sid_uuid` (`sid`,`widget_uuid`) <span class="kw">USING</span> BTREE</span>
+<span id="cb20-161"><a href="#cb20-161" aria-hidden="true" tabindex="-1"></a>) AUTO_INCREMENT<span class="op">=</span><span class="dv">1</span> <span class="kw">DEFAULT</span> CHARSET<span class="op">=</span>utf8;</span>
+<span id="cb20-162"><a href="#cb20-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-163"><a href="#cb20-163" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> `ts_databases` (</span>
+<span id="cb20-164"><a href="#cb20-164" aria-hidden="true" tabindex="-1"></a>  `id` <span class="dt">int</span>(<span class="dv">11</span>) <span class="kw">NOT</span> <span class="kw">NULL</span> AUTO_INCREMENT,</span>
+<span id="cb20-165"><a href="#cb20-165" aria-hidden="true" tabindex="-1"></a>  `idno` <span class="dt">varchar</span>(<span class="dv">150</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-166"><a href="#cb20-166" aria-hidden="true" tabindex="-1"></a>  `title` <span class="dt">varchar</span>(<span class="dv">300</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-167"><a href="#cb20-167" aria-hidden="true" tabindex="-1"></a>  `abstract` text,</span>
+<span id="cb20-168"><a href="#cb20-168" aria-hidden="true" tabindex="-1"></a>  `published` tinyint(<span class="dv">4</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-169"><a href="#cb20-169" aria-hidden="true" tabindex="-1"></a>  `created` <span class="dt">varchar</span>(<span class="dv">45</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-170"><a href="#cb20-170" aria-hidden="true" tabindex="-1"></a>  `changed` <span class="dt">varchar</span>(<span class="dv">45</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-171"><a href="#cb20-171" aria-hidden="true" tabindex="-1"></a>  `created_by` <span class="dt">int</span>(<span class="dv">11</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-172"><a href="#cb20-172" aria-hidden="true" tabindex="-1"></a>  `changed_by` <span class="dt">int</span>(<span class="dv">11</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb20-173"><a href="#cb20-173" aria-hidden="true" tabindex="-1"></a>  `metadata` text,</span>
+<span id="cb20-174"><a href="#cb20-174" aria-hidden="true" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (`id`),</span>
+<span id="cb20-175"><a href="#cb20-175" aria-hidden="true" tabindex="-1"></a>  <span class="kw">UNIQUE</span> <span class="kw">KEY</span> `idno_UNIQUE` (`idno`)</span>
+<span id="cb20-176"><a href="#cb20-176" aria-hidden="true" tabindex="-1"></a>) AUTO_INCREMENT<span class="op">=</span><span class="dv">1</span> <span class="kw">DEFAULT</span> CHARSET<span class="op">=</span>utf8;</span>
+<span id="cb20-177"><a href="#cb20-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-178"><a href="#cb20-178" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> `configurations` <span class="kw">VALUES</span> (<span class="st">&#39;facets_all&#39;</span>,<span class="st">&#39;[&quot;year&quot;,&quot;data_class&quot;,&quot;dtype&quot;,&quot;country&quot;]&#39;</span>,<span class="kw">NULL</span>,<span class="kw">NULL</span>,<span class="kw">NULL</span>);</span>
+<span id="cb20-179"><a href="#cb20-179" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> `configurations` <span class="kw">VALUES</span> (<span class="st">&#39;facets_microdata&#39;</span>,<span class="st">&#39;[&quot;year&quot;,&quot;data_class&quot;,&quot;dtype&quot;,&quot;country&quot;]&#39;</span>,<span class="kw">NULL</span>,<span class="kw">NULL</span>,<span class="kw">NULL</span>);</span></code></pre></div>
+<h3 id="actualizar-tabla-surveys">Actualizar tabla surveys</h3>
+<div class="sourceCode" id="cb21"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `surveys` <span class="kw">ADD</span> `doi` <span class="dt">varchar</span>(<span class="dv">200</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>;</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `surveys` <span class="kw">ADD</span> `data_class_id` <span class="dt">int</span> <span class="kw">DEFAULT</span> <span class="kw">NULL</span>;</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `surveys` <span class="kw">ADD</span> `var_keywords` mediumtext;</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `surveys` <span class="kw">DROP</span> <span class="kw">INDEX</span> `ft_keywords`;</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `surveys` <span class="kw">ADD</span> FULLTEXT <span class="kw">INDEX</span> `ft_keywords` (`keywords`, `var_keywords`);</span></code></pre></div>
+<h3 id="actualizar-tabla-variables">Actualizar tabla variables</h3>
+<p>Para catálogos con menos de un millón de filas de variables use la
+<strong>Opción 1</strong>. Para catálogos más grandes use la
+<strong>Opción 2</strong>.</p>
+<p><strong>Opción 1 — ALTER TABLE (recomendado para la mayoría de los
+catálogos)</strong></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `variables` <span class="kw">ADD</span> `keywords` text;</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `variables` <span class="kw">DROP</span> <span class="kw">INDEX</span> `idx_nm_lbl_cat_qstn`;</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> variables <span class="kw">ADD</span> FULLTEXT <span class="kw">INDEX</span> `idx_nm_lbl_cat_qstn` (`name`,`labl`,`catgry`,`qstn`,`keywords`);</span></code></pre></div>
+<p><strong>Opción 2 — Recrear tabla (usar para catálogos con &gt;1M
+filas de variables)</strong></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `variables` <span class="kw">RENAME</span> <span class="kw">TO</span> `variables_old`;</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> `variables`;</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> `variables` (</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  `uid` <span class="dt">int</span>(<span class="dv">11</span>) <span class="kw">NOT</span> <span class="kw">NULL</span> AUTO_INCREMENT,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  `sid` <span class="dt">int</span>(<span class="dv">11</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  `fid` <span class="dt">varchar</span>(<span class="dv">45</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  `vid` <span class="dt">varchar</span>(<span class="dv">45</span>) <span class="kw">DEFAULT</span> <span class="st">&#39;&#39;</span>,</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  `name` <span class="dt">varchar</span>(<span class="dv">100</span>) <span class="kw">DEFAULT</span> <span class="st">&#39;&#39;</span>,</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  `labl` <span class="dt">varchar</span>(<span class="dv">255</span>) <span class="kw">DEFAULT</span> <span class="st">&#39;&#39;</span>,</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  `qstn` text,</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  `catgry` text,</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  `keywords` text,</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  `metadata` mediumtext,</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (`uid`),</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">UNIQUE</span> <span class="kw">KEY</span> `idxSurvey` (`vid`,`sid`),</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>  <span class="kw">KEY</span> `idxsurveyidfk` (`sid`),</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>  FULLTEXT <span class="kw">KEY</span> `idx_nm_lbl_qstn` (`name`,`labl`,`qstn`,`catgry`),</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  FULLTEXT <span class="kw">KEY</span> `idx_nm_lbl_cat_qstn` (`name`,`labl`,`catgry`,`qstn`,`keywords`)</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>) <span class="kw">DEFAULT</span> CHARSET<span class="op">=</span>utf8;</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> variables (<span class="fu">uid</span>,sid,fid,vid,name,labl,qstn,catgry,metadata)</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span> <span class="fu">uid</span>,sid,fid,vid,name,labl,qstn,catgry,metadata <span class="kw">FROM</span> variables_old;</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> variables_old;</span></code></pre></div>
+<h3 id="eliminar-tablas-de-permisos-anteriores">Eliminar tablas de
+permisos anteriores</h3>
+<p>El sistema de permisos fue reemplazado en la versión 5.2. Elimine las
+tablas antiguas:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> group_permissions;</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> group_repo_access;</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> <span class="kw">groups</span>;</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> permission_urls;</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> permissions;</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> repo_perms_groups;</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> repo_perms_urls;</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="kw">DROP</span> <span class="kw">TABLE</span> user_repo_permissions_disabled;</span></code></pre></div>
+<hr />
+<h2 id="aplicar-cambios-de-base-de-datos-5.2-5.4">10. Aplicar cambios de
+base de datos 5.2 → 5.4</h2>
+<div class="sourceCode" id="cb25"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `surveys` <span class="kw">ADD</span> `subtitle` <span class="dt">varchar</span>(<span class="dv">255</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>;</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `data_files` <span class="kw">ADD</span> `metadata` <span class="dt">varchar</span>(<span class="dv">5000</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>;</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> `data_access_whitelist` (</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  `id` <span class="dt">int</span> <span class="kw">NOT</span> <span class="kw">NULL</span> AUTO_INCREMENT,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  `user_id` <span class="dt">int</span> <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  `repository_id` <span class="dt">int</span> <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (`id`)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>) AUTO_INCREMENT<span class="op">=</span><span class="dv">1</span>;</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> `survey_data_api` (</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  `id` <span class="dt">int</span> <span class="kw">NOT</span> <span class="kw">NULL</span> AUTO_INCREMENT,</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  `sid` <span class="dt">int</span> <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  `title` <span class="dt">varchar</span>(<span class="dv">255</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  `description` <span class="dt">varchar</span>(<span class="dv">500</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>  `db_id` <span class="dt">varchar</span>(<span class="dv">45</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>  `table_id` <span class="dt">varchar</span>(<span class="dv">100</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>,</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (`id`)</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>) AUTO_INCREMENT<span class="op">=</span><span class="dv">1</span>;</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `users` <span class="kw">MODIFY</span> <span class="kw">COLUMN</span> `forgotten_password_code` <span class="dt">varchar</span>(<span class="dv">100</span>) <span class="kw">DEFAULT</span> <span class="kw">NULL</span>;</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `users` <span class="kw">ADD</span> <span class="kw">COLUMN</span> `forgotten_code_expiry` <span class="dt">int</span> <span class="kw">DEFAULT</span> <span class="kw">NULL</span>;</span></code></pre></div>
+<hr />
+<h2 id="aplicar-cambios-de-base-de-datos-5.4-5.5-y-ejecutar-migraciones">11.
+Aplicar cambios de base de datos 5.4 → 5.5 y ejecutar migraciones</h2>
+<div class="sourceCode" id="cb26"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `users`</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ADD</span> <span class="kw">COLUMN</span> `forgot_request_ts` <span class="dt">INT</span> <span class="kw">NULL</span>,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ADD</span> <span class="kw">COLUMN</span> `forgot_request_count` <span class="dt">INT</span> <span class="kw">DEFAULT</span> <span class="dv">0</span>;</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> `public_requests`</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ADD</span> <span class="kw">COLUMN</span> `title` <span class="dt">VARCHAR</span>(<span class="dv">500</span>) <span class="kw">NULL</span> <span class="kw">AFTER</span> `surveyid`;</span></code></pre></div>
+<p>Luego ejecute el ejecutor de migraciones PHP desde la raíz de NADA
+5:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /var/www/nada5</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="ex">php</span> index.php cli/migrate latest</span></code></pre></div>
+<hr />
+<h2 id="aplicar-configuración-5.5-5.6-y-ejecutar-migraciones">12.
+Aplicar configuración 5.5 → 5.6 y ejecutar migraciones</h2>
+<p>Cree el archivo de configuración de autenticación desde la
+plantilla:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> application/config/auth.local.sample.php application/config/auth.local.php</span></code></pre></div>
+<p>Abra <code>auth.local.php</code> y complete sus credenciales SMTP y
+cualquier configuración de proveedor OAuth. Este archivo no debe ser
+incluido en el control de versiones.</p>
+<p>Luego ejecute el ejecutor de migraciones:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /var/www/nada5</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ex">php</span> index.php cli/migrate latest</span></code></pre></div>
+<hr />
+<h2 id="tareas-posteriores-a-la-migración">13. Tareas posteriores a la
+migración</h2>
+<p>Los siguientes pasos son específicos de la actualización 4.x → 5.x y
+no son necesarios para actualizaciones dentro de la serie 5.x.</p>
+<h3 id="actualización-masiva-ddi-requerida">13.1 Actualización masiva
+DDI (requerida)</h3>
+<p>Los archivos DDI/XML en <code>datafiles/</code> contienen los
+metadatos oficiales de los estudios. La actualización masiva lee esos
+archivos y repopula el esquema de base de datos de NADA 5 — sin este
+paso, los metadatos de los estudios estarán incompletos.</p>
+<ol type="1">
+<li>Inicie sesión en la interfaz de administración de NADA 5</li>
+<li>Navegue a:
+<code>http://su-sitio/index.php/admin/catalog/batch_refresh</code></li>
+<li>Seleccione todos los estudios</li>
+<li>Haga clic en <strong>Refresh DDI</strong></li>
+</ol>
+<p>Espere a que el proceso se complete y verifique que el recuento de
+estudios coincide con el catálogo anterior.</p>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>Si la actualización muestra errores, confirme que el enlace simbólico
+o la ruta de <code>datafiles/</code> es accesible por el usuario del
+servidor web (<code>www-data</code>):
+<code>ls -la /var/www/nada5/datafiles</code></p>
+</blockquote>
+<h3 id="actualizar-traducciones-de-acceso-a-datos">13.2 Actualizar
+traducciones de acceso a datos</h3>
+<p>NADA 4 utilizaba terminología diferente para los tipos de acceso a
+datos. Revise y actualice el texto de los términos y condiciones para
+cada tipo de acceso a través de la interfaz de traducciones del
+administrador.</p>
+<p>Vaya a <strong>Admin → Settings → Translate</strong>. Las secciones
+que probablemente necesiten actualización después de una migración 4.x
+son:</p>
+<ul>
+<li><strong>Términos de acceso público</strong>
+(<code>public_access_terms_lang</code>) — términos y condiciones
+mostrados al descargar archivos de uso público</li>
+<li><strong>Términos de acceso directo</strong>
+(<code>direct_access_terms_lang</code>) — términos mostrados para acceso
+de descarga directa</li>
+<li><strong>Solicitud de datos con licencia</strong>
+(<code>licensed_request_lang</code>) — etiquetas e instrucciones en el
+formulario de solicitud de datos con licencia</li>
+<li><strong>Formulario de acceso con licencia</strong>
+(<code>licensed_access_form_lang</code>) — etiquetas de campos en el
+formulario de solicitud de acceso</li>
+</ul>
+<p>Revise el texto en cada sección, actualícelo para que corresponda a
+los términos y condiciones actuales de su organización, y guarde cada
+sección después de editar.</p>
+<blockquote>
+<p><strong>Tip: Anulaciones basadas en archivos (avanzado)</strong></p>
+<p>Desde NADA 5.5 en adelante, las anulaciones de traducción pueden
+colocarse en <code>userdata/language/spanish/</code>. Los archivos en
+esta carpeta tienen prioridad sobre los archivos principales en
+<code>application/language/spanish/</code> y no son sobreescritos por
+futuras actualizaciones de NADA — el enfoque preferido para
+personalizaciones permanentes que van más allá de lo que admite la
+interfaz de usuario.</p>
+</blockquote>
+<h3 id="actualizar-el-tema-del-sitio">13.3 Actualizar el tema del
+sitio</h3>
+<p>Los temas de NADA 4 no son compatibles con las plantillas de NADA 5
+basadas en Bootstrap 4. Actualice el encabezado, el pie de página y los
+estilos usando el tema predeterminado <code>nada52</code> como punto de
+partida. Hay dos opciones disponibles:</p>
+<p><strong>Opción 1 — Editar el tema nada52 directamente</strong></p>
+<p>El enfoque más simple. No se requieren cambios de configuración.</p>
+<p><em>Encabezado</em> — edite <code>themes/nada52/header.php</code>. El
+tema predeterminado viene con una barra de navegación solo de texto.
+Para agregar un logotipo, localice el bloque de logotipo comentado y
+descoméntelo:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode php"><code class="sourceCode php"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>div <span class="kw">class</span><span class="op">=</span><span class="st">&quot;navbar-brand--logo&quot;</span><span class="op">&gt;</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>img src<span class="op">=</span><span class="st">&quot;&lt;?php echo base_url();?&gt;themes/nada52/images/logo.png&quot;</span><span class="op">&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span>div<span class="op">&gt;</span></span></code></pre></div>
+<p>Coloque su archivo de logotipo en
+<code>themes/nada52/images/logo.png</code>. Para actualizar el texto del
+subtítulo, busque y edite:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode php"><code class="sourceCode php"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>div <span class="kw">class</span><span class="op">=</span><span class="st">&quot;nada-site-subtitle&quot;</span><span class="op">&gt;</span>Data Catalog<span class="op">&lt;/</span>div<span class="op">&gt;</span></span></code></pre></div>
+<p><em>Pie de página</em> — edite <code>themes/nada52/footer.php</code>.
+La línea de derechos de autor se genera automáticamente a partir de la
+configuración del sitio <code>website_title</code>. Para agregar una
+sección de contenido encima de la barra del pie de página, descomente el
+include de <code>footer_top.php</code>:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode php"><code class="sourceCode php"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;?php</span> <span class="kw">include_once</span> <span class="st">&#39;footer_top.php&#39;</span><span class="ot">;</span> <span class="kw">?&gt;</span></span></code></pre></div>
+<p>Edite <code>footer_top.php</code> para agregar enlaces, logotipos u
+otro contenido del pie de página.</p>
+<p><em>Estilos</em> — agregue CSS personalizado a
+<code>themes/nada52/css/custom.css</code>. Este archivo está designado
+para anulaciones definidas por el usuario y tiene efecto
+automáticamente. No edite <code>style.css</code> ni
+<code>bootstrap.min.css</code> directamente.</p>
+<p><strong>Opción 2 — Copiar el tema y configurarlo como
+activo</strong></p>
+<p>Más seguro para futuras actualizaciones: una nueva versión de NADA no
+sobreescribirá su carpeta de tema personalizada.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> cp <span class="at">-r</span> /var/www/nada5/themes/nada52 /var/www/nada5/themes/mitema</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chown <span class="at">-R</span> www-data:www-data /var/www/nada5/themes/mitema</span></code></pre></div>
+<p>Actívelo en <code>application/config/template.php</code>:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode php"><code class="sourceCode php"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="va">$template</span>[<span class="st">&#39;theme_name&#39;</span>] <span class="op">=</span> <span class="st">&#39;mitema&#39;</span><span class="ot">;</span></span></code></pre></div>
+<p>Luego edite <code>themes/mitema/header.php</code>,
+<code>themes/mitema/footer.php</code> y
+<code>themes/mitema/css/custom.css</code> siguiendo los mismos pasos de
+la Opción 1.</p>
+<h3 id="configurar-smtp">13.4 Configurar SMTP</h3>
+<p>El correo electrónico es necesario para el registro de usuarios, el
+restablecimiento de contraseñas y los flujos de trabajo de solicitud de
+acceso a datos.</p>
+<p>Para NADA 5.6, agregue sus credenciales SMTP a
+<code>application/config/auth.local.php</code>. Alternativamente,
+configure SMTP a través de la interfaz de administración en
+<strong>Settings → Settings → SMTP settings</strong>.</p>
+<p>Pruebe usando el enlace <strong>Forgot password</strong> en la página
+de inicio de sesión y confirme la entrega al correo electrónico de
+destino.</p>
+<p>Consulte <a href="/installation-guide/configurations/email">Configuración de correo
+electrónico</a> para más detalles.</p>
+<h3 id="configurar-google-analytics">13.5 Configurar Google
+Analytics</h3>
+<p>NADA admite Google Analytics 4 (GA4).</p>
+<ol type="1">
+<li>En su cuenta de Google Analytics, cree una propiedad GA4 y copie el
+ID de medición (formato: <code>G-XXXXXXXXXX</code>)</li>
+<li>Agregue el fragmento de seguimiento a <code>head.php</code> de su
+tema activo, justo antes de la etiqueta de cierre
+<code>&lt;/head&gt;</code>:</li>
+</ol>
+<div class="sourceCode" id="cb35"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="ot"> async src</span><span class="op">=</span><span class="st">&quot;https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX&quot;</span><span class="dt">&gt;&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">window</span><span class="op">.</span><span class="at">dataLayer</span> <span class="op">=</span> <span class="bu">window</span><span class="op">.</span><span class="at">dataLayer</span> <span class="op">||</span> []<span class="op">;</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">gtag</span>(){dataLayer<span class="op">.</span><span class="fu">push</span>(<span class="kw">arguments</span>)<span class="op">;</span>}</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gtag</span>(<span class="st">&#39;js&#39;</span><span class="op">,</span> <span class="kw">new</span> <span class="bu">Date</span>())<span class="op">;</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gtag</span>(<span class="st">&#39;config&#39;</span><span class="op">,</span> <span class="st">&#39;G-XXXXXXXXXX&#39;</span>)<span class="op">;</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>Reemplace <code>G-XXXXXXXXXX</code> con su ID de medición real.</p>
+<ol start="3" type="1">
+<li>Verifique el seguimiento en <strong>GA4 → Reports →
+Realtime</strong> navegando por algunas páginas del catálogo</li>
+</ol>
+<p>Consulte <a href="/installation-guide/configurations/google-analytics">Google
+Analytics</a> para opciones adicionales incluyendo el seguimiento de
+descargas de archivos.</p>
+<hr />
+<h2 id="desactivar-el-modo-de-mantenimiento">14. Desactivar el modo de
+mantenimiento</h2>
+<div class="sourceCode" id="cb36"><pre class="sourceCode php"><code class="sourceCode php"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="va">$config</span>[<span class="st">&quot;maintenance_mode&quot;</span>] <span class="op">=</span> <span class="dv">0</span><span class="ot">;</span></span></code></pre></div>
+<hr />
+<h2 id="lista-de-verificación-de-producción">15. Lista de verificación
+de producción</h2>
+<p>Antes de cambiar el DNS o dirigir tráfico real a la nueva
+instalación:</p>
+<ul class="task-list">
+<li><p><label><input type="checkbox"></input><strong><code>index.php</code></strong>:
+<code>ENVIRONMENT</code> establecido en <code>&#39;production&#39;</code> — el
+archivo original tiene <code>&#39;development&#39;</code> como valor
+predeterminado y <strong>debe</strong> cambiarse:</label></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode php"><code class="sourceCode php"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">define</span>(<span class="st">&#39;ENVIRONMENT&#39;</span><span class="ot">,</span> <span class="kw">isset</span>(<span class="va">$_SERVER</span>[<span class="st">&#39;CI_ENV&#39;</span>]) <span class="ot">?</span> <span class="va">$_SERVER</span>[<span class="st">&#39;CI_ENV&#39;</span>] <span class="ot">:</span> <span class="st">&#39;production&#39;</span>)<span class="ot">;</span></span></code></pre></div></li>
+<li><p><label><input type="checkbox"></input><code>database.php</code>:
+<code>db_debug</code> es <code>FALSE</code></label></p></li>
+<li><p><label><input type="checkbox"></input><code>auth.local.php</code>:
+todas las credenciales completadas; permisos del archivo configurados en
+<code>640</code></label></p></li>
+<li><p><label><input type="checkbox"></input>Modo de mantenimiento
+desactivado</label></p></li>
+<li><p><label><input type="checkbox"></input>Actualización masiva DDI
+completada; el recuento de estudios coincide con el catálogo
+anterior</label></p></li>
+<li><p><label><input type="checkbox"></input>Al menos una página de detalle de
+estudio probada de principio a fin</label></p></li>
+<li><p><label><input type="checkbox"></input>Al menos una descarga de archivo
+probada</label></p></li>
+<li><p><label><input type="checkbox"></input>El inicio de sesión de
+administrador funciona con las credenciales existentes</label></p></li>
+<li><p><label><input type="checkbox"></input>El correo electrónico se entrega
+— probado mediante el flujo de contraseña olvidada</label></p></li>
+<li><p><label><input type="checkbox"></input>Seguimiento de Google Analytics
+confirmado en la vista en tiempo real de GA4</label></p></li>
+<li><p><label><input type="checkbox"></input>El registro de errores de Apache
+está limpio:
+<code>sudo tail -f /var/log/apache2/nada5-error.log</code></label></p></li>
+</ul>
+<hr />
+<h2 id="depuración">16. Depuración</h2>
+<table>
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 41%" />
+<col style="width: 29%" />
+</colgroup>
+<thead>
+<tr>
+<th>Síntoma</th>
+<th>Dónde buscar</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>El controlador de actualización devuelve 404</td>
+<td>Registro de errores de Apache</td>
+<td><code>AllowOverride All</code> en VirtualHost;
+<code>sudo a2enmod rewrite</code> y recargar Apache</td>
+</tr>
+<tr>
+<td>Un paso SQL falla en la página de actualización</td>
+<td>Texto de salida en la página de actualización</td>
+<td>Ejecute la sentencia en el CLI de <code>mysql</code>; consulte la
+tabla de errores en el Paso 8</td>
+</tr>
+<tr>
+<td>Página en blanco / HTTP 500</td>
+<td><code>/var/log/apache2/nada5-error.log</code>, carpeta
+<code>logs/</code> en la raíz de NADA</td>
+<td>Establezca temporalmente <code>ENVIRONMENT</code> en
+<code>development</code> en <code>index.php</code>; verifique
+extensiones: <code>php -m \| grep mysqli</code></td>
+</tr>
+<tr>
+<td>Estudios faltantes después de la migración</td>
+<td>—</td>
+<td>La actualización masiva DDI aún no se ha ejecutado — consulte el
+Paso 13.1</td>
+</tr>
+<tr>
+<td>La actualización masiva DDI falla o muestra errores</td>
+<td>Carpeta <code>logs/</code> en la raíz de NADA</td>
+<td>Enlace simbólico de <code>datafiles/</code> roto o propietario
+incorrecto; verifique con
+<code>ls -la /var/www/nada5/datafiles</code></td>
+</tr>
+<tr>
+<td>Las descargas de archivos devuelven 404</td>
+<td>—</td>
+<td>Verifique el destino del enlace simbólico; o establezca la ruta en
+Admin → Settings → Survey Catalog Settings → Catalog folder</td>
+</tr>
+<tr>
+<td>El comando <code>cli/migrate</code> falla</td>
+<td>Salida del terminal</td>
+<td>Confirme que el directorio de trabajo es
+<code>/var/www/nada5</code>; verifique la versión de PHP y
+<code>database.php</code></td>
+</tr>
+<tr>
+<td>El correo electrónico no se entrega</td>
+<td>Registros de NADA, panel SMTP del administrador</td>
+<td>Verifique las credenciales en <code>auth.local.php</code>; confirme
+que el puerto SMTP no está bloqueado por el firewall</td>
+</tr>
+<tr>
+<td>El sitio muestra errores de PHP públicamente</td>
+<td><code>index.php</code></td>
+<td><code>ENVIRONMENT</code> no ha sido cambiado a
+<code>&#39;production&#39;</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ubicaciones de archivos de registro</strong></p>
+<table>
+<colgroup>
+<col style="width: 62%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Registro</th>
+<th>Ruta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Registro de errores de Apache</td>
+<td><code>/var/log/apache2/nada5-error.log</code> (o según lo definido
+en VirtualHost)</td>
+</tr>
+<tr>
+<td>Registro de la aplicación NADA</td>
+<td><code>/var/www/nada5/logs/log-[fecha].php</code></td>
+</tr>
+<tr>
+<td>Registro de errores de MySQL</td>
+<td><code>/var/log/mysql/error.log</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Habilitar temporalmente errores en pantalla para
+depuración</strong></p>
+<p>En <code>index.php</code>, cambie el entorno a
+<code>development</code>. Revierta a <code>production</code> antes de
+entrar en producción.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode php"><code class="sourceCode php"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">define</span>(<span class="st">&#39;ENVIRONMENT&#39;</span><span class="ot">,</span> <span class="kw">isset</span>(<span class="va">$_SERVER</span>[<span class="st">&#39;CI_ENV&#39;</span>]) <span class="ot">?</span> <span class="va">$_SERVER</span>[<span class="st">&#39;CI_ENV&#39;</span>] <span class="ot">:</span> <span class="st">&#39;development&#39;</span>)<span class="ot">;</span></span></code></pre></div>
+</body>
+</html>

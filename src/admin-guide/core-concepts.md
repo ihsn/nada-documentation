@@ -4,7 +4,7 @@ We use in this document some concepts and a jargon that need to be well understo
 
 ## Data
 
-![](~@imageBase/images/nada_tabs.png)
+![](/images/nada_tabs.png)
 
 NADA covers different types of **data used for quantitative analysis of social and economic issues**. This includes:
 
@@ -55,21 +55,11 @@ The creation of collections will in general only be useful and necessary large c
 
 ## Data access type
 
-NADA allows for the level of access to datasets for some types of data (microdata, geographic dataset) to be controlled at the study level. In other words, the level of restriction can differ from study to study and can be defined on a scale ranging from open access, with no restrictions, to no access. Briefly the available access types are:
+NADA allows the level of access to datasets to be controlled at the study level. The level of restriction can differ from study to study and can be defined on a scale ranging from open access with no restrictions, to metadata-only publication with no data access.
 
--   **Open Access Data Files** - data shared under this policy can be downloaded and used without restriction (and should be published under a specific open data license). The user is not required to be logged into the site and no personal information is collected on the person downloading the data.
+Seven access types are available: **Open access**, **Direct access**, **Public Use Files (PUF)**, **Licensed**, **External repository**, **Data enclave**, and **Data not available**.
 
--   **Direct Access Data Files** - data shared under this policy can be downloaded without any restrictions, but some restrictions to the use may apply (e.g., no commercial use). The user is not required to be logged into the site and no personal information is collected on the person downloading the data.
-
--   **Public Use Data Files** - data shared under this policy requires that the user be logged in and registered on the site before they are able to download the data. The user is required to agree to a terms of use of the data and the application keeps records of who downloads the data.
-
--   **Licensed Data Files** - data shared under this policy requires that the user be logged in and registered on the site. Users are also required to fill in and submit a detailed application form listing their reasons for wanting access to the data. Once the user submits the application form the system informs the system administrator that an application has been made. In order for the person to get access to the data the system administrator needs to review the application and approve it.
-
--   **Data available from external repository** - NADA allows for studies and their metadata to be listed in a NADA catalog but for a link to be created to another site when the data for that study are available elsewhere.
-
--   **Data available in an Enclave** - under this policy no data is shared through the application. Users submit an application to access the data at a secure facility physically located on the premises of the data producer or a facility nominated by the data producer.
-
--   **Data not available** - data are not available for this study. Only metadata and related materials (like a study report) are published.
+See [Data access types](/admin-guide/content/data-access-types) for a full description of each type, including the user experience, login requirements, admin workflow, and guidance on when to use each.
 
 ## Citation
 

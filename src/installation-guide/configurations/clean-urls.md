@@ -1,6 +1,6 @@
 # Clean URLs
 
-Clean URLs are user-friendly and readable web addresses that improve SEO, enhance user experieance and omit unnecessary elements like `index.php` or query strings from the URLs. Follow the steps below to configure your Apache server.
+Clean URLs are user-friendly addresses that omit unnecessary elements such as `index.php` from the path. The steps below configure **Apache**. IIS URL Rewrite and NGINX are not fully documented here — see [Installation (Windows)](../platform-windows) and [Installation (Linux)](../platform-linux).
 
 
 ## Update config.php
