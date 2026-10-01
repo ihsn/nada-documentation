@@ -15,6 +15,8 @@ The templates for other pages are:
 - forgot password - `auth/forgot_password.php`
 - user profile - `auth/profile_view.php`
 
+To show optional fields (Institution, Country) on the registration form, configure `application/config/auth_fields.php` before customizing the template. See [Custom fields for user registration](/installation-guide/configurations/custom-registration-fields).
+
 ## Replace Login with Azure
 You can replace the default login with Azure based authentication. NADA includes the drivers to use the Azure authentication. To enable Azure authentication:
 

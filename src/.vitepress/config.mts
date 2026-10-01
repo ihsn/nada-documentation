@@ -71,6 +71,7 @@ export default defineConfig({
               { text: 'Customizing themes', link: '/installation-guide/configurations/customizing-themes' },
               { text: 'Clean URLs', link: '/installation-guide/configurations/clean-urls' },
               { text: 'CSP', link: '/installation-guide/configurations/csp' },
+              { text: 'Custom registration fields', link: '/installation-guide/configurations/custom-registration-fields' },
               { text: 'Custom public access fields', link: '/installation-guide/configurations/custom-public-access-fields' }
             ]
           },

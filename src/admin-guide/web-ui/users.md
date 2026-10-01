@@ -24,6 +24,8 @@ A.  **Regular user accounts** can be created in two ways: (i) by registering an 
 
 (i) A **Regular user** account can be created by a site visitor directly from the *register* screen from the login link on the user interface of the application.
 
+Optional fields such as **Institution** (`company`) and **Country** are hidden on the registration form by default. To enable them, edit `application/config/auth_fields.php`. See [Custom fields for user registration](/installation-guide/configurations/custom-registration-fields).
+
 ![](/images/image179.png)
 
 ![](/images/image180.png)

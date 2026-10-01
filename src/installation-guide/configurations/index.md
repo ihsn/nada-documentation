@@ -11,6 +11,8 @@ After NADA is installed, configure the catalog so curators can publish content a
 | Themes (header, footer, CSS) | [Customizing themes](./customizing-themes) |
 | Clean URLs (Apache) | [Clean URLs](./clean-urls) |
 | Content Security Policy | [CSP](./csp) |
+| Custom registration fields (Institution, Country) | [Custom registration fields](./custom-registration-fields) |
+| Custom public access request fields | [Custom public access fields](./custom-public-access-fields) |
 
 Site-level options in the admin UI (title, home page, menus) are covered under [Site administration](/admin-guide/web-ui/) and [Site configurations](/admin-guide/web-ui/site-configurations).
 
