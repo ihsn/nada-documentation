@@ -58,6 +58,7 @@ export default defineConfig({
             ]
           },
           { text: 'Solr', link: '/installation-guide/installation-solr' },
+          { text: 'MongoDB (indicators)', link: '/installation-guide/installation-mongodb' },
           { text: 'PHP settings', link: '/installation-guide/php-settings' },
           {
             text: 'Server configuration',
@@ -130,14 +131,35 @@ export default defineConfig({
           { text: 'Data access types', link: '/admin-guide/content/data-access-types' },
           { text: 'Microdata', link: '/admin-guide/content/microdata' },
           { text: 'Geospatial', link: '/admin-guide/content/geospatial' },
-          { text: 'Indicators & time series', link: '/admin-guide/content/indicators' },
+          {
+            text: 'Indicators & time series',
+            collapsed: true,
+            items: [
+              { text: 'Overview', link: '/admin-guide/content/indicators' },
+              { text: 'Key concepts', link: '/admin-guide/content/indicators-concepts' },
+              { text: 'Tutorial', link: '/admin-guide/content/indicators-tutorial' },
+              { text: 'Create an indicator in NADA', link: '/admin-guide/content/indicators-admin' },
+              { text: 'Codelists', link: '/admin-guide/web-ui/codelists' },
+              { text: 'Data structures (DSD)', link: '/admin-guide/web-ui/data-structures' },
+              { text: 'Catalog frontend', link: '/admin-guide/content/indicators-frontend' },
+              { text: 'Data API', link: '/admin-guide/content/indicators-data-api' }
+            ]
+          },
+          {
+            text: 'Data tables API & widgets',
+            collapsed: true,
+            items: [
+              { text: 'Data tables API', link: '/admin-guide/content/data-api' },
+              { text: 'Widgets', link: '/admin-guide/widgets' },
+              { text: 'Widgets API', link: '/admin-guide/widgets-api' },
+              { text: 'Visualizations & preview', link: '/admin-guide/content/visualizations' }
+            ]
+          },
           { text: 'Tables', link: '/admin-guide/content/tables' },
           { text: 'Documents', link: '/admin-guide/content/documents' },
           { text: 'Images', link: '/admin-guide/content/images' },
           { text: 'Videos', link: '/admin-guide/content/videos' },
           { text: 'Scripts', link: '/admin-guide/content/scripts' },
-          { text: 'Indicators — Admin UI', link: '/admin-guide/content/indicators-admin' },
-          { text: 'Indicators — Catalog frontend', link: '/admin-guide/content/indicators-frontend' },
           { text: 'Entry lifecycle', link: '/admin-guide/content/lifecycle' },
           { text: 'Visualizations & preview', link: '/admin-guide/content/visualizations' }
         ]
@@ -214,7 +236,8 @@ export default defineConfig({
           { text: 'Tools (NADAR / PyNADA)', link: '/admin-guide/api-tools' },
           { text: 'Use cases', link: '/admin-guide/admin-api' },
           { text: 'Extended API examples', link: '/admin-guide/api-guide-extended' },
-          { text: 'Data API access', link: '/admin-guide/content/data-api' },
+          { text: 'Indicator data API', link: '/admin-guide/content/indicators-data-api' },
+          { text: 'Data tables API', link: '/admin-guide/content/data-api' },
           { text: 'Public / end-user API', link: '/admin-guide/web-ui/use-api' },
           { text: 'Widgets', link: '/admin-guide/widgets' },
           { text: 'Widgets API', link: '/admin-guide/widgets-api' },

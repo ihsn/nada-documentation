@@ -1,0 +1,975 @@
+{
+  "series_description": {
+    "idno": "SI.POV.DDAY",
+    "name": "Poverty headcount ratio at $3.00 a day (2021 PPP) (% of population)",
+    "alternate_identifiers": [
+      {
+        "identifier": "SI.POV.DDAY",
+        "database": "WDI"
+      }
+    ],
+    "measurement_unit": "%",
+    "periodicity": "Annual",
+    "definition_short": "Poverty headcount ratio at $3.00 a day is the percentage of the population living on less than $3.00 a day at 2021 international prices.",
+    "definition_long": "Poverty headcount ratio at $3.00 a day is the percentage of the population living on less than $3.00 a day at 2021 purchasing power adjusted prices. As a result of revisions in PPP exchange rates, poverty rates for individual countries cannot be compared with poverty rates reported in earlier editions.",
+    "methodology": "International comparisons of poverty estimates entail both conceptual and practical problems. Countries have different definitions of poverty, and consistent comparisons across countries can be difficult. Local poverty lines tend to have higher purchasing power in rich countries, where more generous standards are used, than in poor countries. Since World Development Report 1990, the World Bank has aimed to apply a common standard in measuring extreme poverty, anchored to what poverty means in the world's poorest countries. The welfare of people living in different countries can be measured on a common scale by adjusting for differences in the purchasing power of currencies. The statistics reported here are based on consumption data or, when unavailable, on income surveys.",
+    "limitation": "Despite progress in the last decade, the challenges of measuring poverty remain. The timeliness, frequency, quality, and comparability of household surveys need to increase substantially, particularly in the poorest countries. The availability and quality of poverty monitoring data remains low in small states, countries with fragile situations, and low-income countries and even some middle-income countries. The low frequency and lack of comparability of the data available in some countries create uncertainty over the magnitude of poverty reduction.",
+    "relevance": "The World Bank Group is committed to reducing extreme poverty to 3 percent or less, globally, by 2030. Monitoring poverty is important on the global development agenda as well as on the national development agenda of many countries.",
+    "sources": [
+      {
+        "name": "World Bank, Poverty and Inequality Platform",
+        "organization": "World Bank",
+        "uri": "https://pip.worldbank.org",
+        "note": "Data are based on primary household survey data obtained from government statistical agencies and World Bank country departments. Data for high-income economies are mostly from the Luxembourg Income Study database."
+      }
+    ],
+    "topics": [
+      {
+        "name": "Poverty"
+      },
+      {
+        "name": "Poverty rates"
+      }
+    ],
+    "time_periods": [
+      {
+        "start": "1963",
+        "end": "2025"
+      }
+    ],
+    "geographic_units": [
+      {
+        "code": "AGO",
+        "name": "Angola",
+        "type": "country"
+      },
+      {
+        "code": "ALB",
+        "name": "Albania",
+        "type": "country"
+      },
+      {
+        "code": "ARG",
+        "name": "Argentina",
+        "type": "country"
+      },
+      {
+        "code": "ARM",
+        "name": "Armenia",
+        "type": "country"
+      },
+      {
+        "code": "AUS",
+        "name": "Australia",
+        "type": "country"
+      },
+      {
+        "code": "AUT",
+        "name": "Austria",
+        "type": "country"
+      },
+      {
+        "code": "AZE",
+        "name": "Azerbaijan",
+        "type": "country"
+      },
+      {
+        "code": "BDI",
+        "name": "Burundi",
+        "type": "country"
+      },
+      {
+        "code": "BEL",
+        "name": "Belgium",
+        "type": "country"
+      },
+      {
+        "code": "BEN",
+        "name": "Benin",
+        "type": "country"
+      },
+      {
+        "code": "BFA",
+        "name": "Burkina Faso",
+        "type": "country"
+      },
+      {
+        "code": "BGD",
+        "name": "Bangladesh",
+        "type": "country"
+      },
+      {
+        "code": "BGR",
+        "name": "Bulgaria",
+        "type": "country"
+      },
+      {
+        "code": "BIH",
+        "name": "Bosnia and Herzegovina",
+        "type": "country"
+      },
+      {
+        "code": "BLR",
+        "name": "Belarus",
+        "type": "country"
+      },
+      {
+        "code": "BLZ",
+        "name": "Belize",
+        "type": "country"
+      },
+      {
+        "code": "BOL",
+        "name": "Bolivia",
+        "type": "country"
+      },
+      {
+        "code": "BRA",
+        "name": "Brazil",
+        "type": "country"
+      },
+      {
+        "code": "BRB",
+        "name": "Barbados",
+        "type": "country"
+      },
+      {
+        "code": "BTN",
+        "name": "Bhutan",
+        "type": "country"
+      },
+      {
+        "code": "BWA",
+        "name": "Botswana",
+        "type": "country"
+      },
+      {
+        "code": "CAF",
+        "name": "Central African Republic",
+        "type": "country"
+      },
+      {
+        "code": "CAN",
+        "name": "Canada",
+        "type": "country"
+      },
+      {
+        "code": "CHE",
+        "name": "Switzerland",
+        "type": "country"
+      },
+      {
+        "code": "CHL",
+        "name": "Chile",
+        "type": "country"
+      },
+      {
+        "code": "CHN",
+        "name": "China",
+        "type": "country"
+      },
+      {
+        "code": "CIV",
+        "name": "Cote d'Ivoire",
+        "type": "country"
+      },
+      {
+        "code": "CMR",
+        "name": "Cameroon",
+        "type": "country"
+      },
+      {
+        "code": "COD",
+        "name": "Congo, Dem. Rep.",
+        "type": "country"
+      },
+      {
+        "code": "COG",
+        "name": "Congo, Rep.",
+        "type": "country"
+      },
+      {
+        "code": "COL",
+        "name": "Colombia",
+        "type": "country"
+      },
+      {
+        "code": "COM",
+        "name": "Comoros",
+        "type": "country"
+      },
+      {
+        "code": "CPV",
+        "name": "Cabo Verde",
+        "type": "country"
+      },
+      {
+        "code": "CRI",
+        "name": "Costa Rica",
+        "type": "country"
+      },
+      {
+        "code": "CYP",
+        "name": "Cyprus",
+        "type": "country"
+      },
+      {
+        "code": "CZE",
+        "name": "Czechia",
+        "type": "country"
+      },
+      {
+        "code": "DEU",
+        "name": "Germany",
+        "type": "country"
+      },
+      {
+        "code": "DJI",
+        "name": "Djibouti",
+        "type": "country"
+      },
+      {
+        "code": "DNK",
+        "name": "Denmark",
+        "type": "country"
+      },
+      {
+        "code": "DOM",
+        "name": "Dominican Republic",
+        "type": "country"
+      },
+      {
+        "code": "DZA",
+        "name": "Algeria",
+        "type": "country"
+      },
+      {
+        "code": "EAS",
+        "name": "East Asia & Pacific",
+        "type": "country"
+      },
+      {
+        "code": "ECS",
+        "name": "Europe & Central Asia",
+        "type": "country"
+      },
+      {
+        "code": "ECU",
+        "name": "Ecuador",
+        "type": "country"
+      },
+      {
+        "code": "EGY",
+        "name": "Egypt, Arab Rep.",
+        "type": "country"
+      },
+      {
+        "code": "ESP",
+        "name": "Spain",
+        "type": "country"
+      },
+      {
+        "code": "EST",
+        "name": "Estonia",
+        "type": "country"
+      },
+      {
+        "code": "ETH",
+        "name": "Ethiopia",
+        "type": "country"
+      },
+      {
+        "code": "FIN",
+        "name": "Finland",
+        "type": "country"
+      },
+      {
+        "code": "FJI",
+        "name": "Fiji",
+        "type": "country"
+      },
+      {
+        "code": "FRA",
+        "name": "France",
+        "type": "country"
+      },
+      {
+        "code": "FSM",
+        "name": "Micronesia, Fed. Sts.",
+        "type": "country"
+      },
+      {
+        "code": "GAB",
+        "name": "Gabon",
+        "type": "country"
+      },
+      {
+        "code": "GBR",
+        "name": "United Kingdom",
+        "type": "country"
+      },
+      {
+        "code": "GEO",
+        "name": "Georgia",
+        "type": "country"
+      },
+      {
+        "code": "GHA",
+        "name": "Ghana",
+        "type": "country"
+      },
+      {
+        "code": "GIN",
+        "name": "Guinea",
+        "type": "country"
+      },
+      {
+        "code": "GMB",
+        "name": "Gambia, The",
+        "type": "country"
+      },
+      {
+        "code": "GNB",
+        "name": "Guinea-Bissau",
+        "type": "country"
+      },
+      {
+        "code": "GNQ",
+        "name": "Equatorial Guinea",
+        "type": "country"
+      },
+      {
+        "code": "GRC",
+        "name": "Greece",
+        "type": "country"
+      },
+      {
+        "code": "GRD",
+        "name": "Grenada",
+        "type": "country"
+      },
+      {
+        "code": "GTM",
+        "name": "Guatemala",
+        "type": "country"
+      },
+      {
+        "code": "GUY",
+        "name": "Guyana",
+        "type": "country"
+      },
+      {
+        "code": "HIC",
+        "name": "High income",
+        "type": "country"
+      },
+      {
+        "code": "HND",
+        "name": "Honduras",
+        "type": "country"
+      },
+      {
+        "code": "HRV",
+        "name": "Croatia",
+        "type": "country"
+      },
+      {
+        "code": "HTI",
+        "name": "Haiti",
+        "type": "country"
+      },
+      {
+        "code": "HUN",
+        "name": "Hungary",
+        "type": "country"
+      },
+      {
+        "code": "IDA",
+        "name": "IDA total",
+        "type": "country"
+      },
+      {
+        "code": "IDN",
+        "name": "Indonesia",
+        "type": "country"
+      },
+      {
+        "code": "IND",
+        "name": "India",
+        "type": "country"
+      },
+      {
+        "code": "IRL",
+        "name": "Ireland",
+        "type": "country"
+      },
+      {
+        "code": "IRN",
+        "name": "Iran, Islamic Rep.",
+        "type": "country"
+      },
+      {
+        "code": "IRQ",
+        "name": "Iraq",
+        "type": "country"
+      },
+      {
+        "code": "ISL",
+        "name": "Iceland",
+        "type": "country"
+      },
+      {
+        "code": "ISR",
+        "name": "Israel",
+        "type": "country"
+      },
+      {
+        "code": "ITA",
+        "name": "Italy",
+        "type": "country"
+      },
+      {
+        "code": "JAM",
+        "name": "Jamaica",
+        "type": "country"
+      },
+      {
+        "code": "JOR",
+        "name": "Jordan",
+        "type": "country"
+      },
+      {
+        "code": "JPN",
+        "name": "Japan",
+        "type": "country"
+      },
+      {
+        "code": "KAZ",
+        "name": "Kazakhstan",
+        "type": "country"
+      },
+      {
+        "code": "KEN",
+        "name": "Kenya",
+        "type": "country"
+      },
+      {
+        "code": "KGZ",
+        "name": "Kyrgyz Republic",
+        "type": "country"
+      },
+      {
+        "code": "KIR",
+        "name": "Kiribati",
+        "type": "country"
+      },
+      {
+        "code": "KOR",
+        "name": "Korea, Rep.",
+        "type": "country"
+      },
+      {
+        "code": "LAO",
+        "name": "Lao PDR",
+        "type": "country"
+      },
+      {
+        "code": "LBN",
+        "name": "Lebanon",
+        "type": "country"
+      },
+      {
+        "code": "LBR",
+        "name": "Liberia",
+        "type": "country"
+      },
+      {
+        "code": "LCA",
+        "name": "St. Lucia",
+        "type": "country"
+      },
+      {
+        "code": "LCN",
+        "name": "Latin America & Caribbean",
+        "type": "country"
+      },
+      {
+        "code": "LIC",
+        "name": "Low income",
+        "type": "country"
+      },
+      {
+        "code": "LKA",
+        "name": "Sri Lanka",
+        "type": "country"
+      },
+      {
+        "code": "LMC",
+        "name": "Lower middle income",
+        "type": "country"
+      },
+      {
+        "code": "LMY",
+        "name": "Low & middle income",
+        "type": "country"
+      },
+      {
+        "code": "LSO",
+        "name": "Lesotho",
+        "type": "country"
+      },
+      {
+        "code": "LTU",
+        "name": "Lithuania",
+        "type": "country"
+      },
+      {
+        "code": "LUX",
+        "name": "Luxembourg",
+        "type": "country"
+      },
+      {
+        "code": "LVA",
+        "name": "Latvia",
+        "type": "country"
+      },
+      {
+        "code": "MAR",
+        "name": "Morocco",
+        "type": "country"
+      },
+      {
+        "code": "MDA",
+        "name": "Moldova",
+        "type": "country"
+      },
+      {
+        "code": "MDG",
+        "name": "Madagascar",
+        "type": "country"
+      },
+      {
+        "code": "MDV",
+        "name": "Maldives",
+        "type": "country"
+      },
+      {
+        "code": "MEA",
+        "name": "Middle East, North Africa, Afghanistan & Pakistan",
+        "type": "country"
+      },
+      {
+        "code": "MEX",
+        "name": "Mexico",
+        "type": "country"
+      },
+      {
+        "code": "MHL",
+        "name": "Marshall Islands",
+        "type": "country"
+      },
+      {
+        "code": "MKD",
+        "name": "North Macedonia",
+        "type": "country"
+      },
+      {
+        "code": "MLI",
+        "name": "Mali",
+        "type": "country"
+      },
+      {
+        "code": "MLT",
+        "name": "Malta",
+        "type": "country"
+      },
+      {
+        "code": "MMR",
+        "name": "Myanmar",
+        "type": "country"
+      },
+      {
+        "code": "MNE",
+        "name": "Montenegro",
+        "type": "country"
+      },
+      {
+        "code": "MNG",
+        "name": "Mongolia",
+        "type": "country"
+      },
+      {
+        "code": "MOZ",
+        "name": "Mozambique",
+        "type": "country"
+      },
+      {
+        "code": "MRT",
+        "name": "Mauritania",
+        "type": "country"
+      },
+      {
+        "code": "MUS",
+        "name": "Mauritius",
+        "type": "country"
+      },
+      {
+        "code": "MWI",
+        "name": "Malawi",
+        "type": "country"
+      },
+      {
+        "code": "MYS",
+        "name": "Malaysia",
+        "type": "country"
+      },
+      {
+        "code": "NAC",
+        "name": "North America",
+        "type": "country"
+      },
+      {
+        "code": "NAM",
+        "name": "Namibia",
+        "type": "country"
+      },
+      {
+        "code": "NER",
+        "name": "Niger",
+        "type": "country"
+      },
+      {
+        "code": "NGA",
+        "name": "Nigeria",
+        "type": "country"
+      },
+      {
+        "code": "NIC",
+        "name": "Nicaragua",
+        "type": "country"
+      },
+      {
+        "code": "NLD",
+        "name": "Netherlands",
+        "type": "country"
+      },
+      {
+        "code": "NOR",
+        "name": "Norway",
+        "type": "country"
+      },
+      {
+        "code": "NPL",
+        "name": "Nepal",
+        "type": "country"
+      },
+      {
+        "code": "NRU",
+        "name": "Nauru",
+        "type": "country"
+      },
+      {
+        "code": "PAK",
+        "name": "Pakistan",
+        "type": "country"
+      },
+      {
+        "code": "PAN",
+        "name": "Panama",
+        "type": "country"
+      },
+      {
+        "code": "PER",
+        "name": "Peru",
+        "type": "country"
+      },
+      {
+        "code": "PHL",
+        "name": "Philippines",
+        "type": "country"
+      },
+      {
+        "code": "PNG",
+        "name": "Papua New Guinea",
+        "type": "country"
+      },
+      {
+        "code": "POL",
+        "name": "Poland",
+        "type": "country"
+      },
+      {
+        "code": "PRT",
+        "name": "Portugal",
+        "type": "country"
+      },
+      {
+        "code": "PRY",
+        "name": "Paraguay",
+        "type": "country"
+      },
+      {
+        "code": "PSE",
+        "name": "West Bank and Gaza",
+        "type": "country"
+      },
+      {
+        "code": "ROU",
+        "name": "Romania",
+        "type": "country"
+      },
+      {
+        "code": "RUS",
+        "name": "Russian Federation",
+        "type": "country"
+      },
+      {
+        "code": "RWA",
+        "name": "Rwanda",
+        "type": "country"
+      },
+      {
+        "code": "SAS",
+        "name": "South Asia",
+        "type": "country"
+      },
+      {
+        "code": "SDN",
+        "name": "Sudan",
+        "type": "country"
+      },
+      {
+        "code": "SEN",
+        "name": "Senegal",
+        "type": "country"
+      },
+      {
+        "code": "SLB",
+        "name": "Solomon Islands",
+        "type": "country"
+      },
+      {
+        "code": "SLE",
+        "name": "Sierra Leone",
+        "type": "country"
+      },
+      {
+        "code": "SLV",
+        "name": "El Salvador",
+        "type": "country"
+      },
+      {
+        "code": "SRB",
+        "name": "Serbia",
+        "type": "country"
+      },
+      {
+        "code": "SSD",
+        "name": "South Sudan",
+        "type": "country"
+      },
+      {
+        "code": "SSF",
+        "name": "Sub-Saharan Africa",
+        "type": "country"
+      },
+      {
+        "code": "STP",
+        "name": "Sao Tome and Principe",
+        "type": "country"
+      },
+      {
+        "code": "SUR",
+        "name": "Suriname",
+        "type": "country"
+      },
+      {
+        "code": "SVK",
+        "name": "Slovak Republic",
+        "type": "country"
+      },
+      {
+        "code": "SVN",
+        "name": "Slovenia",
+        "type": "country"
+      },
+      {
+        "code": "SWE",
+        "name": "Sweden",
+        "type": "country"
+      },
+      {
+        "code": "SWZ",
+        "name": "Eswatini",
+        "type": "country"
+      },
+      {
+        "code": "SYC",
+        "name": "Seychelles",
+        "type": "country"
+      },
+      {
+        "code": "SYR",
+        "name": "Syrian Arab Republic",
+        "type": "country"
+      },
+      {
+        "code": "TCD",
+        "name": "Chad",
+        "type": "country"
+      },
+      {
+        "code": "TGO",
+        "name": "Togo",
+        "type": "country"
+      },
+      {
+        "code": "THA",
+        "name": "Thailand",
+        "type": "country"
+      },
+      {
+        "code": "TJK",
+        "name": "Tajikistan",
+        "type": "country"
+      },
+      {
+        "code": "TKM",
+        "name": "Turkmenistan",
+        "type": "country"
+      },
+      {
+        "code": "TLS",
+        "name": "Timor-Leste",
+        "type": "country"
+      },
+      {
+        "code": "TON",
+        "name": "Tonga",
+        "type": "country"
+      },
+      {
+        "code": "TTO",
+        "name": "Trinidad and Tobago",
+        "type": "country"
+      },
+      {
+        "code": "TUN",
+        "name": "Tunisia",
+        "type": "country"
+      },
+      {
+        "code": "TUR",
+        "name": "Turkiye",
+        "type": "country"
+      },
+      {
+        "code": "TUV",
+        "name": "Tuvalu",
+        "type": "country"
+      },
+      {
+        "code": "TZA",
+        "name": "Tanzania",
+        "type": "country"
+      },
+      {
+        "code": "UGA",
+        "name": "Uganda",
+        "type": "country"
+      },
+      {
+        "code": "UKR",
+        "name": "Ukraine",
+        "type": "country"
+      },
+      {
+        "code": "UMC",
+        "name": "Upper middle income",
+        "type": "country"
+      },
+      {
+        "code": "URY",
+        "name": "Uruguay",
+        "type": "country"
+      },
+      {
+        "code": "USA",
+        "name": "United States",
+        "type": "country"
+      },
+      {
+        "code": "UZB",
+        "name": "Uzbekistan",
+        "type": "country"
+      },
+      {
+        "code": "VEN",
+        "name": "Venezuela, RB",
+        "type": "country"
+      },
+      {
+        "code": "VNM",
+        "name": "Viet Nam",
+        "type": "country"
+      },
+      {
+        "code": "VUT",
+        "name": "Vanuatu",
+        "type": "country"
+      },
+      {
+        "code": "WLD",
+        "name": "World",
+        "type": "country"
+      },
+      {
+        "code": "WSM",
+        "name": "Samoa",
+        "type": "country"
+      },
+      {
+        "code": "XKX",
+        "name": "Kosovo",
+        "type": "country"
+      },
+      {
+        "code": "YEM",
+        "name": "Yemen, Rep.",
+        "type": "country"
+      },
+      {
+        "code": "ZAF",
+        "name": "South Africa",
+        "type": "country"
+      },
+      {
+        "code": "ZMB",
+        "name": "Zambia",
+        "type": "country"
+      },
+      {
+        "code": "ZWE",
+        "name": "Zimbabwe",
+        "type": "country"
+      }
+    ],
+    "license": [
+      {
+        "name": "CC BY-4.0",
+        "uri": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    ],
+    "notes": [
+      {
+        "note": "The World Bank's internationally comparable poverty monitoring database draws on income or detailed consumption data from more than 2000 household surveys across 169 countries. See the Poverty and Inequality Platform (PIP) for details (pip.worldbank.org)."
+      }
+    ]
+  },
+  "data_structure_reference": {
+    "idno": "WB_WDI_COUNTRY_YEAR_1.0",
+    "agency": "WB",
+    "name": "WDI_COUNTRY_YEAR",
+    "version": "1.0"
+  }
+}

@@ -1,4 +1,8 @@
-# Making data accessible via API
+# Data tables API
+
+::: info Not for indicators
+This page covers the **data tables API**, which publishes tabular data with its own data dictionary. It is a separate feature from **indicators**. For an indicator's data, see the [indicator data API](./indicators-data-api).
+:::
 
 In addition to providing tools to maintain **metadata** via API, NADA provides a solution to store and disseminate **data** via API. In the current version of NADA, this solution applies to **indicators/time series** and **tabular** data. It could also be implemented to microdata (this option is not documented here, but will be added in future versions of the documentation).
 	
@@ -7,7 +11,7 @@ Making your data accessible via API has multiple advantages:
 - By making your data accessible programatically, you provide new opportunities to data users, which will increase the use and value of your data.
 - The API can be used internally by your NADA catalog, to create dynamic visualizations, display data, and create on-line data extraction tools.
 
-NADA stores the data and the related data dictionary in a mongoDB database (an open source software). To make use of the data API solution, mongoDB must have been installed on your server. See the Installation Guide for more information. 
+NADA stores the data and the related data dictionary in a mongoDB database (an open source software). To make use of the data API solution, MongoDB must have been installed on your server. See [MongoDB setup](/installation-guide/installation-mongodb) in the Installation Guide.
 	
 Publishing data in mongoDB and making them accessible via API is a simple process that consists of:
 - Preparing your data: data must be stored in a CSV file (or a zipped CSV file) and organized in a *long format*. The content of this CSV file will be a "table" in mongoDB. 

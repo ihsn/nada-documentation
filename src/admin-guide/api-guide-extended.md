@@ -146,45 +146,9 @@ In Python:
 ```
 ```
 
-## Publishing time series  
+## Publishing time series
 
-**Scenario description**: 
-
-**What you need to know**: 
-
-**If it does not work:**
-
-In R:
-
-```r
-library(nadar)
-
-```
-
-In Python:
-```
-```
-
-## Publishing time series with data in API and chart 
-
-**Scenario description**: 
-
-**What you need to know**: 
-
-**If it does not work:**
-
-In R:
-
-```r
-library(nadar)
-
-```
-
-In Python:
-```
-```
-
-
+To publish indicators and time series with their data, see [Using the NADA API](/admin-guide/content/indicators#using-the-nada-api) in the indicators guide.
 
 ## Publishing data with data in API and a chart and map 
 

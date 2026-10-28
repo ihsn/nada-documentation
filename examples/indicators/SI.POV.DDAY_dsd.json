@@ -1,0 +1,967 @@
+{
+  "data_structure": {
+    "idno": "WB_WDI_COUNTRY_YEAR_1.0",
+    "agency": "WB",
+    "name": "WDI_COUNTRY_YEAR",
+    "version": "1.0",
+    "title": "WDI indicators by country and year",
+    "description": "One value per indicator, country and year. Can be shared by any annual, country-level indicator.",
+    "components": [
+      {
+        "name": "INDICATOR",
+        "label": "Indicator",
+        "column_type": "indicator_id",
+        "data_type": "string"
+      },
+      {
+        "name": "INDICATOR_LABEL",
+        "label": "Indicator name",
+        "column_type": "indicator_name",
+        "data_type": "string"
+      },
+      {
+        "name": "REF_AREA",
+        "label": "Country",
+        "column_type": "geography",
+        "data_type": "string",
+        "codelist": {
+          "idno": "WB_CL_REF_AREA_1.0",
+          "agency": "WB",
+          "name": "CL_REF_AREA",
+          "version": "1.0",
+          "description": "ISO 3166-1 alpha-3 country codes and World Bank country names (countries in the SI.POV.DDAY sample).",
+          "items": [
+            {
+              "code": "AGO",
+              "label": "Angola",
+              "sort_order": 1
+            },
+            {
+              "code": "ALB",
+              "label": "Albania",
+              "sort_order": 2
+            },
+            {
+              "code": "ARG",
+              "label": "Argentina",
+              "sort_order": 3
+            },
+            {
+              "code": "ARM",
+              "label": "Armenia",
+              "sort_order": 4
+            },
+            {
+              "code": "AUS",
+              "label": "Australia",
+              "sort_order": 5
+            },
+            {
+              "code": "AUT",
+              "label": "Austria",
+              "sort_order": 6
+            },
+            {
+              "code": "AZE",
+              "label": "Azerbaijan",
+              "sort_order": 7
+            },
+            {
+              "code": "BDI",
+              "label": "Burundi",
+              "sort_order": 8
+            },
+            {
+              "code": "BEL",
+              "label": "Belgium",
+              "sort_order": 9
+            },
+            {
+              "code": "BEN",
+              "label": "Benin",
+              "sort_order": 10
+            },
+            {
+              "code": "BFA",
+              "label": "Burkina Faso",
+              "sort_order": 11
+            },
+            {
+              "code": "BGD",
+              "label": "Bangladesh",
+              "sort_order": 12
+            },
+            {
+              "code": "BGR",
+              "label": "Bulgaria",
+              "sort_order": 13
+            },
+            {
+              "code": "BIH",
+              "label": "Bosnia and Herzegovina",
+              "sort_order": 14
+            },
+            {
+              "code": "BLR",
+              "label": "Belarus",
+              "sort_order": 15
+            },
+            {
+              "code": "BLZ",
+              "label": "Belize",
+              "sort_order": 16
+            },
+            {
+              "code": "BOL",
+              "label": "Bolivia",
+              "sort_order": 17
+            },
+            {
+              "code": "BRA",
+              "label": "Brazil",
+              "sort_order": 18
+            },
+            {
+              "code": "BRB",
+              "label": "Barbados",
+              "sort_order": 19
+            },
+            {
+              "code": "BTN",
+              "label": "Bhutan",
+              "sort_order": 20
+            },
+            {
+              "code": "BWA",
+              "label": "Botswana",
+              "sort_order": 21
+            },
+            {
+              "code": "CAF",
+              "label": "Central African Republic",
+              "sort_order": 22
+            },
+            {
+              "code": "CAN",
+              "label": "Canada",
+              "sort_order": 23
+            },
+            {
+              "code": "CHE",
+              "label": "Switzerland",
+              "sort_order": 24
+            },
+            {
+              "code": "CHL",
+              "label": "Chile",
+              "sort_order": 25
+            },
+            {
+              "code": "CHN",
+              "label": "China",
+              "sort_order": 26
+            },
+            {
+              "code": "CIV",
+              "label": "Cote d'Ivoire",
+              "sort_order": 27
+            },
+            {
+              "code": "CMR",
+              "label": "Cameroon",
+              "sort_order": 28
+            },
+            {
+              "code": "COD",
+              "label": "Congo, Dem. Rep.",
+              "sort_order": 29
+            },
+            {
+              "code": "COG",
+              "label": "Congo, Rep.",
+              "sort_order": 30
+            },
+            {
+              "code": "COL",
+              "label": "Colombia",
+              "sort_order": 31
+            },
+            {
+              "code": "COM",
+              "label": "Comoros",
+              "sort_order": 32
+            },
+            {
+              "code": "CPV",
+              "label": "Cabo Verde",
+              "sort_order": 33
+            },
+            {
+              "code": "CRI",
+              "label": "Costa Rica",
+              "sort_order": 34
+            },
+            {
+              "code": "CYP",
+              "label": "Cyprus",
+              "sort_order": 35
+            },
+            {
+              "code": "CZE",
+              "label": "Czechia",
+              "sort_order": 36
+            },
+            {
+              "code": "DEU",
+              "label": "Germany",
+              "sort_order": 37
+            },
+            {
+              "code": "DJI",
+              "label": "Djibouti",
+              "sort_order": 38
+            },
+            {
+              "code": "DNK",
+              "label": "Denmark",
+              "sort_order": 39
+            },
+            {
+              "code": "DOM",
+              "label": "Dominican Republic",
+              "sort_order": 40
+            },
+            {
+              "code": "DZA",
+              "label": "Algeria",
+              "sort_order": 41
+            },
+            {
+              "code": "EAS",
+              "label": "East Asia & Pacific",
+              "sort_order": 42
+            },
+            {
+              "code": "ECS",
+              "label": "Europe & Central Asia",
+              "sort_order": 43
+            },
+            {
+              "code": "ECU",
+              "label": "Ecuador",
+              "sort_order": 44
+            },
+            {
+              "code": "EGY",
+              "label": "Egypt, Arab Rep.",
+              "sort_order": 45
+            },
+            {
+              "code": "ESP",
+              "label": "Spain",
+              "sort_order": 46
+            },
+            {
+              "code": "EST",
+              "label": "Estonia",
+              "sort_order": 47
+            },
+            {
+              "code": "ETH",
+              "label": "Ethiopia",
+              "sort_order": 48
+            },
+            {
+              "code": "FIN",
+              "label": "Finland",
+              "sort_order": 49
+            },
+            {
+              "code": "FJI",
+              "label": "Fiji",
+              "sort_order": 50
+            },
+            {
+              "code": "FRA",
+              "label": "France",
+              "sort_order": 51
+            },
+            {
+              "code": "FSM",
+              "label": "Micronesia, Fed. Sts.",
+              "sort_order": 52
+            },
+            {
+              "code": "GAB",
+              "label": "Gabon",
+              "sort_order": 53
+            },
+            {
+              "code": "GBR",
+              "label": "United Kingdom",
+              "sort_order": 54
+            },
+            {
+              "code": "GEO",
+              "label": "Georgia",
+              "sort_order": 55
+            },
+            {
+              "code": "GHA",
+              "label": "Ghana",
+              "sort_order": 56
+            },
+            {
+              "code": "GIN",
+              "label": "Guinea",
+              "sort_order": 57
+            },
+            {
+              "code": "GMB",
+              "label": "Gambia, The",
+              "sort_order": 58
+            },
+            {
+              "code": "GNB",
+              "label": "Guinea-Bissau",
+              "sort_order": 59
+            },
+            {
+              "code": "GNQ",
+              "label": "Equatorial Guinea",
+              "sort_order": 60
+            },
+            {
+              "code": "GRC",
+              "label": "Greece",
+              "sort_order": 61
+            },
+            {
+              "code": "GRD",
+              "label": "Grenada",
+              "sort_order": 62
+            },
+            {
+              "code": "GTM",
+              "label": "Guatemala",
+              "sort_order": 63
+            },
+            {
+              "code": "GUY",
+              "label": "Guyana",
+              "sort_order": 64
+            },
+            {
+              "code": "HIC",
+              "label": "High income",
+              "sort_order": 65
+            },
+            {
+              "code": "HND",
+              "label": "Honduras",
+              "sort_order": 66
+            },
+            {
+              "code": "HRV",
+              "label": "Croatia",
+              "sort_order": 67
+            },
+            {
+              "code": "HTI",
+              "label": "Haiti",
+              "sort_order": 68
+            },
+            {
+              "code": "HUN",
+              "label": "Hungary",
+              "sort_order": 69
+            },
+            {
+              "code": "IDA",
+              "label": "IDA total",
+              "sort_order": 70
+            },
+            {
+              "code": "IDN",
+              "label": "Indonesia",
+              "sort_order": 71
+            },
+            {
+              "code": "IND",
+              "label": "India",
+              "sort_order": 72
+            },
+            {
+              "code": "IRL",
+              "label": "Ireland",
+              "sort_order": 73
+            },
+            {
+              "code": "IRN",
+              "label": "Iran, Islamic Rep.",
+              "sort_order": 74
+            },
+            {
+              "code": "IRQ",
+              "label": "Iraq",
+              "sort_order": 75
+            },
+            {
+              "code": "ISL",
+              "label": "Iceland",
+              "sort_order": 76
+            },
+            {
+              "code": "ISR",
+              "label": "Israel",
+              "sort_order": 77
+            },
+            {
+              "code": "ITA",
+              "label": "Italy",
+              "sort_order": 78
+            },
+            {
+              "code": "JAM",
+              "label": "Jamaica",
+              "sort_order": 79
+            },
+            {
+              "code": "JOR",
+              "label": "Jordan",
+              "sort_order": 80
+            },
+            {
+              "code": "JPN",
+              "label": "Japan",
+              "sort_order": 81
+            },
+            {
+              "code": "KAZ",
+              "label": "Kazakhstan",
+              "sort_order": 82
+            },
+            {
+              "code": "KEN",
+              "label": "Kenya",
+              "sort_order": 83
+            },
+            {
+              "code": "KGZ",
+              "label": "Kyrgyz Republic",
+              "sort_order": 84
+            },
+            {
+              "code": "KIR",
+              "label": "Kiribati",
+              "sort_order": 85
+            },
+            {
+              "code": "KOR",
+              "label": "Korea, Rep.",
+              "sort_order": 86
+            },
+            {
+              "code": "LAO",
+              "label": "Lao PDR",
+              "sort_order": 87
+            },
+            {
+              "code": "LBN",
+              "label": "Lebanon",
+              "sort_order": 88
+            },
+            {
+              "code": "LBR",
+              "label": "Liberia",
+              "sort_order": 89
+            },
+            {
+              "code": "LCA",
+              "label": "St. Lucia",
+              "sort_order": 90
+            },
+            {
+              "code": "LCN",
+              "label": "Latin America & Caribbean",
+              "sort_order": 91
+            },
+            {
+              "code": "LIC",
+              "label": "Low income",
+              "sort_order": 92
+            },
+            {
+              "code": "LKA",
+              "label": "Sri Lanka",
+              "sort_order": 93
+            },
+            {
+              "code": "LMC",
+              "label": "Lower middle income",
+              "sort_order": 94
+            },
+            {
+              "code": "LMY",
+              "label": "Low & middle income",
+              "sort_order": 95
+            },
+            {
+              "code": "LSO",
+              "label": "Lesotho",
+              "sort_order": 96
+            },
+            {
+              "code": "LTU",
+              "label": "Lithuania",
+              "sort_order": 97
+            },
+            {
+              "code": "LUX",
+              "label": "Luxembourg",
+              "sort_order": 98
+            },
+            {
+              "code": "LVA",
+              "label": "Latvia",
+              "sort_order": 99
+            },
+            {
+              "code": "MAR",
+              "label": "Morocco",
+              "sort_order": 100
+            },
+            {
+              "code": "MDA",
+              "label": "Moldova",
+              "sort_order": 101
+            },
+            {
+              "code": "MDG",
+              "label": "Madagascar",
+              "sort_order": 102
+            },
+            {
+              "code": "MDV",
+              "label": "Maldives",
+              "sort_order": 103
+            },
+            {
+              "code": "MEA",
+              "label": "Middle East, North Africa, Afghanistan & Pakistan",
+              "sort_order": 104
+            },
+            {
+              "code": "MEX",
+              "label": "Mexico",
+              "sort_order": 105
+            },
+            {
+              "code": "MHL",
+              "label": "Marshall Islands",
+              "sort_order": 106
+            },
+            {
+              "code": "MKD",
+              "label": "North Macedonia",
+              "sort_order": 107
+            },
+            {
+              "code": "MLI",
+              "label": "Mali",
+              "sort_order": 108
+            },
+            {
+              "code": "MLT",
+              "label": "Malta",
+              "sort_order": 109
+            },
+            {
+              "code": "MMR",
+              "label": "Myanmar",
+              "sort_order": 110
+            },
+            {
+              "code": "MNE",
+              "label": "Montenegro",
+              "sort_order": 111
+            },
+            {
+              "code": "MNG",
+              "label": "Mongolia",
+              "sort_order": 112
+            },
+            {
+              "code": "MOZ",
+              "label": "Mozambique",
+              "sort_order": 113
+            },
+            {
+              "code": "MRT",
+              "label": "Mauritania",
+              "sort_order": 114
+            },
+            {
+              "code": "MUS",
+              "label": "Mauritius",
+              "sort_order": 115
+            },
+            {
+              "code": "MWI",
+              "label": "Malawi",
+              "sort_order": 116
+            },
+            {
+              "code": "MYS",
+              "label": "Malaysia",
+              "sort_order": 117
+            },
+            {
+              "code": "NAC",
+              "label": "North America",
+              "sort_order": 118
+            },
+            {
+              "code": "NAM",
+              "label": "Namibia",
+              "sort_order": 119
+            },
+            {
+              "code": "NER",
+              "label": "Niger",
+              "sort_order": 120
+            },
+            {
+              "code": "NGA",
+              "label": "Nigeria",
+              "sort_order": 121
+            },
+            {
+              "code": "NIC",
+              "label": "Nicaragua",
+              "sort_order": 122
+            },
+            {
+              "code": "NLD",
+              "label": "Netherlands",
+              "sort_order": 123
+            },
+            {
+              "code": "NOR",
+              "label": "Norway",
+              "sort_order": 124
+            },
+            {
+              "code": "NPL",
+              "label": "Nepal",
+              "sort_order": 125
+            },
+            {
+              "code": "NRU",
+              "label": "Nauru",
+              "sort_order": 126
+            },
+            {
+              "code": "PAK",
+              "label": "Pakistan",
+              "sort_order": 127
+            },
+            {
+              "code": "PAN",
+              "label": "Panama",
+              "sort_order": 128
+            },
+            {
+              "code": "PER",
+              "label": "Peru",
+              "sort_order": 129
+            },
+            {
+              "code": "PHL",
+              "label": "Philippines",
+              "sort_order": 130
+            },
+            {
+              "code": "PNG",
+              "label": "Papua New Guinea",
+              "sort_order": 131
+            },
+            {
+              "code": "POL",
+              "label": "Poland",
+              "sort_order": 132
+            },
+            {
+              "code": "PRT",
+              "label": "Portugal",
+              "sort_order": 133
+            },
+            {
+              "code": "PRY",
+              "label": "Paraguay",
+              "sort_order": 134
+            },
+            {
+              "code": "PSE",
+              "label": "West Bank and Gaza",
+              "sort_order": 135
+            },
+            {
+              "code": "ROU",
+              "label": "Romania",
+              "sort_order": 136
+            },
+            {
+              "code": "RUS",
+              "label": "Russian Federation",
+              "sort_order": 137
+            },
+            {
+              "code": "RWA",
+              "label": "Rwanda",
+              "sort_order": 138
+            },
+            {
+              "code": "SAS",
+              "label": "South Asia",
+              "sort_order": 139
+            },
+            {
+              "code": "SDN",
+              "label": "Sudan",
+              "sort_order": 140
+            },
+            {
+              "code": "SEN",
+              "label": "Senegal",
+              "sort_order": 141
+            },
+            {
+              "code": "SLB",
+              "label": "Solomon Islands",
+              "sort_order": 142
+            },
+            {
+              "code": "SLE",
+              "label": "Sierra Leone",
+              "sort_order": 143
+            },
+            {
+              "code": "SLV",
+              "label": "El Salvador",
+              "sort_order": 144
+            },
+            {
+              "code": "SRB",
+              "label": "Serbia",
+              "sort_order": 145
+            },
+            {
+              "code": "SSD",
+              "label": "South Sudan",
+              "sort_order": 146
+            },
+            {
+              "code": "SSF",
+              "label": "Sub-Saharan Africa",
+              "sort_order": 147
+            },
+            {
+              "code": "STP",
+              "label": "Sao Tome and Principe",
+              "sort_order": 148
+            },
+            {
+              "code": "SUR",
+              "label": "Suriname",
+              "sort_order": 149
+            },
+            {
+              "code": "SVK",
+              "label": "Slovak Republic",
+              "sort_order": 150
+            },
+            {
+              "code": "SVN",
+              "label": "Slovenia",
+              "sort_order": 151
+            },
+            {
+              "code": "SWE",
+              "label": "Sweden",
+              "sort_order": 152
+            },
+            {
+              "code": "SWZ",
+              "label": "Eswatini",
+              "sort_order": 153
+            },
+            {
+              "code": "SYC",
+              "label": "Seychelles",
+              "sort_order": 154
+            },
+            {
+              "code": "SYR",
+              "label": "Syrian Arab Republic",
+              "sort_order": 155
+            },
+            {
+              "code": "TCD",
+              "label": "Chad",
+              "sort_order": 156
+            },
+            {
+              "code": "TGO",
+              "label": "Togo",
+              "sort_order": 157
+            },
+            {
+              "code": "THA",
+              "label": "Thailand",
+              "sort_order": 158
+            },
+            {
+              "code": "TJK",
+              "label": "Tajikistan",
+              "sort_order": 159
+            },
+            {
+              "code": "TKM",
+              "label": "Turkmenistan",
+              "sort_order": 160
+            },
+            {
+              "code": "TLS",
+              "label": "Timor-Leste",
+              "sort_order": 161
+            },
+            {
+              "code": "TON",
+              "label": "Tonga",
+              "sort_order": 162
+            },
+            {
+              "code": "TTO",
+              "label": "Trinidad and Tobago",
+              "sort_order": 163
+            },
+            {
+              "code": "TUN",
+              "label": "Tunisia",
+              "sort_order": 164
+            },
+            {
+              "code": "TUR",
+              "label": "Turkiye",
+              "sort_order": 165
+            },
+            {
+              "code": "TUV",
+              "label": "Tuvalu",
+              "sort_order": 166
+            },
+            {
+              "code": "TZA",
+              "label": "Tanzania",
+              "sort_order": 167
+            },
+            {
+              "code": "UGA",
+              "label": "Uganda",
+              "sort_order": 168
+            },
+            {
+              "code": "UKR",
+              "label": "Ukraine",
+              "sort_order": 169
+            },
+            {
+              "code": "UMC",
+              "label": "Upper middle income",
+              "sort_order": 170
+            },
+            {
+              "code": "URY",
+              "label": "Uruguay",
+              "sort_order": 171
+            },
+            {
+              "code": "USA",
+              "label": "United States",
+              "sort_order": 172
+            },
+            {
+              "code": "UZB",
+              "label": "Uzbekistan",
+              "sort_order": 173
+            },
+            {
+              "code": "VEN",
+              "label": "Venezuela, RB",
+              "sort_order": 174
+            },
+            {
+              "code": "VNM",
+              "label": "Viet Nam",
+              "sort_order": 175
+            },
+            {
+              "code": "VUT",
+              "label": "Vanuatu",
+              "sort_order": 176
+            },
+            {
+              "code": "WLD",
+              "label": "World",
+              "sort_order": 177
+            },
+            {
+              "code": "WSM",
+              "label": "Samoa",
+              "sort_order": 178
+            },
+            {
+              "code": "XKX",
+              "label": "Kosovo",
+              "sort_order": 179
+            },
+            {
+              "code": "YEM",
+              "label": "Yemen, Rep.",
+              "sort_order": 180
+            },
+            {
+              "code": "ZAF",
+              "label": "South Africa",
+              "sort_order": 181
+            },
+            {
+              "code": "ZMB",
+              "label": "Zambia",
+              "sort_order": 182
+            },
+            {
+              "code": "ZWE",
+              "label": "Zimbabwe",
+              "sort_order": 183
+            }
+          ]
+        }
+      },
+      {
+        "name": "YEAR",
+        "label": "Year",
+        "column_type": "time_period",
+        "data_type": "string",
+        "time_period_format": "YYYY"
+      },
+      {
+        "name": "VALUE",
+        "label": "Value",
+        "column_type": "observation_value",
+        "data_type": "double"
+      }
+    ]
+  }
+}

@@ -14,6 +14,7 @@ NADA is deployed as a **web application** on a server with PHP and a supported d
 | **Database** | **MySQL 8.x** or **MariaDB 10.x+**, *or* **Microsoft SQL Server** 2012+ with full-text (**pick one**) |
 | **PHP** | **7.4** minimum; **PHP 8.x recommended**. Extensions: `xsl`, `xml`, `mbstring`, plus `mysqli` (MySQL/MariaDB) **or** `sqlsrv` (SQL Server) |
 | **Web server** | Apache 2.4+, NGINX, or IIS 10+ |
+| **MongoDB** (optional) | Needed only for indicator / time series data and the data API. Requires PHP 8.1+ and the `mongodb` extension. See [MongoDB](./installation-mongodb) |
 
 ::: tip Recommended
 New installs should use **PHP 8.x** and **MySQL 8.x** or **MariaDB 10.x+**. PHP 7.4 remains the minimum supported version. MySQL 5.7 and older are not recommended.

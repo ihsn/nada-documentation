@@ -9,7 +9,8 @@ NADA provides APIs for catalog administrators and for catalog users. This sectio
 | Decide UI vs API | [Web interface vs API](/admin-guide/ui-vs-api) |
 | Install NADAR / PyNADA | [Tools for API users](/admin-guide/api-tools) |
 | Admin automation examples | [Use cases](/admin-guide/admin-api) · [Extended API examples](/admin-guide/api-guide-extended) |
-| Publish / query data tables via API | [Data API access](/admin-guide/content/data-api) |
+| Query indicator data via API | [Indicator data API](/admin-guide/content/indicators-data-api) |
+| Publish / query data tables via API | [Data tables API](/admin-guide/content/data-api) |
 | Public / end-user API | [Use of the API by data users](/admin-guide/web-ui/use-api) |
 | Embeddable charts | [Widgets](/admin-guide/widgets) · [Widgets API](/admin-guide/widgets-api) |
 | Custom authentication | [Extend login](/admin-guide/extend-login) |

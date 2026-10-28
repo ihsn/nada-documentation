@@ -20,4 +20,4 @@ If you are new to NADA, complete the [microdata](./microdata) tutorial first (UI
 ## Related
 
 - [Core concepts](/admin-guide/core-concepts) — geospatial vs other types
-- [Making data accessible via API](/admin-guide/content/data-api) — when exposing data through NADA’s data API
+- [Data tables API](/admin-guide/content/data-api) — when exposing data through NADA’s data tables API
