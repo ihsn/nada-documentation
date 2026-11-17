@@ -2,7 +2,7 @@
 
 [Solr](https://solr.apache.org/) is an **optional** full-text search engine. It is typically faster and more capable than NADA’s built-in database search, especially for large catalogs and variable-level search.
 
-By default NADA uses database search (`search_provider = db`). After Solr is installed and indexed, switch the catalog to Solr in [Site configurations](./site-configurations).
+By default NADA uses database search. After Solr is installed and indexed, switch the catalog to Solr in the **Search** section of [Site configurations](./site-configurations#search).
 
 ## Before you start
 
@@ -108,17 +108,20 @@ php index.php cli/solr/index_variables
 
 See `application/controllers/cli/Solr.php` for available commands and parameters.
 
-## Enable Solr as the search provider
+## Enable Solr as the search engine
 
-After the core exists, the schema is set up, and indexing has completed:
+Open **Settings → Settings**, section **Search** ([Site configurations](./site-configurations#search)).
 
-1. Open **Site Administration → Settings** ([Site configurations](./site-configurations)).
-2. Set **Search provider** to **Solr**.
-3. Save.
+1. Set **Index kept in sync** to **Solr** and click **Update**, ideally before you index. NADA then keeps the Solr
+   index up to date as studies and citations change.
+2. After the core exists, the schema is set up, and indexing has completed, select the **Solr** panel's radio button
+   and click **Update**.
 
-Until you switch this setting, the public catalog continues to use database search even if Solr is indexed.
+Until you select Solr, the public catalog continues to use database search even if Solr is indexed. NADA accepts Solr
+as the search engine only while **Index kept in sync** is Solr.
 
-Then test keyword search on the public catalog (studies and, for microdata, variables).
+Then test keyword search on the public catalog. With Solr, studies and citations are searched in Solr; variables are
+still searched in the database.
 
 ## Troubleshooting
 
@@ -127,14 +130,15 @@ Then test keyword search on the public catalog (studies and, for microdata, vari
 | Ping fails / Offline | Solr service running; host/port in `solr.php`; firewall; PHP can reach Solr |
 | Core not found | Create core in admin UI or CLI; name matches `solr_collection` |
 | Schema errors | Run **Setup Complete Schema** again; check Solr logs; Validate Schema |
-| Empty search after enabling Solr | Indexing incomplete; still on `db` provider; Clear Index then reindex |
+| Empty search after enabling Solr | Indexing incomplete; search engine still **Database**; Clear Index then reindex |
 | Indexing stalls | PHP timeouts; use Index by Survey or CLI; check `solr_timeout` in `solr.php` |
 | Cannot open admin Solr page | Logged in as admin with configurations **edit** permission |
 
-More install-related troubleshooting: [Solr install guide](/installation-guide/installation-solr#troubleshooting).
+More install-related troubleshooting: [Solr install guide](/installation-guide/installation-solr#troubleshooting-install).
 
 ## Related
 
 - [Solr install (Windows & Linux)](/installation-guide/installation-solr)
-- [Site configurations](./site-configurations) — search provider
+- [Site configurations](./site-configurations#search) — search engine
+- [NADA-AI search](./nada-ai) — the other optional search engine
 - [Apache Solr documentation](https://solr.apache.org/guide/)

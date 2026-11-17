@@ -58,6 +58,8 @@ export default defineConfig({
             ]
           },
           { text: 'Solr', link: '/installation-guide/installation-solr' },
+          { text: 'NADA-AI (semantic search)', link: '/installation-guide/installation-nada-ai' },
+          { text: 'MCP server (AI assistants)', link: '/installation-guide/installation-mcp' },
           { text: 'MongoDB (indicators)', link: '/installation-guide/installation-mongodb' },
           { text: 'PHP settings', link: '/installation-guide/php-settings' },
           {
@@ -214,6 +216,8 @@ export default defineConfig({
             collapsed: true,
             items: [
               { text: 'Site configurations', link: '/admin-guide/web-ui/site-configurations' },
+              { text: 'Solr search', link: '/admin-guide/web-ui/solr' },
+              { text: 'NADA-AI search', link: '/admin-guide/web-ui/nada-ai' },
               { text: 'File manager', link: '/admin-guide/web-ui/file-manager' },
               { text: 'Regions', link: '/admin-guide/web-ui/regions' },
               { text: 'Countries', link: '/admin-guide/web-ui/countries' },

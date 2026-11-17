@@ -159,17 +159,32 @@ administrators. The use of strong passwords is recommended.
 
 ![](/images/image69.png)
 
-## Search provider
+## Search
 
-Under Site configurations you can choose how the public catalog search runs:
+The **Search** section chooses how the public catalog search runs. It has one panel per engine; the radio button on
+a panel's header selects that engine.
 
-| Provider | Meaning |
-|----------|---------|
-| **Database (db)** | Built-in MySQL/MariaDB/SQL Server search (default; no Solr required) |
-| **Solr** | Full-text search via Apache Solr |
-| **OpenSearch** / **Semantic** | Other search backends (separate configuration) |
+| Engine | Meaning |
+|--------|---------|
+| **Database (built-in)** | The catalog database searches studies, variables and citations. Default; nothing to install |
+| **Solr** | Full-text search with Apache Solr. Variables are still searched in the database. See [Solr search](./solr) |
+| **NADA-AI** | Semantic and multilingual search with NADA-AI, which runs next to NADA. See [NADA-AI search](./nada-ai) |
 
-To use Solr: install and index Solr first, then set **Search provider** to **Solr**. Full steps: [Solr search](/admin-guide/web-ui/solr) (admin) · [Solr install](/installation-guide/installation-solr).
+Below the panels, **Index kept in sync** names the engine whose index NADA keeps up to date: **None**, **Solr** or
+**NADA-AI**. NADA then records every study and citation change for that engine.
+
+The search engine must be **Database** or the engine selected in **Index kept in sync**. This lets you build an index
+while the database still serves searches, then switch:
+
+1. Set **Index kept in sync** to the new engine and click **Update**.
+2. Build the index (see [Solr search](./solr) or [NADA-AI search](./nada-ai)).
+3. Select the engine's panel and click **Update**.
+
+The top of the section shows the engine in use and the index kept in sync, as saved.
+
+The **NADA-AI** panel also holds NADA-AI's connection (**NADA-AI API URL**, **NADA-AI API Key**), what to do while
+it is unavailable, the **Multilingual search** switch, and a debug switch. They are explained in
+[NADA-AI search](./nada-ai#_2-connect-nada).
 
 ## SMTP settings
 

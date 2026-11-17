@@ -67,9 +67,13 @@ The folder name often becomes part of the catalog URL (for example `data`, `micr
 
 1. Follow **[Linux](./platform-linux)** or **[Windows](./platform-windows)** through stack install, download, database, permissions, web server, and installer.
 2. Complete [Configurations](./configurations/) — especially [email](./configurations/email).
-3. _(Optional)_ [Solr](./installation-solr), clean URLs, CSP, themes.
-4. _(Production)_ Harden credentials; move `datafiles` outside the web root when possible; plan backups.
-5. Continue with [Getting started](/getting-started/).
+3. _(Optional)_ A search engine: [Solr](./installation-solr) for full-text search, or
+   [NADA-AI](./installation-nada-ai) for semantic and multilingual search, with its
+   [MCP server](./installation-mcp) for AI assistants. Also clean URLs, CSP, themes.
+4. _(Indicators)_ [MongoDB](./installation-mongodb), required to upload and show indicator / time series data and
+   for the data tables API.
+5. _(Production)_ Harden credentials; move `datafiles` outside the web root when possible; plan backups.
+6. Continue with [Getting started](/getting-started/).
 
 ---
 

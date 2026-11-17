@@ -35,9 +35,9 @@ above the listing of results.
 ![](/images/image5.png)
 
 In addition to facets, users can identify datasets of interest using the
-**search** tool. Depending on the configuration of the catalog. In NADA
-5.2, a lexical search is implemented (future versions will provide
-lexical and semantic searchability).
+**search** tool. By default the search matches words (lexical search).
+With the optional [NADA-AI](/admin-guide/web-ui/nada-ai) search engine, it
+also finds results by meaning (semantic search), across languages.
 
 ![](/images/image6.png)
 

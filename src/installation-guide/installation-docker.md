@@ -37,4 +37,5 @@ Treat the Docker repo as a starting point. Harden credentials, volumes, networki
 
 - [Installation](./) — non-Docker install  
 - [Install with Git](./installation-git)  
+- [NADA-AI semantic search (Docker)](./installation-nada-ai)  
 - [Debug](./debug)  

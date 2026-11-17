@@ -2,7 +2,7 @@
 
 [Solr](https://solr.apache.org/) is an **optional** full-text search engine. It is typically faster and more capable than NADA’s built-in database search, especially for large catalogs and variable-level search.
 
-By default NADA uses database search (`search_provider = db`). After Solr is installed and indexed, you switch the catalog to Solr in Site configurations.
+By default NADA uses database search. After Solr is installed and indexed, you switch the catalog to Solr in the **Search** section of Site configurations.
 
 ## Checklist
 
