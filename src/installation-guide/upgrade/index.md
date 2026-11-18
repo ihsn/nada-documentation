@@ -2,10 +2,11 @@
 
 Instructions for upgrading from previous versions of NADA. Use the guide that matches your **current** version.
 
-**Latest documented target:** [Upgrade to 5.6](/installation-guide/upgrade/upgrade-56)
+**Latest:** [Upgrade from 5.6 to 5.7 and later](/installation-guide/upgrade/upgrade-57). From 5.6 onward, one guide covers every release.
 
 | From → To | Guide |
 |-----------|-------|
+| 5.6 / 5.7.x → 5.7, 5.8 and later | [Upgrade to 5.7 and later](/installation-guide/upgrade/upgrade-57) |
 | 5.5.x → 5.6 | [Upgrade to 5.6](/installation-guide/upgrade/upgrade-56) |
 | 5.4.x → 5.5 | [Upgrade to 5.5](/installation-guide/upgrade/upgrade-55) |
 | 5.x → 5.4 | [Upgrade to 5.4](/installation-guide/upgrade/upgrade-54) |
